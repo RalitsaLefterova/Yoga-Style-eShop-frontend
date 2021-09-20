@@ -1,0 +1,9 @@
+linters: 
+  Indentation:
+    width: 2
+  PropertySortOrder:
+    order: smacss
+  NestingDepth:
+    enabled: true
+    max_depth: 3
+    ignore_parent_selectors: true
