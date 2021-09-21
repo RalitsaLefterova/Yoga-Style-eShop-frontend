@@ -9,6 +9,7 @@ import Header from './components/header/header.component'
 import Footer from './components/footer/footer.component'
 import HomePage from './pages/home/home.component'
 import ShopPage from './pages/shop/shop.component'
+import AuthenticationPage from './pages/authentication/authentication.component'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
+        <Route path='/sign-in' component={AuthenticationPage} />
       </Switch>
       <Footer />
     </div>
