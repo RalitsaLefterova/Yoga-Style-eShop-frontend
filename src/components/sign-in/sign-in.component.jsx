@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
 import './sign-in.style.scss'
 import FormInput from '../form-input/form-input.component.jsx'
@@ -26,8 +27,45 @@ const SignIn = () => {
   const { email, password } = userCredentials
 
   const handleSubmit = event => {
-    event.preventDefault();
+    event.preventDefault()
     console.log('in handleSubmit')
+  }
+
+  const handleLogin = async googleData => {
+    console.log(' in handleLogin ')
+    console.log({googleData})
+
+    
+  //   const res = await fetch("/api/v1/auth/google", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //     token: googleData.tokenId
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // })
+  // console.log({res})
+  // const data = await res.json()
+  // store returned user somehow
+  }
+
+  const responseSuccessGoogle = (response) => {
+    console.log('responseSuccessGoogle', response)
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:3001/googlelogin',
+      data: {
+        tokenId: response.tokenId
+      }
+    }).then(response => {
+      console.log('responseSuccessGoogle', response)
+    })
+  }
+
+  const responseFailureGoogle = (response) => {
+    console.log('responseFailureGoogle', response)
   }
 
   const handleChange = event => {
@@ -35,31 +73,30 @@ const SignIn = () => {
     setCredentials({ ...userCredentials,  [name]: value });
   }
 
-  const [user, setUser] = useState(null)
+  // const [user, setUser] = useState(null)
+  // useEffect(() => {
+  //   axios.post(loginUserURL, formData).then((response) => {
 
-  useEffect(() => {
-    axios.post(loginUserURL, formData).then((response) => {
+  //     console.log('loginUserURL', response.data)
+  //     if (response) {
 
-      console.log('loginUserURL', response.data)
-      if (response) {
+  //       const options = {
+  //         headers: {
+  //           Authorization: `Bearer ${response.data.token}`
+  //         }
+  //       }
 
-        const options = {
-          headers: {
-            Authorization: `Bearer ${response.data.token}`
-          }
-        }
-
-        axios.get(getUserProfile, options).then(response => {
-          console.log('getUserProfile', response)
-          setUser(response.data)
-        }).catch((e) => {
-          console.log({e})
-        })
-      }
-    }).catch((e2) => {
-      console.log({e2})
-    })
-  }, [])
+  //       axios.get(getUserProfile, options).then(response => {
+  //         console.log('getUserProfile', response)
+  //         setUser(response.data)
+  //       }).catch((e) => {
+  //         console.log({e})
+  //       })
+  //     }
+  //   }).catch((e2) => {
+  //     console.log({e2})
+  //   })
+  // }, [])
 
   return (
     <div className='sign-in'>
@@ -87,6 +124,13 @@ const SignIn = () => {
             <CustomButton type='button' isGoogleSignIn>Sign in with Google</CustomButton>
           </div>
       </form>
+      <GoogleLogin
+        clientId="114811569485-7tvas3lopl7uvj3l91be1njpbpgmrgss.apps.googleusercontent.com"
+        buttonText="Log in with Google"
+        onSuccess={responseSuccessGoogle}
+        onFailure={responseFailureGoogle}
+        cookiePolicy={'single_host_origin'}
+      />
     </div>
   )
 }
