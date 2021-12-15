@@ -1,15 +1,23 @@
 import React from 'react'
 
+import { deleteCollection } from '../../../rest-api/collections'
+
 import './preview-collection.style.scss'
 
-const PreviewCollection = ({ collection, parentCallback }) => {
+const PreviewCollection = ({ collection, callbackForEdit, callbackAfterDelete }) => {
 
   const handleStarEditing = () => {
-    parentCallback(true)
+    callbackForEdit(true)
   }
 
   const handleDelete = () => {
-
+    deleteCollection(collection.id).then(response => {
+      console.log(response)
+      callbackAfterDelete(true)
+    }).catch(e => {
+      console.log(e)
+    })
+    
   }
 
   return (

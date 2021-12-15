@@ -5,7 +5,7 @@ import PreviewCollection from '../../../components/admin/preview-collection/prev
 import AddCollection from '../../../components/admin/add-collection/add-collection.component'
 import EditCollection from '../../../components/admin/edit-collection/edit-collection.component'
 
-import { getCollections } from '../../../rest-api/collections'
+import { getCollections, getSingleCollection } from '../../../rest-api/collections'
 
 import './collections.style.scss'
 
@@ -14,7 +14,7 @@ const Collections = () => {
   const [isPreviewCollection, setIsPreviewCollection] = useState(false)
   const [isAddCollection, setIsAddCollection] = useState(false)
   const [isEditCollection, setIsEditCollection] = useState(false)
-  const [selectedCollection, setselectedCollection] = useState({
+  const [selectedCollection, setSelectedCollection] = useState({
     id: '',
     title: '',
     cover: '',
@@ -29,38 +29,51 @@ const Collections = () => {
 
   const afterCollectionIsAdded = (isAdded) => {
     setIsAddCollection(!isAdded)
+    getAllCollections()
   }
 
   const afterSelectForPreview = (collectionId) => {
     setIsAddCollection(false)
     setIsPreviewCollection(true)
 
-    const collectionResult = collectionsList.find(collection => collection._id === collectionId)
-    const updateItem = {
-      id: collectionResult._id,
-      title: collectionResult.title,
-      cover: collectionResult.cover,
-      active: collectionResult.active
-    }
-
-    setselectedCollection(updateItem)
+    getSingleCollection(collectionId).then(response => {
+      const updateItem = {
+        id: response.data._id,
+        title: response.data.title,
+        cover: response.data.cover,
+        active: response.data.active
+      }
+      setSelectedCollection(updateItem)
+    }).catch(e => {
+      console.log(e)
+    })
+    
   }
 
   const selectForEdit = (isForEditing) => {
     setIsPreviewCollection(false)
     setIsEditCollection(true)
   }
-
-  const afterBeenEdited = (hasBeenEdited) => {
-    setIsEditCollection(!hasBeenEdited)
+  const afterDelete = (isCollectionDeleted) => {
+    setIsPreviewCollection(false)
+    getAllCollections()
   }
 
-  useEffect(() => {
+  const backToPreview = (showPreview) => {
+    setIsPreviewCollection(showPreview)
+    setIsEditCollection(!showPreview)
+  }
+
+  const getAllCollections = () => {
     getCollections().then(response => {
       setCollectionsList(response.data)
     }).catch(e => {
       console.log({e})
     })
+  }
+
+  useEffect(() => {
+    getAllCollections()
   }, [])
 
   return (
@@ -85,8 +98,8 @@ const Collections = () => {
       <div className='add-edit-collection'>
         {
         isAddCollection ? <AddCollection parentCallback={afterCollectionIsAdded} /> : 
-        isPreviewCollection ? <PreviewCollection collection={selectedCollection} parentCallback={selectForEdit} /> :
-        isEditCollection ? <EditCollection collection={selectedCollection} parentCallback={afterBeenEdited} /> :
+        isPreviewCollection ? <PreviewCollection collection={selectedCollection} callbackForEdit={selectForEdit} callbackAfterDelete={afterDelete} /> :
+        isEditCollection ? <EditCollection collection={selectedCollection} parentCallbackBackToPreview={backToPreview} /> :
         <h4>Select collection to see details or edit or click "Add Collection" button to add new collection</h4>
         }
         

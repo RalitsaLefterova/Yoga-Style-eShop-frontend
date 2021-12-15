@@ -1,29 +1,69 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { getSingleCollection } from '../../../rest-api/collections'
+import { editCollection } from '../../../rest-api/collections'
 
-const EditCollection = ({ collection, parentCallback }) => {
-  // const [title, setTitle] = useState(collection.title)
-  // const [cover, setCover] = useState(collection.cover)
+const EditCollection = ({ collection, parentCallbackBackToPreview }) => {
+  const [title, setTitle] = useState(collection.title)
+  const [cover, setCover] = useState(collection.cover)
+  const [newCover, setNewCover] = useState(null)
+  const [isNewCoverSet, setIsNewCoverSet] = useState(false)
+  const [active, setActive] = useState(collection.active)
+  const [isActiveEdited, setIsActiveEdited] = useState(false)
 
-  const handleChangeCover = () => {
-
+  const handleChangeTitle = e => {
+    setTitle(e.target.value)
   }
 
-  const handleEdit = () => {
+  const handleChangeCover = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      setCover(URL.createObjectURL(e.target.files[0]))
+      setNewCover(e.target.files[0])
+      setIsNewCoverSet(true)
+    }
+  }
 
-    // TODO Edit collection code here!!!
+  const handleChangeActive = e => {
+    setActive(e.target.checked)
+    setIsActiveEdited(true)
+  }
+
+  const handleEdit = event => {
+    event.preventDefault()
+
+    const collectionId = collection.id
+
+    const data = new FormData()
+
+    data.append('title', title)
     
-    parentCallback(true)
+    if (isNewCoverSet) {
+      data.append('cover', newCover)
+    }
+    
+    if (isActiveEdited) {
+      data.append('active', active)
+    }
+    
+    editCollection(collectionId, data).then(response => {
+      console.log(response)
+    }).catch(e => console.log(e))
+    
+    parentCallbackBackToPreview(true)
+  }
+
+  const handleCancel = () => {
+    parentCallbackBackToPreview(true)
   }
 
   return  (
     <div>
-      <div>{collection.title}</div>
       <div>
-        <input type='checkbox' checked={collection.active} />
+        <input value={title} onChange={handleChangeTitle} /> 
       </div>
-      <img src={collection.cover} alt='collection-cover' />
+      <div>
+        <input type='checkbox' checked={active} onChange={handleChangeActive} />
+      </div>
+      <img src={cover} alt='collection-cover' />
       <input 
           type='file' 
           name='cover' 
@@ -31,6 +71,7 @@ const EditCollection = ({ collection, parentCallback }) => {
           accept='image/png image/jpeg image/jpg'
         />
       <button onClick={handleEdit}>Save</button>
+      <button onClick={handleCancel}>Cancel</button>
     </div>
   )
 
