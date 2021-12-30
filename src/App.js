@@ -12,6 +12,8 @@ import ShopPage from './pages/shop/shop.component'
 import UserProfile from './pages/user-profile/user-profile.component'
 import AuthenticationPage from './pages/authentication/authentication.component'
 import Collections from './pages/admin/collections/collections.component'
+import SingleCollection from './pages/single-collection/single-collection.component'
+
 import { setCurrentUser } from './redux/user/user.actions'
 
 const App = ({ currentUser }) => {
@@ -20,7 +22,8 @@ const App = ({ currentUser }) => {
       <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route path='/shop' component={ShopPage} />
+        <Route exact path='/shop' component={ShopPage} />
+        <Route path='/shop/:collection' component={SingleCollection} />
         <Route path='/profile' component={UserProfile} />
         <Route exact path='/sign-in' render={() => currentUser ? <Redirect to='/' /> : <AuthenticationPage /> } />
         <Route exact path='/admin/collections' component={Collections} />

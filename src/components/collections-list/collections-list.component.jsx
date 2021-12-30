@@ -1,48 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
-// import MenuItem from '../menu-item/menu-item.component.jsx';
+import { getCollections } from '../../rest-api/collections'
+import CollectionItem from '../collection-item/collection-item.component'
 
-// const createUserURL = "https://yoga-style-backend.herokuapp.com/users"
-// const loginUserURL = "https://yoga-style-backend.herokuapp.com/users/login"
-// const getUserProfile = "https://yoga-style-backend.herokuapp.com/users/me"
-
-// const formData = {
-//   "name": ".ksdhgldskhglkdsg",
-//   "email": "test6@test6.com",
-//   "password": "123456qwerty"
-// }
+import './collections-list.style.scss';
 
 const CollectionsList = () => {
-  // const [user, setUser] = useState(null)
+  const [collectionsList, setCollectionsList] = useState([])
 
-  // useEffect(() => {
-  //   axios.post(loginUserURL, formData).then((response) => {
-
-  //     console.log('loginUserURL', response.data)
-  //     if (response) {
-
-  //       const options = {
-  //         headers: {
-  //           Authorization: `Bearer ${response.data.token}`
-  //         }
-  //       }
-
-  //       axios.get(getUserProfile, options).then(response => {
-  //         console.log('getUserProfile', response)
-  //         setUser(response.data)
-  //       }).catch((e) => {
-  //         console.log({e})
-  //       })
-  //     }
-  //   }).catch((e2) => {
-  //     console.log({e2})
-  //   })
-  // }, [])
+  useEffect(() => {
+    getCollections().then(response => {
+      setCollectionsList(response.data)
+    }).catch(e => {
+      console.log({e})
+    })
+  }, [])
 
   return (
     <div className="collections-list">
-      COLLECTIONS LIST
+      <div className="collection-menu">
+        {collectionsList.map(collection => (
+          <CollectionItem key={collection._id} collection={collection} size="large" />
+        ))}
+      </div>
     </div>
   )}
 
