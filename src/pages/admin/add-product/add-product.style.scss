@@ -1,0 +1,16 @@
+.select-collection {
+  option {
+    display: inline-block;
+
+    &.capitalize-first {
+      display: inline-block;
+      text-transform: lowercase;
+    }
+    &.capitalize-first::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+
+

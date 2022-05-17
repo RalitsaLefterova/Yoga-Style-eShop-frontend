@@ -4,6 +4,10 @@ export const getCollections = () => {
   return axiosInstance.get('/collections')
 }
 
+export const getCollectionsShortInfo = () => {
+  return axiosInstance.get('/collections?short=true')
+}
+
 export const getSingleCollection = collectionId => {
   return axiosInstance.get(`/collections/${collectionId}`)
 }

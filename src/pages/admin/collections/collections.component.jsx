@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter, Link } from 'react-router-dom'
 
 import SingleCollection from '../../../components/admin/single-collection/single-collection.component'
 import PreviewCollection from '../../../components/admin/preview-collection/preview-collection.component'
@@ -9,7 +10,7 @@ import { getCollections, getSingleCollection } from '../../../rest-api/collectio
 
 import './collections.style.scss'
 
-const Collections = () => {
+const Collections = ({history}) => {
   const [collectionsList, setCollectionsList] = useState([])
   const [isPreviewCollection, setIsPreviewCollection] = useState(false)
   const [isAddCollection, setIsAddCollection] = useState(false)
@@ -20,6 +21,8 @@ const Collections = () => {
     cover: '',
     active: false
   })
+
+  console.log(history)
 
   const handleAddNewCollection = e => {
     e.preventDefault()
@@ -77,7 +80,9 @@ const Collections = () => {
   }, [])
 
   return (
-    <div className='manage-collections'>
+    <div className='manage-collections center'>
+      <Link to='/admin'>Back to home</Link>
+      <button onClick={() => {history.goBack();}}>Go back</button>
       <div className='page-title'>
         <h3>Manage Collections</h3>
       </div>
@@ -108,4 +113,4 @@ const Collections = () => {
   )
 }
 
-export default Collections
+export default withRouter(Collections)
