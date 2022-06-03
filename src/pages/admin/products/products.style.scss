@@ -1,0 +1,53 @@
+$lfs-blue: #006ac6;
+$lfs-yellow: #fab700;
+$lfs-grey: #75787b;
+$font-primary: 'Poppins',Arial, sans-serif;
+$primary: #99b19c;
+
+
+.table-container {
+  padding: 20px 40px;
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  caption {
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $lfs-yellow;
+    text-align: center;
+  }
+  
+  thead {
+    border-top: 2px solid $lfs-yellow;
+    border-bottom: 2px solid $lfs-yellow;
+    th {
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px;
+        color: $lfs-blue;
+        border: 1px solid #F1F1F1;
+    }
+  }
+
+  tbody {
+    tr {
+        border-bottom: 1px solid #F1F1F1;
+        color: $lfs-grey;
+        td {
+            padding: 10px;
+            border: 1px solid #F1F1F1;
+        }
+        th {
+            padding-left: 10px;
+            border: 1px solid #F1F1F1;
+        }
+    }
+  }
+
+  
+}

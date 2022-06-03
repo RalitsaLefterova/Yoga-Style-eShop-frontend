@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { getCollectionsShortInfo } from '../../../rest-api/collections'
 import CustomSelect from '../../../components/custom-select/custom-select.component'
+import { createProduct } from '../../../rest-api/products'
 
 import './add-product.style.scss'
 
@@ -11,10 +12,10 @@ const AddProduct = () => {
     title: '',
     description: '',
     price: 0,
-    collection_id: 0,
+    collectionId: 0,
     images: []
   })
-  const [mainImage, setMainImage] = useState()
+  const [mainImageUrl, setMainImage] = useState()
 
   const { title, description, price, collectionId, images } = productData
 
@@ -26,15 +27,19 @@ const AddProduct = () => {
     setMainImage(event.target.files[0])
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault()
-    const formData = {
-      "title": title,
-      "description": description,
-      "price": price,
-      "collectionId": collectionId
-    }
-    console.log(formData)
+
+    const data = new FormData()
+    data.append('title', title)
+    data.append('description', description)
+    data.append('price', price)
+    data.append('collectionId', collectionId)
+    data.append('mainImageUrl', mainImageUrl)
+
+    console.log(data)
+    const productResponse = await createProduct(data)
+    console.log({productResponse})
   }
 
   const getAllCollectionsShortInfo = () => {
@@ -52,8 +57,8 @@ const AddProduct = () => {
 
   return (
     <div className='center'>
-      {console.log(productData, mainImage)}
-    <div>Add new product</div>
+      {console.log(productData, mainImageUrl)}
+      <div>Add new product</div>
       <form onSubmit={handleSubmit}>
         <div className="flex">
           <label htmlFor="title">Title</label>
@@ -69,7 +74,7 @@ const AddProduct = () => {
           <label htmlFor="file">File</label>
           <input
             type="file"
-            name='cover'
+            name='mainImageUrl'
             id="file"
             onChange={handleChangeMainImage} 
             accept='image/png image/jpeg image/jpg'
@@ -106,8 +111,8 @@ const AddProduct = () => {
           label='Collection'
           // label={`* ${strings.Collection}`}
           placeholder='Select collection'
-          selectname='collection_id'
-          value={productData.collection_id}
+          selectname='collectionId'
+          value={productData.collectionId}
           extraClasses=''
         ></CustomSelect>
         {/* <select 
