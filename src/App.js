@@ -19,8 +19,6 @@ import Products from './pages/admin/products/products.component'
 import AddProduct from './pages/admin/add-product/add-product.component'
 import EditProduct from './pages/admin/edit-product/edit-product.component'
 
-import { setCurrentUser } from './redux/user/user.actions'
-
 const App = ({ currentUser }) => {
   return (
     <div>
@@ -46,9 +44,5 @@ const App = ({ currentUser }) => {
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser
 })
-
-// const mapDispatchToProps = dispatch => ({
-//   setCurrentUser: user => dispatch(setCurrentUser(user))
-// })
 
 export default connect(mapStateToProps)(App)

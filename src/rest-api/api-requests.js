@@ -17,7 +17,6 @@ axiosInstance.interceptors.response.use(
     return res
   },
   error => {
-    // whatever you want to do with the error
     throw error
   }   
 )

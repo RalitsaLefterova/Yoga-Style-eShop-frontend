@@ -1,22 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
-
-// import { signUpStart } from '../../redux/user/user.actions'
+import { signup } from '../../rest-api/users'
+import { setCurrentUser, resetErrorMessage, signUpFailure } from '../../redux/user/user.actions'
+import ErrorContainer from '../error/error.component.jsx'
 
 import './sign-up.style.scss';
 
-const SignUp = ({ signUpStart }) => {
+const SignUp = ({ error, setCurrentUser, resetErrorMessage, signUpFailure }) => {
   const [userCredentials, setUserCredentials] = useState({
-    displayName: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
 
-  const { displayName, email, password, confirmPassword } = userCredentials;
+  const { name, email, password, confirmPassword } = userCredentials;
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -26,7 +27,18 @@ const SignUp = ({ signUpStart }) => {
       return;
     }
 
-    signUpStart({ email, password, displayName });
+    signup({ email, password, name }).then(response => {
+      if (response.isAxiosError) {
+        throw new Error(response.response.data)
+      }
+      if (response.data) {
+        const { user, token } = response.data
+        setCurrentUser({user, token})
+      }
+    }).catch(error => {
+      console.log({error})
+      signUpFailure(error.message)
+    });
 
   }
 
@@ -35,6 +47,10 @@ const SignUp = ({ signUpStart }) => {
     setUserCredentials({...userCredentials,  [name]: value });
   }
 
+  useEffect(() =>{
+    resetErrorMessage()
+  }, [])
+
   return (
     <div className='sign-up'>
       <h2 className='title'>I do not have an account</h2>
@@ -42,10 +58,10 @@ const SignUp = ({ signUpStart }) => {
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <FormInput
           type='text'
-          name='displayName'
-          value={displayName}
+          name='name'
+          value={name}
           onChange={handleChange}
-          label='Display Name'
+          label='Name'
           required
         />
         <FormInput
@@ -72,6 +88,7 @@ const SignUp = ({ signUpStart }) => {
           label='Confirm Password'
           required
         />
+        <ErrorContainer errorMessage={error} />
         <CustomButton type='submit'>Sign Up</CustomButton>
       </form>
     </div>
@@ -79,8 +96,14 @@ const SignUp = ({ signUpStart }) => {
 
 }
 
-// const mapDispatchToProps = dispatch => ({
-//   signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
-// })
+const mapStateToProps = state => ({
+  error: state.user.errorSignUp
+})
 
-export default SignUp
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  resetErrorMessage: () => dispatch(resetErrorMessage()),
+  signUpFailure: error => dispatch(signUpFailure(error))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

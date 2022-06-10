@@ -2,32 +2,51 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import Logo from '../../assets/svgs/logo.svg'
+import { logout } from '../../rest-api/users'
+import { signOutSuccess, signOutFailure } from '../../redux/user/user.actions'
+
 import './header.style.scss'
 
-import Logo from '../../assets/svgs/logo.svg'
+const Header = ({ currentUser, signOutSuccess, signOutFailure }) => {
 
-import { logout } from '../../rest-api/users'
+  const handleLogoutUser = () => {
+    logout().then(response => {
+      if (response.status == 200) {
+        signOutSuccess()
+      }
+    }).catch(error => {
+      signOutFailure(error)
+    })
+  }
 
-const Header = ({ currentUser }) => (
-  <div className='header'>
-    <Link className='logo-container' to='/'>
-      <Logo className='logo' />
-    </Link>
-    <div className='options'>
-      <Link className='option' to='/shop'>SHOP</Link>
-      <Link className='option' to='/about-us'>ABOUT US</Link>
-      <Link className='option' to='/profile'>PROFILE</Link>
-      {currentUser ? (
-        <div className="option" onClick={logout}>SIGN OUT</div>
-      ) : (
-        <Link className='option' to='/sign-in'>SIGN IN</Link>
-      )}
+  return (
+    <div className='header'>
+      {console.log({ currentUser })}
+      <Link className='logo-container' to='/'>
+        <Logo className='logo' />
+      </Link>
+      <div className='nav-links-container'>
+        <Link className='nav-link' to='/shop'>SHOP</Link>
+        <Link className='nav-link' to='/about-us'>ABOUT US</Link>
+        <Link className='nav-link' to='/profile'>PROFILE</Link>
+        {currentUser ? (
+          <div className="nav-link" onClick={handleLogoutUser}>SIGN OUT</div>
+        ) : (
+          <Link className='nav-link' to='/sign-in'>SIGN IN</Link>
+        )}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser
 })
 
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = dispatch => ({
+  signOutSuccess: () => dispatch(signOutSuccess()),
+  signOutFailure: error => dispatch(signOutFailure(error))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

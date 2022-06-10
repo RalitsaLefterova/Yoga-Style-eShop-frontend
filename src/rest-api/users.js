@@ -1,7 +1,7 @@
 import axiosInstance from './api-requests'
 
 export const googleLogin = (data) => {
-  return axiosInstance.post('/googlelogin', data)
+  return axiosInstance.post('/auth/googlelogin', data)
     .then(response => {
       console.log('responseSuccessGoogle', response.data.user)
       return response
@@ -9,16 +9,20 @@ export const googleLogin = (data) => {
     .catch(err => err)
 }
 
+export const signup = (data) => {
+  return axiosInstance.post('/auth/sign-up', data)
+    .then(response => response)
+    .catch(error => error)
+}
+
 export const login = (data) => {
-  return axiosInstance.post('/users/login', data)
-    .then(response => {
-      return response
-    })
-    .catch(err => err)
+  return axiosInstance.post('/auth/login', data)
+    .then(response => response)
+    .catch(error => error)
 }
 
 export const logout = () => {
-  return axiosInstance.post('/users/logout')
+  return axiosInstance.post('/auth/logout')
   // TODO redirect here?
 }
 
