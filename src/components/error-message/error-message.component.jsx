@@ -1,6 +1,6 @@
 import React from "react"
 
-import './error.style.scss'
+import './error-message.style.scss'
 
 const ErrorContainer = ({ errorMessage }) => (
   <div className='error-message-container center'>

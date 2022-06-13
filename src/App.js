@@ -11,6 +11,7 @@ import HomePage from './pages/home/home.component'
 import ShopPage from './pages/shop/shop.component'
 import UserProfile from './pages/user-profile/user-profile.component'
 import AuthenticationPage from './pages/authentication/authentication.component'
+import ResetPassword from './pages/reset-password/reset-password.component'
 import SingleCollection from './pages/single-collection/single-collection.component'
 import ProductDetails from './pages/product-details/product-details.component'
 import AdminHomePage from './pages/admin/admin-home/admin-home.component'
@@ -30,6 +31,7 @@ const App = ({ currentUser }) => {
         <Route exact path='/shop/:collection/:productId' component={ProductDetails} />
         <Route path='/profile' component={UserProfile} />
         <Route exact path='/sign-in' render={() => currentUser ? <Redirect to='/' /> : <AuthenticationPage /> } />
+        <Route path='/reset-password' component={ResetPassword} />
         <Route exact path='/admin' component={AdminHomePage} />
         <Route exact path='/admin/collections' component={Collections} />
         <Route exact path='/admin/products' component={Products} />

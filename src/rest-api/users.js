@@ -32,7 +32,15 @@ export const getUsers = () => {
 
 export const getUserProfile = () => {
   return axiosInstance.get('/users/me').then(response => {
-    console.log('getUserProfile', response)
+    return response.data
+  }).catch((error) => {
+    console.log({error})
+  })
+}
+
+export const deleteAccount = () => {
+  return axiosInstance.delete('users/me').then(response => {
+    console.log({response})
     return response.data
   }).catch((error) => {
     console.log({error})

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
@@ -6,7 +7,7 @@ import FormInput from '../form-input/form-input.component.jsx'
 import CustomButton from '../custom-button/custom-button.component.jsx'
 import { resetErrorMessage, setCurrentUser, signInFailure } from '../../redux/user/user.actions'
 import { login, googleLogin } from '../../rest-api/users'
-import ErrorContainer from '../error/error.component.jsx'
+import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-in.style.scss'
 
@@ -83,6 +84,9 @@ const SignIn = ({ error, setCurrentUser, signInFailure, resetErrorMessage }) => 
           label='Password'
           required
         />
+        <div className='right'>
+          <Link to='/reset-password'>Forgot password?</Link>
+        </div>
         <ErrorContainer errorMessage={error} />
         <div className='buttons'>
           <CustomButton type='submit'>Sign In</CustomButton>

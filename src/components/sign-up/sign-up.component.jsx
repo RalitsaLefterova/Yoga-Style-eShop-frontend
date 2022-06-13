@@ -5,7 +5,7 @@ import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 import { signup } from '../../rest-api/users'
 import { setCurrentUser, resetErrorMessage, signUpFailure } from '../../redux/user/user.actions'
-import ErrorContainer from '../error/error.component.jsx'
+import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-up.style.scss';
 

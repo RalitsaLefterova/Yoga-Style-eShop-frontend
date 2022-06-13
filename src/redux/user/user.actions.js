@@ -27,3 +27,7 @@ export const signOutFailure = error => ({
 export const resetErrorMessage = () => ({
   type: UserActionTypes.RESET_ERROR_MESSAGE
 })
+
+export const deleteAccountSuccess = () => ({
+  type: UserActionTypes.DELETE_ACCOUNT_SUCCESS
+})
