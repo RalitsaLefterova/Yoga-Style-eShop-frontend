@@ -5,13 +5,13 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
 import FormInput from '../form-input/form-input.component.jsx'
 import CustomButton from '../custom-button/custom-button.component.jsx'
-import { resetErrorMessage, setCurrentUser, signInFailure } from '../../redux/user/user.actions'
+import { resetErrorMessage, setCurrentUser, setToken, signInFailure } from '../../redux/user/user.actions'
 import { login, googleLogin } from '../../rest-api/users'
 import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-in.style.scss'
 
-const SignIn = ({ error, setCurrentUser, signInFailure, resetErrorMessage }) => {
+const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMessage }) => {
   const [userCredentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -37,7 +37,8 @@ const SignIn = ({ error, setCurrentUser, signInFailure, resetErrorMessage }) => 
       }
       if (response.data) {
         const { user, token } = response.data
-        setCurrentUser({user, token})
+        setCurrentUser(user)
+        setToken(token)
       }
     }).catch(error => {
       signInFailure(error.message)
@@ -46,12 +47,19 @@ const SignIn = ({ error, setCurrentUser, signInFailure, resetErrorMessage }) => 
 
   const responseSuccessGoogle = async (response) => {
     googleLogin({ tokenId: response.tokenId }).then(response => {
+      console.log('responseSuccessGoogle', {response})
+      if (response.isAxiosError) {
+        console.log('isAxiosError == true', {response}, response.message)
+        throw new Error(response.message)
+      }
       if (response.data) {
         const { user, token } = response.data
-        setCurrentUser({user, token})
+        setCurrentUser(user)
+        setToken(token)
       }
     }).catch(error => {
-      signInFailure(error)
+      console.log('responseSuccessGoogle catch error', {error})
+      signInFailure(error.message)
     })
   }
 
@@ -122,6 +130,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setToken: token => dispatch(setToken(token)),
   signInFailure: error => dispatch(signInFailure(error)),
   resetErrorMessage: () => dispatch(resetErrorMessage())
 })

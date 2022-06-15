@@ -1,6 +1,6 @@
 import axiosInstance from './api-requests'
 
-export const googleLogin = (data) => {
+export const googleLogin = data => {
   return axiosInstance.post('/auth/googlelogin', data)
     .then(response => {
       console.log('responseSuccessGoogle', response.data.user)
@@ -9,13 +9,13 @@ export const googleLogin = (data) => {
     .catch(err => err)
 }
 
-export const signup = (data) => {
+export const signup = data => {
   return axiosInstance.post('/auth/sign-up', data)
     .then(response => response)
     .catch(error => error)
 }
 
-export const login = (data) => {
+export const login = data => {
   return axiosInstance.post('/auth/login', data)
     .then(response => response)
     .catch(error => error)
@@ -23,7 +23,6 @@ export const login = (data) => {
 
 export const logout = () => {
   return axiosInstance.post('/auth/logout')
-  // TODO redirect here?
 }
 
 export const getUsers = () => {
@@ -32,6 +31,15 @@ export const getUsers = () => {
 
 export const getUserProfile = () => {
   return axiosInstance.get('/users/me').then(response => {
+    return response.data
+  }).catch((error) => {
+    console.log({error})
+  })
+}
+
+export const editUserInfo = data => {
+  return axiosInstance.patch('/users/me', data).then(response => {
+    console.log('in editUserInfo request', {response})
     return response.data
   }).catch((error) => {
     console.log({error})

@@ -4,20 +4,20 @@ import { connect } from 'react-redux'
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 import { signup } from '../../rest-api/users'
-import { setCurrentUser, resetErrorMessage, signUpFailure } from '../../redux/user/user.actions'
+import { setCurrentUser, setToken, resetErrorMessage, signUpFailure } from '../../redux/user/user.actions'
 import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-up.style.scss';
 
-const SignUp = ({ error, setCurrentUser, resetErrorMessage, signUpFailure }) => {
+const SignUp = ({ error, setCurrentUser, setToken, resetErrorMessage, signUpFailure }) => {
   const [userCredentials, setUserCredentials] = useState({
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
 
-  const { name, email, password, confirmPassword } = userCredentials;
+  const { fullName, email, password, confirmPassword } = userCredentials;
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -27,13 +27,14 @@ const SignUp = ({ error, setCurrentUser, resetErrorMessage, signUpFailure }) => 
       return;
     }
 
-    signup({ email, password, name }).then(response => {
+    signup({ email, password, fullName }).then(response => {
       if (response.isAxiosError) {
         throw new Error(response.response.data)
       }
       if (response.data) {
         const { user, token } = response.data
-        setCurrentUser({user, token})
+        setCurrentUser(user)
+        setToken(token)
       }
     }).catch(error => {
       console.log({error})
@@ -58,8 +59,8 @@ const SignUp = ({ error, setCurrentUser, resetErrorMessage, signUpFailure }) => 
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <FormInput
           type='text'
-          name='name'
-          value={name}
+          name='fullName'
+          value={fullName}
           onChange={handleChange}
           label='Name'
           required
@@ -102,6 +103,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setToken: token => dispatch(setToken(token)),
   resetErrorMessage: () => dispatch(resetErrorMessage()),
   signUpFailure: error => dispatch(signUpFailure(error))
 })

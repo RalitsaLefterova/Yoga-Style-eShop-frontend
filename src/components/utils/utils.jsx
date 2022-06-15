@@ -16,3 +16,26 @@ export const generateOptions = (types, data) => {
     default:
   }
 }
+
+export const convertDate = date => {
+  let newDate = new Date(date),
+      day = newDate.getDate(),
+      month = newDate.getMonth() + 1,
+      year = newDate.getFullYear()
+
+  return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
+}
+
+export const inputDate = option => {
+  let currentDate = new Date(),
+      day = currentDate.getDate(),
+      month = currentDate.getMonth() + 1,
+      year = currentDate.getFullYear()
+
+  switch(option) {
+    case 'min':
+      return `${(year - 100)}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
+    case 'max':
+      return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
+  }
+}

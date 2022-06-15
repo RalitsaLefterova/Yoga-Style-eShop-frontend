@@ -8,14 +8,19 @@ const INITIAL_STATE = {
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
+  console.log({action})
   switch (action.type) {
     case UserActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload.user,
-        token: action.payload.token,
+        currentUser: action.payload,
         errorLogIn: null,
         errorSignUp: null
+      }
+    case UserActionTypes.SET_TOKEN:
+      return {
+        ...state,
+        token: action.payload
       }
     case UserActionTypes.SIGN_OUT_SUCCESS:
     case UserActionTypes.DELETE_ACCOUNT_SUCCESS:
