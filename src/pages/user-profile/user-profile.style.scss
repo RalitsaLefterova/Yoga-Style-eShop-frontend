@@ -12,9 +12,6 @@
 
   .container {
     display: flex;
-    
-    position: relative;
-    // height: 300px;
     background: #f1f1f1;
     margin: 20px auto 0;
     word-break: break-all;
@@ -23,16 +20,16 @@
     .menu-tabs {
       display: flex;
       flex-direction: column;
+      min-width: 150px;
 
       .tabs {
-        flex-direction: row;
+        width: 100%;
         padding: 15px;
         text-align: center;
         background: rgba(128, 128, 128, 0.075);
         cursor: pointer;
         border-bottom: 1px solid rgba(0, 0, 0, 0.274);
         box-sizing: content-box;
-        position: relative;
         outline: none;
       }
 
@@ -73,12 +70,12 @@
         padding: 0px 0 5px 0px;
       }
 
-      .content-user-info hr {
-        width: 100px;
-        height: 2px;
-        background: #222;
-        margin-bottom: 5px;
-      }
+      // .content-user-info hr {
+      //   width: 100px;
+      //   height: 2px;
+      //   background: #222;
+      //   margin-bottom: 5px;
+      // }
 
       .content-user-info p {
         width: 100%;
@@ -87,6 +84,13 @@
 
       .active-content {
         display: block;
+      }
+
+      .addresses-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 20px 0 10px;
       }
     }
   }

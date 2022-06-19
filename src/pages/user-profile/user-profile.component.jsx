@@ -7,52 +7,78 @@ import './user-profile.style.scss'
 import CustomButton from '../../components/custom-button/custom-button.component'
 import FormInput from '../../components/form-input/form-input.component'
 import { convertDate, inputDate } from '../../components/utils/utils'
+import AddressPreview from '../../components/address-preview/address-preview.component'
+import UpsertAddress from '../../components/upsert-address/upsert-address.component'
 import ConfirmDeleteAccount from '../../components/confirm-delete-account/confirm-delete-account.component'
 import { editUserInfo, deleteAccount } from '../../rest-api/users'
 import { setCurrentUser, deleteAccountSuccess } from '../../redux/user/user.actions'
 
 const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess, history }) => {
-  const [toggleState, setToggleState] = useState(1)
+  const [toggleState, setToggleState] = useState(2)
   const [isHiddenConfirmWindow, setIsHidenConfirmWindow] = useState(true)
   const [userInfo, setUserInfo] = useState({
     email: {
-      value: currentUser.email || '',
+      value: currentUser && currentUser.email || '',
       isChanged: false
     },
     fullName: {
-      value: currentUser.fullName || '',
+      value: currentUser && currentUser.fullName || '',
       isChanged: false
     },
     phone: {
-      value: currentUser.phone || '',
+      value: currentUser && currentUser.phone || '',
       isChanged: false
     },
     birthday: {
-      value: currentUser.birthday || '',
+      value: currentUser && currentUser.birthday || '',
       isChanged: false
     },
     avatar: {
-      value: currentUser.avatar || '',
+      value: currentUser && currentUser.avatar || '',
       isChanged: false
     },
     language: {
-      value: currentUser.language || 'EN',
+      value: currentUser && currentUser.language || 'EN',
       isChanged: false
     },
     currency: {
-      value: currentUser.currency || '',
+      value: currentUser && currentUser.currency || '',
       isChanged: false
+    },
+    addresses: {
+      value: currentUser && currentUser.addresses || [],
+      shippingAddress: currentUser.addresses.find(address => address.defaultShippingAddress === true),
+      billingAddress: currentUser.addresses.find(address => address.defaultBillingAddress === true),
+      additionalAddresses: currentUser.addresses.filter(address => {
+        if (!(address.defaultShippingAddress == true || address.defaultBillingAddress == true)) {return address}
+      })
     }
   })
+  const [isUpsertAddressActive, setIsUpsertAddressActive] = useState(false)
+  const [isEditAddress, setIsEditAddress] = useState(false)
+
+  const emptyAddressObj = {
+    street: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    defaultShippingAddress: false,
+    defaultBillingAddress: false
+  }
+  const [addressToEdit, setAddressToEdit] = useState(emptyAddressObj)
+
+  const addresses = userInfo.addresses.value
+  const { shippingAddress, billingAddress, additionalAddresses } = userInfo.addresses
 
   console.log({userInfo})
+  console.log(isUpsertAddressActive)
 
   const toggleTab = (index) => {
     setToggleState(index)
   }
 
   const handleChange = event => {
-    const { value, name } = event.target;
+    const { value, name } = event.target
     setUserInfo({ 
       ...userInfo,  
       [name]: {
@@ -74,6 +100,30 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess, histor
     }
   }
 
+  const handleChangeAddress = event => {
+    const { value, name } = event.target
+    console.log(value, name)
+    setAddressToEdit({
+      ...addressToEdit,
+      [name]: value
+    })
+  }
+
+  const handleAddAddress = () => {
+    setAddressToEdit(undefined)
+    setIsEditAddress(false)
+    setIsUpsertAddressActive(true)
+  }
+
+  const handleEditAddress = address => {
+    setAddressToEdit(address)
+    setIsEditAddress(true)
+    setIsUpsertAddressActive(true)
+  }
+  const deleteAddress = id => event => {
+    // console.log('deleteAddress', event, id)
+  }
+
   const handleEditUserInfo = event => {
     event.preventDefault()
     let data = {}
@@ -86,8 +136,28 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess, histor
 
     editUserInfo(data).then(response => {
       console.log('editUserInfo response: ', response)
+      if (!response) {
+        throw new Error()
+      }
       setCurrentUser(response)
     }).catch(error => console.log(error))
+  }
+
+  
+
+  const handleSaveAddress = () => {
+    console.log({addressToEdit})
+    
+    editUserInfo({ address: addressToEdit }).then(response => {
+      console.log('saveAddress', {response})
+      if (!response) {
+        throw new Error()
+      }
+      debugger
+      setIsUpsertAddressActive(false)
+      setCurrentUser(response)
+    }).catch(error => console.log(error))
+
   }
 
   const handleDeleteAccount = () => {
@@ -199,7 +269,64 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess, histor
           <div
             className={toggleState === 2 ? "content-user-info  active-content" : "content-user-info"}
           >
-            Addresses
+            {isUpsertAddressActive ? 
+              <UpsertAddress 
+                isEdit={isEditAddress}
+                addressInfo={addressToEdit}
+                onSaveAddress={handleSaveAddress}
+                onChangeAddress={handleChangeAddress}
+              /> : 
+              (<div>
+                <div>
+                  <h2>Default Addresses</h2>
+                  <hr />
+                  {shippingAddress || billingAddress ? (
+                    <div className='addresses-container'>
+                      {shippingAddress ? (
+                        <AddressPreview 
+                          address={shippingAddress} 
+                          onEditAddress={handleEditAddress} 
+                          onDeleteAddress={deleteAddress} 
+                          onSaveAddress={handleSaveAddress}
+                          onChangeAddress={handleChangeAddress}
+                        />) : null}
+                      {billingAddress ? (
+                      <AddressPreview 
+                        address={billingAddress} 
+                        onEditAddress={handleEditAddress} 
+                        onDeleteAddress={deleteAddress} 
+                        onSaveAddress={handleSaveAddress}
+                        onChangeAddress={handleChangeAddress}
+                      />) : null}
+                    </div>
+                  ) : (
+                    <div>You don't have default shipping and billing address</div>
+                  )}
+                </div>
+                <div>
+                  <h2>Additional Address Entries</h2>
+                  <hr />
+                  {!!additionalAddresses ? (
+                    <div className='addresses-container'>
+                      {additionalAddresses.map(address => {
+                        if (!!address) return (
+                          <AddressPreview 
+                            address={address} 
+                            key={address._id}
+                            onEditAddress={handleEditAddress} 
+                            onDeleteAddress={deleteAddress} 
+                            onSaveAddress={handleSaveAddress}
+                            onChangeAddress={handleChangeAddress}
+                          />)
+                      })}
+                    </div>
+                  ) : (
+                    <div>You don't have additional addresses</div>
+                  )}
+                </div>
+                <CustomButton onClick={handleAddAddress} inverted>Add new address</CustomButton>
+              </div>
+            )}
           </div>
           
           <div

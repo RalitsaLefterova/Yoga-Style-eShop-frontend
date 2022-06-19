@@ -39,3 +39,7 @@ export const inputDate = option => {
       return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
   }
 }
+
+export const isNotEmptyObject = obj => {
+  return Object.keys(obj).length != 0
+}
