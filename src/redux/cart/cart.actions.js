@@ -1,24 +1,20 @@
-import CartActionTypes from "./cart.types"
+import CartActionTypes from './cart.types'
+import { createAction } from '../reducer.utils'
 
-export const toggleCartHidden = () => ({
-  type: CartActionTypes.TOGGLE_CART_HIDDEN
-})
+export const setCart = cart =>
+  createAction(CartActionTypes.SET_CART, cart)
 
-export const addProduct = product => ({
-  type: CartActionTypes.ADD_PRODUCT,
-  payload: product
-})
+export const toggleCartHidden = () => 
+  createAction(CartActionTypes.TOGGLE_CART_HIDDEN)
 
-export const removeProduct = product => ({
-  type: CartActionTypes.REMOVE_PRODUCT,
-  payload: product
-})
+export const addProduct = product => 
+  createAction(CartActionTypes.ADD_PRODUCT, product)
 
-export const clearProductFromCart = product => ({
-  type: CartActionTypes.CLEAR_PRODUCT_FROM_CART,
-  payload: product
-})
+export const removeProduct = product => 
+  createAction(CartActionTypes.REMOVE_PRODUCT, product)
 
-export const clearCart = () => ({
-  type: CartActionTypes.CLEAR_CART
-})
+export const clearProductFromCart = product => 
+  createAction(CartActionTypes.CLEAR_PRODUCT_FROM_CART, product)
+
+export const clearCart = () => 
+  createAction(CartActionTypes.CLEAR_CART)

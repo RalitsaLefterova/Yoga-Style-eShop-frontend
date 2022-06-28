@@ -19,6 +19,7 @@ import Collections from './pages/admin/collections/collections.component'
 import Products from './pages/admin/products/products.component'
 import AddProduct from './pages/admin/add-product/add-product.component'
 import EditProduct from './pages/admin/edit-product/edit-product.component'
+import Checkout from './pages/checkout/checkout.component'
 
 const App = ({ currentUser }) => {
   return (
@@ -37,6 +38,7 @@ const App = ({ currentUser }) => {
         <Route exact path='/admin/products' component={Products} />
         <Route exact path='/admin/products/add' component={AddProduct} />
         <Route exact path='/admin/products/:id' component={EditProduct} />
+        <Route path={'/checkout'} component={Checkout} />
       </Switch>
       <Footer />
     </div>

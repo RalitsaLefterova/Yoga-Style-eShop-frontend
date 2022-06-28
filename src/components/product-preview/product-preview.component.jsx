@@ -22,4 +22,6 @@ const ProductPreview = ({ product, match, history }) => {
   )
 }
 
+
+
 export default withRouter(ProductPreview)

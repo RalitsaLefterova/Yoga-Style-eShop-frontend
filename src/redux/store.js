@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
 import { persistStore } from 'redux-persist'
 import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
@@ -8,13 +8,19 @@ import rootReducer from './root-reducer'
 
 // const sagaMiddleware = createSagaMiddleware()
 // const middlewares = [sagaMiddleware]
+
 const middlewares = [logger]
 
-// if (process.env.NODE_ENV ==='evelopment') {
+const composedEnhancers = compose(applyMiddleware(...middlewares))
+
+// if (process.env.NODE_ENV ==='development') {
 //   middlewares.push(logger)
 // }
 
-export const store = createStore(rootReducer, applyMiddleware(...middlewares))
+// the first argument is a function that is normally known as a reducer – required argument
+// the second argument is the initial value of the state – optional argument
+// the third argument is a middleware – optional argument
+export const store = createStore(rootReducer, undefined, composedEnhancers)
 
 // sagaMiddleware.run(rootSaga)
 

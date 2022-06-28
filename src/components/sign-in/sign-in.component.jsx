@@ -6,12 +6,13 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import FormInput from '../form-input/form-input.component.jsx'
 import CustomButton from '../custom-button/custom-button.component.jsx'
 import { resetErrorMessage, setCurrentUser, setToken, signInFailure } from '../../redux/user/user.actions'
+import { setCart } from '../../redux/cart/cart.actions'
 import { login, googleLogin } from '../../rest-api/users'
 import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-in.style.scss'
 
-const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMessage }) => {
+const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMessage, setCart }) => {
   const [userCredentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -36,9 +37,10 @@ const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMess
         throw new Error(response.response.data)
       }
       if (response.data) {
-        const { user, token } = response.data
+        const { user, token, cart } = response.data
         setCurrentUser(user)
         setToken(token)
+        setCart(cart)
       }
     }).catch(error => {
       signInFailure(error.message)
@@ -53,9 +55,10 @@ const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMess
         throw new Error(response.message)
       }
       if (response.data) {
-        const { user, token } = response.data
+        const { user, token, cart } = response.data
         setCurrentUser(user)
         setToken(token)
+        setCart(cart)
       }
     }).catch(error => {
       console.log('responseSuccessGoogle catch error', {error})
@@ -132,7 +135,8 @@ const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
   setToken: token => dispatch(setToken(token)),
   signInFailure: error => dispatch(signInFailure(error)),
-  resetErrorMessage: () => dispatch(resetErrorMessage())
+  resetErrorMessage: () => dispatch(resetErrorMessage()),
+  setCart: cart => dispatch(setCart(cart))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

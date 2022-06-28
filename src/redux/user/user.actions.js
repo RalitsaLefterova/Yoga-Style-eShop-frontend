@@ -1,38 +1,26 @@
 import UserActionTypes from './user.types'
+import { createAction } from '../reducer.utils'
 
-export const setCurrentUser = user => ({
-  type: UserActionTypes.SET_CURRENT_USER,
-  payload: user
-})
+export const setCurrentUser = user =>
+  createAction(UserActionTypes.SET_CURRENT_USER, user)
 
-export const setToken = token => ({
-  type: UserActionTypes.SET_TOKEN,
-  payload: token
-})
+export const setToken = token => 
+  createAction(UserActionTypes.SET_TOKEN, token)
 
-export const signUpFailure = error => ({
-  type: UserActionTypes.SIGN_UP_FAILURE,
-  payload: error
-})
+export const signUpFailure = error => 
+  createAction(UserActionTypes.SIGN_UP_FAILURE, error)
 
-export const signInFailure = error => ({
-  type: UserActionTypes.SIGN_IN_FAILURE,
-  payload: error
-});
+export const signInFailure = error => 
+  createAction(UserActionTypes.SIGN_IN_FAILURE, error)
 
-export const signOutSuccess = () => ({
-  type: UserActionTypes.SIGN_OUT_SUCCESS
-});
+export const signOutSuccess = () =>
+  createAction(UserActionTypes.SIGN_OUT_SUCCESS)
 
-export const signOutFailure = error => ({
-  type: UserActionTypes.SIGN_OUT_FAILURE,
-  payload: error
-});
+export const signOutFailure = error => 
+  createAction(UserActionTypes.SIGN_OUT_FAILURE, error)
 
-export const resetErrorMessage = () => ({
-  type: UserActionTypes.RESET_ERROR_MESSAGE
-})
+export const resetErrorMessage = () => 
+  createAction(UserActionTypes.RESET_ERROR_MESSAGE)
 
-export const deleteAccountSuccess = () => ({
-  type: UserActionTypes.DELETE_ACCOUNT_SUCCESS
-})
+export const deleteAccountSuccess = () =>
+  createAction(UserActionTypes.DELETE_ACCOUNT_SUCCESS)
