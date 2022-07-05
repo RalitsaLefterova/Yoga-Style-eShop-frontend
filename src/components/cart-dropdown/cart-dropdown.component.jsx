@@ -16,21 +16,19 @@ const CartDropdown = ({ cartProducts, history, toggleCartHidden }) => {
   const goToCheckoutHandler = () => {
     toggleCartHidden()
     history.push('/checkout')
-    //TODO hide cart dropdown
     // navigate('/checkout')
   }
-  console.log({cartProducts})
 
   return (
     <div className="cart-dropdown-container">
       <div className="cart-products">
-        {cartProducts ? cartProducts.map(product => 
+        {cartProducts.length > 0 ? cartProducts.map(product => 
           <CartProduct 
-            key={product._id} 
+            key={product.id} 
             cartProduct={product} 
           />) : 'Your cart is empty'}
       </div>
-      <CustomButton onClick={goToCheckoutHandler}>Go to checkout</CustomButton>
+      <CustomButton onClick={goToCheckoutHandler} isDisabled={cartProducts.length === 0}>Go to checkout</CustomButton>
     </div>
   )
 }

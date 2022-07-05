@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
@@ -27,11 +28,16 @@ const Checkout = ({ cartProducts, total }) => (
         <span>Remove</span>
       </div>
     </div>
-    {cartProducts.map(product => (
+    {cartProducts.length > 0 ? cartProducts.map(product => (
       <CheckoutItem
-        key={product._id}
+        key={product.id}
         cartProduct={product} />
-    ))}
+    )) : (
+      <React.Fragment>
+        Your cart is empty. <Link to='/shop'>Start shopping.</Link>
+      </React.Fragment>
+    )}
+    
     <div className="total">
       Total price: ${total}
     </div>
@@ -47,4 +53,4 @@ const mapStateToProps = state => ({
   cartProducts: state.cart.cartProducts
 })
 
-export default connect(mapStateToProps)(Checkout)
+export default withRouter(connect(mapStateToProps)(Checkout))

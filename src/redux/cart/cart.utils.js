@@ -35,8 +35,8 @@ export const removeProductFromCart = (cartProducts, cartProductToRemove) => {
   )
 }
 
-export const clearProductFromCart = (cartProducts, cartProductToClean) => {
+export const clearProductFromCart = (cartProducts, productId) => {
   return cartProducts.filter(cartProduct => 
-    cartProduct.id !== cartProductToClean.id
+    cartProduct.id !== productId
   )
 }

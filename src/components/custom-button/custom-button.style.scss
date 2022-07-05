@@ -45,4 +45,13 @@
       color: $white;
     }
   }
+
+  &:disabled {
+    border: none;
+    background-color: #cccccc;
+    color: $white;
+  }
+  // &:hover:disabled {
+  //   background-color: #cccccc;
+  // }
 }

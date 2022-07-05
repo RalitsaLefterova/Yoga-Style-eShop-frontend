@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   errorSignUp: null
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
 
   switch (type) {

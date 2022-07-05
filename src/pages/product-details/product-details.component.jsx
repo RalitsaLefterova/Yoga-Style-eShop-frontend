@@ -16,7 +16,7 @@ const ProductDetails = ({ match, history, currentUser, addProduct }) => {
   console.log({productDetails})
 
   const handleAddToCart = () => {
-    addToCart(productDetails._id).then(response => {
+    addToCart(productDetails.id).then(response => {
       console.log('handleAddToCart response', {response})
 
       if (response && response.response && response.response.status && response.response.status === 401) {
@@ -24,10 +24,10 @@ const ProductDetails = ({ match, history, currentUser, addProduct }) => {
         throw new Error(response.response.data)
       }
       response && addProduct({
-        id: productDetails._id,
+        id: productDetails.id,
         title: productDetails.title,
         price: productDetails.price,
-        imgURL: productDetails.mainImageUrl
+        mainImageUrl: productDetails.mainImageUrl
       })
     }).catch(error => {
       let message = error.message

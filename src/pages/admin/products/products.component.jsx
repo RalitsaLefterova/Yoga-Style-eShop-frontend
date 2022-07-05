@@ -44,7 +44,7 @@ const Products = ({history, match}) => {
           </thead>
           <tbody>
           {productsList.map(product => (
-            <ProductDetails key={product._id} product={product} />
+            <ProductDetails key={product.id} product={product} />
           ))}
           </tbody>
         </table>

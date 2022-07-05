@@ -6,9 +6,9 @@ const INITIAL_STATE = {
   cartProducts: []
 }
 
-const cartReducer = (state = INITIAL_STATE, action) => {
+const cartReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
-  console.log('cart reducer action: ', {action})
+  // console.log('cart reducer action: ', {action})
 
   switch (type) {
 
@@ -25,7 +25,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       }
 
     case CartActionTypes.ADD_PRODUCT:
-      console.log('state.cartProducts', state.cartProducts, 'action.payload', payload)
+      // console.log('state.cartProducts', state.cartProducts, 'action.payload', payload)
       return {
         ...state,
         cartProducts: addProductToCart(state.cartProducts, payload)

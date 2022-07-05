@@ -25,7 +25,7 @@ const ProductDetails = ({ match, product }) => {
         <input 
           type='checkbox' 
           name='active' 
-          onChange={() => handleChangeActive(!active, product._id)}
+          onChange={() => handleChangeActive(!active, product.id)}
           checked={active ? 'checked' : ''}
           value={active}
         />
@@ -34,7 +34,7 @@ const ProductDetails = ({ match, product }) => {
       <th>{product.price}</th>
       <th>{product.stock ? product.stock : 0}</th>
       <th>
-        <Link to={`${match.url}/${product._id}`}>Edit</Link>
+        <Link to={`${match.url}/${product.id}`}>Edit</Link>
       </th>
     </tr>
   )

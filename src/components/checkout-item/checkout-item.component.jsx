@@ -8,10 +8,10 @@ import './checkout-item.style.scss'
 
 const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFromCart }) => {
   console.log('in checkout item', {cartProduct})
-  const { title, imgURL, price, quantity } = cartProduct
+  const { title, mainImageUrl, price, quantity } = cartProduct
 
   const handleAddToCart = () => {
-    addToCart(cartProduct._id).then(response => {
+    addToCart(cartProduct.id).then(response => {
       console.log('handleAddToCart response', {response})
 
       if (response && response.response && response.response.status && response.response.status === 401) {
@@ -19,7 +19,7 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
         throw new Error(response.response.data)
       }
       response && response.status === 200 && addProduct({
-        _id: cartProduct._id,
+        id: cartProduct.id,
         title: cartProduct.title,
         price: cartProduct.price,
         imgURL: cartProduct.imgURL
@@ -31,10 +31,10 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
   }
 
   const handleRemoveFromCart = () => {
-    removeFromCart(cartProduct._id).then(response => {
+    removeFromCart(cartProduct.id).then(response => {
       console.log('handleRemoveFromCart response', {response})
       response && response.status === 200 && removeProduct({
-        _id: cartProduct._id
+        id: cartProduct.id
       })
 
     }).catch(error => {
@@ -44,11 +44,9 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
   }
 
   const handleClearProductFromCart = () => {
-    clearFromCart(cartProduct._id).then(response => {
+    clearFromCart(cartProduct.id).then(response => {
       console.log('handleClearProductFromCart', response)
-      response && response.status === 200 && clearProductFromCart({
-        _id: cartProduct._id
-      })
+      response && response.status === 200 && clearProductFromCart(cartProduct.id)
     }).catch(error => {
       let message = error.message
       console.log('handleClearProductFromCart error', {message})
@@ -56,9 +54,9 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
   }
   
   return (
-    <div className='checkout-item-container'>
+    <div className='checkout-product-container'>
       <div className='image-container'>
-        <img src={imgURL} alt='product picture' />
+        <img src={mainImageUrl} alt={title} />
       </div>
       <span className='title'>{title}</span>
       <span className='quantity'>
@@ -73,7 +71,7 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
 }
 
 const mapDispatchToProps = dispatch => ({
-  clearProductFromCart: product => dispatch(clearProductFromCart(product)),
+  clearProductFromCart: productId => dispatch(clearProductFromCart(productId)),
   addProduct: product => dispatch(addProduct(product)),
   removeProduct: product => dispatch(removeProduct(product))
 })

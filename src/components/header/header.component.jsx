@@ -28,7 +28,6 @@ const Header = ({ currentUser, hidden, signOutSuccess, signOutFailure, history }
   return (
     <Wrapper>
       <div className='header'>
-        {console.log({ currentUser })}
         <Link className='logo-container' to='/'>
           <Logo className='logo' />
         </Link>
@@ -46,7 +45,7 @@ const Header = ({ currentUser, hidden, signOutSuccess, signOutFailure, history }
           )}
         </div>
       </div>
-      { hidden && <CartDropdown /> }
+      { !hidden && <CartDropdown /> }
     </Wrapper>
   )
 }

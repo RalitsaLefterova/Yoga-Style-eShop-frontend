@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useParams } from 'react-router-dom'
 
 import { getCollectionProducts } from '../../rest-api/products'
 import ProductPreview from '../../components/product-preview/product-preview.component'
@@ -8,7 +8,11 @@ import './single-collection.style.scss'
 
 const SingleCollection = ({ match, history }) => {
   const [collectionProducts, setCollectionProducts] = useState([])
-  const collectionTitle = match.params.collection.replace(/-/g, ' ')
+  // const collectionTitle = match.params.collection.replace(/-/g, ' ')
+  const { collection } = useParams()
+  const collectionTitle = collection.replace(/-/g, ' ')
+
+  console.log({collectionProducts})
 
   useEffect(() => {
     getCollectionProducts(collectionTitle).then(response => {
@@ -22,7 +26,7 @@ const SingleCollection = ({ match, history }) => {
       <h1 className='title center'>{collectionTitle.toUpperCase()}</h1>
       <div className=''>
         {collectionProducts.map(product => (
-          <ProductPreview key={product._id} product={product} />
+          <ProductPreview key={product.id} product={product} />
         ))}
       </div>
       {/* <CustomButton onClick={() => addItem(item)} inverted>Add to cart</CustomButton> */}
