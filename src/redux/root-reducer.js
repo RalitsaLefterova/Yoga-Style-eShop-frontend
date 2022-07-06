@@ -11,7 +11,8 @@ const persistConfig = {
   storage,
   whitelist: [
     'user',
-    'cart'
+    'cart',
+    'collections'
   ]
 }
 

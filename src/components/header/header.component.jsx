@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
 import Wrapper from '../wrapper'
@@ -9,10 +9,12 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
 import { logout } from '../../rest-api/users'
 import { signOutSuccess, signOutFailure } from '../../redux/user/user.actions'
+import { selectCartHidden } from '../../redux/cart/cart.selectors'
 
 import './header.style.scss'
 
-const Header = ({ currentUser, hidden, signOutSuccess, signOutFailure, history }) => {
+const Header = ({ currentUser, signOutSuccess, signOutFailure, history }) => {
+  const hidden = useSelector(selectCartHidden)
 
   const handleLogoutUser = () => {
     logout().then(response => {
@@ -52,7 +54,7 @@ const Header = ({ currentUser, hidden, signOutSuccess, signOutFailure, history }
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
-  hidden: state.cart.hidden
+  // hidden: state.cart.hidden
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -13,7 +13,7 @@ export const addProduct = product =>
 export const removeProduct = product => 
   createAction(CartActionTypes.REMOVE_PRODUCT, product)
 
-export const clearProductFromCart = product => 
+export const clearProduct = product => 
   createAction(CartActionTypes.CLEAR_PRODUCT_FROM_CART, product)
 
 export const clearCart = () => 

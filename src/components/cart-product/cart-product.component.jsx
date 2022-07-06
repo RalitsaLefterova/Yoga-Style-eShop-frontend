@@ -4,6 +4,7 @@ import './cart-product.style.scss'
 
 const CartProduct = ({ cartProduct }) => {
   const { title, mainImageUrl, price, quantity } = cartProduct
+
   return (
     <div className='cart-product-container'>
       <img src={mainImageUrl} alt={`${title}`} />
@@ -14,6 +15,5 @@ const CartProduct = ({ cartProduct }) => {
     </div>
   )
 }
-
 
 export default CartProduct

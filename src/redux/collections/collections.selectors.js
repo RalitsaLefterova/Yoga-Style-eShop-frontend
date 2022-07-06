@@ -1,2 +1,8 @@
-export const selectCollectionsList = state => 
-  state.collections.collectionsList
+import { createSelector } from 'reselect'
+
+const selectCollectionsReducer = state => state.collections
+
+export const selectCollections = createSelector(
+  [selectCollectionsReducer],
+  (collectionsSlice) => collectionsSlice.collectionsList
+)

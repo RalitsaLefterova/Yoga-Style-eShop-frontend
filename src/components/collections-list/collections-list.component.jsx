@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 
 import { getCollections } from '../../rest-api/collections'
 import { fetchCollectionsSuccess, fetchCollectionsFailure } from '../../redux/collections/collections.actions'
+import { selectCollections } from '../../redux/collections/collections.selectors'
 
 import CollectionItem from '../collection-item/collection-item.component'
 import Spinner from '../spinner/spinner.component'
@@ -37,10 +39,14 @@ const CollectionsList = ({ collectionsList, setCollections, setErrorMessage, err
     </div>
   )}
 
-const mapStateToProps = state => ({
-  collectionsList: state.collections.collectionsList,
-  errorMessage: state.collections.errorMessage
-})
+// const mapStateToProps = state => ({
+//   collectionsList: state.collections.collectionsList,
+//   errorMessage: state.collections.errorMessage
+// })
+
+const mapStateToProps = createStructuredSelector({
+  collectionsList: selectCollections
+});
 
 const mapDispatchToProps = dispatch => ({
   setCollections: collections => dispatch(fetchCollectionsSuccess(collections)),

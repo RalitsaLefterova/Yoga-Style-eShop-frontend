@@ -1,13 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { addProduct, removeProduct, clearProductFromCart } from '../../redux/cart/cart.actions'
+import { addProduct, removeProduct, clearProduct } from '../../redux/cart/cart.actions'
 import { addToCart, removeFromCart, clearFromCart } from '../../rest-api/cart'
 
 import './checkout-item.style.scss'
 
-const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFromCart }) => {
-  console.log('in checkout item', {cartProduct})
+const CheckoutItem = ({ cartProduct }) => {
+  const dispatch = useDispatch()
+
+  const addProductToCart = () => dispatch(addProduct(cartProduct))
+  const removeProductFromCart = () => dispatch(removeProduct(cartProduct)) 
+  const clearProductFromCart = () => dispatch(clearProduct(cartProduct.id))
+
   const { title, mainImageUrl, price, quantity } = cartProduct
 
   const handleAddToCart = () => {
@@ -18,11 +23,11 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
         history.push('/sign-in')
         throw new Error(response.response.data)
       }
-      response && response.status === 200 && addProduct({
+      response && response.status === 200 && addProductToCart({
         id: cartProduct.id,
         title: cartProduct.title,
         price: cartProduct.price,
-        imgURL: cartProduct.imgURL
+        mainImageUrl: cartProduct.mainImageUrl
       })
     }).catch(error => {
       let message = error.message
@@ -33,7 +38,7 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
   const handleRemoveFromCart = () => {
     removeFromCart(cartProduct.id).then(response => {
       console.log('handleRemoveFromCart response', {response})
-      response && response.status === 200 && removeProduct({
+      response && response.status === 200 && removeProductFromCart({
         id: cartProduct.id
       })
 
@@ -70,10 +75,4 @@ const CheckoutItem = ({ cartProduct, addProduct, removeProduct, clearProductFrom
   )
 }
 
-const mapDispatchToProps = dispatch => ({
-  clearProductFromCart: productId => dispatch(clearProductFromCart(productId)),
-  addProduct: product => dispatch(addProduct(product)),
-  removeProduct: product => dispatch(removeProduct(product))
-})
-
-export default connect(null, mapDispatchToProps)(CheckoutItem)
+export default CheckoutItem

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, useParams } from 'react-router-dom'
+import { createSelector } from 'reselect'
 
 import { getCollectionProducts } from '../../rest-api/products'
 import ProductPreview from '../../components/product-preview/product-preview.component'
