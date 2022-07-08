@@ -1,56 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { connect, useSelector } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { getCollections } from '../../rest-api/collections'
-import { fetchCollectionsSuccess, fetchCollectionsFailure } from '../../redux/collections/collections.actions'
-import { selectCollections } from '../../redux/collections/collections.selectors'
+import { fetchCollectionsAsync } from '../../redux/collections/collections.actions'
+import { selectCollections, selectIsLoadingCollections } from '../../redux/collections/collections.selectors'
 
 import CollectionItem from '../collection-item/collection-item.component'
 import Spinner from '../spinner/spinner.component'
 
 import './collections-list.style.scss';
 
-const CollectionsList = ({ collectionsList, setCollections, setErrorMessage, error }) => {
-  const [isFetching, setIsFetching] = useState(false)
+const CollectionsList = () => {
+  const dispatch = useDispatch()
+  const collectionsList = useSelector(selectCollections)
+  const isLoading = useSelector(selectIsLoadingCollections)
  
-  
   useEffect(() => {
-    setIsFetching(true)
-    getCollections().then(response => {
-      console.log('collections list:', response.data)
-      setCollections(response.data)
-      setIsFetching(false)
-    }).catch(error => {
-      console.log('fetch collections error:', error)
-      setErrorMessage(error)
-    })
+    dispatch(fetchCollectionsAsync())
   }, [])
-
-  console.log({isFetching})
+  
   return (
     <div className="collections-list">
       <div className="collection-menu">
-        {isFetching ? <Spinner /> :
-        collectionsList.map(collection => (
-          <CollectionItem key={collection._id} collection={collection} size="large" />
-        ))}
+        {
+          isLoading ? (<Spinner />) : (
+          collectionsList.map(collection => (
+            <CollectionItem key={collection._id} collection={collection} size="large" />
+          )))
+        }
       </div>
     </div>
   )}
 
-// const mapStateToProps = state => ({
-//   collectionsList: state.collections.collectionsList,
-//   errorMessage: state.collections.errorMessage
-// })
-
-const mapStateToProps = createStructuredSelector({
-  collectionsList: selectCollections
-});
-
-const mapDispatchToProps = dispatch => ({
-  setCollections: collections => dispatch(fetchCollectionsSuccess(collections)),
-  setErrorMessage: error => dispatch(fetchCollectionsFailure(error))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionsList)
+export default CollectionsList

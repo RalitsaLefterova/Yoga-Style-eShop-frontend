@@ -1,24 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { getProducts } from '../../../rest-api/products'
+import { fetchAllProductsAsync } from '../../../redux/products/products.actions'
+import { selectAllProduct } from '../../../redux/products/products.selectors'
+
 import ProductDetails from '../../../components/admin/product-details/product-details.component'
 
 import './products.style.scss'
 
 const Products = ({history, match}) => {
-  const [productsList, setProductsList] = useState([])
-
-  const getAllProducts = () => {
-    getProducts().then(response => {
-      setProductsList(response.data)
-    }).catch(e => {
-      console.log({e})
-    })
-  }
+  const dispatch = useDispatch()
+  const productsList = useSelector(selectAllProduct)
 
   useEffect(() => {
-    getAllProducts()
+    dispatch(fetchAllProductsAsync())
   }, [])
 
   return (
@@ -48,7 +44,6 @@ const Products = ({history, match}) => {
           ))}
           </tbody>
         </table>
-        
       </div>
       
       {/* show list of products with pagination */}

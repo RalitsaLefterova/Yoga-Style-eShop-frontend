@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { getCollectionsShortInfo } from '../../../rest-api/collections'
+import { fetchCollectionsShortInfoAsync } from '../../../redux/collections/collections.actions'
+import { selectCollectionsShortInfo } from '../../../redux/collections/collections.selectors'
+
 import CustomSelect from '../../../components/custom-select/custom-select.component'
 import { createProduct } from '../../../rest-api/products'
 
 import './add-product.style.scss'
 
 const AddProduct = () => {
-  const [collectionsList, setCollectionsList] = useState([])
+  const dispatch = useDispatch()
+  const collections = useSelector(selectCollectionsShortInfo)
+  const [mainImageUrl, setMainImage] = useState()
   const [productData, setProduct] = useState({
     title: '',
     description: '',
-    price: 0,
+    mainImageUrl: '',
+    price: 0.00,
+    stock: 0,
     collectionId: 0,
-    images: []
+    active: false
   })
-  const [mainImageUrl, setMainImage] = useState()
 
-  const { title, description, price, collectionId, images } = productData
+  const { title, description, price, collectionId, stock, active } = productData
 
   const handleSetProductDetails = event => {
     setProduct({...productData, [event.target.name]: event.target.value})
@@ -31,28 +37,23 @@ const AddProduct = () => {
     event.preventDefault()
 
     const data = new FormData()
-    data.append('title', title)
-    data.append('description', description)
-    data.append('price', price)
-    data.append('collectionId', collectionId)
-    data.append('mainImageUrl', mainImageUrl)
 
-    console.log(data)
+    const forUpdate = { title, mainImageUrl, description, price, stock, collectionId, active }
+
+    Object.entries(forUpdate).forEach(entry => {
+      const [key, value] = entry
+      formData.append(key, value)
+    })
+    // for(const pair of formData.entries()) {
+    //   console.log(`${pair[0]}, ${pair[1]}`);
+    // }
+
     const productResponse = await createProduct(data)
     console.log({productResponse})
   }
 
-  const getAllCollectionsShortInfo = () => {
-    getCollectionsShortInfo().then(response => {
-      console.log(response)
-      setCollectionsList(response.data)
-    }).catch(e => {
-      console.log({e})
-    })
-  }
-
   useEffect(() => {
-    getAllCollectionsShortInfo()
+    dispatch(fetchCollectionsShortInfoAsync())
   }, [])
 
   return (
@@ -103,16 +104,36 @@ const AddProduct = () => {
             value={price}
           />
         </div>
+        <div className="flex">
+          <label htmlFor="stock">Stock</label>
+          <input
+            type="number"
+            name='stock'
+            id="stock"
+            onChange={handleSetProductDetails}
+            value={stock}
+          />
+        </div>
+        <div className="flex">
+          <label htmlFor="active">Publish immidiatly after saving</label>
+          <input
+            type="checkbox"
+            name='active'
+            id="active"
+            onChange={handleSetProductDetails}
+            checked={active}
+          />
+        </div>
 
         <CustomSelect
           type='collections'
-          collections={collectionsList}
+          collections={collections}
           handler={handleSetProductDetails}
           label='Collection'
           // label={`* ${strings.Collection}`}
           placeholder='Select collection'
           selectname='collectionId'
-          value={productData.collectionId}
+          value={collectionId}
           extraClasses=''
         ></CustomSelect>
         {/* <select 

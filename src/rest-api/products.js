@@ -19,11 +19,15 @@ export const getProducts = () => {
 }
 
 export const getCollectionProducts = collectionTitle => {
-  return axiosInstance.get(`/products?collectionTitle=${collectionTitle}`)
+  return axiosInstance.get(`/products?collectionTitle=${collectionTitle}&active=true`)
 }
 
 export const getSingleProduct = productId => {
   return axiosInstance.get(`/products/${productId}`)
+}
+
+export const getSingleProductForEdit = productId => {
+  return axiosInstance.get(`/products/${productId}?edit=true`)
 }
 
 export const editProduct = (productId, data) => {

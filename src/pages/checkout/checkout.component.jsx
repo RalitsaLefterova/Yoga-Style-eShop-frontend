@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -12,39 +12,31 @@ const Checkout = () => {
   const cartProducts = useSelector(selectCartProducts)
   const total = useSelector(selectCartTotal)
 
+  const chekoutTableHeader = () => {
+    const headerCellsName = ['Product', 'Description', 'Quantity', 'Price', 'Remove']
+    return (
+      headerCellsName.map((cellName, index) => (
+        <div className="header-block" key={index}>
+          <span>{cellName}</span>
+        </div>
+      ))
+    )
+  }
+
   return (
     <div className='checkout-page-container'>
       <div className="checkout-header">
-        {/* TODO: make header cells as a separate component */}
-        <div className="header-block">
-          <span>Product</span>
-        </div>
-        <div className="header-block">
-          <span>Description</span>
-        </div>
-        <div className="header-block">
-          <span>Quantity</span>
-        </div>
-        <div className="header-block">
-          <span></span>
-        </div>
-        <div className="header-block">
-          <span>Price</span>
-        </div>
-        <div className="header-block">
-          <span>Remove</span>
-        </div>
+        {chekoutTableHeader()}
       </div>
       {cartProducts.length > 0 ? cartProducts.map(product => (
         <CheckoutItem
           key={product.id}
           cartProduct={product} />
       )) : (
-        <React.Fragment>
+        <Fragment>
           Your cart is empty. <Link to='/shop'>Start shopping.</Link>
-        </React.Fragment>
+        </Fragment>
       )}
-      
       <div className="total">
         Total price: ${total.toFixed(2)}
       </div>

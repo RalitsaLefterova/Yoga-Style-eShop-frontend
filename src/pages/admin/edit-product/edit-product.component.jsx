@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { getSingleProduct, editProduct } from '../../../rest-api/products'
-import { getCollectionsShortInfo } from '../../../rest-api/collections'
+import { editProduct } from '../../../rest-api/products'
+import { fetchProductForEditAsync } from '../../../redux/products/products.actions'
+import { selectProduct } from '../../../redux/products/products.selectors'
+import { selectCollections } from '../../../redux/collections/collections.selectors'
 
 import CustomInput from '../../../components/custom-input/custom-input.component'
 import CustomSelect from '../../../components/custom-select/custom-select.component'
@@ -10,77 +13,75 @@ import CustomSelect from '../../../components/custom-select/custom-select.compon
 import './edit-product.style.scss'
 
 const EditProduct = ({ match, history }) => {
-  const [data, setData] = useState({
-    collectionsList: [],
-    productData: {
-      title: '',
-      mainImageUrl: '',
-      description: '',
-      price: 0,
-      stock: 0,
-      collectionId: 0,
-      images: []
-    }
+  const dispatch = useDispatch()
+  const collections = useSelector(selectCollections)
+  const product = useSelector(selectProduct)
+  const [productData, setProductData] = useState({
+    title: '',
+    mainImageUrl: '',
+    description: '',
+    price: 0.00,
+    stock: 0,
+    collectionId: '',
+    active: false
   })
+
+  const { title, mainImageUrl, description, price, stock, collectionId, active } = productData
 
   const [newMainImageUrl, setNewMainImageUrl] = useState(null)
   const [isNewMainImageUrlSet, setIsNewMainImageUrlSet] = useState(false)
 
-  const handleSetProductDetails = e => {
-    console.log(e.target.name, e.target.value)
-    setData({
-      ...data,
-      productData: {
-        ...data.productData,
-        [e.target.name]: e.target.value
-      }
+  const handleSetProductDetails = event => {
+    console.log(event.target.name, event.target.value)
+    setProductData({
+      ...productData,
+      [event.target.name]: event.target.value
     })
   }
 
-  const handleChangeMainImage = e => {
-    if (e.target.files && e.target.files.length > 0) {
-      setData({
-        ...data,
-        productData: {
-          ...data.productData,
-          [e.target.name]: URL.createObjectURL(e.target.files[0])
-        }
+  const handleChangeMainImage = event => {
+    if (event.target.files && event.target.files.length > 0) {
+      setProductData({
+        ...productData,
+        [event.target.name]: URL.createObjectURL(event.target.files[0])
       })
-      setNewMainImageUrl(e.target.files[0])
+      setNewMainImageUrl(event.target.files[0])
       setIsNewMainImageUrlSet(true)
     }
   }
 
   const handleSubmit = async event => {
     event.preventDefault()
-
     const productId = match.params.id
 
     const formData = new FormData()
-    formData.append('title', data.productData.title)
-    formData.append('description', data.productData.description)
-    formData.append('price', data.productData.price)
-    formData.append('stock', data.productData.stock)
-    formData.append('collectionId', data.productData.collectionId)
 
-    if (isNewMainImageUrlSet) {
-      formData.append('mainImageUrl', newMainImageUrl)
-    }
+    const forUpdate = { title, mainImageUrl, description, price, stock, collectionId, active }
 
-    console.log(formData)
+    Object.entries(forUpdate).forEach(entry => {
+      const [key, value] = entry
+      formData.append(key, value)
+    })
+
+    isNewMainImageUrlSet && formData.append('mainImageUrl', newMainImageUrl)
+
+    // for(const pair of formData.entries()) {
+    //   console.log(`${pair[0]}, ${pair[1]}`);
+    // }
+
     const productResponse = await editProduct(productId, formData)
     console.log({productResponse})
     history.push('/admin/products')
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const productDetails = await getSingleProduct(match.params.id)
-      const allCollections = await getCollectionsShortInfo()
-      setData({collectionsList: allCollections.data, productData: productDetails.data})
-    }
-    fetchData()
+    dispatch(fetchProductForEditAsync(match.params.id))
   }, [])
+
+  // Set the relation between redux product and local state.
+  useEffect(async () => {
+    setProductData(product)
+  }, [product])
 
   return (
     <div className='center'> 
@@ -89,48 +90,48 @@ const EditProduct = ({ match, history }) => {
         <CustomInput 
           type='text'
           field='title'
-          value={data.productData.title}
+          value={title}
           onChangeHandler={handleSetProductDetails}
         />
         <CustomInput 
           type='file'
           field='mainImageUrl'
-          value={data.productData.mainImageUrl}
+          value={mainImageUrl}
           accept='image/png image/jpeg image/jpg'
           onChangeHandler={handleChangeMainImage}
         />
         <CustomInput 
           type='text'
           field='price'
-          value={data.productData.price}
+          value={price}
           onChangeHandler={handleSetProductDetails}
         />
         <CustomInput 
           type='text'
           field='description'
-          value={data.productData.description}
+          value={description}
           onChangeHandler={handleSetProductDetails}
         />
         <CustomInput 
           type='text'
           field='stock'
-          value={data.productData.stock || 0}
+          value={stock || 0}
           onChangeHandler={handleSetProductDetails}
         />
         <CustomSelect
           type='collections'
-          collections={data.collectionsList}
+          collections={collections}
           handler={handleSetProductDetails}
           label='Collection'
           // label={`* ${strings.Collection}`}
           placeholder='Select collection'
           selectname='collectionId'
-          value={data.productData.collectionId}
+          value={collectionId}
           extraClasses=''
         ></CustomSelect>
         <button type='submit'>Save changes</button>
       </form>
-      {console.log({match})}
+      {/* {console.log({match})} */}
     </div>
   )
 }

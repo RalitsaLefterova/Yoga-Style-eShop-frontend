@@ -1,38 +1,40 @@
-import React, { useState, useEffect } from 'react'
-import { withRouter, useParams } from 'react-router-dom'
-import { createSelector } from 'reselect'
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { getCollectionProducts } from '../../rest-api/products'
+import { fetchCollectionProductsAsync } from '../../redux/products/products.actions'
+import { selectSingleCollectionProducts, selectIsLoading } from '../../redux/products/products.selectors'
+
 import ProductPreview from '../../components/product-preview/product-preview.component'
+import Spinner from '../../components/spinner/spinner.component'
 
 import './single-collection.style.scss'
 
-const SingleCollection = ({ match, history }) => {
-  const [collectionProducts, setCollectionProducts] = useState([])
-  // const collectionTitle = match.params.collection.replace(/-/g, ' ')
+const SingleCollection = () => {
+  const dispatch = useDispatch()
   const { collection } = useParams()
   const collectionTitle = collection.replace(/-/g, ' ')
-
-  console.log({collectionProducts})
+  const isLoading = useSelector(selectIsLoading)
+  const singleCollectionProductsList = useSelector(selectSingleCollectionProducts)
 
   useEffect(() => {
-    getCollectionProducts(collectionTitle).then(response => {
-      console.log('response.data', response.data)
-      setCollectionProducts(response.data)
-    }).catch(e => console.log({e}))
+    dispatch(fetchCollectionProductsAsync(collectionTitle))
   }, [])
 
   return (
     <div className='single-collection-preview'>
       <h1 className='title center'>{collectionTitle.toUpperCase()}</h1>
-      <div className=''>
-        {collectionProducts.map(product => (
-          <ProductPreview key={product.id} product={product} />
-        ))}
-      </div>
-      {/* <CustomButton onClick={() => addItem(item)} inverted>Add to cart</CustomButton> */}
+      {
+        isLoading ? 
+          (<Spinner />) : 
+          (<div className='products-container'>
+            {singleCollectionProductsList.map(product => (
+              <ProductPreview key={product.id} product={product} />
+            ))}
+          </div>)
+      }
     </div>
   )
 }
 
-export default withRouter(SingleCollection)
+export default SingleCollection
