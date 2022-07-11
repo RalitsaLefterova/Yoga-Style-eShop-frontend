@@ -8,14 +8,13 @@ const INITIAL_STATE = {
 
 const cartReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
-  // console.log('cart reducer action: ', {action})
 
   switch (type) {
 
     case CartActionTypes.SET_CART:
       return {
         ...state,
-        cartProducts: payload
+        cartProducts: payload ? payload : []
       }
       
     case CartActionTypes.TOGGLE_CART_HIDDEN:
@@ -25,7 +24,6 @@ const cartReducer = (state = INITIAL_STATE, action = {}) => {
       }
 
     case CartActionTypes.ADD_PRODUCT:
-      // console.log('state.cartProducts', state.cartProducts, 'action.payload', payload)
       return {
         ...state,
         cartProducts: addProductToCart(state.cartProducts, payload)

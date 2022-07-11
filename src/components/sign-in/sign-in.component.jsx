@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
+import { emailSignInRequested, googleSignInRequested, resetErrorMessage } from '../../redux/user/user.actions'
+
+import ErrorContainer from '../error-message/error-message.component'
 import FormInput from '../form-input/form-input.component.jsx'
 import CustomButton from '../custom-button/custom-button.component.jsx'
-import { resetErrorMessage, setCurrentUser, setToken, signInFailure } from '../../redux/user/user.actions'
-import { setCart } from '../../redux/cart/cart.actions'
-import { login, googleLogin } from '../../rest-api/users'
-import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-in.style.scss'
 
-const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMessage, setCart }) => {
+const SignIn = ({ error, resetErrorMessage }) => {
+  const dispatch = useDispatch()
   const [userCredentials, setCredentials] = useState({
     email: '',
     password: ''
   })
-
   const { email, password } = userCredentials
 
   const handleChange = event => {
@@ -25,48 +24,16 @@ const SignIn = ({ error, setCurrentUser, setToken, signInFailure, resetErrorMess
     setCredentials({ ...userCredentials,  [name]: value })
   }
 
-  const handleSubmit = async event => {
+  const handleSubmit = event => {
     event.preventDefault()
-    const formData = {
-      "email": email,
-      "password": password
-    }
- 
-    login(formData).then(response => {
-      if (response.isAxiosError) {
-        throw new Error(response.response.data)
-      }
-      if (response.data) {
-        const { user, token, cart } = response.data
-        setCurrentUser(user)
-        setToken(token)
-        setCart(cart)
-      }
-    }).catch(error => {
-      signInFailure(error.message)
-    })
+    dispatch(emailSignInRequested({ email, password }))
   }
 
-  const responseSuccessGoogle = async (response) => {
-    googleLogin({ tokenId: response.tokenId }).then(response => {
-      console.log('responseSuccessGoogle', {response})
-      if (response.isAxiosError) {
-        console.log('isAxiosError == true', {response}, response.message)
-        throw new Error(response.message)
-      }
-      if (response.data) {
-        const { user, token, cart } = response.data
-        setCurrentUser(user)
-        setToken(token)
-        setCart(cart)
-      }
-    }).catch(error => {
-      console.log('responseSuccessGoogle catch error', {error})
-      signInFailure(error.message)
-    })
-  }
+  const responseSuccessGoogle = response => 
+    dispatch(googleSignInRequested({ tokenId: response.tokenId }))
 
   const responseFailureGoogle = (response) => {
+    //TODO: Handle this situation!!!
     console.log('responseFailureGoogle', response)
   }
 
@@ -132,11 +99,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setToken: token => dispatch(setToken(token)),
-  signInFailure: error => dispatch(signInFailure(error)),
   resetErrorMessage: () => dispatch(resetErrorMessage()),
-  setCart: cart => dispatch(setCart(cart))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

@@ -1,7 +1,7 @@
-const CollectiosActionTypes = {
+const CollectionsActionTypes = {
   FETCH_COLLECTIONS_START: 'FETCH_COLLECTIONS_START',
   FETCH_COLLECTIONS_SUCCESS: 'FETCH_COLLECTIONS_SUCCESS',
   FETCH_COLLECTIONS_FAILURE: 'FETCH_COLLECTIONS_FAILURE'
 }
 
-export default CollectiosActionTypes;
+export default CollectionsActionTypes;

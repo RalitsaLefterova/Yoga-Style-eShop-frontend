@@ -7,20 +7,51 @@ export const setCurrentUser = user =>
 export const setToken = token => 
   createAction(UserActionTypes.SET_TOKEN, token)
 
-export const signUpFailure = error => 
-  createAction(UserActionTypes.SIGN_UP_FAILURE, error)
 
-export const signInFailure = error => 
-  createAction(UserActionTypes.SIGN_IN_FAILURE, error)
+export const signUpRequested = ({ email, password, fullName }) => 
+  createAction(UserActionTypes.SIGN_UP_REQUESTED, { email, password, fullName })
+
+export const signUpFailed = error => 
+  createAction(UserActionTypes.SIGN_UP_FAILED, error)
+
+
+export const emailSignInRequested = ({ email, password }) => 
+  createAction(UserActionTypes.EMAIL_SIGN_IN_REQUESTED, { email, password })
+
+export const googleSignInRequested = (tokenId) => 
+  createAction(UserActionTypes.GOOGLE_SIGN_IN_REQUESTED, tokenId)
+
+export const signInFailed = error => 
+  createAction(UserActionTypes.SIGN_IN_FAILED, error)
+
+
+export const signOutRequested = ({ history }) =>
+  createAction(UserActionTypes.SIGN_OUT_REQUESTED, { history })
 
 export const signOutSuccess = () =>
   createAction(UserActionTypes.SIGN_OUT_SUCCESS)
 
-export const signOutFailure = error => 
-  createAction(UserActionTypes.SIGN_OUT_FAILURE, error)
+export const signOutFailed = error => 
+  createAction(UserActionTypes.SIGN_OUT_FAILED, error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const resetErrorMessage = () => 
   createAction(UserActionTypes.RESET_ERROR_MESSAGE)
 
 export const deleteAccountSuccess = () =>
   createAction(UserActionTypes.DELETE_ACCOUNT_SUCCESS)
+
+

@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector, useDispatch } from 'react-redux'
+
+import { signUpRequested } from '../../redux/user/user.actions'
+import { selectErrorOnSIgnUp } from '../../redux/user/user.selectors'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
-import { signup } from '../../rest-api/users'
-import { setCurrentUser, setToken, resetErrorMessage, signUpFailure } from '../../redux/user/user.actions'
 import ErrorContainer from '../error-message/error-message.component'
+
+
+import { resetErrorMessage } from '../../redux/user/user.actions'
+
 
 import './sign-up.style.scss';
 
-const SignUp = ({ error, setCurrentUser, setToken, resetErrorMessage, signUpFailure }) => {
+const SignUp = ({ resetErrorMessage }) => {
+  const dispatch = useDispatch()
+  const error = useSelector(selectErrorOnSIgnUp)
   const [userCredentials, setUserCredentials] = useState({
     fullName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
-
   const { fullName, email, password, confirmPassword } = userCredentials;
 
-  const handleSubmit = async event => {
+  const handleSubmit = event => {
     event.preventDefault();
     
     if (password !== confirmPassword) {
@@ -27,20 +33,7 @@ const SignUp = ({ error, setCurrentUser, setToken, resetErrorMessage, signUpFail
       return;
     }
 
-    signup({ email, password, fullName }).then(response => {
-      if (response.isAxiosError) {
-        throw new Error(response.response.data)
-      }
-      if (response.data) {
-        const { user, token } = response.data
-        setCurrentUser(user)
-        setToken(token)
-      }
-    }).catch(error => {
-      console.log({error})
-      signUpFailure(error.message)
-    });
-
+    dispatch(signUpRequested({ email, password, fullName }))
   }
 
   const handleChange = event => {
@@ -98,14 +91,14 @@ const SignUp = ({ error, setCurrentUser, setToken, resetErrorMessage, signUpFail
 }
 
 const mapStateToProps = state => ({
-  error: state.user.errorSignUp
+  // error: state.user.errorSignUp
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setToken: token => dispatch(setToken(token)),
+  // setCurrentUser: user => dispatch(setCurrentUser(user)),
+  // setToken: token => dispatch(setToken(token)),
   resetErrorMessage: () => dispatch(resetErrorMessage()),
-  signUpFailure: error => dispatch(signUpFailure(error))
+  // signUpFailure: error => dispatch(signUpFailure(error))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

@@ -1,4 +1,4 @@
-import CollectiosActionTypes from './collections.types'
+import CollectionsActionTypes from './collections.types'
 
 const INITIAL_STATE = {
   collectionsList: [],
@@ -12,13 +12,13 @@ const collectionsReducer = (state = INITIAL_STATE, action = {}) => {
 
   switch (type) {
 
-    case CollectiosActionTypes.FETCH_COLLECTIONS_START:
+    case CollectionsActionTypes.FETCH_COLLECTIONS_START:
       return {
         ...state,
         isLoading: true
       }
 
-    case CollectiosActionTypes.FETCH_COLLECTIONS_SUCCESS:
+    case CollectionsActionTypes.FETCH_COLLECTIONS_SUCCESS:
       console.log('in reducer', payload)
       return {
         ...state,
@@ -26,7 +26,7 @@ const collectionsReducer = (state = INITIAL_STATE, action = {}) => {
         collectionsList: payload
       }
 
-    case CollectiosActionTypes.FETCH_COLLECTIONS_FAILURE:
+    case CollectionsActionTypes.FETCH_COLLECTIONS_FAILURE:
       return {
         ...state,
         isLoading: false,

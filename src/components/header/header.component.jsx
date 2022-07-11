@@ -1,34 +1,26 @@
-import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import React, { Fragment } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 
-import Wrapper from '../wrapper'
+import { signOutRequested } from '../../redux/user/user.actions'
+import { selectCartHidden } from '../../redux/cart/cart.selectors'
+import { selectCurrentUser } from '../../redux/user/user.selectors'
+
 import Logo from '../../assets/svgs/logo.svg'
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
-import { logout } from '../../rest-api/users'
-import { signOutSuccess, signOutFailure } from '../../redux/user/user.actions'
-import { selectCartHidden } from '../../redux/cart/cart.selectors'
-
 import './header.style.scss'
 
-const Header = ({ currentUser, signOutSuccess, signOutFailure, history }) => {
+const Header = ({ history }) => {
+  const dispatch = useDispatch()
+  const currentUser = useSelector(selectCurrentUser)
   const hidden = useSelector(selectCartHidden)
 
-  const handleLogoutUser = () => {
-    logout().then(response => {
-      if (response.status === 200) {
-        history.push('/sign-in')
-        signOutSuccess()
-      }
-    }).catch(error => {
-      signOutFailure(error)
-    })
-  }
+  const handleLogoutUser = () => dispatch(signOutRequested({ history }))
 
   return (
-    <Wrapper>
+    <Fragment>
       <div className='header'>
         <Link className='logo-container' to='/'>
           <Logo className='logo' />
@@ -37,29 +29,19 @@ const Header = ({ currentUser, signOutSuccess, signOutFailure, history }) => {
           <Link className='nav-link' to='/shop'>SHOP</Link>
           <Link className='nav-link' to='/about-us'>ABOUT US</Link>
           {currentUser ? (
-            <Wrapper>
+            <Fragment>
               <Link className='nav-link' to='/profile'>PROFILE</Link>
               <div className="nav-link" onClick={handleLogoutUser}>SIGN OUT</div>
               <CartIcon />
-            </Wrapper>
+            </Fragment>
           ) : (
             <Link className='nav-link' to='/sign-in'>SIGN IN</Link>
           )}
         </div>
       </div>
       { !hidden && <CartDropdown /> }
-    </Wrapper>
+    </Fragment>
   )
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser,
-  // hidden: state.cart.hidden
-})
-
-const mapDispatchToProps = dispatch => ({
-  signOutSuccess: () => dispatch(signOutSuccess()),
-  signOutFailure: error => dispatch(signOutFailure(error))
-})
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
+export default withRouter(Header)

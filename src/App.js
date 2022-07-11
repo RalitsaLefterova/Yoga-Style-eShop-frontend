@@ -1,7 +1,8 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { createStructorSelector } from 'reselect'
+import { useSelector } from 'react-redux'
+
+import { selectCurrentUser } from './redux/user/user.selectors'
 
 import './style/main.scss'
 
@@ -21,7 +22,9 @@ import AddProduct from './pages/admin/add-product/add-product.component'
 import EditProduct from './pages/admin/edit-product/edit-product.component'
 import Checkout from './pages/checkout/checkout.component'
 
-const App = ({ currentUser }) => {
+const App = () => {
+const currentUser = useSelector(selectCurrentUser)
+
   return (
     <div>
       <Header />
@@ -45,8 +48,4 @@ const App = ({ currentUser }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
-})
-
-export default connect(mapStateToProps)(App)
+export default App
