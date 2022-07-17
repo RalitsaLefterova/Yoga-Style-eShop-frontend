@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { signOutRequested } from '../../redux/user/user.actions'
 import { selectCartHidden } from '../../redux/cart/cart.selectors'
@@ -12,12 +12,13 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
 import './header.style.scss'
 
-const Header = ({ history }) => {
+const Header = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)
   const hidden = useSelector(selectCartHidden)
 
-  const handleLogoutUser = () => dispatch(signOutRequested({ history }))
+  const handleLogoutUser = () => dispatch(signOutRequested({ navigate }))
 
   return (
     <Fragment>
@@ -44,4 +45,4 @@ const Header = ({ history }) => {
   )
 }
 
-export default withRouter(Header)
+export default Header

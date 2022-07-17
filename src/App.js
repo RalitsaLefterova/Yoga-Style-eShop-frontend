@@ -1,10 +1,8 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { selectCurrentUser } from './redux/user/user.selectors'
-
-import './style/main.scss'
 
 import Header from './components/header/header.component'
 import Footer from './components/footer/footer.component'
@@ -22,27 +20,29 @@ import AddProduct from './pages/admin/add-product/add-product.component'
 import EditProduct from './pages/admin/edit-product/edit-product.component'
 import Checkout from './pages/checkout/checkout.component'
 
+import './style/main.scss'
+
 const App = () => {
 const currentUser = useSelector(selectCurrentUser)
 
   return (
     <div>
       <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route exact path='/shop' component={ShopPage} />
-        <Route exact path='/shop/:collection' component={SingleCollection} />
-        <Route exact path='/shop/:collection/:productId' component={ProductDetails} />
-        <Route path='/profile' component={UserProfile} />
-        <Route exact path='/sign-in' render={() => currentUser ? <Redirect to='/' /> : <AuthenticationPage /> } />
-        <Route path='/reset-password' component={ResetPassword} />
-        <Route exact path='/admin' component={AdminHomePage} />
-        <Route exact path='/admin/collections' component={Collections} />
-        <Route exact path='/admin/products' component={Products} />
-        <Route exact path='/admin/products/add' component={AddProduct} />
-        <Route exact path='/admin/products/:id' component={EditProduct} />
-        <Route path={'/checkout'} component={Checkout} />
-      </Switch>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/shop' element={<ShopPage />} />
+        <Route path='/shop/:collection' element={<SingleCollection />} />
+        <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
+        <Route path={'/checkout'} element={<Checkout />} />
+        <Route path='/profile' element={<UserProfile />} />
+        <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/admin' element={<AdminHomePage />} />
+        <Route path='/admin/collections' element={<Collections />} />
+        <Route path='/admin/products' element={<Products />} />
+        <Route path='/admin/products/add' element={<AddProduct />} />
+        <Route path='/admin/products/:id' element={<EditProduct />} />
+      </Routes>
       <Footer />
     </div>
   )

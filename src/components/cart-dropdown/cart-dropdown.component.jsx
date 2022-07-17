@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { selectCartProducts } from '../../redux/cart/cart.selectors'
 import { toggleCartHidden } from '../../redux/cart/cart.actions'
@@ -11,8 +10,8 @@ import CartProduct from '../cart-product/cart-product.component'
 
 import './cart-dropdown.style.scss'
 
-const CartDropdown = ({ history }) => {
-  // const navigate = useNavigate()
+const CartDropdown = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const cartProducts = useSelector(selectCartProducts)
@@ -20,8 +19,7 @@ const CartDropdown = ({ history }) => {
 
   const goToCheckoutHandler = () => {
     toggleIsCartHidden()
-    history.push('/checkout')
-    // navigate('/checkout')
+    navigate('/checkout')
   }
 
   return (
@@ -47,4 +45,4 @@ const CartDropdown = ({ history }) => {
   )
 }
 
-export default withRouter(CartDropdown)
+export default CartDropdown

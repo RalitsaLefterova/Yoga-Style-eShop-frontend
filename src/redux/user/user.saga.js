@@ -17,7 +17,6 @@ import {
 } from './user.actions'
 import { setCart } from '../cart/cart.actions'
 
-
 export function* setDataAfterAuthSuccess({ user, token, cart }) {
   yield put(setCurrentUser(user))
   yield put(setToken(token))
@@ -61,11 +60,11 @@ export function* onEmailSignInRequested() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_REQUESTED, signInWithEmail)
 }
 
-export function* signOut({ payload: { history } }) {
+export function* signOut({ payload : { navigate } }) {
   try {
     yield call(logout)
     yield put(signOutSuccess())
-    history.push('/sign-in')
+    navigate('/sign-in')
   } catch (error) {
     yield put(signOutFailed(error))
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter, Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchProductAsync } from '../../redux/products/products.actions'
@@ -11,7 +11,8 @@ import Spinner from '../../components/spinner/spinner.component'
 
 import './product-details.style.scss'
 
-const ProductDetails = ({ match }) => {
+const ProductDetails = () => {
+  const params = useParams()
   const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)
   const productDetails = useSelector(selectProduct)
@@ -22,7 +23,7 @@ const ProductDetails = ({ match }) => {
   }
 
   useEffect(() => {
-    dispatch(fetchProductAsync(match.params.productId))
+    dispatch(fetchProductAsync(params.productId))
   }, [])
 
   return (
@@ -52,4 +53,4 @@ const ProductDetails = ({ match }) => {
   )
 }
 
-export default withRouter(ProductDetails)
+export default ProductDetails

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import './user-profile.style.scss'
 
@@ -13,7 +13,8 @@ import ConfirmDeleteAccount from '../../components/confirm-delete-account/confir
 import { editUserInfo, deleteAccount } from '../../rest-api/users'
 import { setCurrentUser, deleteAccountSuccess } from '../../redux/user/user.actions'
 
-const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess, history }) => {
+const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
+  const navigate = useNavigate()
   const [toggleState, setToggleState] = useState(2)
   const [isHiddenConfirmWindow, setIsHidenConfirmWindow] = useState(true)
   const [userInfo, setUserInfo] = useState({
@@ -179,7 +180,7 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess, histor
     deleteAccount().then(response => {
       console.log('response', response)
       if (response) {
-        history.push('/')
+        navigate('/')
         deleteAccountSuccess()
       }
     }).catch(error => {
@@ -366,4 +367,4 @@ const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile))
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

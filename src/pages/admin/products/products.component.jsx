@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchAllProductsAsync } from '../../../redux/products/products.actions'
@@ -9,7 +9,9 @@ import ProductDetails from '../../../components/admin/product-details/product-de
 
 import './products.style.scss'
 
-const Products = ({history, match}) => {
+const Products = () => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   const dispatch = useDispatch()
   const productsList = useSelector(selectAllProduct)
 
@@ -24,7 +26,7 @@ const Products = ({history, match}) => {
         <h3>Manage Products</h3>
       </div>
       <div className='add-product-button'>
-        <button onClick={() => history.push(`${match.url}/add`)}>Add Product</button>
+        <button onClick={() => navigate(`${pathname}/add`)}>Add Product</button>
       </div>
       <div className='table-container'>
         <table>
@@ -53,4 +55,4 @@ const Products = ({history, match}) => {
   )
 }
 
-export default withRouter(Products)
+export default Products

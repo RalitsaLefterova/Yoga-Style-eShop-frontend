@@ -25,8 +25,8 @@ export const signInFailed = error =>
   createAction(UserActionTypes.SIGN_IN_FAILED, error)
 
 
-export const signOutRequested = ({ history }) =>
-  createAction(UserActionTypes.SIGN_OUT_REQUESTED, { history })
+export const signOutRequested = ({ navigate }) =>
+  createAction(UserActionTypes.SIGN_OUT_REQUESTED, { navigate })
 
 export const signOutSuccess = () =>
   createAction(UserActionTypes.SIGN_OUT_SUCCESS)

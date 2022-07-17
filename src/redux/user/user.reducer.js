@@ -12,8 +12,7 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
-
-  console.log('in user reducer', type, payload)
+  // console.log('in user reducer', type, payload)
 
   switch (type) {
 

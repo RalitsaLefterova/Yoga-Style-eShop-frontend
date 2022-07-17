@@ -11,10 +11,10 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    // contentBase: DIST_DIR,
+    static: './',
     open: true,
     hot: true,
-    port: 3000,
+    port: process.env.PORT || 3000,
     historyApiFallback: true
   },
   devtool: "source-map",
@@ -26,7 +26,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: ['babel-loader']
       },
       {
         test: /\.(css|scss)/,
@@ -39,15 +39,14 @@ module.exports = {
       {
         test: /\.(jpg|jpeg|png)$/,
         exclude: /(node_modules)/,
-        use: {
-          loader: 'url-loader',
-        },
+        use: ['url-loader']
       }
     ],
   },
+  mode: process.env.NODE_ENV || "development",
   plugins: [
     new HtmlWebpackPlugin({ 
-      template: './src/index.html' 
+      template: path.join(__dirname, "src", "index.html")
     }),
   ],
 };

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 import { editProduct } from '../../../rest-api/products'
 
 import './product-details.style.scss'
 
-const ProductDetails = ({ match, product }) => {
+const ProductDetails = ({ product }) => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   const [active, setActive] = useState(product.active)
 
   const handleChangeActive = (newValue, id) => {
@@ -34,10 +36,10 @@ const ProductDetails = ({ match, product }) => {
       <th>{product.price}</th>
       <th>{product.stock ? product.stock : 0}</th>
       <th>
-        <Link to={`${match.url}/${product.id}`}>Edit</Link>
+        <Link to={`${pathname}/${product.id}`}>Edit</Link>
       </th>
     </tr>
   )
 }
 
-export default withRouter(ProductDetails)
+export default ProductDetails

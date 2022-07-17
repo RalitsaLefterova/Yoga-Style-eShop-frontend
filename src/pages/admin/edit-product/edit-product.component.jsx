@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { editProduct } from '../../../rest-api/products'
@@ -12,7 +12,9 @@ import CustomSelect from '../../../components/custom-select/custom-select.compon
 
 import './edit-product.style.scss'
 
-const EditProduct = ({ match, history }) => {
+const EditProduct = () => {
+  const params = useParams()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const collections = useSelector(selectCollections)
   const product = useSelector(selectProduct)
@@ -52,7 +54,7 @@ const EditProduct = ({ match, history }) => {
 
   const handleSubmit = async event => {
     event.preventDefault()
-    const productId = match.params.id
+    const productId = params.id
 
     const formData = new FormData()
 
@@ -71,11 +73,11 @@ const EditProduct = ({ match, history }) => {
 
     const productResponse = await editProduct(productId, formData)
     console.log({productResponse})
-    history.push('/admin/products')
+    navigate('/admin/products')
   }
 
   useEffect(() => {
-    dispatch(fetchProductForEditAsync(match.params.id))
+    dispatch(fetchProductForEditAsync(params.id))
   }, [])
 
   // Set the relation between redux product and local state.
@@ -131,9 +133,9 @@ const EditProduct = ({ match, history }) => {
         ></CustomSelect>
         <button type='submit'>Save changes</button>
       </form>
-      {/* {console.log({match})} */}
+      {console.log({params})}
     </div>
   )
 }
 
-export default withRouter(EditProduct)
+export default EditProduct

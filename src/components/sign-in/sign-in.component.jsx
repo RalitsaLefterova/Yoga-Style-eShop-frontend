@@ -36,11 +36,11 @@ const SignIn = ({ error, resetErrorMessage }) => {
     //TODO: Handle this situation!!!
     console.log('responseFailureGoogle', response)
   }
-
+  
   useEffect(() =>{
     resetErrorMessage()
   }, [])
-
+  
   return (
     <div className='sign-in'>
       <h2 className='title'>I already have an account</h2>

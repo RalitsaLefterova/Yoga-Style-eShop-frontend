@@ -1,19 +1,28 @@
 import React from "react"
-import { withRouter } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import './collection-item.style.scss'
 
-const CollectionItem = ({ collection, size, history, match }) => (
-  <div className={`${size} collection-item`} onClick={() => history.push(`${match.url}/${collection.title.replace(/\s+/g, '-').toLowerCase()}`)}>
-    <div 
-      className='background-image'
-      style={{backgroundImage: `url(${collection.cover})`}} 
-    />
-    <div className='content'>
-      <h1 className='title'>{collection.title.replace('and', '&').toUpperCase()}</h1>
-      <span className='subtitle'>SHOP NOW</span>
-    </div>
-  </div>
-)
+const CollectionItem = ({ collection, size }) => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const { title, cover } = collection
 
-export default withRouter(CollectionItem)
+  return (
+    <div 
+      className={`${size} collection-item`} 
+      onClick={() => navigate(`${pathname}/${title.replace(/\s+/g, '-').toLowerCase()}`)}
+    >
+      <div 
+        className='background-image'
+        style={{backgroundImage: `url(${cover})`}} 
+      />
+      <div className='content'>
+        <h1 className='title'>{title.replace('and', '&').toUpperCase()}</h1>
+        <span className='subtitle'>SHOP NOW</span>
+      </div>
+    </div>
+  )
+} 
+
+export default CollectionItem
