@@ -43,3 +43,9 @@ export const inputDate = option => {
 export const isNotEmptyObject = obj => {
   return Object.keys(obj).length != 0
 }
+
+export const checkFormDataEntries = formData => {
+  for (const pair of formData.entries()) {
+    console.log(`${pair[0]}, ${pair[1]}`);
+  }
+}

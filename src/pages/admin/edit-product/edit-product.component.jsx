@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { editProduct } from '../../../rest-api/products'
-import { fetchProductForEditAsync } from '../../../redux/products/products.actions'
+import { fetchProductForEditRequested, editProductRequested } from '../../../redux/products/products.actions'
 import { selectProduct } from '../../../redux/products/products.selectors'
 import { selectCollections } from '../../../redux/collections/collections.selectors'
+import { checkFormDataEntries } from '../../../components/utils/utils'
 
 import CustomInput from '../../../components/custom-input/custom-input.component'
 import CustomSelect from '../../../components/custom-select/custom-select.component'
@@ -54,10 +54,7 @@ const EditProduct = () => {
 
   const handleSubmit = async event => {
     event.preventDefault()
-    const productId = params.id
-
     const formData = new FormData()
-
     const forUpdate = { title, mainImageUrl, description, price, stock, collectionId, active }
 
     Object.entries(forUpdate).forEach(entry => {
@@ -67,21 +64,16 @@ const EditProduct = () => {
 
     isNewMainImageUrlSet && formData.append('mainImageUrl', newMainImageUrl)
 
-    // for(const pair of formData.entries()) {
-    //   console.log(`${pair[0]}, ${pair[1]}`);
-    // }
-
-    const productResponse = await editProduct(productId, formData)
-    console.log({productResponse})
-    navigate('/admin/products')
+    // checkFormDataEntries(formData)
+    dispatch(editProductRequested(params.id, formData, navigate))
   }
 
   useEffect(() => {
-    dispatch(fetchProductForEditAsync(params.id))
+    dispatch(fetchProductForEditRequested(params.id))
   }, [])
 
   // Set the relation between redux product and local state.
-  useEffect(async () => {
+  useEffect(() => {
     setProductData(product)
   }, [product])
 
@@ -133,7 +125,6 @@ const EditProduct = () => {
         ></CustomSelect>
         <button type='submit'>Save changes</button>
       </form>
-      {console.log({params})}
     </div>
   )
 }

@@ -10,7 +10,7 @@ import App from './App'
 const root = createRoot(document.getElementById('root'))
 
 root.render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <PersistGate persistor={persistor}>
@@ -18,5 +18,5 @@ root.render(
         </PersistGate>
       </BrowserRouter>
     </Provider> 
-  </StrictMode>
+  // </StrictMode>
   )

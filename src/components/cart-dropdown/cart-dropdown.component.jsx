@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,10 +17,10 @@ const CartDropdown = () => {
   const cartProducts = useSelector(selectCartProducts)
   const toggleIsCartHidden = () => dispatch(toggleCartHidden())
 
-  const goToCheckoutHandler = () => {
+  const goToCheckoutHandler = useCallback(() => {
     toggleIsCartHidden()
     navigate('/checkout')
-  }
+  }, [])
 
   return (
     <div className="cart-dropdown-container">

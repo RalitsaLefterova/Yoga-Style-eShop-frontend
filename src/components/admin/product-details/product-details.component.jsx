@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 import { editProduct } from '../../../rest-api/products'
 
 import './product-details.style.scss'
 
 const ProductDetails = ({ product }) => {
-  const navigate = useNavigate()
   const { pathname } = useLocation()
   const [active, setActive] = useState(product.active)
 
@@ -36,7 +35,7 @@ const ProductDetails = ({ product }) => {
       <th>{product.price}</th>
       <th>{product.stock ? product.stock : 0}</th>
       <th>
-        <Link to={`${pathname}/${product.id}`}>Edit</Link>
+        <Link to={`${pathname}/edit/${product.id}`}>Edit</Link>
       </th>
     </tr>
   )

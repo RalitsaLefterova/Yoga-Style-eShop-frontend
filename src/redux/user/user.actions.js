@@ -18,7 +18,7 @@ export const signUpFailed = error =>
 export const emailSignInRequested = ({ email, password }) => 
   createAction(UserActionTypes.EMAIL_SIGN_IN_REQUESTED, { email, password })
 
-export const googleSignInRequested = (tokenId) => 
+export const googleSignInRequested = tokenId => 
   createAction(UserActionTypes.GOOGLE_SIGN_IN_REQUESTED, tokenId)
 
 export const signInFailed = error => 

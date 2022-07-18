@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchCollectionProductsAsync } from '../../redux/products/products.actions'
+import { fetchSingleCollectionProductsRequested } from '../../redux/products/products.actions'
 import { selectSingleCollectionProducts, selectIsLoading } from '../../redux/products/products.selectors'
 
 import ProductPreview from '../../components/product-preview/product-preview.component'
@@ -18,7 +18,7 @@ const SingleCollection = () => {
   const singleCollectionProductsList = useSelector(selectSingleCollectionProducts)
 
   useEffect(() => {
-    dispatch(fetchCollectionProductsAsync(collectionTitle))
+    dispatch(fetchSingleCollectionProductsRequested(collectionTitle))
   }, [])
 
   return (

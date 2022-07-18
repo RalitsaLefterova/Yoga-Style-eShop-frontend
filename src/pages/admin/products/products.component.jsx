@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchAllProductsAsync } from '../../../redux/products/products.actions'
+import { fetchAllProductsRequested } from '../../../redux/products/products.actions'
 import { selectAllProduct } from '../../../redux/products/products.selectors'
 
 import ProductDetails from '../../../components/admin/product-details/product-details.component'
@@ -16,7 +16,7 @@ const Products = () => {
   const productsList = useSelector(selectAllProduct)
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync())
+    dispatch(fetchAllProductsRequested())
   }, [])
 
   return (

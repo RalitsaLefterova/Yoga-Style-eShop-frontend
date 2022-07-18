@@ -14,7 +14,7 @@ export const selectSingleCollectionProducts = createSelector(
 
 export const selectProduct = createSelector(
   [selectProductsReducer],
-  (productsSlice) => productsSlice.product
+  (productsSlice) => productsSlice.selectedProduct
 )
 
 export const selectIsLoading = createSelector(

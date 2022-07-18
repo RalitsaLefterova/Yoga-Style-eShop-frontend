@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { fetchCollectionsStart } from '../../redux/collections/collections.actions'
+import { fetchCollectionsRequested } from '../../redux/collections/collections.actions'
 import { selectCollections, selectIsLoadingCollections } from '../../redux/collections/collections.selectors'
 
 import CollectionItem from '../collection-item/collection-item.component'
@@ -15,7 +15,7 @@ const CollectionsList = () => {
   const isLoading = useSelector(selectIsLoadingCollections)
  
   useEffect(() => {
-    dispatch(fetchCollectionsStart())
+    dispatch(fetchCollectionsRequested())
   }, [])
   
   return (

@@ -1,34 +1,27 @@
-import { compose, createStore, applyMiddleware } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { persistStore } from 'redux-persist'
 import logger from 'redux-logger'
-// import thunk from 'redux-thunk'
 import createSagaMiddleware from 'redux-saga'
 
 // import { loggerMiddleware } from './middleware/logger'
-
 import rootReducer from './root-reducer'
 import rootSaga from './root-saga'
 
+const devMode = process.env.NODE_ENV !=='production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+
 const sagaMiddleware = createSagaMiddleware()
-// const middlewares = [sagaMiddleware]
 
 const middlewares = [
-  process.env.NODE_ENV !=='production' && logger, 
-  // thunk,
+  process.env.NODE_ENV !=='production' && logger,
   sagaMiddleware
 ].filter(Boolean)
 // const middlewares = [loggerMiddleware]
 
-// Modification of the compose method 
-// to be able to use Redux DevTools in the browser
-const composeEnhancer = (process.env.NODE_ENV !=='production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
-const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares))
-
-// the first argument is a function that is normally known as a reducer – required argument
-// the second argument is the initial value of the state – optional argument
-// the third argument is a middleware – optional argument
-export const store = createStore(rootReducer, undefined, composedEnhancers)
-
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: [...middlewares],
+  devTools: devMode
+});
 sagaMiddleware.run(rootSaga)
 
 export const persistor = persistStore(store)

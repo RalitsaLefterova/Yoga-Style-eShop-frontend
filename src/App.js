@@ -41,7 +41,7 @@ const currentUser = useSelector(selectCurrentUser)
         <Route path='/admin/collections' element={<Collections />} />
         <Route path='/admin/products' element={<Products />} />
         <Route path='/admin/products/add' element={<AddProduct />} />
-        <Route path='/admin/products/:id' element={<EditProduct />} />
+        <Route path='/admin/products/edit/:id' element={<EditProduct />} />
       </Routes>
       <Footer />
     </div>

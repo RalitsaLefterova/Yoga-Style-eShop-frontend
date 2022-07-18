@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react'
 import { withRouter, Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchProductAsync } from '../../redux/products/products.actions'
+import { fetchProductRequested } from '../../redux/products/products.actions'
 import { addProductToCartAsync } from '../../redux/cart/cart.actions'
 import { selectProduct, selectIsLoading } from '../../redux/products/products.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
@@ -23,7 +23,7 @@ const ProductDetails = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchProductAsync(params.productId))
+    dispatch(fetchProductRequested(params.productId))
   }, [])
 
   return (

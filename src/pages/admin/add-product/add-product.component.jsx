@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchCollectionsShortInfoAsync } from '../../../redux/collections/collections.actions'
+import { createProductRequested } from '../../../redux/products/products.actions'
+import { fetchCollectionsShortInfoRequested } from '../../../redux/collections/collections.actions'
 import { selectCollectionsShortInfo } from '../../../redux/collections/collections.selectors'
+import { checkFormDataEntries } from '../../../components/utils/utils'
 
 import CustomSelect from '../../../components/custom-select/custom-select.component'
-import { createProduct } from '../../../rest-api/products'
 
 import './add-product.style.scss'
 
 const AddProduct = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const collections = useSelector(selectCollectionsShortInfo)
-  const [mainImageUrl, setMainImage] = useState()
+  // const [mainImageUrl, setMainImage] = useState()
   const [productData, setProduct] = useState({
     title: '',
     description: '',
@@ -23,42 +26,48 @@ const AddProduct = () => {
     active: false
   })
 
-  const { title, description, price, collectionId, stock, active } = productData
+  const { title, mainImageUrl, description, price, stock, collectionId, active } = productData
 
   const handleSetProductDetails = event => {
-    setProduct({...productData, [event.target.name]: event.target.value})
-  }
+    let name = event.target.name,
+        value = ''
 
-  const handleChangeMainImage = event => {
-    setMainImage(event.target.files[0])
+    switch (name) {
+      case 'active':
+        value = event.target.checked
+        break
+
+      case 'mainImageUrl':
+        value = event.target.files[0]
+        break
+
+      default:
+        value = event.target.value
+    }
+
+    setProduct({...productData, [name]: value})
   }
 
   const handleSubmit = async event => {
     event.preventDefault()
-
     const data = new FormData()
-
     const forUpdate = { title, mainImageUrl, description, price, stock, collectionId, active }
 
     Object.entries(forUpdate).forEach(entry => {
       const [key, value] = entry
-      formData.append(key, value)
+      data.append(key, value)
     })
-    // for(const pair of formData.entries()) {
-    //   console.log(`${pair[0]}, ${pair[1]}`);
-    // }
 
-    const productResponse = await createProduct(data)
-    console.log({productResponse})
+    // checkFormDataEntries(data)
+    dispatch(createProductRequested(data, navigate))
   }
 
   useEffect(() => {
-    dispatch(fetchCollectionsShortInfoAsync())
+    dispatch(fetchCollectionsShortInfoRequested())
   }, [])
 
   return (
     <div className='center'>
-      {console.log(productData, mainImageUrl)}
       <div>Add new product</div>
       <form onSubmit={handleSubmit}>
         <div className="flex">
@@ -77,7 +86,7 @@ const AddProduct = () => {
             type="file"
             name='mainImageUrl'
             id="file"
-            onChange={handleChangeMainImage} 
+            onChange={handleSetProductDetails} 
             accept='image/png image/jpeg image/jpg'
           />
         </div>

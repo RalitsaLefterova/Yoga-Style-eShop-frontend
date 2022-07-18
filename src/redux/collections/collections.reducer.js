@@ -12,7 +12,7 @@ const collectionsReducer = (state = INITIAL_STATE, action = {}) => {
 
   switch (type) {
 
-    case CollectionsActionTypes.FETCH_COLLECTIONS_START:
+    case CollectionsActionTypes.FETCH_COLLECTIONS_REQUESTED:
       return {
         ...state,
         isLoading: true
