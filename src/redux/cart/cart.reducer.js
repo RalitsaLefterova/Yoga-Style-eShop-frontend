@@ -3,7 +3,8 @@ import { addProductToCart, removeProductFromCart, clearProductFromCart } from '.
 
 const INITIAL_STATE = {
   hidden: true,
-  cartProducts: []
+  cartProducts: [],
+  error: null
 }
 
 const cartReducer = (state = INITIAL_STATE, action = {}) => {
@@ -23,25 +24,33 @@ const cartReducer = (state = INITIAL_STATE, action = {}) => {
         hidden: !state.hidden
       }
 
-    case CartActionTypes.ADD_PRODUCT:
+    case CartActionTypes.ADD_PRODUCT_TO_CART_SUCCESS:
       return {
         ...state,
         cartProducts: addProductToCart(state.cartProducts, payload)
       }
-
-    case CartActionTypes.REMOVE_PRODUCT:
+      
+    case CartActionTypes.REMOVE_PRODUCT_FROM_CART_SUCCESS:
       return {
         ...state,
         cartProducts: removeProductFromCart(state.cartProducts, payload)
       }
 
-    case CartActionTypes.CLEAR_PRODUCT_FROM_CART:
+    case CartActionTypes.CLEAR_PRODUCT_FROM_CART_SUCCESS:
       return {
         ...state,
         cartProducts: clearProductFromCart(state.cartProducts, payload)
       }
 
-    case CartActionTypes.CLEAR_CART:
+    case CartActionTypes.ADD_PRODUCT_TO_CART_FAILED:
+    case CartActionTypes.REMOVE_PRODUCT_FROM_CART_FAILED:
+    case CartActionTypes.CLEAR_PRODUCT_FROM_CART_FAILED:
+      return {
+        ...state,
+        error: payload
+      }
+
+    case CartActionTypes.EMPTY_CART:
       return {
         ...state,
         cartProducts: []

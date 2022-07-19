@@ -1,24 +1,28 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { addProductToCartAsync, removeProductFromCartAsync, clearProductFromCartAsync } from '../../redux/cart/cart.actions'
+import { 
+  addProductToCartRequested, 
+  removeProductFromCartRequested,
+  clearProductFromCartRequested
+} from '../../redux/cart/cart.actions'
 
 import './checkout-item.style.scss'
 
-const CheckoutItem = ({ cartProduct }) => {
+const CheckoutItem = memo(({ cartProduct }) => {
   const dispatch = useDispatch()
-  const { title, mainImageUrl, price, quantity } = cartProduct
+  const { id: productId, title, mainImageUrl, price, quantity, collectionId } = cartProduct
 
   const handleAddToCart = () => {
-    dispatch(addProductToCartAsync(cartProduct.id))
+    dispatch(addProductToCartRequested(productId))
   }
 
   const handleRemoveFromCart = () => {
-    dispatch(removeProductFromCartAsync(cartProduct.id))
+    dispatch(removeProductFromCartRequested(productId))
   }
 
   const handleClearProductFromCart = () => {
-    dispatch(clearProductFromCartAsync(cartProduct.id))
+    dispatch(clearProductFromCartRequested(productId))
   }
   
   return (
@@ -36,6 +40,6 @@ const CheckoutItem = ({ cartProduct }) => {
       <div className='remove-button' onClick={handleClearProductFromCart}>&#10005;</div>
     </div>
   )
-}
+})
 
 export default CheckoutItem

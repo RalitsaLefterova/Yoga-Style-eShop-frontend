@@ -1,9 +1,9 @@
 import React, { useEffect, Fragment } from 'react'
-import { withRouter, Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchProductRequested } from '../../redux/products/products.actions'
-import { addProductToCartAsync } from '../../redux/cart/cart.actions'
+import { addProductToCartRequested } from '../../redux/cart/cart.actions'
 import { selectProduct, selectIsLoading } from '../../redux/products/products.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 
@@ -19,7 +19,7 @@ const ProductDetails = () => {
   const isLoading = useSelector(selectIsLoading)
 
   const handleAddToCart = () => {
-    dispatch(addProductToCartAsync(productDetails.id))
+    dispatch(addProductToCartRequested(productDetails.id))
   }
 
   useEffect(() => {

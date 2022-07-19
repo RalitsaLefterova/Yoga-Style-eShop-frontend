@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import './cart-product.style.scss'
 
-const CartProduct = ({ cartProduct }) => {
+const CartProduct = memo(({ cartProduct }) => {
   const { title, mainImageUrl, price, quantity } = cartProduct
 
   return (
@@ -14,6 +14,6 @@ const CartProduct = ({ cartProduct }) => {
       </div>
     </div>
   )
-}
+})
 
 export default CartProduct
