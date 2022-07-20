@@ -4,6 +4,7 @@ import apiConfig from './api-config'
 const axiosInstance = axios.create({
   baseURL: apiConfig.databaseURL,
   // baseURL: process.env.API_URL,
+  // baseURL: 'https://yoga-style-shop.com/api/',
 })
 
 axiosInstance.interceptors.request.use(req => {

@@ -18,17 +18,16 @@ import {
 export function* addProductToCartAsync({ payload: { productId }}) {
   try {
     const response = yield call(addToCart, productId)
-//     console.log('addProductToCartAsync', response)
-//   if (response && response.response && response.response.status && response.response.status === 401) {
-//     history.push('/sign-in')
-//     throw new Error(response.response.data)
-//   }
     if (response && response.data) {
       const { id, title, price, mainImageUrl, collectionTitle } = response.data
       yield put(addProductToCartSuccess({ id, title, price, mainImageUrl, collectionTitle }))
+    } else {
+      throw new Error(response)
     }
   } catch (error) {
-    yield put(addProductToCartFailed(error))
+    // console.log(error, error?.response?.data)
+    let errorMessage = error?.response?.data
+    yield put(addProductToCartFailed(errorMessage))
   }
 }
 
