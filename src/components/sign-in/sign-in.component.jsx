@@ -49,7 +49,7 @@ const SignIn = ({ error, resetErrorMessage }) => {
         <FormInput
           name='email' 
           type='email'
-          value={email} 
+          defaultValue={email} 
           handleChange={handleChange}
           label='Email'
           required
@@ -57,7 +57,7 @@ const SignIn = ({ error, resetErrorMessage }) => {
         <FormInput 
           name='password' 
           type='password'
-          value={password}
+          defaultValue={password}
           handleChange={handleChange}
           label='Password'
           required

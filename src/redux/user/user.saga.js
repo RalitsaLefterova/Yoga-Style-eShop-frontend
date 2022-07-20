@@ -5,7 +5,9 @@ import {
   signup, 
   login, 
   googleLogin, 
-  logout 
+  logout,
+  getUserProfile,
+  editUserInfo
 } from '../../rest-api/users'
 import { 
   setCurrentUser, 
@@ -13,7 +15,9 @@ import {
   signInFailed, 
   signOutSuccess, 
   signOutFailed, 
-  signUpFailed
+  signUpFailed,
+  getUserProfileFailed,
+  editUserFailed
 } from './user.actions'
 import { setCart } from '../cart/cart.actions'
 
@@ -88,11 +92,39 @@ export function* onGoogleSignInRequested() {
   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_REQUESTED, signInWithGoogle)
 }
 
+export function* getUserProfileAsync() {
+  try {
+    const response = yield call(getUserProfile)
+    yield put(setCurrentUser(response))
+  } catch (error) {
+    yield put(getUserProfileFailed(error))
+  }
+}
+
+export function* onGetUserProfileRequested() {
+  yield takeLatest(UserActionTypes.GET_USER_PROFILE_REQUESTED, getUserProfileAsync)
+}
+
+export function* editUserAsync({ payload: { data }}) {
+  try {
+    const response = yield call(editUserInfo, data)
+    yield put(setCurrentUser(response))
+  } catch (error) {
+    yield put(editUserFailed(error))
+  }
+}
+
+export function* onEditUserRequested() {
+  yield takeLatest(UserActionTypes.EDIT_USER_REQUESTED, editUserAsync)
+}
+
 export function* userSaga() {
   yield all([
     call(onEmailSignInRequested),
     call(onGoogleSignInRequested),
     call(onSignUpRequested),
-    call(onSignOutRequested)
+    call(onSignOutRequested),
+    call(onGetUserProfileRequested),
+    call(onEditUserRequested)
   ])
 }

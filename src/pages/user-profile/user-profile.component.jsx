@@ -1,60 +1,51 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, useCallback } from 'react'
+import { connect, useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import './user-profile.style.scss'
+import { selectCurrentUser, selectErrorOnEditUser }  from '../../redux/user/user.selectors'
+import { getUserProfileRequested, editUserRequested } from '../../redux/user/user.actions'
 
-import CustomButton from '../../components/custom-button/custom-button.component'
-import FormInput from '../../components/form-input/form-input.component'
-import { convertDate, inputDate } from '../../components/utils/utils'
-import AddressPreview from '../../components/address-preview/address-preview.component'
-import UpsertAddress from '../../components/upsert-address/upsert-address.component'
-import ConfirmDeleteAccount from '../../components/confirm-delete-account/confirm-delete-account.component'
+
 import { editUserInfo, deleteAccount } from '../../rest-api/users'
 import { setCurrentUser, deleteAccountSuccess } from '../../redux/user/user.actions'
 
-const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
+import UserMainInfo from '../../components/user-main-info/user-main-info.component'
+import CustomButton from '../../components/custom-button/custom-button.component'
+import FormInput from '../../components/form-input/form-input.component'
+import AddressPreview from '../../components/address-preview/address-preview.component'
+import UpsertAddress from '../../components/upsert-address/upsert-address.component'
+import ConfirmDeleteAccount from '../../components/confirm-delete-account/confirm-delete-account.component'
+
+import './user-profile.style.scss'
+
+const UserProfile = ({ setCurrentUser, deleteAccountSuccess }) => {
   const navigate = useNavigate()
-  const [toggleState, setToggleState] = useState(2)
+  const dispatch = useDispatch()
+
+  const currentUser = useSelector(selectCurrentUser)
+  const error = useSelector(selectErrorOnEditUser)
+
+  const [toggleState, setToggleState] = useState(1)
+  const toggleTab = (index) => setToggleState(index)
+
+  const [isEditMainInfo, setIsEditMainInfo] = useState(false)
+  const handleEditMainInfo = () => setIsEditMainInfo(!isEditMainInfo)
+  
   const [isHiddenConfirmWindow, setIsHidenConfirmWindow] = useState(true)
+  
   const [userInfo, setUserInfo] = useState({
-    email: {
-      value: currentUser && currentUser.email || '',
-      isChanged: false
-    },
-    fullName: {
-      value: currentUser && currentUser.fullName || '',
-      isChanged: false
-    },
-    phone: {
-      value: currentUser && currentUser.phone || '',
-      isChanged: false
-    },
-    birthday: {
-      value: currentUser && currentUser.birthday || '',
-      isChanged: false
-    },
-    avatar: {
-      value: currentUser && currentUser.avatar || '',
-      isChanged: false
-    },
-    language: {
-      value: currentUser && currentUser.language || 'EN',
-      isChanged: false
-    },
-    currency: {
-      value: currentUser && currentUser.currency || '',
-      isChanged: false
-    },
-    addresses: {
-      value: currentUser && currentUser.addresses || [],
-      shippingAddress: currentUser.addresses.find(address => address.defaultShippingAddress === true),
-      billingAddress: currentUser.addresses.find(address => address.defaultBillingAddress === true),
-      additionalAddresses: currentUser.addresses.filter(address => {
-        if (!(address.defaultShippingAddress == true || address.defaultBillingAddress == true)) {return address}
-      })
-    }
+    email: { value: '', isChanged: false },
+    fullName: { value: '', isChanged: false },
+    phone: { value: '', isChanged: false },
+    birthday: { value: '', isChanged: false },
+    avatar: { value: '', isChanged: false },
+    language: { value: 'EN', isChanged: false },
+    currency: { value: '', isChanged: false },
+    addresses: { value: [], isChanged: false },
+    billingAddress: { value: [], isChanged: false },
+    shippingAddress: { value: {}, isChanged: false }
   })
+  
   const [isUpsertAddressActive, setIsUpsertAddressActive] = useState(false)
   const [isEditAddress, setIsEditAddress] = useState(false)
 
@@ -68,26 +59,39 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
   }
   const [addressToEdit, setAddressToEdit] = useState(emptyAddressObj)
 
-  const addresses = userInfo.addresses.value
-  const { shippingAddress, billingAddress, additionalAddresses } = userInfo.addresses
+  const { email, fullName, phone, birthday, avatar, language, currency, addresses, billingAddress, shippingAddress } = userInfo
 
   console.log({userInfo})
-  console.log(isUpsertAddressActive)
 
-  const toggleTab = (index) => {
-    setToggleState(index)
-  }
+  // console.log('isUpsertAddressActive', isUpsertAddressActive)
+
+  
 
   const handleChange = event => {
     const { value, name } = event.target
     setUserInfo({ 
       ...userInfo,  
       [name]: {
-        value: value,
+        value,
         isChanged: true
-      } 
+      }
     })
   }
+
+  const handleEditUserInfo = event => {
+    
+    event.preventDefault()
+    let dataObj = {}
+ 
+    Object.entries(userInfo).forEach(([key, data]) => {
+      data.isChanged && (dataObj[key] = data.value)
+    })
+
+    dispatch(editUserRequested(dataObj))
+    setIsEditMainInfo(!!error)
+  }
+
+
 
   const handleChangeAvatar = event => {
     if (event.target.files && event.target.files.length > 0) {
@@ -124,27 +128,6 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
   const deleteAddress = id => event => {
     // console.log('deleteAddress', event, id)
   }
-
-  const handleEditUserInfo = event => {
-    event.preventDefault()
-    let data = {}
-
-    Object.entries(userInfo).forEach(([key, value]) => {
-      if (value.isChanged) {
-        data[key] = value.value
-      }
-    })
-
-    editUserInfo(data).then(response => {
-      console.log('editUserInfo response: ', response)
-      if (!response) {
-        throw new Error()
-      }
-      setCurrentUser(response)
-    }).catch(error => console.log(error))
-  }
-
-  
 
   const handleSaveAddress = () => {
     console.log({addressToEdit})
@@ -188,8 +171,26 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
     })
   }
 
+  const updateUserInfoObject = () => {
+    let collectedData = {}
+    currentUser && Object.entries(currentUser).forEach(([key, data]) => {
+      key !== "_id" && (collectedData[key] = { value: data, isChanged: false })
+    })
+    setUserInfo(collectedData)
+  }
+
+  useEffect(() => {
+    console.log('first effect')
+    dispatch(getUserProfileRequested())
+  }, [])
+
+  useEffect(() => {
+    console.log('second effect')
+    updateUserInfoObject()
+  }, [currentUser])
+
   return (
-    <div className='user-profile-page'> 
+    <div className='user-profile-page'>
       <h3 className='user-profile-title'>My Account</h3> 
       <div className='container'>
         <div className='menu-tabs'>
@@ -224,47 +225,19 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
           </div> 
         </div>
         <div className='content-tabs'>
-          <div
-            className={toggleState === 1 ? "content-user-info  active-content" : "content-user-info"}
-          >
-            <FormInput
-              type='text'
-              name='fullName'
-              value={userInfo.fullName.value || ''}
-              onChange={handleChange}
-              label='Name'
-              required
+
+          <div className={toggleState === 1 ? "content-user-info  active-content" : "content-user-info"}>
+            <UserMainInfo
+              fullName={fullName?.value || ''}
+              email={email?.value || ''}
+              birthday={birthday?.value || ''}
+              phone={phone?.value || ''}
+              handleChangeData={handleChange}
+              isEdit={isEditMainInfo}
+              handleEdit={handleEditMainInfo}
+              handleSaveChanges={handleEditUserInfo}
+              error={error}
             />
-            <FormInput
-              name='email' 
-              type='email'
-              value={userInfo.email.value || ''} 
-              handleChange={handleChange}
-              label='Email'
-              required
-            />
-            <FormInput
-              name='phone' 
-              type='phone'
-              value={userInfo.phone.value || ''} 
-              handleChange={handleChange}
-              label='Phone'
-            />
-            <div className='group'>
-              <label className='form-input-label shrink'>
-                Date of birth:
-              </label>
-              <input 
-                type='date' 
-                name='birthday' 
-                className='form-input' 
-                onChange={handleChange} 
-                value={convertDate(userInfo.birthday.value)}
-                max={inputDate('max')}
-                min={inputDate('min')}
-              />
-            </div>
-            <CustomButton onClick={handleEditUserInfo} inverted>Save changes</CustomButton>
           </div>
           
           <div
@@ -283,17 +256,17 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
                   <hr />
                   {shippingAddress || billingAddress ? (
                     <div className='addresses-container'>
-                      {shippingAddress ? (
+                      {shippingAddress?.value || {} ? (
                         <AddressPreview 
-                          address={shippingAddress} 
+                          address={shippingAddress.value} 
                           onEditAddress={handleEditAddress} 
                           onDeleteAddress={deleteAddress} 
                           onSaveAddress={handleSaveAddress}
                           onChangeAddress={handleChangeAddress}
                         />) : null}
-                      {billingAddress ? (
+                      {billingAddress?.value || {} ? (
                       <AddressPreview 
-                        address={billingAddress} 
+                        address={billingAddress.value} 
                         onEditAddress={handleEditAddress} 
                         onDeleteAddress={deleteAddress} 
                         onSaveAddress={handleSaveAddress}
@@ -307,9 +280,9 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
                 <div>
                   <h2>Additional Address Entries</h2>
                   <hr />
-                  {!!additionalAddresses ? (
+                  {!!addresses?.value ? (
                     <div className='addresses-container'>
-                      {additionalAddresses.map(address => {
+                      {addresses?.value.map(address => {
                         if (!!address) return (
                           <AddressPreview 
                             address={address} 
@@ -358,13 +331,10 @@ const UserProfile = ({ currentUser, setCurrentUser, deleteAccountSuccess }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
-})
 
 const mapDispatchToProps = dispatch => ({
   deleteAccountSuccess: () => dispatch(deleteAccountSuccess()),
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+export default connect(null, mapDispatchToProps)(UserProfile)

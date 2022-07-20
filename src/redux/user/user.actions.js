@@ -35,6 +35,18 @@ export const signOutFailed = error =>
   createAction(UserActionTypes.SIGN_OUT_FAILED, error)
 
 
+export const getUserProfileRequested = () => 
+  createAction(UserActionTypes.GET_USER_PROFILE_REQUESTED)
+
+export const getUserProfileFailed = error => 
+  createAction(UserActionTypes.GET_USER_PROFILE_FAILED, error)
+
+
+export const editUserRequested = data => 
+  createAction(UserActionTypes.EDIT_USER_REQUESTED, { data })
+
+export const editUserFailed = error => 
+  createAction(UserActionTypes.EDIT_USER_FAILED, error)
 
 
 

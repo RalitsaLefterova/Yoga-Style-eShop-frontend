@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   errors: {
     onSignUp: null,
     onSignIn: null,
-    onSignOut: null
+    onSignOut: null,
+    onEditUser: null
   }
 };
 
@@ -19,12 +20,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
     case UserActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: payload,
-        errors: {
-          onSignUp: null,
-          onSignIn: null,
-          onSignOut: null
-        }
+        currentUser: payload
       }
 
     case UserActionTypes.SET_TOKEN:
@@ -38,12 +34,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         currentUser: null,
-        token: '',
-        errors: {
-          onSignUp: null,
-          onSignIn: null,
-          onSignOut: null
-        }
+        token: ''
       }
 
     case UserActionTypes.SIGN_UP_FAILED:
@@ -51,8 +42,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         errors: {
           ...errors,
-          onSignUp: payload,
-          onSignIn: null
+          onSignUp: payload
         }
       }
 
@@ -61,8 +51,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
           ...state,
           errors: {
             ...errors,
-            onSignUp: null,
-            onSignIn: payload,
+            onSignIn: payload
           }
         }
 
@@ -70,17 +59,29 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         errors: {
-          onSignIn: null,
-          onSignUp: null,
+          ...errors,
           onSignOut: payload
+        }
+      }
+
+    case UserActionTypes.GET_USER_PROFILE_FAILED:
+      return {
+        ...state,
+        errors: {
+          ...errors,
+          onEditUser: payload
         }
       }
 
     case UserActionTypes.RESET_ERROR_MESSAGE:
       return {
         ...state,
-        errorLogIn: null,
-        errorSignUp: null
+        errors: {
+          onSignUp: null,
+          onSignIn: null,
+          onSignOut: null,
+          onEditUser: null
+        }
       }
 
     default:

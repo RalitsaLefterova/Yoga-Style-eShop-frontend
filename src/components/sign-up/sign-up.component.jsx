@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect, useSelector, useDispatch } from 'react-redux'
 
 import { signUpRequested } from '../../redux/user/user.actions'
-import { selectErrorOnSIgnUp } from '../../redux/user/user.selectors'
+import { selectErrorOnSignUp } from '../../redux/user/user.selectors'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
@@ -16,7 +16,7 @@ import './sign-up.style.scss';
 
 const SignUp = ({ resetErrorMessage }) => {
   const dispatch = useDispatch()
-  const error = useSelector(selectErrorOnSIgnUp)
+  const error = useSelector(selectErrorOnSignUp)
   const [userCredentials, setUserCredentials] = useState({
     fullName: '',
     email: '',
@@ -53,7 +53,7 @@ const SignUp = ({ resetErrorMessage }) => {
         <FormInput
           type='text'
           name='fullName'
-          value={fullName}
+          defaultValue={fullName}
           onChange={handleChange}
           label='Name'
           required
@@ -61,7 +61,7 @@ const SignUp = ({ resetErrorMessage }) => {
         <FormInput
           type='email'
           name='email'
-          value={email}
+          defaultValue={email}
           onChange={handleChange}
           label='Email'
           required
@@ -69,7 +69,7 @@ const SignUp = ({ resetErrorMessage }) => {
         <FormInput
           type='password'
           name='password'
-          value={password}
+          defaultValue={password}
           onChange={handleChange}
           label='Password'
           required
@@ -77,7 +77,7 @@ const SignUp = ({ resetErrorMessage }) => {
         <FormInput
           type='password'
           name='confirmPassword'
-          value={confirmPassword}
+          defaultValue={confirmPassword}
           onChange={handleChange}
           label='Confirm Password'
           required
