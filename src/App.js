@@ -1,24 +1,30 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { selectCurrentUser } from './redux/user/user.selectors'
 
+import Spinner from './components/spinner/spinner.component'
 import Header from './components/header/header.component'
 import Footer from './components/footer/footer.component'
-import HomePage from './pages/home/home.component'
-import ShopPage from './pages/shop/shop.component'
-import UserProfile from './pages/user-profile/user-profile.component'
-import AuthenticationPage from './pages/authentication/authentication.component'
-import ResetPassword from './pages/reset-password/reset-password.component'
-import SingleCollection from './pages/single-collection/single-collection.component'
-import ProductDetails from './pages/product-details/product-details.component'
-import AdminHomePage from './pages/admin/admin-home/admin-home.component'
-import Collections from './pages/admin/collections/collections.component'
-import Products from './pages/admin/products/products.component'
-import AddProduct from './pages/admin/add-product/add-product.component'
-import EditProduct from './pages/admin/edit-product/edit-product.component'
-import Checkout from './pages/checkout/checkout.component'
+
+// Shop part
+const CustomAlert = lazy(() => import('./components/custom-alert/custom-alert.component'))
+const HomePage = lazy(() => import('./pages/home/home.component'))
+const ShopPage = lazy(() => import('./pages/shop/shop.component'))
+const UserProfile = lazy(() => import('./pages/user-profile/user-profile.component'))
+const AuthenticationPage = lazy(() => import('./pages/authentication/authentication.component'))
+const ResetPassword = lazy(() => import('./pages/reset-password/reset-password.component'))
+const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
+const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
+
+// Admin part
+const AdminHomePage = lazy(() => import('./pages/admin/admin-home/admin-home.component'))
+const Collections = lazy(() => import('./pages/admin/collections/collections.component'))
+const Products = lazy(() => import('./pages/admin/products/products.component'))
+const AddProduct = lazy(() => import('./pages/admin/add-product/add-product.component'))
+const EditProduct = lazy(() => import('./pages/admin/edit-product/edit-product.component'))
+const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
 
 import './style/main.scss'
 
@@ -26,14 +32,14 @@ const App = () => {
 const currentUser = useSelector(selectCurrentUser)
 
   return (
-    <div>
+    <Suspense fallback={<Spinner />}>
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/shop' element={<ShopPage />} />
         <Route path='/shop/:collection' element={<SingleCollection />} />
         <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
-        <Route path={'/checkout'} element={<Checkout />} />
+        <Route path='/checkout' element={<Checkout />} />
         <Route path='/profile' element={<UserProfile />} />
         <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} />
         <Route path='/reset-password' element={<ResetPassword />} />
@@ -44,7 +50,8 @@ const currentUser = useSelector(selectCurrentUser)
         <Route path='/admin/products/edit/:id' element={<EditProduct />} />
       </Routes>
       <Footer />
-    </div>
+      <CustomAlert />
+    </Suspense>
   )
 }
 

@@ -1,0 +1,29 @@
+.alert-modal-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  justify-content: center;
+  flex: 1;
+
+  .modal-elements-container {
+    margin: 70px auto;
+    padding: 20px;
+    width: 40%;
+    position: relative;
+    transition: all 5s ease-in-out;
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    border-radius: 10px;
+    text-align: center;
+    // width: SCREEN_WIDTH * 0.9
+  }
+
+  
+}

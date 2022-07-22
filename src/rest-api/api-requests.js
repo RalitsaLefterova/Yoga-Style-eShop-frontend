@@ -1,5 +1,7 @@
 import axios from 'axios'
+
 import apiConfig from './api-config'
+import { toggleModal } from '../components/custom-alert/custom-alert.component'
 
 const axiosInstance = axios.create({
   baseURL: apiConfig.databaseURL,
@@ -7,18 +9,35 @@ const axiosInstance = axios.create({
   // baseURL: 'https://yoga-style-shop.com/api/',
 })
 
-axiosInstance.interceptors.request.use(req => {
+axiosInstance.interceptors.request.use(
+  req => {
   const user = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
   req.headers.Authorization = user && user.token ? `Bearer ${user.token}` : ''
   return req
-})
+  },
+  (error) => promise.reject(error)
+)
 
 axiosInstance.interceptors.response.use(
   res => {
     return res
   },
   error => {
-    throw error
+    if (error.response.status === 401) {
+      toggleModal(true, {
+        title: 'Session expired',
+        text: 'Your session has expired. Would you like to be redirected to the login page?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes',
+        closeOnConfirm: true,
+        onConfirmRedirectTo: '/sign-in'
+      })
+    } 
+    else {
+      return Promise.reject(error)
+    }
   }   
 )
 
