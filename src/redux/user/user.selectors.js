@@ -1,11 +1,20 @@
 import { createSelector } from 'reselect'
 
 const selectUserReducer = state => state.user
-const selectErrors = state => state.user.errors
 
 export const selectCurrentUser = createSelector(
   [selectUserReducer],
   (userSlice) => userSlice.currentUser
+)
+
+export const selectErrors = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.errors
+)
+
+export const selectIsEdit = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.isEdit
 )
 
 export const selectErrorOnSignUp = createSelector(
@@ -14,6 +23,6 @@ export const selectErrorOnSignUp = createSelector(
 )
 
 export const selectErrorOnEditUser = createSelector(
-  [selectUserReducer],
+  [selectErrors],
   (errorsSlice) => errorsSlice.onEditUser
 ) 

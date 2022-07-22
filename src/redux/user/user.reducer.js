@@ -3,6 +3,7 @@ import UserActionTypes from './user.types'
 const INITIAL_STATE = {
   currentUser: null,
   token: '',
+  isEdit: false,
   errors: {
     onSignUp: null,
     onSignIn: null,
@@ -20,13 +21,25 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
     case UserActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: payload
+        currentUser: payload,
+        errors: {
+          onSignUp: null,
+          onSignIn: null,
+          onSignOut: null,
+          onEditUser: null
+        }
       }
 
     case UserActionTypes.SET_TOKEN:
       return {
         ...state,
         token: payload
+      }
+
+    case UserActionTypes.TOGGLE_IS_EDIT:
+      return {
+        ...state,
+        isEdit: !state.isEdit
       }
 
     case UserActionTypes.SIGN_OUT_SUCCESS:
@@ -41,7 +54,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         errors: {
-          ...errors,
+          ...state.errors,
           onSignUp: payload
         }
       }
@@ -50,7 +63,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         return {
           ...state,
           errors: {
-            ...errors,
+            ...state.errors,
             onSignIn: payload
           }
         }
@@ -58,17 +71,19 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
     case UserActionTypes.SIGN_OUT_FAILED:
       return {
         ...state,
+        currentUser: null,
         errors: {
-          ...errors,
+          ...state.errors,
           onSignOut: payload
         }
       }
 
     case UserActionTypes.GET_USER_PROFILE_FAILED:
+    case UserActionTypes.EDIT_USER_FAILED:
       return {
         ...state,
         errors: {
-          ...errors,
+          ...state.errors,
           onEditUser: payload
         }
       }

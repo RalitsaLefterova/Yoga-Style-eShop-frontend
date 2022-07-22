@@ -49,3 +49,14 @@ export const checkFormDataEntries = formData => {
     console.log(`${pair[0]}, ${pair[1]}`);
   }
 }
+
+
+export const extractChangedValues = obj => {
+  let dataObj = {}
+
+  Object.entries(obj).forEach(([key, data]) => {
+    data.isChanged && (dataObj[key] = data.value)
+  })
+  
+  return dataObj
+}

@@ -30,27 +30,16 @@ export const getUsers = () => {
 }
 
 export const getUserProfile = () => {
-  return axiosInstance.get('/users/me').then(response => {
-    return response.data
-  }).catch((error) => {
-    console.log({error})
-  })
+  return axiosInstance.get('/users/me')
+    .then(response => response)
 }
 
 export const editUserInfo = data => {
-  return axiosInstance.patch('/users/me', data).then(response => {
-    console.log('in editUserInfo request', {response})
-    return response.data
-  }).catch((error) => {
-    console.log({error})
-  })
+  return axiosInstance.patch('/users/me', data)
+    .then(response => response)
 }
 
 export const deleteAccount = () => {
-  return axiosInstance.delete('users/me').then(response => {
-    console.log({response})
-    return response.data
-  }).catch((error) => {
-    console.log({error})
-  })
+  return axiosInstance.delete('users/me')
+    .then(response => response)
 }

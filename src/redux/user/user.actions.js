@@ -41,6 +41,8 @@ export const getUserProfileRequested = () =>
 export const getUserProfileFailed = error => 
   createAction(UserActionTypes.GET_USER_PROFILE_FAILED, error)
 
+export const toggleIsEdit = () => 
+  createAction(UserActionTypes.TOGGLE_IS_EDIT)
 
 export const editUserRequested = data => 
   createAction(UserActionTypes.EDIT_USER_REQUESTED, { data })

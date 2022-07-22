@@ -17,7 +17,8 @@ import {
   signOutFailed, 
   signUpFailed,
   getUserProfileFailed,
-  editUserFailed
+  editUserFailed,
+  toggleIsEdit
 } from './user.actions'
 import { setCart } from '../cart/cart.actions'
 
@@ -95,8 +96,9 @@ export function* onGoogleSignInRequested() {
 export function* getUserProfileAsync() {
   try {
     const response = yield call(getUserProfile)
-    yield put(setCurrentUser(response))
+    yield put(setCurrentUser(response.data))
   } catch (error) {
+    console.log('saga -> getUserProfileAsync', {error})
     yield put(getUserProfileFailed(error))
   }
 }
@@ -108,9 +110,11 @@ export function* onGetUserProfileRequested() {
 export function* editUserAsync({ payload: { data }}) {
   try {
     const response = yield call(editUserInfo, data)
-    yield put(setCurrentUser(response))
+    yield put(setCurrentUser(response.data))
+    yield put(toggleIsEdit())
   } catch (error) {
-    yield put(editUserFailed(error))
+    let errorMessage = error.response?.statusText || 'Something went wrong.'
+    yield put(editUserFailed(errorMessage))
   }
 }
 
