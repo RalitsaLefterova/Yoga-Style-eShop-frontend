@@ -41,14 +41,23 @@ export const getUserProfileRequested = () =>
 export const getUserProfileFailed = error => 
   createAction(UserActionTypes.GET_USER_PROFILE_FAILED, error)
 
-export const toggleIsEdit = () => 
-  createAction(UserActionTypes.TOGGLE_IS_EDIT)
+export const toggleIsUpsert = () => 
+  createAction(UserActionTypes.TOGGLE_IS_UPSERT)
 
 export const editUserRequested = data => 
   createAction(UserActionTypes.EDIT_USER_REQUESTED, { data })
 
 export const editUserFailed = error => 
   createAction(UserActionTypes.EDIT_USER_FAILED, error)
+
+export const createAddressRequested = data => 
+  createAction(UserActionTypes.CREATE_ADDRESS_REQUESTED, { data })
+
+export const editAddressRequested = (id, data) => 
+  createAction(UserActionTypes.EDIT_ADDRESS_REQUESTED, { id, data })
+
+export const deleteAddressRequested = id => 
+  createAction(UserActionTypes.DELETE_ADDRESS_REQUESTED, { id })
 
 
 

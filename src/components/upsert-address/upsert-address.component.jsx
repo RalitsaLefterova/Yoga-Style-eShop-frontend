@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
-import { editUserInfo } from '../../rest-api/users'
 
 import './upsert-address.style.scss'
 
-const UpsertAddress = ({ addressInfo, isEdit, onChangeAddress, onSaveAddress }) => {
+const UpsertAddress = ({ addressInfo, isEditAddress, onChangeAddress, onSaveAddress }) => {
+
+  // console.log('in upsert address', addressInfo)
 
   return (
     <div>
@@ -42,7 +43,7 @@ const UpsertAddress = ({ addressInfo, isEdit, onChangeAddress, onSaveAddress }) 
         label='Country'
         required
       />
-      <CustomButton onClick={onSaveAddress} inverted>{isEdit ? 'Save' : 'Create'} address</CustomButton>
+      <CustomButton name='address' onClick={onSaveAddress} inverted>{isEditAddress ? 'Save' : 'Create'} address</CustomButton>
     </div>
   )
 }

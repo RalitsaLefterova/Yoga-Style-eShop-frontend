@@ -21,13 +21,9 @@ export const login = data => {
     .catch(error => error)
 }
 
-export const logout = () => {
-  return axiosInstance.post('/auth/logout')
-}
+export const logout = () => axiosInstance.post('/auth/logout')
 
-export const getUsers = () => {
-  return axiosInstance.get('/users')
-}
+export const getUsers = () => axiosInstance.get('/users')
 
 export const getUserProfile = () => {
   return axiosInstance.get('/users/me')
@@ -39,7 +35,4 @@ export const editUserInfo = data => {
     .then(response => response)
 }
 
-export const deleteAccount = () => {
-  return axiosInstance.delete('users/me')
-    .then(response => response)
-}
+export const deleteAccount = () => axiosInstance.delete('users/me')

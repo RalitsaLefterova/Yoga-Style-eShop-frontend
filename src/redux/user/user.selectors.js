@@ -12,9 +12,9 @@ export const selectErrors = createSelector(
   (userSlice) => userSlice.errors
 )
 
-export const selectIsEdit = createSelector(
+export const selectIsUpsert = createSelector(
   [selectUserReducer],
-  (userSlice) => userSlice.isEdit
+  (userSlice) => userSlice.isUpsert
 )
 
 export const selectErrorOnSignUp = createSelector(

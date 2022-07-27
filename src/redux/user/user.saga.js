@@ -1,4 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects'
+import { useSelector } from 'react-redux'
 
 import UserActionTypes from './user.types'
 import { 
@@ -10,6 +11,11 @@ import {
   editUserInfo
 } from '../../rest-api/users'
 import { 
+  createAddress,
+  editAddress,
+  deleteAddress
+} from '../../rest-api/addresses' 
+import { 
   setCurrentUser, 
   setToken, 
   signInFailed, 
@@ -18,9 +24,10 @@ import {
   signUpFailed,
   getUserProfileFailed,
   editUserFailed,
-  toggleIsEdit
+  toggleIsUpsert
 } from './user.actions'
 import { setCart } from '../cart/cart.actions'
+import { selectIsUpsert } from './user.selectors'
 
 export function* setDataAfterAuthSuccess({ user, token, cart }) {
   yield put(setCurrentUser(user))
@@ -111,7 +118,9 @@ export function* editUserAsync({ payload: { data }}) {
   try {
     const response = yield call(editUserInfo, data)
     yield put(setCurrentUser(response.data))
-    yield put(toggleIsEdit())
+    if (useSelector(selectIsUpsert)) {
+      yield put(toggleIsUpsert())
+    }
   } catch (error) {
     let errorMessage = error.response?.statusText || 'Something went wrong.'
     yield put(editUserFailed(errorMessage))
@@ -122,6 +131,50 @@ export function* onEditUserRequested() {
   yield takeLatest(UserActionTypes.EDIT_USER_REQUESTED, editUserAsync)
 }
 
+export function* createAddressAsync({ payload: { data }}) {
+  try {
+    const response = yield call(createAddress, data)
+    yield put(setCurrentUser(response.data))
+    yield put(toggleIsUpsert())
+  } catch (error) {
+    let errorMessage = error.response?.statusText || 'Something went wrong.'
+    yield put(editUserFailed(errorMessage))
+  }
+}
+
+export function* onCreateAddressRequested() {
+  yield takeLatest(UserActionTypes.CREATE_ADDRESS_REQUESTED, createAddressAsync)
+}
+
+export function* editAddressAsync({ payload: { id, data }}) {
+  try {
+    const response = yield call(editAddress, id, data)
+    yield put(setCurrentUser(response.data))
+    yield put(toggleIsUpsert())
+  } catch (error) {
+    let errorMessage = error.response?.statusText || 'Something went wrong.'
+    yield put(editUserFailed(errorMessage))
+  }
+}
+
+export function* onEditAddressRequested() {
+  yield takeLatest(UserActionTypes.EDIT_ADDRESS_REQUESTED, editAddressAsync)
+}
+
+export function* deleteAddressAsync({ payload: { id }}) {
+  try {
+    const response = yield call(deleteAddress, id)
+    yield put(setCurrentUser(response.data))
+  } catch (error) {
+    let errorMessage = error.response?.statusText || 'Something went wrong.'
+    yield put(editUserFailed(errorMessage))
+  }
+}
+
+export function* onDeleteAddressRequested() {
+  yield takeLatest(UserActionTypes.DELETE_ADDRESS_REQUESTED, deleteAddressAsync)
+}
+
 export function* userSaga() {
   yield all([
     call(onEmailSignInRequested),
@@ -129,6 +182,9 @@ export function* userSaga() {
     call(onSignUpRequested),
     call(onSignOutRequested),
     call(onGetUserProfileRequested),
-    call(onEditUserRequested)
+    call(onEditUserRequested),
+    call(onCreateAddressRequested),
+    call(onEditAddressRequested),
+    call(onDeleteAddressRequested)
   ])
 }

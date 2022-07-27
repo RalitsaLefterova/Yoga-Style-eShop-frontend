@@ -3,7 +3,7 @@ import UserActionTypes from './user.types'
 const INITIAL_STATE = {
   currentUser: null,
   token: '',
-  isEdit: false,
+  isUpsert: false,
   errors: {
     onSignUp: null,
     onSignIn: null,
@@ -36,10 +36,10 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         token: payload
       }
 
-    case UserActionTypes.TOGGLE_IS_EDIT:
+    case UserActionTypes.TOGGLE_IS_UPSERT:
       return {
         ...state,
-        isEdit: !state.isEdit
+        isUpsert: !state.isUpsert
       }
 
     case UserActionTypes.SIGN_OUT_SUCCESS:
@@ -91,6 +91,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
     case UserActionTypes.RESET_ERROR_MESSAGE:
       return {
         ...state,
+        isUpsert: false,
         errors: {
           onSignUp: null,
           onSignIn: null,

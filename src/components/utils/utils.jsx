@@ -41,6 +41,7 @@ export const inputDate = option => {
 }
 
 export const isNotEmptyObject = obj => {
+  console.log(Object.keys(obj).length)
   return Object.keys(obj).length != 0
 }
 

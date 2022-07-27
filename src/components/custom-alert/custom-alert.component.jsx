@@ -21,7 +21,7 @@ const CustomAlert = () => {
     onConfirmRedirectTo 
   } = data || {}
 
-  console.log('inside CustomAlert')
+  // console.log('inside CustomAlert')
 
   toggleModal = (showVal, dataVal) => {
     console.log('props', showVal, dataVal)
@@ -57,7 +57,7 @@ const CustomAlert = () => {
 
   return (
     <>
-    {console.log('inside CustomAlert')}
+    {/* {console.log('inside CustomAlert')} */}
       {show && 
         <div className='alert-modal-container'>
           <div className='modal-elements-container'>
