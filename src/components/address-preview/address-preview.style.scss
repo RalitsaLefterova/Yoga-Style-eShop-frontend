@@ -1,16 +1,12 @@
 .address-box {
-  position: relative;
-  padding: 10px 20px 20px;
+  padding: 0px;
   width: 48%;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.16);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
   .default-address-label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 3px 20px 3px 10px;
+    padding: 1px 20px 3px;
     color: white;
     background-color: #4a7cc2;
     border-top-left-radius: 5px;
@@ -19,15 +15,21 @@
 
   .address-data {
     position: relative;
+    margin-right: 10px;
+    padding: 0px 20px;
 
     .address-title {
       padding-top: 20px;
     }
 
     .set-default-address-links {
-      font-size: 14px;
-      color: #4a7cc2;
-      cursor: pointer;
+      margin: 10px 0px;
+
+      span {
+        font-size: 14px;
+        color: #4a7cc2;
+        cursor: pointer;
+      }
     }
 
     .address-buttons {
@@ -36,12 +38,19 @@
       right: 0;
 
       .edit-button, .delete-button {
+        display: flex;   
+        justify-content: center;
+        width: 31px;
+        height: 31px;
+        border-radius: 50%;
         cursor: pointer;
-  
-        .trash-icon {
-          width: 24px;
-          height: 24px;
-        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+          color: #4a7cc2;
+          vertical-align: middle;
+        }  
       }
     }
 

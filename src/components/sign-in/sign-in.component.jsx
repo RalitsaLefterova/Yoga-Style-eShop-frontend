@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect, useDispatch } from 'react-redux'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
 import { emailSignInRequested, googleSignInRequested, resetErrorMessage } from '../../redux/user/user.actions'
 
@@ -30,13 +29,21 @@ const SignIn = ({ error, resetErrorMessage }) => {
   }
 
   const responseSuccessGoogle = response => 
-    dispatch(googleSignInRequested({ tokenId: response.tokenId }))
-
-  const responseFailureGoogle = (response) => {
-    //TODO: Handle this situation!!!
-    console.log('responseFailureGoogle', response)
-  }
+    dispatch(googleSignInRequested({ tokenId: response.credential }))
   
+  useEffect(() => {
+    /* global google */ 
+    google.accounts.id.initialize({
+      client_id: process.env.CLIENT_ID,
+      callback: responseSuccessGoogle
+    })
+
+    google.accounts.id.renderButton(
+      document.getElementById("signInWithGoogle"),
+      { theme: "outline", size: "large", width: "200px" }
+    )
+  }, [])
+
   useEffect(() =>{
     resetErrorMessage()
   }, [])
@@ -68,28 +75,9 @@ const SignIn = ({ error, resetErrorMessage }) => {
         <ErrorContainer errorMessage={error} />
         <div className='buttons'>
           <CustomButton type='submit'>Sign In</CustomButton>
-          {/* <CustomButton type='button' isGoogleSignIn>Sign in with Google</CustomButton> */}
-          <GoogleLogin
-            // clientId={process.env.CLIENT_ID}
-            clientId="114811569485-7tvas3lopl7uvj3l91be1njpbpgmrgss.apps.googleusercontent.com"
-            render={renderProps => (
-              <CustomButton 
-                type='button' 
-                isGoogleSignIn 
-                onClick={renderProps.onClick}
-                // disabled={renderProps.disabled}
-              >
-                Sign in with Google
-              </CustomButton>
-            )}
-            buttonText="Sign in with Google"
-            onSuccess={responseSuccessGoogle}
-            onFailure={responseFailureGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
+          <div id="signInWithGoogle"></div>
         </div>
       </form>
-      
     </div>
   )
 }

@@ -13,6 +13,13 @@ const UpsertAddress = ({ addressInfo, isEditAddress, onChangeAddress, onSaveAddr
     <div>
       <FormInput
         type='text'
+        name='title'
+        value={addressInfo && addressInfo.title ? addressInfo.title : ''}
+        onChange={onChangeAddress}
+        label='Name your address (e.g. "Home", "Ofice", etc.)'
+      />
+      <FormInput
+        type='text'
         name='street'
         value={addressInfo && addressInfo.street ? addressInfo.street : ''}
         onChange={onChangeAddress}

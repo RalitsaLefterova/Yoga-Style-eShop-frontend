@@ -1,6 +1,6 @@
 import React from 'react'
-
-import TrashIcon from '../../assets/svgs/trash.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons'
 
 import './address-preview.style.scss'
 
@@ -35,43 +35,37 @@ const AddressPreview = ({
   return (
     <div className='address-box'>
 
-      {labelText() && (<div className='default-address-label'>{labelText()}</div>)}
+      {labelText() && (<span className='default-address-label'>{labelText()}</span>)}
 
       <div className='address-data'>
 
-        <div className='address-title'>{title} TITLE here</div>
+        <div className='address-title bold'>{title}</div>
         <div>{street}</div>
-        <div>{city}</div>
-        <div>{postalCode}</div>
+        <div>{postalCode}, {city}</div>
         <div>{country}</div>
-
-        {billingAddress !== addressId ? (
-          <span 
-            className='set-default-address-links' 
-            onClick={() => onSetAsDefaultAddress(addressId, 'billingAddress')}
-          >
-            Set as billing address
-          </span>
-        ) : null}
-
-        {shippingAddress !== addressId ? (
-          <>
-            {billingAddress && billingAddress !== addressId && (' / ')}
-            <span 
-              className='set-default-address-links' 
-              onClick={() => onSetAsDefaultAddress(addressId, 'shippingAddress')}
-            >
-              Set as shipping address
+        <div className='set-default-address-links'>
+          {billingAddress !== addressId ? (
+            <span onClick={() => onSetAsDefaultAddress(addressId, 'billingAddress')} >
+              Set as billing address
             </span>
-          </>
-        ) : null} 
+          ) : null}
+
+          {shippingAddress !== addressId ? (
+            <>
+              {billingAddress && billingAddress !== addressId && (' / ')}
+              <span onClick={() => onSetAsDefaultAddress(addressId, 'shippingAddress')}>
+                Set as shipping address
+              </span>
+            </>
+          ) : null} 
+        </div>
 
         <div className='address-buttons'>
           <div className='edit-button' onClick={() => onEditAddress(address)}>
-            <TrashIcon className='trash-icon' />
+            <FontAwesomeIcon icon={faPencil} />
           </div>
           <div className='delete-button' onClick={() => onDeleteAddress(_id)}>
-            <TrashIcon className='trash-icon' />
+            <FontAwesomeIcon icon={faTrash} />
           </div>
         </div>
 

@@ -27,6 +27,7 @@ const EditProduct = lazy(() => import('./pages/admin/edit-product/edit-product.c
 const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
 
 import './style/main.scss'
+import { googleLogin } from './rest-api/users'
 
 const App = () => {
 const currentUser = useSelector(selectCurrentUser)
