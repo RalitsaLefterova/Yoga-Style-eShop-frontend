@@ -1,5 +1,4 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects'
-import { useSelector } from 'react-redux'
+import { takeLatest, put, all, call, select } from 'redux-saga/effects'
 
 import UserActionTypes from './user.types'
 import { 
@@ -8,7 +7,8 @@ import {
   googleLogin, 
   logout,
   getUserProfile,
-  editUserInfo
+  editUserInfo,
+  deleteAccount
 } from '../../rest-api/users'
 import { 
   createAddress,
@@ -24,10 +24,11 @@ import {
   signUpFailed,
   getUserProfileFailed,
   editUserFailed,
-  toggleIsUpsert
+  toggleIsUpsert,
+  deleteAccountFailed,
+  deleteAccountSuccess
 } from './user.actions'
 import { setCart } from '../cart/cart.actions'
-import { selectIsUpsert } from './user.selectors'
 
 export function* setDataAfterAuthSuccess({ user, token, cart }) {
   yield put(setCurrentUser(user))
@@ -118,7 +119,9 @@ export function* editUserAsync({ payload: { data }}) {
   try {
     const response = yield call(editUserInfo, data)
     yield put(setCurrentUser(response.data))
-    if (useSelector(selectIsUpsert)) {
+
+    const isUpsert = yield select(state => state.user.isUpsert)
+    if (isUpsert) {
       yield put(toggleIsUpsert())
     }
   } catch (error) {
@@ -175,6 +178,20 @@ export function* onDeleteAddressRequested() {
   yield takeLatest(UserActionTypes.DELETE_ADDRESS_REQUESTED, deleteAddressAsync)
 }
 
+export function* deleteAccountAsync({ payload: { navigate }}) {
+  try {
+    const response = yield call(deleteAccount)
+    yield put(deleteAccountSuccess())
+    navigate('/')
+  } catch (error) {
+    yield put(deleteAccountFailed(error))
+  }
+}
+
+export function* onDeleteAccountRequested() {
+  yield takeLatest(UserActionTypes.DELETE_ACCOUNT_REQUESTED, deleteAccountAsync)
+}
+
 export function* userSaga() {
   yield all([
     call(onEmailSignInRequested),
@@ -185,6 +202,7 @@ export function* userSaga() {
     call(onEditUserRequested),
     call(onCreateAddressRequested),
     call(onEditAddressRequested),
-    call(onDeleteAddressRequested)
+    call(onDeleteAddressRequested),
+    call(onDeleteAccountRequested)
   ])
 }

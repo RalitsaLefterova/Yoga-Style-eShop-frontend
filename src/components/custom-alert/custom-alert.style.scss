@@ -4,7 +4,6 @@
   right: 0;
   bottom: 0;
   left: 0;
-  align-items: center;
   z-index: 1;
   background: rgba(0, 0, 0, 0.7);
   transition: opacity 500ms;
@@ -13,16 +12,26 @@
 
   .modal-elements-container {
     margin: 70px auto;
-    padding: 20px;
-    width: 40%;
+    padding: 10px 30px 20px;
+    max-width: 500px;
     position: relative;
     transition: all 5s ease-in-out;
     background-color: #fff;
     border-color: rgba(0, 0, 0, 0.1);
     flex-direction: column;
-    border-radius: 10px;
-    text-align: center;
+    border-radius: 7px;
     // width: SCREEN_WIDTH * 0.9
+
+    .buttons-box {
+      display: flex;
+      justify-content: center;
+
+      button {
+        margin: 5px;
+        min-width: 140px;
+        cursor: pointer;
+      }
+    }
   }
 
   

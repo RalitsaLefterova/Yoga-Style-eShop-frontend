@@ -136,7 +136,7 @@ const AddProduct = () => {
 
         <CustomSelect
           type='collections'
-          collections={collections}
+          data={collections}
           handler={handleSetProductDetails}
           label='Collection'
           // label={`* ${strings.Collection}`}
@@ -144,7 +144,7 @@ const AddProduct = () => {
           selectname='collectionId'
           value={collectionId}
           extraClasses=''
-        ></CustomSelect>
+        />
         {/* <select 
           name='collectionId' 
           id='collectionId' 

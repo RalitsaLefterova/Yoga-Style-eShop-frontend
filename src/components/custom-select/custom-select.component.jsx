@@ -4,13 +4,13 @@ import { generateOptions } from '../utils/utils.jsx'
 
 import './custom-select.style.scss'
 
-const CustomSelect = ({ children, collections, placeholder, selectname, ...otherProps }) => (
+const CustomSelect = ({ type, data, placeholder, selectname, value, handler, label, ...otherProps }) => (
   <div className={`flex ${otherProps.extraClasses}`}>
-    <label htmlFor={selectname}>{otherProps.label}</label>
+    <label htmlFor={selectname}>{label}</label>
     <div className="selectWrapper">
-      <select onChange={otherProps.handler} name={selectname} id={selectname} value={otherProps.value} required>
+      <select onChange={handler} name={selectname} id={selectname} value={value} required>
         <option disabled="disabled" value="0">{placeholder}</option>
-        {generateOptions(otherProps.type, collections)}
+        {generateOptions(type, data)}
       </select>
     </div>
   </div>

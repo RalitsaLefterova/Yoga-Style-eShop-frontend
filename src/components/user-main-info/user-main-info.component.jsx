@@ -22,6 +22,7 @@ const UserMainInfo = ({
 
   return (
     <>
+      {console.log({isUpsert})}
       {isUpsert ? (
         <>
           <FormInput

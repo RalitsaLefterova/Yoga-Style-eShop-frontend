@@ -15,26 +15,30 @@ const CustomAlert = () => {
     text, 
     type, 
     showCancelButton, 
-    confirmButtonColor, 
+    cancelButtonText,
     confirmButtonText, 
-    closeOnConfirm, 
-    onConfirmRedirectTo 
+    onConfirmRedirectTo,
+    onConfirmAction,
+    showCloseButton
   } = data || {}
 
   // console.log('inside CustomAlert')
 
   toggleModal = (showVal, dataVal) => {
-    console.log('props', showVal, dataVal)
+    // console.log('props', showVal, dataVal)
     setData(dataVal)
     setShow(showVal)
   }
   
   const handleConfirm = () => {
-    navigate(onConfirmRedirectTo)
+    onConfirmAction && onConfirmAction()
+    onConfirmRedirectTo && navigate(onConfirmRedirectTo)
     setShow(false)
   }
 
-  const handleCloseModal = () => {}
+  const handleCloseModal = () => {
+    setShow(false)
+  }
 
   const getBackgroundColor = useCallback(() => {
     {
@@ -61,11 +65,30 @@ const CustomAlert = () => {
       {show && 
         <div className='alert-modal-container'>
           <div className='modal-elements-container'>
-            <div className='right' onClick={handleCloseModal}>x</div>
-            <div><h1>{title}</h1></div>
+
+            {showCloseButton && 
+              <div className='right' onClick={handleCloseModal}>x</div>
+            }
+            
+            <div>
+              <h1 className='center'>{title}</h1>
+            </div>
+
             <div>{text}</div>
-            {showCancelButton && <button>Cancel</button>}
-            <button onClick={handleConfirm}>{confirmButtonText}</button>
+
+            <div className='buttons-box'>
+              {showCancelButton && 
+                <button onClick={handleCloseModal}>
+                  {cancelButtonText}
+                </button>
+              }
+              <button onClick={handleConfirm}>
+                {confirmButtonText}
+              </button>
+            </div>
+
+            
+
           </div>
         </div>
       }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { connect, useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
 import { extractChangedValues } from '../../components/utils/utils'
 import { selectCurrentUser, selectErrorOnEditUser, selectIsUpsert }  from '../../redux/user/user.selectors'
@@ -10,21 +12,18 @@ import {
   toggleIsUpsert, 
   createAddressRequested, 
   editAddressRequested, 
-  deleteAddressRequested 
+  deleteAddressRequested, 
+  deleteAccountRequested
 } from '../../redux/user/user.actions'
 
 
-import { deleteAccount } from '../../rest-api/users'
-import { deleteAccountSuccess } from '../../redux/user/user.actions'
-
 import UserMainInfo from '../../components/user-main-info/user-main-info.component'
 import UserAddressInfo from '../../components/user-address-info/user-address-info.component'
-import CustomButton from '../../components/custom-button/custom-button.component'
-import ConfirmDeleteAccount from '../../components/confirm-delete-account/confirm-delete-account.component'
+import AccountSettings from '../../components/account-settings/account-settings.component'
 
 import './user-profile.style.scss'
 
-const UserProfile = ({ deleteAccountSuccess }) => {
+const UserProfile = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -32,13 +31,13 @@ const UserProfile = ({ deleteAccountSuccess }) => {
   const isUpsert = useSelector(selectIsUpsert)
   const errorOnEdit = useSelector(selectErrorOnEditUser)
 
-  const [toggleState, setToggleState] = useState(2)
+  const [toggleTabState, setToggleTabState] = useState(5)
   const [userInfo, setUserInfo] = useState(currentUser || {})
   const [addressToUpsert, setAddressToUpsert] = useState({})
   const [isEditAddress, setIsEditAddress] = useState(false)
-  const [isHiddenConfirmWindow, setIsHidenConfirmWindow] = useState(true)
   
   const emptyAddressObj = {
+    title: '',
     street: '',
     city: '',
     postalCode: '',
@@ -47,7 +46,7 @@ const UserProfile = ({ deleteAccountSuccess }) => {
 
   const toggleTab = (index) => {
     isUpsert && dispatch(toggleIsUpsert())
-    setToggleState(index)
+    setToggleTabState(index)
   }
 
   const handleUpsert = () => dispatch(toggleIsUpsert())
@@ -106,14 +105,17 @@ const UserProfile = ({ deleteAccountSuccess }) => {
     })
   }
   
-  const handleEditUserInfo = event => {
-    event.preventDefault()
-    let dataObj = extractChangedValues(userInfo)
+  const handleEditUserInfo = property => {
+    let dataObj = {}
+
+    dataObj = property instanceof String ? 
+      userInfo[property].isChanged ? { [property]: userInfo[property].value } : {} 
+      : 
+      extractChangedValues(userInfo)
+
     dispatch(editUserRequested(dataObj))
   }
 
-
- 
   // const handleChangeAvatar = event => {
   //   if (event.target.files && event.target.files.length > 0) {
   //     setUserInfo({ 
@@ -126,35 +128,14 @@ const UserProfile = ({ deleteAccountSuccess }) => {
   //   }
   // }
 
-  
-
-  
-
-
-
   const handleDeleteAccount = () => {
-    // TODO check for orders with status active and gift unused gift cards 
-    //      and then continue with delete account
-    setIsHidenConfirmWindow(false)
+    // TODO: check for orders with status active and unused gift cards 
+    // and then continue with delete account
+
+    debugger
+    dispatch(deleteAccountRequested({ navigate }))
   }
 
-  const cancelDelete = () => {
-    setIsHidenConfirmWindow(true)
-  }
-
-  const confirmDelete = () => {
-    setIsHidenConfirmWindow(true)
-    deleteUserAccount()
-  }
-
-  const deleteUserAccount = () => {
-    deleteAccount().then(response => {
-      if (response) {
-        navigate('/')
-        deleteAccountSuccess()
-      }
-    }).catch(error => error)
-  }
 
   const updateUserInfoObject = () => {
     let collectedData = {}
@@ -179,37 +160,43 @@ const UserProfile = ({ deleteAccountSuccess }) => {
         <div className='menu-tabs'>
 
           <div 
-            className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+            className={toggleTabState === 1 ? "tabs active-tabs" : "tabs"}
             onClick={() => toggleTab(1)}
           >
-            My Account
+            <FontAwesomeIcon icon={faUser} /> My Profile
           </div>
 
-          {/* List of addresses, one of them default */}
           <div 
-            className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+            className={toggleTabState === 2 ? "tabs active-tabs" : "tabs"}
             onClick={() => toggleTab(2)}
           >
-            Address Book
+            <FontAwesomeIcon icon={faLocationDot} /> Address Book
           </div>
           
           <div 
-            className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+            className={toggleTabState === 3 ? "tabs active-tabs" : "tabs"}
             onClick={() => toggleTab(3)}
           >
-            My Orders
+            <FontAwesomeIcon icon={faClipboardList} /> My Orders
           </div>
           
           <div 
-            className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+            className={toggleTabState === 4 ? "tabs active-tabs" : "tabs"}
             onClick={() => toggleTab(4)}
           >
-            Account settings
+            <FontAwesomeIcon icon={faCreditCard} /> Payments
+          </div>
+
+          <div 
+            className={toggleTabState === 5 ? "tabs active-tabs" : "tabs"}
+            onClick={() => toggleTab(5)}
+          >
+            <FontAwesomeIcon icon={faGear} /> Account settings
           </div> 
         </div>
         <div className='content-tabs'>
 
-          <div className={toggleState === 1 ? "content-user-info  active-content" : "content-user-info"}>
+          <div className={toggleTabState === 1 ? "content-user-info  active-content" : "content-user-info"}>
             <UserMainInfo
               fullName={userInfo.fullName?.value}
               email={userInfo.email?.value}
@@ -224,7 +211,7 @@ const UserProfile = ({ deleteAccountSuccess }) => {
             />
           </div>
           
-          <div className={toggleState === 2 ? "content-user-info  active-content" : "content-user-info"}>
+          <div className={toggleTabState === 2 ? "content-user-info  active-content" : "content-user-info"}>
             <UserAddressInfo
               addresses={userInfo.addresses?.value}
               shippingAddress={userInfo.shippingAddress?.value}
@@ -237,41 +224,37 @@ const UserProfile = ({ deleteAccountSuccess }) => {
               isEditAddress={isEditAddress}
               openEditAddress={openEditAddress}
               handleDeleteAddress={handleDeleteAddress}
-
               handleSetAsDefaultAddress={handleSetAsDefaultAddress}
+
 
               errorOnEdit={errorOnEdit}
               handleCancel={handleCancel}
             />
           </div>
           
-          <div className={toggleState === 3 ? "content-user-info  active-content" : "content-user-info"}>
+          <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
             Orders
           </div>
+
+          <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
+            Payments
+          </div>
           
-          <div className={toggleState === 4 ? "content-user-info  active-content" : "content-user-info"}>
-            Language, currency, ...
-            <br /><br /><br />
-            <CustomButton onClick={handleDeleteAccount} inverted>Delete your account</CustomButton>
+          <div className={toggleTabState === 5 ? "content-user-info  active-content" : "content-user-info"}>
+            <AccountSettings 
+              language={userInfo.language?.value}
+              currency={userInfo.currency?.value}
+              handleChange={handleChange}
+              handleSaveChanges={handleEditUserInfo}
+              handleDeleteAccount={handleDeleteAccount}
+              handleResetOnCancel={updateUserInfoObject}
+            />
           </div>
           
         </div>
       </div>
-
-      {isHiddenConfirmWindow ? 
-        null : 
-        <ConfirmDeleteAccount 
-          onCancelDelteAccount={cancelDelete}
-          onConfirmDeleteAccount={confirmDelete} 
-        />
-      }
     </div>
   )
 }
 
-
-const mapDispatchToProps = dispatch => ({
-  deleteAccountSuccess: () => dispatch(deleteAccountSuccess())
-})
-
-export default connect(null, mapDispatchToProps)(UserProfile)
+export default UserProfile

@@ -8,7 +8,8 @@ const INITIAL_STATE = {
     onSignUp: null,
     onSignIn: null,
     onSignOut: null,
-    onEditUser: null
+    onEditUser: null,
+    onDeleteAccount: null
   }
 };
 
@@ -26,7 +27,8 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
           onSignUp: null,
           onSignIn: null,
           onSignOut: null,
-          onEditUser: null
+          onEditUser: null,
+          onDeleteAccount: null
         }
       }
 
@@ -88,6 +90,16 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         }
       }
 
+    case UserActionTypes.DELETE_ACCOUNT_FAILED:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          onDeleteAccount: payload
+        }
+      }
+
+
     case UserActionTypes.RESET_ERROR_MESSAGE:
       return {
         ...state,
@@ -96,7 +108,8 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
           onSignUp: null,
           onSignIn: null,
           onSignOut: null,
-          onEditUser: null
+          onEditUser: null,
+          onDeleteAccount: null
         }
       }
 

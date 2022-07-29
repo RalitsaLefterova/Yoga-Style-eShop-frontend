@@ -6,12 +6,19 @@ export const regExEmail = () =>
 export const regExPhone = () => /^(?=.*[0-9])[- +()0-9]+$/;
 
 export const generateOptions = (types, data) => {
+
   switch (types) {
 
     case 'collections':
       return (data || []).map(collection => (
         <option key={collection._id} value={collection._id}>{collection.title}</option>
       ))
+
+    case 'language':
+    case 'currency':
+      return data.map((property, index) => (
+          <option key={index} value={property}>{property}</option>
+        ))
 
     default:
   }

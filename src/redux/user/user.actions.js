@@ -60,10 +60,14 @@ export const deleteAddressRequested = id =>
   createAction(UserActionTypes.DELETE_ADDRESS_REQUESTED, { id })
 
 
+export const deleteAccountRequested = ({ navigate }) =>
+  createAction(UserActionTypes.DELETE_ACCOUNT_REQUESTED, { navigate })
 
+export const deleteAccountSuccess = () =>
+  createAction(UserActionTypes.DELETE_ACCOUNT_SUCCESS)
 
-
-
+export const deleteAccountFailed = error =>
+  createAction(UserActionTypes.DELETE_ACCOUNT_FAILED, { error })
 
 
 
@@ -74,7 +78,5 @@ export const deleteAddressRequested = id =>
 export const resetErrorMessage = () => 
   createAction(UserActionTypes.RESET_ERROR_MESSAGE)
 
-export const deleteAccountSuccess = () =>
-  createAction(UserActionTypes.DELETE_ACCOUNT_SUCCESS)
 
 
