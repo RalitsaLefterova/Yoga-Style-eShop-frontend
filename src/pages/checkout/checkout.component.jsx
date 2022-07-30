@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { selectCartProducts, selectCartTotal } from '../../redux/cart/cart.selectors'
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
+import PaymentForm from '../../components/payment-form/payment-form.component'
 
 import './checkout.style.scss'
 
@@ -38,12 +39,11 @@ const Checkout = () => {
         </Fragment>
       )}
       <div className="total">
+        {/* TODO: get currency sign from util function */}
         Total price: ${total.toFixed(2)}
       </div>
-      <div className="test-warning">
-        *Please use the following test credit card for payments
-        <br />
-        4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
+      <div>
+        <PaymentForm amount={1000} />
       </div>
     </div>
   )
