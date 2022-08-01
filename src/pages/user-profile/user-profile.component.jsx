@@ -19,7 +19,8 @@ import {
 
 import UserMainInfo from '../../components/user-main-info/user-main-info.component'
 import UserAddressInfo from '../../components/user-address-info/user-address-info.component'
-import AccountSettings from '../../components/account-settings/account-settings.component'
+import UserOrders from '../../components/user-orders/user-orders.component'
+import UserAccountSettings from '../../components/user-account-settings/user-account-settings.component'
 
 import './user-profile.style.scss'
 
@@ -31,7 +32,7 @@ const UserProfile = () => {
   const isUpsert = useSelector(selectIsUpsert)
   const errorOnEdit = useSelector(selectErrorOnEditUser)
 
-  const [toggleTabState, setToggleTabState] = useState(5)
+  const [toggleTabState, setToggleTabState] = useState(3)
   const [userInfo, setUserInfo] = useState(currentUser || {})
   const [addressToUpsert, setAddressToUpsert] = useState({})
   const [isEditAddress, setIsEditAddress] = useState(false)
@@ -233,7 +234,7 @@ const UserProfile = () => {
           </div>
           
           <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
-            Orders
+            <UserOrders />
           </div>
 
           <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
@@ -241,7 +242,7 @@ const UserProfile = () => {
           </div>
           
           <div className={toggleTabState === 5 ? "content-user-info  active-content" : "content-user-info"}>
-            <AccountSettings 
+            <UserAccountSettings 
               language={userInfo.language?.value}
               currency={userInfo.currency?.value}
               handleChange={handleChange}

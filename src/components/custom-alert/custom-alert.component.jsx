@@ -62,7 +62,6 @@ const CustomAlert = () => {
 
   return (
     <>
-    {/* {console.log('inside CustomAlert')} */}
       {show && 
         <div className='alert-modal-container'>
           <div className='modal-elements-container'>

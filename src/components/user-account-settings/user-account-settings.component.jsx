@@ -4,9 +4,9 @@ import CustomButton from '../custom-button/custom-button.component'
 import CustomSelect from '../custom-select/custom-select.component'
 import { toggleModal } from '../custom-alert/custom-alert.component'
 
-import './account-settings.style.scss'
+import './user-account-settings.style.scss'
 
-const AccountSettings = ({ 
+const UserAccountSettings = ({ 
   language, 
   currency, 
   handleChange,
@@ -142,4 +142,4 @@ const AccountSettings = ({
   )
 }
 
-export default AccountSettings
+export default UserAccountSettings
