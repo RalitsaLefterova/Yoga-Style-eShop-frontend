@@ -26,7 +26,8 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       toggleModal(true, {
         title: 'Session expired',
-        text: '<div className="center">Your session has expired. You will be redirected to the login page.<div>',
+        text: 'Your session has expired. You will be redirected to the login page.',
+        textCenter: true,
         type: 'warning',
         showCancelButton: false,
         confirmButtonText: 'OK',

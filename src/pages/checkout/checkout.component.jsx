@@ -40,10 +40,10 @@ const Checkout = () => {
       )}
       <div className="total">
         {/* TODO: get currency sign from util function */}
-        Total price: ${total.toFixed(2)}
+        Total price: ${total}
       </div>
       <div>
-        <PaymentForm amount={1000} />
+        <PaymentForm />
       </div>
     </div>
   )

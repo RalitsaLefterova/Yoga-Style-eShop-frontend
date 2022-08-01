@@ -14,6 +14,7 @@ const CustomAlert = () => {
     title, 
     text, 
     type, 
+    textCenter,
     showCancelButton, 
     cancelButtonText,
     confirmButtonText, 
@@ -74,7 +75,7 @@ const CustomAlert = () => {
               <h1 className='center'>{title}</h1>
             </div>
 
-            <div>{text}</div>
+            <div className={textCenter ? "center" : ""}>{text}</div>
 
             <div className='buttons-box'>
               {showCancelButton && 
