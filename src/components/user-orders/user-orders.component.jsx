@@ -1,9 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+
+import { selectOrders } from '../../redux/orders/orders.selectors'
+
+import OrderItem from '../order-item/order-item.component'
 
 import './user-orders.style.scss'
 
 const UserOrders = () => {
-
+const ordersList = useSelector(selectOrders)
+console.log({ordersList})
   const orders = [
     {
       date: '12.03.2022',
@@ -12,7 +18,7 @@ const UserOrders = () => {
     },
     {
       date: '15.03.2022',
-      status: 'ongoing',
+      status: 'In progress',
       total: 52
     }
   ]
@@ -34,13 +40,8 @@ const UserOrders = () => {
 
   const ordersTableBody = () => 
     <tbody>
-      {orders.map(order => 
-        <tr>
-          <td>{order.date}</td>
-          <td>{order.status}</td>
-          <td>{order.total}</td>
-          <td><button>details</button></td>
-        </tr>
+      {ordersList.map(order => 
+        <OrderItem key={order._id} orderInfo={order} />
       )}
     </tbody>
 

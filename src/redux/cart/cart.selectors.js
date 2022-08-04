@@ -18,11 +18,11 @@ export const selectCartProductsCount = createSelector(
 
 export const selectCartTotal = createSelector(
   [selectCartProducts],
-  cartProducts => (cartProducts.reduce(
+  cartProducts => parseFloat((cartProducts.reduce(
       (accumulatedTotalPrice, product) =>
         accumulatedTotalPrice + product.quantity * product.price,
       0
-    )).toFixed(2)
+    )).toFixed(2))
 )
 
 export const selectCartHidden = createSelector(

@@ -58,9 +58,6 @@ const productsReducer = (state = INITIAL_STATE, action = {}) => {
         singleCollectionProducts: payload
       }
 
-      
-      
-
     default:
       return state
   }

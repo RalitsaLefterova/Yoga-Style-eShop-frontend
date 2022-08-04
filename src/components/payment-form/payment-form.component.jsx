@@ -1,20 +1,24 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { selectCartTotal } from '../../redux/cart/cart.selectors'
 import { makePayment } from '../../rest-api/payments'
+import { createOrder } from '../../rest-api/orders'
+import { createOrderRequested } from '../../redux/orders/orders.actions'
 
 import CustomButton from '../custom-button/custom-button.component'
 
 import './payment-form.style.scss'
 
 const PaymentForm = () => {
+  const dispatch = useDispatch()
   const stripe = useStripe()
   const elements = useElements()
   const currentUser = useSelector(selectCurrentUser)
-  const amount = useSelector(selectCartTotal) * 100
+  const total = useSelector(selectCartTotal)
+  const amount = parseFloat((total * 100).toFixed())
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   
   console.log({currentUser})
@@ -39,7 +43,7 @@ const PaymentForm = () => {
       }
     })
 
-    console.log({paymentResult})
+    // console.log({paymentResult})
 
     setIsProcessingPayment(false)
 
@@ -48,7 +52,15 @@ const PaymentForm = () => {
       alert('There was an issue with your payment. Please make sure you use the provided credit card.')
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
+        dispatch(createOrderRequested({ total }))
         alert('Payment succesfull.')
+        // TODO alert to user to thank for successfully placed order
+        // Message: CONGRATULATIONS!
+        // Message: Your order has been placed.
+        // Message: You can see details for current order in profile/orders (link to current order in profile?)
+        // Button "Continue Shopping"
+        // Message: "You will receive an email with tracking information once your goods have shipped."
+        // Email: Hey "Client_Name", Thanks so much for your purchase! ...
       }
     }
   }

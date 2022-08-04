@@ -28,6 +28,9 @@ import {
   deleteAccountFailed,
   deleteAccountSuccess
 } from './user.actions'
+import { 
+  setOrders 
+} from '../orders/orders.actions'
 import { setCart } from '../cart/cart.actions'
 
 export function* setDataAfterAuthSuccess({ user, token, cart }) {
@@ -104,7 +107,8 @@ export function* onGoogleSignInRequested() {
 export function* getUserProfileAsync() {
   try {
     const response = yield call(getUserProfile)
-    yield put(setCurrentUser(response.data))
+    yield put(setCurrentUser(response.data.user))
+    yield put(setOrders(response.data.orders))
   } catch (error) {
     console.log('saga -> getUserProfileAsync', {error})
     yield put(getUserProfileFailed(error))

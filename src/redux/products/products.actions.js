@@ -51,17 +51,3 @@ export const editProductSuccess = product =>
 
 export const editProductFailed = error =>
   createAction(ProductsActionTypes.EDIT_PRODUCT_FAILED, error)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
