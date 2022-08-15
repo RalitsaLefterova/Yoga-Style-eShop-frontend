@@ -6,3 +6,8 @@ export const selectOrders = createSelector(
   [selectOrdersReducer],
   (orders) => orders.ordersList
 )
+
+export const selectOrderDetails = createSelector(
+  [selectOrdersReducer],
+  (orders) => orders.selectedOrder
+)

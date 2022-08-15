@@ -1,30 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { selectOrders } from '../../redux/orders/orders.selectors'
 
 import OrderItem from '../order-item/order-item.component'
+import OrderDetails from '../order-details/order-details.component'
 
 import './user-orders.style.scss'
 
 const UserOrders = () => {
 const ordersList = useSelector(selectOrders)
-console.log({ordersList})
-  const orders = [
-    {
-      date: '12.03.2022',
-      status: 'finished',
-      total: 123
-    },
-    {
-      date: '15.03.2022',
-      status: 'In progress',
-      total: 52
-    }
-  ]
+const [selectedOrderId, setSelectedOrderId] = useState(null)
+const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false)
+
+const openOrderDetails = orderId => {
+  setSelectedOrderId(orderId)
+  setIsOrderDetailsOpen(true)
+}
+
+const closeOrderDetails = () => {
+  setIsOrderDetailsOpen(false)
+}
 
   const ordersTableHeader = () => {
-    const headerCellsName = ['Created', 'Status', 'Total', ' ']
+    const headerCellsName = ['Order date', 'Status', 'Total', ' ']
     return (
       <thead>
         <tr>
@@ -41,18 +41,33 @@ console.log({ordersList})
   const ordersTableBody = () => 
     <tbody>
       {ordersList.map(order => 
-        <OrderItem key={order._id} orderInfo={order} />
+        <OrderItem 
+          key={order._id} 
+          orderInfo={order} 
+          handleOpenOrderDetails={openOrderDetails}
+        />
       )}
     </tbody>
 
   return (
     <>
-    {orders.length === 0 ? 
-      <div>no orders are placed yet</div> : 
-      <table>
+    {ordersList.length === 0 ? 
+      <div>
+        No orders are placed yet. 
+        <Link to='/shop'>Start shopping.</Link>
+      </div> 
+      : 
+      isOrderDetailsOpen ? (
+        <OrderDetails 
+        orderId={selectedOrderId}
+        handleBackToOrdersList={closeOrderDetails} 
+      />
+      ) : (
+        <table>
           {ordersTableHeader()}
           {ordersTableBody()}
-      </table>
+        </table>
+      )
     }
     </>
   )

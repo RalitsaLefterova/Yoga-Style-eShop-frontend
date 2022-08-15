@@ -1,16 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+
 
 import './order-item.style.scss'
 
-const OrderItem = ({ orderInfo }) => {
-  const dispatch = useDispatch()
+const OrderItem = ({ orderInfo, handleOpenOrderDetails }) => {
+  
   const { _id: orderId, createdAt, status, total } = orderInfo
-
-  // TODO not here! move it in order details component
-  const getOrderDetails = orderId => {
-    // dispatch(getOrderDetailsRequested(orderId))
-  }
 
   return (
     <tr>
@@ -18,7 +13,7 @@ const OrderItem = ({ orderInfo }) => {
       <td>{status}</td>
       <td>{total}</td>
       <td>
-        <button onClick={() => getOrderDetails(orderId)}>details</button>
+        <button onClick={() => handleOpenOrderDetails(orderId)}>details</button>
       </td>
     </tr>
   )

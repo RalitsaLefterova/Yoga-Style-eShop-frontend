@@ -2,6 +2,7 @@ import OrdersActionTypes from './orders.types'
 
 const INITIAL_STATE = {
   ordersList: [],
+  selectedOrder: {},
   error: null
 }
 
@@ -16,7 +17,15 @@ const ordersReducer = (state = INITIAL_STATE, action = {}) => {
         ordersList: payload
       }
 
+    case OrdersActionTypes.SET_SELECTED_ORDER:
+      return {
+        ...state,
+        selectedOrder: payload
+      }
+
     case OrdersActionTypes.CREATE_ORDER_FAILED:
+    case OrdersActionTypes.GET_ORDERS_FAILED:
+    case OrdersActionTypes.GET_ORDER_DETAILS_FAILED:
       return {
         ...state,
         error: payload
