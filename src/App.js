@@ -17,6 +17,7 @@ const AuthenticationPage = lazy(() => import('./pages/authentication/authenticat
 const ResetPassword = lazy(() => import('./pages/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
 const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
+const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
 
 // Admin part
 const AdminHomePage = lazy(() => import('./pages/admin/admin-home/admin-home.component'))
@@ -24,7 +25,9 @@ const Collections = lazy(() => import('./pages/admin/collections/collections.com
 const Products = lazy(() => import('./pages/admin/products/products.component'))
 const AddProduct = lazy(() => import('./pages/admin/add-product/add-product.component'))
 const EditProduct = lazy(() => import('./pages/admin/edit-product/edit-product.component'))
-const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
+const Orders = lazy(() => import('./pages/admin/orders/orders.component'))
+const OrderDeatils = lazy(() => import('./pages/admin/order-details/order-details.component'))
+
 
 import './style/main.scss'
 import { googleLogin } from './rest-api/users'
@@ -49,6 +52,8 @@ const currentUser = useSelector(selectCurrentUser)
         <Route path='/admin/products' element={<Products />} />
         <Route path='/admin/products/add' element={<AddProduct />} />
         <Route path='/admin/products/edit/:id' element={<EditProduct />} />
+        <Route path='/admin/orders' element={<Orders />} />
+        <Route path='/admin/orders/:id' element={<OrderDeatils />} />
       </Routes>
       <Footer />
       <CustomAlert />

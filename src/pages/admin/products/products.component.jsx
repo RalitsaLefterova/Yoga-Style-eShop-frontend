@@ -21,7 +21,7 @@ const Products = () => {
 
   return (
     <div className="center">
-      <Link to='/admin'>Back to home</Link>
+      <Link to='/admin'>Back to admin home</Link>
       <div className='page-title'>
         <h3>Manage Products</h3>
       </div>

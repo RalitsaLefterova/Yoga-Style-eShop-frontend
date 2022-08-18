@@ -14,6 +14,7 @@ const AdminHomePage = () => {
       <div>
         <Link to={`${pathname}/collections`}>Manage Collections</Link>
         <Link to={`${pathname}/products`}>Manage Products</Link>
+        <Link to={`${pathname}/orders`}>Manage orders</Link>
       </div>
     </div>
   )
