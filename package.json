@@ -4,12 +4,8 @@
   "description": "Yoga Style eShop - Frontend",
   "main": "index.js",
   "scripts": {
-    "start": "npm install --include=dev webpack --mode production",
     "dev": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "echo 'heroku-postbuild'",
-    "heroku-cleanup": "echo 'heroku-cleanup'"
+    "build": "webpack --mode production"
   },
   "author": "Ralitsa Lefterova",
   "license": "ISC",
