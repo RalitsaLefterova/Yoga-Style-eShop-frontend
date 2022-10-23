@@ -33,6 +33,7 @@ const SignIn = ({ error, resetErrorMessage }) => {
   
   useEffect(() => {
     /* global google */ 
+    console.log('process.env.CLIENT_ID', process.env.CLIENT_ID)
     google.accounts.id.initialize({
       client_id: process.env.CLIENT_ID,
       callback: responseSuccessGoogle
