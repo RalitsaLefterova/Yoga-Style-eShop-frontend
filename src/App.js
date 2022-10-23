@@ -30,7 +30,7 @@ const OrderDeatils = lazy(() => import('./pages/admin/order-details/order-detail
 
 
 import './style/main.scss'
-import { googleLogin } from './rest-api/users'
+// import { googleLogin } from './rest-api/users'
 
 const App = () => {
 const currentUser = useSelector(selectCurrentUser)

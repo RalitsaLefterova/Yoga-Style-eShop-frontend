@@ -10,7 +10,7 @@ import { stripePromise } from './components/utils/stripe.utils'
 
 import App from './App'
 
-const root = createRoot(document.getElementById('root'))
+const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   // <StrictMode>
