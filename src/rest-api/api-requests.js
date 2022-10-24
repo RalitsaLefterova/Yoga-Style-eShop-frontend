@@ -13,6 +13,8 @@ axiosInstance.interceptors.request.use(
   req => {
   const user = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
   req.headers.Authorization = user && user.token ? `Bearer ${user.token}` : ''
+  req.headers['Access-Control-Allow-Origin'] = '*'
+  req.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   return req
   },
   (error) => promise.reject(error)
