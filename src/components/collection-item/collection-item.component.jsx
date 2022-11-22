@@ -15,7 +15,7 @@ const CollectionItem = ({ collection, size }) => {
     >
       <div 
         className='background-image'
-        style={{backgroundImage: `url(${cover})`}} 
+        style={{backgroundImage: `url(${process.env.BACKEND_URL}/uploads/collections/${cover})`}} 
       />
       <div className='content'>
         <h1 className='title'>{title.replace('and', '&').toUpperCase()}</h1>
