@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import './single-collection.style.scss'
 
@@ -15,7 +15,7 @@ const SingleCollection = ({ collection, parentCallback }) => {
         {title}
       </div>
       <div className='collection-cover'>
-        <img src={cover} />
+        <img src={`${process.env.BACKEND_URL}/uploads/collections/${cover}`} />
       </div>
     </div>
   )
