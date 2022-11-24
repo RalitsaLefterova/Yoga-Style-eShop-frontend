@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createProductRequested } from '../../../redux/products/products.actions'
 import { fetchCollectionsShortInfoRequested } from '../../../redux/collections/collections.actions'
 import { selectCollectionsShortInfo } from '../../../redux/collections/collections.selectors'
-import { checkFormDataEntries } from '../../../components/utils/utils'
+// import { checkFormDataEntries } from '../../../components/utils/utils'
 
 import CustomSelect from '../../../components/custom-select/custom-select.component'
 

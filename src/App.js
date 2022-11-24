@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { selectCurrentUser } from './redux/user/user.selectors'
@@ -7,6 +7,7 @@ import { selectCurrentUser } from './redux/user/user.selectors'
 import Spinner from './components/spinner/spinner.component'
 import Header from './components/header/header.component'
 import Footer from './components/footer/footer.component'
+import AdminNavigation from './components/admin/admin-navigation/admin-navigation.component' 
 
 // Shop part
 const CustomAlert = lazy(() => import('./components/custom-alert/custom-alert.component'))
@@ -34,9 +35,12 @@ import './style/main.scss'
 
 const App = () => {
 const currentUser = useSelector(selectCurrentUser)
+const { pathname } = useLocation()
+console.log(pathname)
 
   return (
     <Suspense fallback={<Spinner />}>
+      {/* {pathname.includes('/admin') ?  : } */}
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
@@ -47,7 +51,7 @@ const currentUser = useSelector(selectCurrentUser)
         <Route path='/profile' element={<UserProfile />} />
         <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/admin' element={<AdminHomePage />} />
+        <Route path='/admin' element={<AdminNavigation />} />
         <Route path='/admin/collections' element={<Collections />} />
         <Route path='/admin/products' element={<Products />} />
         <Route path='/admin/products/add' element={<AddProduct />} />
@@ -55,6 +59,7 @@ const currentUser = useSelector(selectCurrentUser)
         <Route path='/admin/orders' element={<Orders />} />
         <Route path='/admin/orders/:id' element={<OrderDeatils />} />
       </Routes>
+      {/* {pathname.includes('^/admin') ? null : <Footer />} */}
       <Footer />
       <CustomAlert />
     </Suspense>

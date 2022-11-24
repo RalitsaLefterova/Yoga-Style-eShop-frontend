@@ -21,7 +21,8 @@ const AddCollection = ({ parentCallback }) => {
     data.append('title', title)
     data.append('cover', cover)
     
-    const collectionResponse = await createCollection(data)
+    // const collectionResponse = await createCollection(data)
+    await createCollection(data)
     parentCallback(true)
   }
 

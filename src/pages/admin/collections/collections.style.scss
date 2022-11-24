@@ -1,7 +1,11 @@
 .manage-collections {
+  width: 100%;
+  top: 25px;
+  left: 270px;
   display: flex;
   flex-wrap: wrap;
   border: 1px solid red;
+  // z-index: -1;
 
   .page-title {
     width: 100%;

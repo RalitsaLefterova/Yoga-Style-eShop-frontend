@@ -15,7 +15,7 @@ import {
   fetchSingleCollectionProductsSuccess,
   fetchingFailed,
   createProductFailed,
-  editProductSuccess,
+  // editProductSuccess,
   editProductFailed
 } from './products.actions'
 import { 
@@ -93,6 +93,7 @@ export function* onEditProductRequested() {
 export function* createProductAsync({ payload: { data, navigate }}) {
   try {
     const response = yield call(createProduct, data)
+    console.log('create product responce: ', response)
     navigate('/admin/products')
   } catch (error) {
     yield put(createProductFailed(error))

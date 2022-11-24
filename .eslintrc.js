@@ -14,7 +14,9 @@ module.exports = {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. '@typescript-eslint/explicit-function-return-type': 'off',
     "no-empty-function": "off",
-    "@typescript-eslint/no-empty-function":  ["error", { "allow": ["arrowFunctions"] }]
+    "@typescript-eslint/no-empty-function":  ["error", { "allow": ["arrowFunctions"] }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   },
   settings: {
     react: {

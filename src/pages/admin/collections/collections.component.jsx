@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -82,8 +83,8 @@ const Collections = () => {
 
   return (
     <div className='manage-collections center'>
-      <Link to='/admin'>Back to home</Link>
-      <button onClick={() => {navigate(-1)}}>Go back</button>
+      <Link to='/admin'>Back to admin home</Link>
+      {/* <button onClick={() => {navigate(-1)}}>Go back</button> */}
       <div className='page-title'>
         <h3>Manage Collections</h3>
       </div>

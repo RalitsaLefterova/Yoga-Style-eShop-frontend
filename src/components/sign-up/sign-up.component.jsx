@@ -8,9 +8,7 @@ import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 import ErrorContainer from '../error-message/error-message.component'
 
-
 import { resetErrorMessage } from '../../redux/user/user.actions'
-
 
 import './sign-up.style.scss';
 
@@ -90,10 +88,6 @@ const SignUp = ({ resetErrorMessage }) => {
 
 }
 
-const mapStateToProps = state => ({
-  // error: state.user.errorSignUp
-})
-
 const mapDispatchToProps = dispatch => ({
   // setCurrentUser: user => dispatch(setCurrentUser(user)),
   // setToken: token => dispatch(setToken(token)),
@@ -101,4 +95,4 @@ const mapDispatchToProps = dispatch => ({
   // signUpFailure: error => dispatch(signUpFailure(error))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default connect(null, mapDispatchToProps)(SignUp)

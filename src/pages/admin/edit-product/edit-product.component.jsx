@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchProductForEditRequested, editProductRequested } from '../../../redux/products/products.actions'
 import { selectProduct } from '../../../redux/products/products.selectors'
 import { selectCollections } from '../../../redux/collections/collections.selectors'
-import { checkFormDataEntries } from '../../../components/utils/utils'
+// import { checkFormDataEntries } from '../../../components/utils/utils'
 
 import CustomInput from '../../../components/custom-input/custom-input.component'
 import CustomSelect from '../../../components/custom-select/custom-select.component'

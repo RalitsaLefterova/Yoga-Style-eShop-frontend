@@ -1,21 +1,31 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react"
+// import { useLocation } from "react-router-dom"
+
+
+
+import Collections from "components/admin/collections/collections.component"
 
 import './admin-home.style.scss'
 
 const AdminHomePage = () => {
-  const { pathname } = useLocation()
+  // const { pathname } = useLocation()
 
   return (
     <div className='admin-home-container center'>
-      <div className='page-title'>
-        <h3>Admin Home Page</h3>
+      
+      
+
+      <div className="main-content">
+        <div className="logged-user-box">
+          logged admin user info here
+        </div>
+        <div className="admin-content-box">
+          <Collections />
+        </div>
       </div>
-      <div>
-        <Link to={`${pathname}/collections`}>Manage Collections</Link>
-        <Link to={`${pathname}/products`}>Manage Products</Link>
-        <Link to={`${pathname}/orders`}>Manage orders</Link>
-      </div>
+
+      
+
     </div>
   )
 }

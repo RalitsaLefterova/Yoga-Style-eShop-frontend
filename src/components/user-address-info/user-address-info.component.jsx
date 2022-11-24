@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import AddressPreview from '../address-preview/address-preview.component'
 import UpsertAddress from '../upsert-address/upsert-address.component'

@@ -1,0 +1,54 @@
+@import '../../../style/variables';
+
+.admin-home-container {
+  padding-left: 270px;
+  width: 100%;
+  padding-top: 0!important;
+  transition: .5s;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  overflow: hidden;
+  background: #f3f4f3;
+
+  
+
+  .main-content {
+    width: 100%;
+    padding-top: 0!important;
+    transition: .5s;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    overflow: hidden;
+
+    .logged-user-box {
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  .admin-content-box {
+    min-height: 68vh;
+    transition: .5s;
+    position: relative;
+    margin: 0;
+    z-index: 22;
+    border-radius: 0;
+    padding: 30px;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 25px;
+      right: 0;
+      height: 160px;
+      z-index: -1;
+      background: #64c5b1;
+      content: '';
+      border-radius: 0;
+      left: 0;
+    }
+  }
+}

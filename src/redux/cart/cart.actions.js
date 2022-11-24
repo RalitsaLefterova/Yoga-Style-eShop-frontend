@@ -1,6 +1,5 @@
 import CartActionTypes from './cart.types'
 import { createAction } from '../reducer.utils'
-import { removeFromCart, clearFromCart } from '../../rest-api/cart'
 
 export const setCart = cart =>
   createAction(CartActionTypes.SET_CART, cart)

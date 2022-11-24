@@ -185,6 +185,7 @@ export function* onDeleteAddressRequested() {
 export function* deleteAccountAsync({ payload: { navigate }}) {
   try {
     const response = yield call(deleteAccount)
+    console.log('delete account responce: ', response)
     yield put(deleteAccountSuccess())
     navigate('/')
   } catch (error) {

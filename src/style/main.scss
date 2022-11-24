@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: $bg-color;
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: $main-font;
 
   @media screen and (max-width: 800px) {
     // padding: 10px;
@@ -65,4 +65,13 @@ hr {
 
 .error-color {
   color: $error-color;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }

@@ -5,7 +5,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { selectCartTotal } from '../../redux/cart/cart.selectors'
 import { makePayment } from '../../rest-api/payments'
-import { createOrder } from '../../rest-api/orders'
+// import { createOrder } from '../../rest-api/orders'
 import { createOrderRequested } from '../../redux/orders/orders.actions'
 
 import CustomButton from '../custom-button/custom-button.component'
