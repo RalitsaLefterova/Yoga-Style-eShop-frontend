@@ -8,13 +8,12 @@ import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 import ErrorContainer from '../error-message/error-message.component'
 
-import { resetErrorMessage } from '../../redux/user/user.actions'
-
 import './sign-up.style.scss';
 
-const SignUp = ({ resetErrorMessage }) => {
+const SignUp = () => {
   const dispatch = useDispatch()
-  const error = useSelector(selectErrorOnSignUp)
+  const errorOnSignUp = useSelector(selectErrorOnSignUp)
+  // console.log({errorOnSignUp})
   const [userCredentials, setUserCredentials] = useState({
     fullName: '',
     email: '',
@@ -27,7 +26,7 @@ const SignUp = ({ resetErrorMessage }) => {
     event.preventDefault();
     
     if (password !== confirmPassword) {
-      alert('password do not match');
+      errorOnSignUp = 'Passwords do not match';
       return;
     }
 
@@ -38,10 +37,6 @@ const SignUp = ({ resetErrorMessage }) => {
     const { name, value } = event.target;
     setUserCredentials({...userCredentials,  [name]: value });
   }
-
-  useEffect(() =>{
-    resetErrorMessage()
-  }, [])
 
   return (
     <div className='sign-up'>
@@ -80,19 +75,11 @@ const SignUp = ({ resetErrorMessage }) => {
           label='Confirm Password'
           required
         />
-        <ErrorContainer errorMessage={error} />
+        <ErrorContainer errorMessage={errorOnSignUp} />
         <CustomButton type='submit'>Sign Up</CustomButton>
       </form>
     </div>
   )
-
 }
 
-const mapDispatchToProps = dispatch => ({
-  // setCurrentUser: user => dispatch(setCurrentUser(user)),
-  // setToken: token => dispatch(setToken(token)),
-  resetErrorMessage: () => dispatch(resetErrorMessage()),
-  // signUpFailure: error => dispatch(signUpFailure(error))
-})
-
-export default connect(null, mapDispatchToProps)(SignUp)
+export default SignUp

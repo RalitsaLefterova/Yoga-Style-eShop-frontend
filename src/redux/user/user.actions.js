@@ -34,6 +34,9 @@ export const signOutSuccess = () =>
 export const signOutFailed = error => 
   createAction(UserActionTypes.SIGN_OUT_FAILED, error)
 
+export const sessionExpired = ({ navigate }) => 
+  createAction(UserActionTypes.SESSION_EXPIRED, { navigate })
+
 
 export const getUserProfileRequested = () => 
   createAction(UserActionTypes.GET_USER_PROFILE_REQUESTED)
@@ -69,14 +72,5 @@ export const deleteAccountSuccess = () =>
 export const deleteAccountFailed = error =>
   createAction(UserActionTypes.DELETE_ACCOUNT_FAILED, { error })
 
-
-
-
-
-
-
-export const resetErrorMessage = () => 
-  createAction(UserActionTypes.RESET_ERROR_MESSAGE)
-
-
-
+export const resetErrorMessagesRequested = () => 
+  createAction(UserActionTypes.RESET_ERROR_MESSAGES)

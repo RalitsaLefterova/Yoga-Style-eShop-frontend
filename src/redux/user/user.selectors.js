@@ -17,6 +17,11 @@ export const selectIsUpsert = createSelector(
   (userSlice) => userSlice.isUpsert
 )
 
+export const selectErrorOnSignIn = createSelector(
+  [selectErrors],
+  (errorsSlice) => errorsSlice.onSignIn
+)
+
 export const selectErrorOnSignUp = createSelector(
   [selectErrors],
   (errorsSlice) => errorsSlice.onSignUp

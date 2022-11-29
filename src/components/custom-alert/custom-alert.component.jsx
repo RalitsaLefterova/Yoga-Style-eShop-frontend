@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import { sessionExpired } from '../../redux/user/user.actions'
 
 import './custom-alert.style.scss'
 
 let toggleModal = () => {}
 
 const CustomAlert = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
+  console.log({location})
   const [show, setShow] = useState(false)
   const [data, setData] = useState(null)
 
@@ -21,13 +27,14 @@ const CustomAlert = () => {
     confirmButtonText, 
     onConfirmRedirectTo,
     onConfirmAction,
-    showCloseButton
+    showCloseButton,
+    hasSessionExpired
   } = data || {}
 
   // console.log('inside CustomAlert')
 
   toggleModal = (showVal, dataVal) => {
-    // console.log('props', showVal, dataVal)
+    console.log('props', showVal, dataVal)
     setData(dataVal)
     setShow(showVal)
   }
@@ -35,6 +42,13 @@ const CustomAlert = () => {
   const handleConfirm = () => {
     onConfirmAction && onConfirmAction()
     onConfirmRedirectTo && navigate(onConfirmRedirectTo)
+
+    if (hasSessionExpired) {
+      dispatch(sessionExpired({ navigate }))
+      navigate('/sign-in')
+      // setShow(false)
+    }
+
     setShow(false)
   }
 

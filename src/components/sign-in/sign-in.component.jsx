@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { connect, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { emailSignInRequested, googleSignInRequested, resetErrorMessage } from '../../redux/user/user.actions'
+import { emailSignInRequested, googleSignInRequested } from '../../redux/user/user.actions'
+import { selectErrorOnSignIn } from '../../redux/user/user.selectors'
 
 import ErrorContainer from '../error-message/error-message.component'
 import FormInput from '../form-input/form-input.component.jsx'
@@ -10,8 +11,10 @@ import CustomButton from '../custom-button/custom-button.component.jsx'
 
 import './sign-in.style.scss'
 
-const SignIn = ({ error, resetErrorMessage }) => {
+const SignIn = () => {
   const dispatch = useDispatch()
+  let errorOnSignIn = useSelector(selectErrorOnSignIn)
+  // console.log('---1--- errorOnSignIn -> ', errorOnSignIn)
   const [userCredentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -43,10 +46,6 @@ const SignIn = ({ error, resetErrorMessage }) => {
       { theme: "outline", size: "large", width: "200px" }
     )
   }, [])
-
-  useEffect(() =>{
-    resetErrorMessage()
-  }, [])
   
   return (
     <div className='sign-in'>
@@ -72,7 +71,7 @@ const SignIn = ({ error, resetErrorMessage }) => {
         <div className='right'>
           <Link to='/reset-password'>Forgot password?</Link>
         </div>
-        <ErrorContainer errorMessage={error} />
+        <ErrorContainer errorMessage={errorOnSignIn} />
         <div className='buttons'>
           <CustomButton type='submit'>Sign In</CustomButton>
           <div id="signInWithGoogle"></div>
@@ -82,12 +81,4 @@ const SignIn = ({ error, resetErrorMessage }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  error: state.user.errorLogIn
-})
-
-const mapDispatchToProps = dispatch => ({
-  resetErrorMessage: () => dispatch(resetErrorMessage()),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default SignIn

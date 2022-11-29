@@ -1,4 +1,5 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects'
+import { useNavigate } from 'react-router-dom'
 
 import UserActionTypes from './user.types'
 import { 
@@ -22,11 +23,13 @@ import {
   signOutSuccess, 
   signOutFailed, 
   signUpFailed,
+  sessionExpired,
   getUserProfileFailed,
   editUserFailed,
   toggleIsUpsert,
   deleteAccountFailed,
-  deleteAccountSuccess
+  deleteAccountSuccess,
+  resetErrorMessagesRequested
 } from './user.actions'
 import { 
   setOrders 
@@ -51,7 +54,7 @@ export function* signUp({ payload: { email, password, fullName } }) {
     }
   } catch (error) {
     console.log({error})
-    yield put(signUpFailed(error))
+    yield put(signUpFailed(error.message))
   }
 }
 
@@ -62,13 +65,14 @@ export function* onSignUpRequested() {
 export function* signInWithEmail({ payload: { email, password }}) {
   try {
     const loginResponse = yield call(login, { email, password })
+    console.log({loginResponse})
     if (loginResponse.isAxiosError) {
       throw new Error(loginResponse.response.data)
     }
     const { user, token, cart } = loginResponse.data
     yield call(setDataAfterAuthSuccess, { user, token, cart })
   } catch (error) {
-    yield put(signInFailed(error))
+    yield put(signInFailed(error.message))
   }
 }
 
@@ -76,8 +80,20 @@ export function* onEmailSignInRequested() {
   yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_REQUESTED, signInWithEmail)
 }
 
+export function* sessionExpiredTest({ payload : { navigate } }) {
+  try {
+    yield put(sessionExpired())
+  } catch (error) {
+  }
+}
+
+export function* onSessionExpired() {
+  yield takeLatest(UserActionTypes.SESSION_EXPIRED, sessionExpiredTest)
+}
+
 export function* signOut({ payload : { navigate } }) {
   try {
+    console.log('in try navigate', navigate('/sign-in') )
     yield call(logout)
     yield put(signOutSuccess())
     navigate('/sign-in')
@@ -197,17 +213,27 @@ export function* onDeleteAccountRequested() {
   yield takeLatest(UserActionTypes.DELETE_ACCOUNT_REQUESTED, deleteAccountAsync)
 }
 
+export function* resetErrorMessagesAsync() {
+  yield put(resetErrorMessagesRequested())
+}
+
+export function* onResetErrorMessagesRequested() {
+  yield takeLatest(UserActionTypes.RESET_ERROR_MESSAGES, resetErrorMessagesAsync)
+}
+
 export function* userSaga() {
   yield all([
     call(onEmailSignInRequested),
     call(onGoogleSignInRequested),
     call(onSignUpRequested),
     call(onSignOutRequested),
+    call(onSessionExpired),
     call(onGetUserProfileRequested),
     call(onEditUserRequested),
     call(onCreateAddressRequested),
     call(onEditAddressRequested),
     call(onDeleteAddressRequested),
-    call(onDeleteAccountRequested)
+    call(onDeleteAccountRequested),
+    call(onResetErrorMessagesRequested)
   ])
 }

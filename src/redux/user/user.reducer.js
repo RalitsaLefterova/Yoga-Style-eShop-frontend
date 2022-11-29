@@ -46,6 +46,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
 
     case UserActionTypes.SIGN_OUT_SUCCESS:
     case UserActionTypes.DELETE_ACCOUNT_SUCCESS:
+    case UserActionTypes.SESSION_EXPIRED:
       return {
         ...state,
         currentUser: null,
@@ -100,7 +101,7 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
       }
 
 
-    case UserActionTypes.RESET_ERROR_MESSAGE:
+    case UserActionTypes.RESET_ERROR_MESSAGES:
       return {
         ...state,
         isUpsert: false,

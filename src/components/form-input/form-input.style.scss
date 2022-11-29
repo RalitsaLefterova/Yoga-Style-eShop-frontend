@@ -22,6 +22,16 @@
     background-color: $white;
     color: $sub-color;
     font-size: 18px;
+    
+    &:-webkit-autofill ~ .form-input-label {
+      @include shrink-label();
+    }
+    &:-webkit-autofill:hover ~ .form-input-label {
+      @include shrink-label();
+    } 
+    &:-webkit-autofill:focus ~ .form-input-label {
+      @include shrink-label();
+    }
 
     &:focus {
       outline: none;
@@ -51,3 +61,7 @@
     }
   }
 }
+
+input:-webkit-autofill ~ label {
+  top:-20px;
+} 

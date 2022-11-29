@@ -23,7 +23,10 @@ axiosInstance.interceptors.response.use(
     return res
   },
   error => {
+    console.log('error -> ', error)
+    console.log('error response status -> ', error.response.status)
     if (error.response.status === 401) {
+      
       toggleModal(true, {
         title: 'Session expired',
         text: 'Your session has expired. You will be redirected to the login page.',
@@ -31,7 +34,7 @@ axiosInstance.interceptors.response.use(
         type: 'warning',
         showCancelButton: false,
         confirmButtonText: 'OK',
-        onConfirmRedirectTo: '/sign-in'
+        hasSessionExpired: true
       })
     } 
     else {

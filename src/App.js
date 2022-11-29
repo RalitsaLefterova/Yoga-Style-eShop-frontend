@@ -35,12 +35,15 @@ import './style/main.scss'
 
 const App = () => {
 const currentUser = useSelector(selectCurrentUser)
+const location = useLocation()
+console.log({location})
 const { pathname } = useLocation()
-console.log(pathname)
+console.log({pathname})
+const background = location.state && location.state.background
+console.log({background})
 
   return (
     <Suspense fallback={<Spinner />}>
-      {/* {pathname.includes('/admin') ?  : } */}
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
@@ -58,9 +61,14 @@ console.log(pathname)
         <Route path='/admin/products/edit/:id' element={<EditProduct />} />
         <Route path='/admin/orders' element={<Orders />} />
         <Route path='/admin/orders/:id' element={<OrderDeatils />} />
+        {/* <Route path='/modal' element={<CustomAlert state={{ background: location }} />} /> */}
       </Routes>
-      {/* {pathname.includes('^/admin') ? null : <Footer />} */}
       <Footer />
+      {/* {background && (
+        <Routes>
+          <Route path='/modal' element={<CustomAlert state={{ background: location }} />} />
+        </Routes>
+      )} */}
       <CustomAlert />
     </Suspense>
   )
