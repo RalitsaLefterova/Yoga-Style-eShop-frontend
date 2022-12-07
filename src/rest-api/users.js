@@ -36,3 +36,15 @@ export const editUserInfo = data => {
 }
 
 export const deleteAccount = () => axiosInstance.delete('users/me')
+
+export const forgotPassword = data => {
+  return axiosInstance.post('/auth/forgot-password', data)
+    .then(response => response)
+    .catch(error => error)
+}
+
+export const resetPassword = ({userId, resetToken, password}) => {
+  return axiosInstance.post(`auth/reset-password/${userId}/${resetToken}`, { password })
+    .then(response => response)
+    .catch(error => error)
+}

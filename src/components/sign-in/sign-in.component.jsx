@@ -69,14 +69,17 @@ const SignIn = () => {
           required
         />
         <div className='right'>
-          <Link to='/reset-password'>Forgot password?</Link>
+          <Link to='/forgot-password'>Forgot password?</Link>
         </div>
         <ErrorContainer errorMessage={errorOnSignIn} />
         <div className='buttons'>
           <CustomButton type='submit'>Sign In</CustomButton>
-          <div id="signInWithGoogle"></div>
         </div>
       </form>
+      <div>
+        or
+      </div>
+      <div id="signInWithGoogle"></div>
     </div>
   )
 }

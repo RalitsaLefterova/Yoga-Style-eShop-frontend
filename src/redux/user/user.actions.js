@@ -37,6 +37,25 @@ export const signOutFailed = error =>
 export const sessionExpired = ({ navigate }) => 
   createAction(UserActionTypes.SESSION_EXPIRED, { navigate })
 
+export const forgotPasswordRequested = ({ email }) =>
+  createAction(UserActionTypes.FORGOT_PASSWORD_REQUESTED, { email })
+
+export const forgotPasswordSuccess = () =>
+  createAction(UserActionTypes.FORGOT_PASSWORD_SUCCESS)
+
+export const forgotPasswordFailed = error => 
+  createAction(UserActionTypes.FORGOT_PASSWORD_FAILED, error)
+
+
+export const resetPasswordRequested = ({ userId, resetToken, password }) =>
+  createAction(UserActionTypes.RESET_PASSWORD_REQUESTED, { userId, resetToken, password })
+
+export const resetPasswordSuccess = () =>
+  createAction(UserActionTypes.RESET_PASSWORD_SUCCESS)
+
+export const resetPasswordFailed = error => 
+  createAction(UserActionTypes.RESET_PASSWORD_FAILED, error)
+
 
 export const getUserProfileRequested = () => 
   createAction(UserActionTypes.GET_USER_PROFILE_REQUESTED)

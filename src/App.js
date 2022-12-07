@@ -15,7 +15,8 @@ const HomePage = lazy(() => import('./pages/home/home.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
 const UserProfile = lazy(() => import('./pages/user-profile/user-profile.component'))
 const AuthenticationPage = lazy(() => import('./pages/authentication/authentication.component'))
-const ResetPassword = lazy(() => import('./pages/reset-password/reset-password.component'))
+const ForgotPassword = lazy(() => import('./components/forgot-password/forgot-password.component'))
+const ResetPassword = lazy(() => import('./components/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
 const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
 const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
@@ -53,6 +54,7 @@ console.log({background})
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/profile' element={<UserProfile />} />
         <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/admin' element={<AdminNavigation />} />
         <Route path='/admin/collections' element={<Collections />} />

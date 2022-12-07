@@ -1,5 +1,4 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects'
-import { useNavigate } from 'react-router-dom'
 
 import UserActionTypes from './user.types'
 import { 
@@ -9,7 +8,9 @@ import {
   logout,
   getUserProfile,
   editUserInfo,
-  deleteAccount
+  deleteAccount,
+  forgotPassword,
+  resetPassword
 } from '../../rest-api/users'
 import { 
   createAddress,
@@ -29,7 +30,11 @@ import {
   toggleIsUpsert,
   deleteAccountFailed,
   deleteAccountSuccess,
-  resetErrorMessagesRequested
+  resetErrorMessagesRequested,
+  forgotPasswordSuccess,
+  forgotPasswordFailed,
+  resetPasswordSuccess,
+  resetPasswordFailed
 } from './user.actions'
 import { 
   setOrders 
@@ -84,11 +89,47 @@ export function* sessionExpiredTest({ payload : { navigate } }) {
   try {
     yield put(sessionExpired())
   } catch (error) {
+    console.log('sessionExpiredTest', error)
   }
 }
 
 export function* onSessionExpired() {
   yield takeLatest(UserActionTypes.SESSION_EXPIRED, sessionExpiredTest)
+}
+
+export function* forgotPasswordAsync({ payload: { email }}) {
+  try {
+    const forgotPasswordResponse = yield call(forgotPassword, { email })
+    console.log({forgotPasswordResponse})
+    yield put(forgotPasswordSuccess())
+  } catch (error) {
+    console.log('forgotPassword error', error)
+    yield put(forgotPasswordFailed(error.message))
+  }
+}
+
+export function* onForgotPasswordRequested() {
+  yield takeLatest(UserActionTypes.FORGOT_PASSWORD_REQUESTED, forgotPasswordAsync)
+}
+
+export function* resetPasswordAsync({ payload: { userId, resetToken, password }}) {
+  try {
+    const resetPasswordResponse = yield call(resetPassword, {userId, resetToken, password})
+    console.log({resetPasswordResponse})
+    if (resetPasswordResponse.isAxiosError) {
+      throw new Error(resetPasswordResponse.response.data)
+    }
+    if (resetPasswordResponse.data) {
+      yield put(resetPasswordSuccess())
+    }
+  } catch (error) {
+    console.log('resetPassword error', error)
+    yield put(resetPasswordFailed(error.message))
+  }
+}
+
+export function* onResetPasswordRequested() {
+  yield takeLatest(UserActionTypes.RESET_PASSWORD_REQUESTED, resetPasswordAsync)
 }
 
 export function* signOut({ payload : { navigate } }) {
@@ -228,6 +269,8 @@ export function* userSaga() {
     call(onSignUpRequested),
     call(onSignOutRequested),
     call(onSessionExpired),
+    call(onForgotPasswordRequested),
+    call(onResetPasswordRequested),
     call(onGetUserProfileRequested),
     call(onEditUserRequested),
     call(onCreateAddressRequested),

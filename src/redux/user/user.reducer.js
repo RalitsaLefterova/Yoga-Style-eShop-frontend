@@ -4,12 +4,16 @@ const INITIAL_STATE = {
   currentUser: null,
   token: '',
   isUpsert: false,
+  isResetPasswordLinkSent: false,
+  isResetPasswordSuccessfull: false,
   errors: {
     onSignUp: null,
     onSignIn: null,
     onSignOut: null,
     onEditUser: null,
-    onDeleteAccount: null
+    onDeleteAccount: null,
+    onForgotPassword: null,
+    onResetPassword: null
   }
 };
 
@@ -62,14 +66,14 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         }
       }
 
-      case UserActionTypes.SIGN_IN_FAILED:
-        return {
-          ...state,
-          errors: {
-            ...state.errors,
-            onSignIn: payload
-          }
+    case UserActionTypes.SIGN_IN_FAILED:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          onSignIn: payload
         }
+      }
 
     case UserActionTypes.SIGN_OUT_FAILED:
       return {
@@ -78,6 +82,46 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         errors: {
           ...state.errors,
           onSignOut: payload
+        }
+      }
+
+    case UserActionTypes.FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isResetPasswordLinkSent: true,
+        errors: {
+          ...state.errors,
+          onForgotPassword: null
+        }
+      }
+
+    case UserActionTypes.FORGOT_PASSWORD_FAILED:
+      return {
+        ...state,
+        isResetPasswordLinkSent: false,
+        errors: {
+          ...state.errors,
+          onForgotPassword: payload
+        }
+      }
+
+    case UserActionTypes.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isResetPasswordSuccessfull: true,
+        errors: {
+          ...state.errors,
+          onResetPassword: null
+        }
+      }
+
+    case UserActionTypes.RESET_PASSWORD_FAILED:
+      return {
+        ...state,
+        isResetPasswordSuccessfull: false,
+        errors: {
+          ...state.errors,
+          onResetPassword: payload
         }
       }
 
@@ -100,7 +144,6 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
         }
       }
 
-
     case UserActionTypes.RESET_ERROR_MESSAGES:
       return {
         ...state,
@@ -115,7 +158,9 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
       }
 
     default:
-      return state
+      return {
+        ...state
+      }
   }
 }
 
