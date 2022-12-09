@@ -4,9 +4,7 @@ import apiConfig from './api-config'
 import { toggleModal } from '../components/custom-alert/custom-alert.component'
 
 const axiosInstance = axios.create({
-  baseURL: apiConfig.databaseURL,
-  // baseURL: process.env.API_URL,
-  // baseURL: 'https://yoga-style-shop.com/api/',
+  baseURL: apiConfig.databaseURL
 })
 
 axiosInstance.interceptors.request.use(

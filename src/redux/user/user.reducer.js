@@ -153,7 +153,9 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
           onSignIn: null,
           onSignOut: null,
           onEditUser: null,
-          onDeleteAccount: null
+          onDeleteAccount: null,
+          onForgotPassword: null,
+          onResetPassword: null
         }
       }
 

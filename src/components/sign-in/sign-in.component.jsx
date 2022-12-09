@@ -49,8 +49,7 @@ const SignIn = () => {
   
   return (
     <div className='sign-in'>
-      <h2 className='title'>I already have an account</h2>
-      <span>Sign in with your email and password</span>
+      <h2 className='title center'>Log in to your account</h2>
       <form onSubmit={handleSubmit}>
         <FormInput
           name='email' 
@@ -69,17 +68,20 @@ const SignIn = () => {
           required
         />
         <div className='right'>
-          <Link to='/forgot-password'>Forgot password?</Link>
+          <Link to='/forgot-password' className='underline'>Forgot password?</Link>
         </div>
         <ErrorContainer errorMessage={errorOnSignIn} />
-        <div className='buttons'>
+        <div className='sign-in-button'>
           <CustomButton type='submit'>Sign In</CustomButton>
         </div>
       </form>
-      <div>
-        or
+      <div className='center padding-top-bottom-20'>
+        or sign in with:
       </div>
       <div id="signInWithGoogle"></div>
+      <div className='center padding-top-bottom-20'>
+        <span>Don't have an account yet?</span> <Link to='/sign-up' className='underline bold'>Sign Up</Link>
+      </div>
     </div>
   )
 }

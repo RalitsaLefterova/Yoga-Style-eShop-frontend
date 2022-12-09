@@ -2,6 +2,8 @@ import React from 'react'
 
 import CollectionsList from '../../components/collections-list/collections-list.component';
 
+import './shop.style.scss'
+
 class ShopPage extends React.Component {
   constructor(props) {
     super(props) 
@@ -13,7 +15,7 @@ class ShopPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='shop-container'>
         SHOP PAGE
         <CollectionsList />
       </div>

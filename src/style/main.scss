@@ -1,12 +1,24 @@
 @import './variables';
 @import './transition';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background-color: $bg-color;
+  background-color: #f8f8f8;
   font-family: $main-font;
+}
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: $main-font;
+  background-color: #f8f8f8;
+  
   @media screen and (max-width: 800px) {
     // padding: 10px;
   }
@@ -17,8 +29,8 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.underline {
+  text-decoration: underline;
 }
 
 .center {
@@ -74,4 +86,9 @@ ul, ol {
 
 li {
   list-style: none;
+}
+
+.padding-top-bottom-20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

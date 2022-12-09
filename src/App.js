@@ -15,6 +15,8 @@ const HomePage = lazy(() => import('./pages/home/home.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
 const UserProfile = lazy(() => import('./pages/user-profile/user-profile.component'))
 const AuthenticationPage = lazy(() => import('./pages/authentication/authentication.component'))
+const SignIn = lazy(() => import('./components/sign-in/sign-in.component'))
+const SignUp = lazy(() => import('./components/sign-up/sign-up.component'))
 const ForgotPassword = lazy(() => import('./components/forgot-password/forgot-password.component'))
 const ResetPassword = lazy(() => import('./components/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
@@ -36,12 +38,15 @@ import './style/main.scss'
 
 const App = () => {
 const currentUser = useSelector(selectCurrentUser)
+
 const location = useLocation()
-console.log({location})
+// console.log({location})
+
 const { pathname } = useLocation()
-console.log({pathname})
+// console.log({pathname})
+
 const background = location.state && location.state.background
-console.log({background})
+// console.log({background})
 
   return (
     <Suspense fallback={<Spinner />}>
@@ -53,7 +58,9 @@ console.log({background})
         <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/profile' element={<UserProfile />} />
-        <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} />
+        {/* <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} /> */}
+        <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <SignIn />} />
+        <Route path='/sign-up' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/admin' element={<AdminNavigation />} />

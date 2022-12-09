@@ -101,7 +101,12 @@ export function* forgotPasswordAsync({ payload: { email }}) {
   try {
     const forgotPasswordResponse = yield call(forgotPassword, { email })
     console.log({forgotPasswordResponse})
-    yield put(forgotPasswordSuccess())
+    if (forgotPasswordResponse.isAxiosError) {
+      throw new Error(forgotPasswordResponse.response.data)
+    }
+    if (forgotPasswordResponse.data) {
+      yield put(forgotPasswordSuccess())
+    }
   } catch (error) {
     console.log('forgotPassword error', error)
     yield put(forgotPasswordFailed(error.message))

@@ -1,0 +1,39 @@
+@import '../../style/variables';
+
+.footer-container {
+  margin-top: auto;
+  padding: 20px 20px 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  background-color: $main-color;
+  color: $white;
+
+  .info-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+
+      .footer-input {
+        margin: 0;
+      }
+    }
+  }
+
+  a {
+    margin: 5px 0;
+    color: $white;
+  }
+
+  .owner-box {
+    margin-top: auto;
+    padding: 20px 0 0 0;
+    border-top: 0.1px solid $sub-color;
+  }
+}

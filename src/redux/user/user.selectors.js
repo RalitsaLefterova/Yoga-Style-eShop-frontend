@@ -46,6 +46,11 @@ export const selectErrorOnEditUser = createSelector(
   (errorsSlice) => errorsSlice.onEditUser
 ) 
 
+export const selectErrorOnForgotPassword = createSelector(
+  [selectErrors],
+  (errorsSlice) => errorsSlice.onForgotPassword
+)
+
 export const selectErrorOnResetPassword = createSelector(
   [selectErrors],
   (errorsSlice) => errorsSlice.onResetPassword

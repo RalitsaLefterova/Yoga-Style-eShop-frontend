@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { forgotPasswordRequested } from '../../redux/user/user.actions'
-import { selectIsResetPasswordLinkSent } from '../../redux/user/user.selectors'
+import { selectIsResetPasswordLinkSent, selectErrorOnForgotPassword } from '../../redux/user/user.selectors'
 
 import FormInput from 'components/form-input/form-input.component'
 import CustomButton from 'components/custom-button/custom-button.component'
+import ErrorContainer from 'components/error-message/error-message.component'
 
 import './forgot-password.style.scss'
 
@@ -13,6 +14,7 @@ import './forgot-password.style.scss'
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')
   const isResetPasswordLinkSent = useSelector(selectIsResetPasswordLinkSent)
+  const errorOnForgotPassword = useSelector(selectErrorOnForgotPassword)
   const dispatch = useDispatch()
 
   console.log({isResetPasswordLinkSent})
@@ -41,6 +43,7 @@ const ForgotPassword = () => {
             label='Email'
             required
           />
+          <ErrorContainer errorMessage={errorOnForgotPassword} />
           <CustomButton type='submit'>Send reset link</CustomButton>
         </form>
       )}
