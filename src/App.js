@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux'
 import { selectCurrentUser } from './redux/user/user.selectors'
 
 import Spinner from './components/spinner/spinner.component'
+
+import LayoutAdmin from 'pages/layout-admin/layout-admin.component'
+import LayoutShop from 'pages/layout-shop/layout-shop.component'
+
 import Header from './components/header/header.component'
 import Footer from './components/footer/footer.component'
 import AdminNavigation from './components/admin/admin-navigation/admin-navigation.component' 
@@ -50,19 +54,45 @@ const background = location.state && location.state.background
 
   return (
     <Suspense fallback={<Spinner />}>
-      <Header />
+
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        
+        <Route path='/' element={<LayoutShop />} >
+          <Route index element={<HomePage />} />
+          <Route path='/shop' element={<ShopPage />} />
+          <Route path='/shop/:collection' element={<SingleCollection />} />
+          <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <SignIn />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
+         
+        </Route>
+        {/* <Route path='/admin' element={(currentUser && currentUser.role === 'ADMIN' ? <AdminLayout /> : <h2>Page Not Found</h2>)} > */}
+        <Route path='/admin' element={<LayoutAdmin />} >
+          <Route index element={<div className='right'>dashboard</div>} />
+          <Route path='/admin/collections' element={<Collections />} />
+          <Route path='/admin/products' element={<Products />} />
+          <Route path='/admin/products/add' element={<AddProduct />} />
+          <Route path='/admin/products/edit/:id' element={<EditProduct />} />
+          <Route path='/admin/orders' element={<Orders />} />
+          <Route path='/admin/orders/:id' element={<OrderDeatils />} />
+        </Route>
+        <Route path='*' element={<h2>Page Not Found</h2>} />
+
+        {/* <Route path='/' element={<HomePage />} />
         <Route path='/shop' element={<ShopPage />} />
         <Route path='/shop/:collection' element={<SingleCollection />} />
         <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/profile' element={<UserProfile />} />
-        {/* <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <AuthenticationPage />} /> */}
         <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+
         <Route path='/admin' element={<AdminNavigation />} />
         <Route path='/admin/collections' element={<Collections />} />
         <Route path='/admin/products' element={<Products />} />
@@ -70,14 +100,9 @@ const background = location.state && location.state.background
         <Route path='/admin/products/edit/:id' element={<EditProduct />} />
         <Route path='/admin/orders' element={<Orders />} />
         <Route path='/admin/orders/:id' element={<OrderDeatils />} />
-        {/* <Route path='/modal' element={<CustomAlert state={{ background: location }} />} /> */}
+        <Route path='*' element={<h2>Page Not Found</h2>} /> */}
       </Routes>
-      <Footer />
-      {/* {background && (
-        <Routes>
-          <Route path='/modal' element={<CustomAlert state={{ background: location }} />} />
-        </Routes>
-      )} */}
+
       <CustomAlert />
     </Suspense>
   )

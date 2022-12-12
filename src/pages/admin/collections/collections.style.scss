@@ -1,17 +1,14 @@
 .manage-collections {
   width: 100%;
-  top: 25px;
+  top: 0;
   left: 270px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid red;
-  // z-index: -1;
+  // border: 1px solid red;
 
   .page-title {
     width: 100%;
-    // flex-grow: 1;
-    // flex-shrink: 0;
-    border: 1px solid blue;
+    color: #fff;
   }
 
   .add-collection-button {

@@ -13,16 +13,13 @@ const AdminNavigation = () => {
   const { pathname } = useLocation()
 
   return (
-
-    <div className='admin-home-container'>
-      
-      <div className="vertical-nav-menu-container center">
+    <div className="vertical-nav-menu-container center">
         <div className='admin-page-title'>
           <h3>Yoga Style Admin</h3>
         </div>
         <ul className="sidebar_menu">
           <li>
-            <Link to={`${pathname}/dashboard`}>
+            <Link to='/admin'>
               <div className="icon-menu">
                 <DashboardIcon className='dashboard-icon' />
               </div>
@@ -30,7 +27,7 @@ const AdminNavigation = () => {
             </Link>
           </li>
           <li>
-            <Link to={`${pathname}/collections`}>
+            <Link to='/admin/collections'>
               <div className="icon-menu">
                 <CollectionsIcon className='dashboard-icon' />
               </div>
@@ -38,7 +35,7 @@ const AdminNavigation = () => {
             </Link>
           </li>
           <li>
-            <Link to={`${pathname}/products`}>
+            <Link to='/admin/products'>
               <div className="icon-menu">
                 <ProductsIcon className='dashboard-icon' />
               </div>
@@ -46,7 +43,7 @@ const AdminNavigation = () => {
             </Link>
           </li>
           <li>
-            <Link to={`${pathname}/orders`}>
+            <Link to='/admin/orders'>
               <div className="icon-menu">
                 <OrdersIcon className='dashboard-icon' />
               </div>
@@ -54,7 +51,7 @@ const AdminNavigation = () => {
             </Link>
           </li>
           <li>
-            <Link to={`${pathname}/users`}>
+            <Link to='/admin/users'>
               <div className="icon-menu">
                 <UsersIcon className='dashboard-icon' />
               </div>
@@ -62,16 +59,7 @@ const AdminNavigation = () => {
             </Link>
           </li>
         </ul>
-      </div>
-
-      <div className="main-content">
-        <div className="logged-user-box">
-          logged admin user info here
-        </div>
-        <div className="admin-content-box">
-        </div>
-      </div>
-    </div>  
+      </div>  
   )
 }
 

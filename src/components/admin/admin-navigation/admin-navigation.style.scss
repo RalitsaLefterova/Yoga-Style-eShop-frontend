@@ -1,13 +1,7 @@
 @import '../../../style/variables';
 
-.admin-home-container {
-  padding-top: 0!important;
-  transition: .5s;
-  position: relative;
-  min-height: 100vh;
-  padding-bottom: 80px;
-  overflow: hidden;
-  background: #f3f4f3; 
+
+   
 
   .vertical-nav-menu-container {
     height: 100vh;
@@ -20,9 +14,10 @@
     box-shadow: 0 12px 30px RGB(80 143 244 / 10%);
     font-family: $admin-font;
     z-index: 23;
+    // border: 1px solid red;
   
     .admin-page-title {
-  
+      color: #4a7cc2;
     }
   
     .sidebar_menu > li {
@@ -64,45 +59,20 @@
   }
 
 
-  .main-content {
-    width: 100%;
-    padding-top: 0!important;
-    transition: .5s;
-    position: fixed;
-    min-height: 100vh;
-    padding-bottom: 80px;
-    overflow: hidden;
+  // .main-content {
+  //   width: 100%;
+  //   padding-top: 0!important;
+  //   transition: .5s;
+  //   position: fixed;
+  //   min-height: 100vh;
+  //   padding-bottom: 80px;
+  //   overflow: hidden;
 
-    .logged-user-box {
-      width: 100%;
-      margin-right: auto;
-      margin-left: auto;
-    }
-  }
+    
+  // }
 
-  .admin-content-box {
-    min-height: 68vh;
-    transition: .5s;
-    position: relative;
-    margin: 0;
-    z-index: 22;
-    border-radius: 0;
-    padding: 30px;
-
-    &::before {
-      position: absolute;
-      left: 0;
-      top: 25px;
-      right: 0;
-      height: 160px;
-      z-index: -1;
-      background: #64c5b1;
-      content: '';
-      border-radius: 0;
-      left: 0;
-    }
-  }
+  
 
 
-}
+
 

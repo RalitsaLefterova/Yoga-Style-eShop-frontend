@@ -83,10 +83,10 @@ const Collections = () => {
 
   return (
     <div className='manage-collections center'>
-      <Link to='/admin'>Back to admin home</Link>
+      {/* <Link to='/admin'>Back to admin home</Link> */}
       {/* <button onClick={() => {navigate(-1)}}>Go back</button> */}
-      <div className='page-title'>
-        <h3>Manage Collections</h3>
+      <div className='page-title left'>
+        <h1>Manage Collections</h1>
       </div>
       <div className='add-collection-button'>
         <button onClick={handleAddNewCollection}>Add Collection</button>
