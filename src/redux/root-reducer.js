@@ -11,7 +11,7 @@ import ordersReducer from './orders/orders.reducer'
 const persistConfig = {
   key: 'root',
   storage,
-  blackList: ['user']
+  whiteList: ['cart']
 }
 
 const rootReducer = combineReducers({

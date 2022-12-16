@@ -6,7 +6,7 @@ import { productsSaga } from './products/products.saga'
 import { cartSaga } from './cart/cart.saga'
 import { ordersSaga } from './orders/orders.saga'
 
-export default function* rootSaga() {
+export function* rootSaga() {
   yield all([
     call(userSaga),
     call(collectionsSaga),
