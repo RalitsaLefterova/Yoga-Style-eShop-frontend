@@ -22,6 +22,7 @@ export const store = configureStore({
   middleware: [...middlewares],
   devTools: devMode
 });
+
 sagaMiddleware.run(rootSaga)
 
 export const persistor = persistStore(store)

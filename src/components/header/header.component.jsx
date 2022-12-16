@@ -27,6 +27,7 @@ const Header = () => {
           <Logo className='logo' />
         </Link>
         <div className='nav-links-container'>
+          <Link className='nav-link' to='/admin'>ADMIN</Link>
           <Link className='nav-link' to='/shop'>SHOP</Link>
           <Link className='nav-link' to='/about-us'>ABOUT US</Link>
           {currentUser ? (

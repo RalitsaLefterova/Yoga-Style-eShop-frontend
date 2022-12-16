@@ -17,7 +17,7 @@ root.render(
   // <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <PersistGate persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <Elements stripe={stripePromise}>
             <App/>
           </Elements>

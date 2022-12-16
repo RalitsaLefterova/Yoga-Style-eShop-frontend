@@ -34,7 +34,7 @@ const Products = lazy(() => import('./pages/admin/products/products.component'))
 const AddProduct = lazy(() => import('./pages/admin/add-product/add-product.component'))
 const EditProduct = lazy(() => import('./pages/admin/edit-product/edit-product.component'))
 const Orders = lazy(() => import('./pages/admin/orders/orders.component'))
-const OrderDeatils = lazy(() => import('./pages/admin/order-details/order-details.component'))
+const OrderDetails = lazy(() => import('./pages/admin/order-details/order-details.component'))
 
 
 import './style/main.scss'
@@ -52,9 +52,12 @@ const { pathname } = useLocation()
 const background = location.state && location.state.background
 // console.log({background})
 
+console.log({...currentUser})
+console.log(currentUser !== null && currentUser.role)
+
   return (
     <Suspense fallback={<Spinner />}>
-
+      {/* <Header /> */}
       <Routes>
         
         <Route path='/' element={<LayoutShop />} >
@@ -65,21 +68,21 @@ const background = location.state && location.state.background
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/profile' element={<UserProfile />} />
           <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <SignIn />} />
-          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/sign-up' element={currentUser ? <Navigate replace to='/' /> : <SignUp />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password' element={<ResetPassword />} />
-         
         </Route>
-        {/* <Route path='/admin' element={(currentUser && currentUser.role === 'ADMIN' ? <AdminLayout /> : <h2>Page Not Found</h2>)} > */}
-        <Route path='/admin' element={<LayoutAdmin />} >
+        
+        <Route path='/admin' element={currentUser && currentUser.role === 'ADMIN' ? <LayoutAdmin /> : <h2>Page Not Found</h2>} >
           <Route index element={<div className='right'>dashboard</div>} />
           <Route path='/admin/collections' element={<Collections />} />
           <Route path='/admin/products' element={<Products />} />
           <Route path='/admin/products/add' element={<AddProduct />} />
           <Route path='/admin/products/edit/:id' element={<EditProduct />} />
           <Route path='/admin/orders' element={<Orders />} />
-          <Route path='/admin/orders/:id' element={<OrderDeatils />} />
+          <Route path='/admin/orders/:id' element={<OrderDetails />} />
         </Route>
+
         <Route path='*' element={<h2>Page Not Found</h2>} />
 
         {/* <Route path='/' element={<HomePage />} />
@@ -99,10 +102,10 @@ const background = location.state && location.state.background
         <Route path='/admin/products/add' element={<AddProduct />} />
         <Route path='/admin/products/edit/:id' element={<EditProduct />} />
         <Route path='/admin/orders' element={<Orders />} />
-        <Route path='/admin/orders/:id' element={<OrderDeatils />} />
+        <Route path='/admin/orders/:id' element={<OrderDetails />} />
         <Route path='*' element={<h2>Page Not Found</h2>} /> */}
       </Routes>
-
+      {/* <Footer /> */}
       <CustomAlert />
     </Suspense>
   )

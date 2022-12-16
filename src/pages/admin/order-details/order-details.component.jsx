@@ -8,7 +8,7 @@ import { selectOrderDetails } from '../../../redux/orders/orders.selectors'
 
 import './order-details.style.scss'
 
-const OrderDeatils = () => {
+const OrderDetails = () => {
   const dispatch = useDispatch()
   const params = useParams()
   const order = useSelector(selectOrderDetails)
@@ -49,4 +49,4 @@ const OrderDeatils = () => {
   )
 }
 
-export default OrderDeatils
+export default OrderDetails
