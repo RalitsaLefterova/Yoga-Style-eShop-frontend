@@ -19,7 +19,6 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
-  // console.log('in user reducer', type, payload)
 
   switch (type) {
 
@@ -160,9 +159,8 @@ const userReducer = (state = INITIAL_STATE, action = {}) => {
       }
 
     default:
-      return {
-        ...state
-      }
+      return state
+
   }
 }
 
