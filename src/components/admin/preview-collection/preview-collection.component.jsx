@@ -28,8 +28,8 @@ const PreviewCollection = ({ collection, callbackForEdit, callbackAfterDelete })
       <div>
         {collection.title}
       </div>
-      <div>
-        <img src={collection.cover} alt='collection-cover' />
+      <div className='collection-image-box'>
+        <img src={`${process.env.BACKEND_URL}/uploads/collections/${collection.cover}`} alt='collection cover' />
       </div>
       <div>
         <button onClick={handleStarEditing}>Edit</button>

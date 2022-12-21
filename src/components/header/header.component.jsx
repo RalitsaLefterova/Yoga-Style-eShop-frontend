@@ -27,12 +27,12 @@ const Header = () => {
           <Logo className='logo' />
         </Link>
         <div className='nav-links-container'>
-          <Link className='nav-link' to='/admin'>ADMIN</Link>
           <Link className='nav-link' to='/shop'>SHOP</Link>
           <Link className='nav-link' to='/about-us'>ABOUT US</Link>
           {currentUser ? (
             <Fragment>
               <Link className='nav-link' to='/profile'>PROFILE</Link>
+              {currentUser.role === 'ADMIN' && <Link className='nav-link' to='/admin'>ADMIN</Link>}
               <div className="nav-link" onClick={handleLogoutUser}>SIGN OUT</div>
               <CartIcon />
             </Fragment>
