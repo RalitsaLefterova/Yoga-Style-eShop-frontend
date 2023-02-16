@@ -21,3 +21,8 @@ export const selectIsLoading = createSelector(
   [selectProductsReducer],
   (productsSlice) => productsSlice.isLoading
 )
+
+export const selectError = createSelector(
+  [selectProductsReducer],
+  (productsSlice) => productsSlice.error
+)

@@ -7,7 +7,11 @@ import {
   getCollectionProducts,
   createProduct,
   editProduct,
-  getSingleProduct
+  getSingleProduct,
+  addAdditionalImageToProduct,
+  addColorToProduct,
+  editProductColorData,
+  removeImageFromColorImages
 } from '../../rest-api/products'
 import { 
   fetchAllProductsSuccess,
@@ -16,11 +20,35 @@ import {
   fetchingFailed,
   createProductFailed,
   // editProductSuccess,
-  editProductFailed
+  editProductFailed,
+  addAdditionalImageToProductSuccess,
+  addAdditionalImageToProductFailed,
+  addColorToProductSuccess,
+  addColorToProductFailed,
+  editProductColorDataSuccess,
+  editProductColorDataFailed,
+  removeOneImageFromColorImagesFailed,
+  removeOneImageFromColorImagesSuccess
 } from './products.actions'
 import { 
   fetchCollectionsSuccess 
 } from '../collections/collections.actions'
+import { AxiosError } from 'axios'
+
+
+// CREATE PRODUCT //
+export function* createProductAsync({ payload: { data, navigate }}) {
+  try {
+    const response = yield call(createProduct, data)
+    console.log('create product responce: ', response)
+    navigate('/admin/products')
+  } catch (error) {
+    yield put(createProductFailed(error))
+  }
+}
+export function* onCreateProductRequested() {
+  yield takeLatest(ProductsActionTypes.CREATE_PRODUCT_REQUESTED, createProductAsync)
+}
 
 export function* fetchAllProductsAsync() {
   try {
@@ -90,18 +118,64 @@ export function* onEditProductRequested() {
   yield takeLatest(ProductsActionTypes.EDIT_PRODUCT_REQUESTED, editProductAsync)
 }
 
-export function* createProductAsync({ payload: { data, navigate }}) {
+export function* addColorToProductAsync({ payload: { productId, data }}) {
+  
   try {
-    const response = yield call(createProduct, data)
-    console.log('create product responce: ', response)
-    navigate('/admin/products')
+    console.log('in saga', productId, data)
+    const response = yield call(addColorToProduct, productId, data)
+    if (response.data) {
+      yield put(addColorToProductSuccess(response.data))
+    }
+    if (response instanceof AxiosError) {
+      throw new Error(response.response.data)
+    }
   } catch (error) {
-    yield put(createProductFailed(error))
+    console.log('in saga error:', error)
+    yield put(addColorToProductFailed(error.message))
   }
 }
 
-export function* onCreateProductRequested() {
-  yield takeLatest(ProductsActionTypes.CREATE_PRODUCT_REQUESTED, createProductAsync)
+export function* onAddColorToProductRequested() {
+  yield takeLatest(ProductsActionTypes.ADD_COLOR_TO_PRODUCT_REQUESTED, addColorToProductAsync)
+}
+
+export function* editProductColorDataAsync({ payload: { productId, colorId, data }}) {
+  console.log('in saga editProductColorDataAsync', {productId, colorId, data})
+  try {
+    const response = yield call(editProductColorData, productId, colorId, data)
+    if (response.data) {
+      yield put(editProductColorDataSuccess(response.data))
+    }
+    if (response instanceof AxiosError) {
+      throw new Error(response.response.data)
+    }
+  } catch (error) {
+    yield put(editProductColorDataFailed(error.message))
+  }
+}
+
+export function* onEditProductColorDataRequested() {
+  yield takeLatest(ProductsActionTypes.EDIT_PRODUCT_COLOR_DATA_REQUESTED, editProductColorDataAsync)
+}
+
+// REMOVE ONE IMAGE FROM COLOR IMAGES //
+export function* removeOneImageFromColorImagesAsync({ payload: { productId, colorId, data }}) {
+  console.log('in saga removeOneImageFromColorImagesAsync', {productId, colorId, data})
+  try {
+    const response = yield call(removeImageFromColorImages, productId, colorId, data)
+    if (response.data) {
+      yield put(removeOneImageFromColorImagesSuccess(response.data))
+    }
+    if (response instanceof AxiosError) {
+      throw new Error(response.response.data)
+    }
+  } catch (error) {
+    yield put(removeOneImageFromColorImagesFailed(error.message))
+  }
+}
+
+export function* onRemoveOneImageFromColorImagesRequested() {
+  yield takeLatest(ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_REQUESTED, removeOneImageFromColorImagesAsync)
 }
 
 export function* productsSaga() {
@@ -111,6 +185,9 @@ export function* productsSaga() {
     call(onFetchProductRequested),
     call(onFetchSingleCollectionProductsRequested),
     call(onCreateProductRequested),
-    call(onEditProductRequested)
+    call(onEditProductRequested),
+    call(onAddColorToProductRequested),
+    call(onEditProductColorDataRequested),
+    call(onRemoveOneImageFromColorImagesRequested)
   ])
 }

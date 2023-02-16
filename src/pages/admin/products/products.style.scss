@@ -4,8 +4,35 @@ $lfs-grey: #75787b;
 $font-primary: 'Poppins',Arial, sans-serif;
 $primary: #99b19c;
 
+.manage-products {
+  width: 100%;
+  top: 0;
+  left: 270px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .page-title {
+    width: 100%;
+    padding: 30px 0 30px 20px;
+    color: #fff;
+  }
+
+  .products-controllers {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .search-wrapper {
+      width: 200px;
+      
+    }
+  }
+}
+
 
 .table-container {
+  width: 100%;
   padding: 20px 40px;
 
   table {

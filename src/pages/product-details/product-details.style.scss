@@ -3,18 +3,40 @@
 
 .product-details-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  padding: 20px 80px;
-  width: 50vw;
+  padding: 20px 50px;
+  margin: 0 auto;
+  width: 80vw;
   height: 350px;
+  // border: 1px solid red;
 
   .product-main-image {
-    width: 100%;
-    height: 95%;
+    width: 50%;
+    height: 100%;
     margin-bottom: 5px;
     background-position: center;
     background-size: cover;
+    border: 1px solid gray;
+  }
+
+  .product-info {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-end;
+    padding: 0 20px;
+
+    .product-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .add-to-cart-btn {
+
+    }
   }
 
 

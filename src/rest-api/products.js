@@ -36,8 +36,54 @@ export const editProduct = (productId, data) => {
         'content-type': 'multipart/form-data'
     }
   }
-
   return axiosInstance.patch(`/products/${productId}`, data, config)
+    .then(response => {
+      return response
+    })
+    .catch(err => err)
+}
+
+export const addAdditionalImageToProduct = (productId, data) => {
+  console.log('in the request', {productId}, {data})
+  const config = {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+  }
+  return axiosInstance.post(`/products/${productId}/images`, data, config)
+    .then(response => {
+      return response
+    })
+    .catch(err => err)
+}
+
+export const addColorToProduct = (productId, data) => {
+  console.log(' in request addColorToProduct: ', productId, data)
+  return axiosInstance.post(`/products/${productId}/colors`, data)
+    .then(response => {
+      return response
+    })
+    .catch(err => err) 
+}
+
+
+export const editProductColorData = (productId, colorId, data) => {
+  // console.log('in the request editProductColorData', {productId}, {colorId}, {data})
+  const config = {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+  }
+  return axiosInstance.patch(`/products/${productId}/colors/${colorId}`, data, config)
+    .then(response => {
+      return response
+    })
+    .catch(err => err)
+}
+
+export const removeImageFromColorImages = (productId, colorId, data) => {
+  console.log('in removeImageFromColorImages', {productId}, {colorId}, {data})
+  return axiosInstance.patch(`/products/${productId}/colors/${colorId}/image`, data)
     .then(response => {
       return response
     })

@@ -6,6 +6,7 @@ import { fetchAllProductsRequested } from '../../../redux/products/products.acti
 import { selectAllProduct } from '../../../redux/products/products.selectors'
 
 import ProductDetails from '../../../components/admin/product-details/product-details.component'
+import CustomSearch from 'components/custom-search/custom-search.component'
 
 import './products.style.scss'
 
@@ -20,17 +21,22 @@ const Products = () => {
   }, [])
 
   return (
-    <div className="center">
-      <Link to='/admin'>Back to admin home</Link>
-      <div className='page-title'>
-        <h3>Manage Products</h3>
+    <div className='manage-products center'>
+      <div className='page-title left'>
+        <h1>Manage Products</h1>
       </div>
-      <div className='add-product-button'>
-        <button onClick={() => navigate(`${pathname}/add`)}>Add Product</button>
+      <div className='products-controllers center'>
+        <div className='add-product-button'>
+          <button onClick={() => navigate(`${pathname}/add`)}>Add Product</button>
+        </div>
+        <div className='search-wrapper'>
+          {productsList.length > 0 && <CustomSearch />}
+        </div>
       </div>
+      
       <div className='table-container'>
         <table>
-          <caption>Products Information</caption>
+          {/* <caption>Products Information</caption> */}
           <thead>
             <tr>
               <th>Active</th>

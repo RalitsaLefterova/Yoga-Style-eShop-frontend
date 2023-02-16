@@ -8,6 +8,7 @@ import { selectProduct, selectIsLoading } from '../../redux/products/products.se
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 
 import Spinner from '../../components/spinner/spinner.component'
+import CustomSelect from 'components/custom-select/custom-select.component'
 
 import './product-details.style.scss'
 
@@ -18,7 +19,10 @@ const ProductDetails = () => {
   const productDetails = useSelector(selectProduct)
   const isLoading = useSelector(selectIsLoading)
 
+  const { title, price, mainImageUrl } = productDetails
+
   const handleAddToCart = () => {
+    // TODO: construct the link in the cart to load the choosen combination of size and color
     dispatch(addProductToCartRequested(productDetails.id))
   }
 
@@ -35,18 +39,53 @@ const ProductDetails = () => {
             <div 
               className='product-main-image'
               style={{
-                backgroundImage: `url(${productDetails.mainImageUrl})`
+                backgroundImage: `url(${mainImageUrl})`
               }}
             />
             <div className='product-info'>
-              <div className='product-title'>{productDetails.title}</div>
-              <div>Price: {productDetails.price}</div>
+
+              <div className='product-title'>
+                {title}
+              </div>
+
+              <div>
+                <span>Size: </span>
+                <select>
+                  <option>Select size</option>
+                  <option>XS</option>
+                  <option>S</option>
+                  <option>M</option>
+                  <option>L</option>
+                  <option>XL</option>
+                  <option>XXL</option>
+                </select>
+              </div>
+
+              <div>
+                <span>Color: </span>
+                <select>
+                  <option>Select color</option>
+                  <option>red</option>
+                  <option>blue</option>
+                  <option>yellow</option>
+                  <option>violet</option>
+                  <option>pink</option>
+                  <option>black</option>
+                </select>
+              </div>
+
+              <div>Price: {price}</div>
+
+              <div className='add-to-cart-btn'>
+                {currentUser ? (
+                  <button type='button' onClick={handleAddToCart}>Add to cart</button>
+                ) : (
+                  <span>
+                    <Link to='/sign-in'>Sign in</Link> to start shopping.
+                  </span>
+                )}
+              </div>
             </div>
-            {currentUser ? (
-              <button type='button' onClick={handleAddToCart}>Add to cart</button>
-            ) : (
-              <div><Link to='/sign-in'>Sign in</Link> to start shopping.</div>
-            )}
           </Fragment>)
       }
     </div>

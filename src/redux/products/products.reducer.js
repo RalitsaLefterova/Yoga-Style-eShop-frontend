@@ -26,18 +26,21 @@ const productsReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         isLoading: false,
-        allProducts: payload
+        allProducts: payload,
+        error: null
       }
 
     case ProductsActionTypes.FETCH_PRODUCT_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        selectedProduct: payload
+        selectedProduct: payload,
+        error: null
       }
 
     case ProductsActionTypes.FETCHING_FAILED:
     case ProductsActionTypes.CREATE_PRODUCT_FAILED:
+    case ProductsActionTypes.ADD_COLOR_TO_PRODUCT_FAILED:
       return {
         ...state,
         isLoading: false,
@@ -45,17 +48,22 @@ const productsReducer = (state = INITIAL_STATE, action = {}) => {
       }
 
     case ProductsActionTypes.EDIT_PRODUCT_SUCCESS:
+    case ProductsActionTypes.ADD_COLOR_TO_PRODUCT_SUCCESS:
+    case ProductsActionTypes.EDIT_PRODUCT_COLOR_DATA_SUCCESS:
+    case ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        selectedProduct: payload
+        selectedProduct: payload,
+        error: null
       }
     
     case ProductsActionTypes.FETCH_SINGLE_COLLECTION_PRODUCTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        singleCollectionProducts: payload
+        singleCollectionProducts: payload,
+        error: null
       }
 
     default:
