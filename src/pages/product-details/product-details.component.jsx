@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -15,20 +15,42 @@ import './product-details.style.scss'
 const ProductDetails = () => {
   const params = useParams()
   const dispatch = useDispatch()
-  const currentUser = useSelector(selectCurrentUser)
-  const productDetails = useSelector(selectProduct)
   const isLoading = useSelector(selectIsLoading)
+  const currentUser = useSelector(selectCurrentUser)
 
-  const { title, price, mainImageUrl } = productDetails
+  const productDetails = useSelector(selectProduct)
+  const { title, price, mainImageUrl, colors } = productDetails
+  
+  const [selectedColor, setSelectedColor] = useState('')
+  const [activeColorImages, setActiveColorImages] = useState([])
+  const [selectedImage, setSelectedImage] = useState('')
+  const [mainImage, setMainImage] = useState(mainImageUrl)
 
   const handleAddToCart = () => {
     // TODO: construct the link in the cart to load the choosen combination of size and color
+    // const data = { color: selectedColor._id, size: selectedSize._id }
     dispatch(addProductToCartRequested(productDetails.id))
+  }
+
+  const changeColorImages = event => {
+    const colorId = event.target.value
+    const selectedColor = colors.find(colorItem => colorItem._id === colorId)
+
+    setSelectedColor(selectedColor)
+    setActiveColorImages(selectedColor.images)
+  }
+
+  const selectImage = index => {
+    setMainImage(activeColorImages[index])
   }
 
   useEffect(() => {
     dispatch(fetchProductRequested(params.productId))
   }, [])
+
+  useEffect(() => {
+    setMainImage(activeColorImages[0])
+  }, [activeColorImages])
 
   return (
     <div className='product-details-container'>
@@ -36,12 +58,26 @@ const ProductDetails = () => {
         isLoading ? 
           (<Spinner />) : 
           (<Fragment>
-            <div 
-              className='product-main-image'
-              style={{
-                backgroundImage: `url(${mainImageUrl})`
-              }}
-            />
+            <div className='images-container'>
+              <div 
+                className='product-main-image'
+                style={{
+                  backgroundImage: `url(${process.env.BACKEND_URL}/${mainImage ? mainImage : mainImageUrl})`
+                }}
+              />
+              <div className='selected-color-image-container'>
+                {activeColorImages.length > 0 && activeColorImages.map((image, index) =>
+                  <div 
+                    key={index}
+                    className={`img-box ${mainImage == image ? 'selected' : ''}`}
+                    style={{
+                      backgroundImage: `url(${process.env.BACKEND_URL}/${image})`
+                    }}
+                    onClick={() => selectImage(index)}
+                  />
+                )}
+              </div>
+            </div>
             <div className='product-info'>
 
               <div className='product-title'>
@@ -49,9 +85,22 @@ const ProductDetails = () => {
               </div>
 
               <div>
+                <span>Color: </span>
+                <select name='color' onChange={changeColorImages}>
+                  <option>Select color</option>
+                  {colors.map(colorItem => 
+                    <option key={colorItem._id} value={colorItem._id}>
+                      {colorItem.color}
+                    </option>)
+                  }
+                </select>
+              </div>
+
+              {/* <div>
                 <span>Size: </span>
                 <select>
                   <option>Select size</option>
+
                   <option>XS</option>
                   <option>S</option>
                   <option>M</option>
@@ -59,20 +108,8 @@ const ProductDetails = () => {
                   <option>XL</option>
                   <option>XXL</option>
                 </select>
-              </div>
+              </div> */}
 
-              <div>
-                <span>Color: </span>
-                <select>
-                  <option>Select color</option>
-                  <option>red</option>
-                  <option>blue</option>
-                  <option>yellow</option>
-                  <option>violet</option>
-                  <option>pink</option>
-                  <option>black</option>
-                </select>
-              </div>
 
               <div>Price: {price}</div>
 

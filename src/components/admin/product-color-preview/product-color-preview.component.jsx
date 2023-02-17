@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { editProductColorDataRequested, removeOneImageFromColorImagesRequested } from '../../../redux/products/products.actions'
-// import { selectProduct } from '../../../redux/products/products.selectors'
 
 import './product-color-preview.style.scss'
 
@@ -20,7 +19,6 @@ const ProductColorsPreview = ({ productId, colorData }) => {
   }
 
   const onDrop = useCallback(acceptedFiles => {
-    console.log({acceptedFiles})
     acceptedFiles.map(file => {
       console.log({file})
       setNewImages( arr => [...arr, file])
@@ -28,7 +26,6 @@ const ProductColorsPreview = ({ productId, colorData }) => {
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-  // console.log({getRootProps}, {getInputProps}, {isDragActive})
 
   const thumbs = newImages.map((image, index) => { 
     const uri = URL.createObjectURL(image)
@@ -45,10 +42,13 @@ const ProductColorsPreview = ({ productId, colorData }) => {
       )
     })
 
-  const deleteImage = imgUrl => {
-    console.log('image to delete', {imgUrl})
+  const removeImageFromColorImagesList = imgUrl => {
     dispatch(removeOneImageFromColorImagesRequested(productId, colorId, {imgUrl}))
   }
+
+  useEffect(() => {
+    setNewImages([])
+  }, [images])
 
   return (
     <tr id={colorId} className='color-data-row'>
@@ -76,9 +76,9 @@ const ProductColorsPreview = ({ productId, colorData }) => {
           {images.length > 0 && images.map(image => 
             <div
               className='image-box' 
-              style={{ backgroundImage: `url(${process.env.BACKEND_URL}/uploads/products/${productId}/${image})`}} 
+              style={{ backgroundImage: `url(${process.env.BACKEND_URL}/${image})`}} 
             >
-              <span className='delete-image-btn' onClick={() => deleteImage(image)}>x</span>
+              <span className='delete-image-btn' onClick={() => removeImageFromColorImagesList(image)}>x</span>
             </div>
           )}
         </div>

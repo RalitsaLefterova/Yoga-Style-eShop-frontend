@@ -16,7 +16,7 @@ const ProductPreview = ({ product }) => {
       <div 
         className='image'
         style={{
-          backgroundImage: `url(${mainImageUrl})`
+          backgroundImage: `url(${process.env.BACKEND_URL}/${mainImageUrl})`
         }}
       />
       <div className='product-footer'>
