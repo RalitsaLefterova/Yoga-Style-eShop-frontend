@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { generateOptions } from '../utils/utils.jsx'
+import { generateOptions } from '../../shared/helpers.jsx'
 
 import './custom-select.style.scss'
 

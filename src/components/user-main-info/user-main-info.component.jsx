@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { convertDate, inputDate } from '../../components/utils/utils'
+import { convertDate, inputDate } from '../../shared/helpers'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'

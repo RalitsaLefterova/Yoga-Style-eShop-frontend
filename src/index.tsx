@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
@@ -7,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Elements } from '@stripe/react-stripe-js'
 
 import { store, persistor } from './redux/store'
-import { stripePromise } from './components/utils/stripe.utils'
+import { stripePromise } from './shared/stripe.utils'
 
 import App from './App'
 

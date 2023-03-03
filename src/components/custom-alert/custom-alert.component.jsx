@@ -13,7 +13,7 @@ const CustomAlert = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
-  console.log({location})
+  // console.log({location})
   const [show, setShow] = useState(false)
   const [data, setData] = useState(null)
 

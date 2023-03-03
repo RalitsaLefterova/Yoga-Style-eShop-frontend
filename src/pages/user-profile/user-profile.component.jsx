@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
-import { extractChangedValues } from '../../components/utils/utils'
+import { extractChangedValues } from '../../shared/helpers'
 import { selectCurrentUser, selectErrorOnEditUser, selectIsUpsert }  from '../../redux/user/user.selectors'
 import { 
   getUserProfileRequested, 

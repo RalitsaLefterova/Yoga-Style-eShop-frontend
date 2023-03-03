@@ -1,9 +1,16 @@
 import React from "react"
 import { useNavigate, useLocation } from 'react-router-dom'
 
+import { Collection } from '../../shared/types/collections'
+
 import './collection-item.style.scss'
 
-const CollectionItem = ({ collection, size }) => {
+type CollectionItemType = {
+  collection: Collection,
+  size: string
+}
+ 
+const CollectionItem = ({ collection, size }: CollectionItemType) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { title, cover } = collection

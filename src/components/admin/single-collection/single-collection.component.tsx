@@ -1,8 +1,16 @@
-import React from 'react'
-
 import './single-collection.style.scss'
 
-const SingleCollection = ({ collection, parentCallback }) => {
+type Collection = {
+  _id: string,
+  title: string,
+  cover: string,
+  active: boolean
+} 
+
+type ParentCalback = (_id: string) => void
+
+const SingleCollection = ({ collection, parentCallback }: { collection: Collection, parentCallback: ParentCalback }) => {
+  console.log({collection})
   const { _id, title, cover } = collection
 
   const handlePreviewCollection = () => {

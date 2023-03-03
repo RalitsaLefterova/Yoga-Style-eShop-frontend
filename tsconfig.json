@@ -6,11 +6,11 @@
       // "target": "ES6",
       "target": "ES5",
       "lib": [
-          "dom",
-          "dom.iterable",
-          "esnext"
+        "dom",
+        "dom.iterable",
+        "esnext"
       ],
-      "types": ["react/next"],
+      "types": ["react/next", "node"],
       "allowJs": true,
       "skipLibCheck": true,
       "esModuleInterop": true,

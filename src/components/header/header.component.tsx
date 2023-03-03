@@ -29,7 +29,7 @@ const Header = () => {
         <div className='nav-links-container'>
           <Link className='nav-link' to='/shop'>SHOP</Link>
           <Link className='nav-link' to='/about-us'>ABOUT US</Link>
-          {currentUser ? (
+          {currentUser ? ( 
             <Fragment>
               <Link className='nav-link' to='/profile'>PROFILE</Link>
               {currentUser.role === 'ADMIN' && <Link className='nav-link' to='/admin'>ADMIN</Link>}

@@ -1,24 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import {useNavigate } from 'react-router-dom'
 
+import CustomButton from 'components/custom-button/custom-button.component'
 import SingleCollection from '../../../components/admin/single-collection/single-collection.component'
 import PreviewCollection from '../../../components/admin/preview-collection/preview-collection.component'
 import AddCollection from '../../../components/admin/add-collection/add-collection.component'
 import EditCollection from '../../../components/admin/edit-collection/edit-collection.component'
 
 import { getCollections, getSingleCollection } from '../../../rest-api/collections'
+import { Collection } from '../../../shared/types/collections'
 
 import './collections.style.scss'
 
 const Collections = () => {
   const navigate = useNavigate()
-  const [collectionsList, setCollectionsList] = useState([])
-  const [isPreviewCollection, setIsPreviewCollection] = useState(false)
-  const [isAddCollection, setIsAddCollection] = useState(false)
-  const [isEditCollection, setIsEditCollection] = useState(false)
-  const [selectedCollection, setSelectedCollection] = useState({
-    id: '',
+  const [collectionsList, setCollectionsList] = useState<Collection[]>([])
+  const [isPreviewCollection, setIsPreviewCollection] = useState<boolean>(false)
+  const [isAddCollection, setIsAddCollection] = useState<boolean>(false)
+  const [isEditCollection, setIsEditCollection] = useState<boolean>(false)
+  const [selectedCollection, setSelectedCollection] = useState<Collection>({
+    _id: '',
     title: '',
     cover: '',
     active: false
@@ -26,24 +27,24 @@ const Collections = () => {
 
   console.log({navigate})
 
-  const handleAddNewCollection = e => {
+  const handleAddNewCollection = (e: React.MouseEvent) => {
     e.preventDefault()
     setIsPreviewCollection(false)
     setIsAddCollection(true)
   }
 
-  const afterCollectionIsAdded = (isAdded) => {
+  const afterCollectionIsAdded = (isAdded: boolean) => {
     setIsAddCollection(!isAdded)
     getAllCollections()
   }
 
-  const afterSelectForPreview = (collectionId) => {
+  const afterSelectForPreview = (collectionId: string) => {
     setIsAddCollection(false)
     setIsPreviewCollection(true)
 
     getSingleCollection(collectionId).then(response => {
       const updateItem = {
-        id: response.data._id,
+        _id: response.data._id,
         title: response.data.title,
         cover: response.data.cover,
         active: response.data.active
@@ -55,16 +56,16 @@ const Collections = () => {
     
   }
 
-  const selectForEdit = (isForEditing) => {
+  const selectForEdit = (isForEditing: boolean) => {
     setIsPreviewCollection(false)
     setIsEditCollection(true)
   }
-  const afterDelete = (isCollectionDeleted) => {
+  const afterDelete = (isCollectionDeleted: boolean) => {
     setIsPreviewCollection(false)
     getAllCollections()
   }
 
-  const backToPreview = (showPreview) => {
+  const backToPreview = (showPreview: boolean) => {
     setIsPreviewCollection(showPreview)
     setIsEditCollection(!showPreview)
   }
@@ -81,6 +82,7 @@ const Collections = () => {
     getAllCollections()
   }, [])
 
+  console.log({collectionsList})
   return (
     <div className='manage-collections center'>
       {/* <Link to='/admin'>Back to admin home</Link> */}
@@ -89,10 +91,10 @@ const Collections = () => {
         <h1>Manage Collections</h1>
       </div>
       <div className='add-collection-button'>
-        <button onClick={handleAddNewCollection}>Add Collection</button>
+        <CustomButton onClick={handleAddNewCollection}>Add Collection</CustomButton>
       </div>
       <div className='collections-list'>
-        {/* add sorting: alphabetically and create date */}
+        {/* TODO: add reorder posibility */}
         { collectionsList.length > 0 ? 
           collectionsList.map(collection => (
           <SingleCollection 
@@ -103,13 +105,27 @@ const Collections = () => {
           'There are no collections added yet.'}
       </div>
       <div className='add-edit-collection'>
-        {
-        isAddCollection ? <AddCollection parentCallback={afterCollectionIsAdded} /> : 
-        isPreviewCollection ? <PreviewCollection collection={selectedCollection} callbackForEdit={selectForEdit} callbackAfterDelete={afterDelete} /> :
-        isEditCollection ? <EditCollection collection={selectedCollection} parentCallbackBackToPreview={backToPreview} /> :
-        <h4>Select collection to see details or edit or click "Add Collection" button to add new collection</h4>
+        { isAddCollection && 
+          <AddCollection 
+            parentCallback={afterCollectionIsAdded} 
+          /> 
         }
-        
+        { isPreviewCollection && 
+          <PreviewCollection 
+            collection={selectedCollection} 
+            callbackForEdit={selectForEdit} 
+            callbackAfterDelete={afterDelete} 
+          /> 
+        }
+        { isEditCollection && 
+          <EditCollection 
+            collection={selectedCollection} 
+            parentCallbackBackToPreview={backToPreview} 
+          /> 
+        }
+        { (!isAddCollection && !isPreviewCollection && !isEditCollection) && 
+          <h4>Select collection to see details or edit or click "Add Collection" button to add new collection</h4> 
+        }
       </div>
     </div>
   )

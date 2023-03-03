@@ -59,7 +59,7 @@ const PaymentForm = () => {
         // Message: Your order has been placed.
         // Message: You can see details for current order in profile/orders (link to current order in profile?)
         // Button "Continue Shopping"
-        // Message: "You will receive an email with tracking information once your goods have shipped."
+        // Message: "You will receive an email with tracking information once your goods have been shipped."
         // Email: Hey "Client_Name", Thanks so much for your purchase! ...
       }
     }

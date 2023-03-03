@@ -6,8 +6,8 @@ import { emailSignInRequested, googleSignInRequested } from '../../redux/user/us
 import { selectErrorOnSignIn } from '../../redux/user/user.selectors'
 
 import ErrorContainer from '../error-message/error-message.component'
-import FormInput from '../form-input/form-input.component.jsx'
-import CustomButton from '../custom-button/custom-button.component.jsx'
+import FormInput from '../form-input/form-input.component'
+import CustomButton from '../custom-button/custom-button.component'
 
 import './sign-in.style.scss'
 
