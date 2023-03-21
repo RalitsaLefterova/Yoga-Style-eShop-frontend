@@ -1,8 +1,5 @@
 @import '../../../style/variables';
 
-
-   
-
   .vertical-nav-menu-container {
     height: 100vh;
     left: 0;
@@ -10,8 +7,8 @@
     position: fixed;
     padding-bottom: 50px;
     width: 270px;
-    background: $bg-color;
-    box-shadow: 0 12px 30px RGB(80 143 244 / 10%);
+    background: $admin-nav-bg-color;
+    box-shadow: 0 12px 25px RGB(80 143 244 / 30%);
     font-family: $admin-font;
     z-index: 23;
     // border: 1px solid red;

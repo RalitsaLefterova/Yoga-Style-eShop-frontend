@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 
 import './custom-button.style.scss'
 
 type CustomButtonType = {
-  buttonType?: 'submit' | 'reset' | 'button' | undefined,
   children: string,
   isGoogleSignIn?: boolean,
   inverted?: boolean,
   isDisabled?: boolean,
-  onClick?: (e: React.MouseEvent) => void
-}
+  onClick?: (event: React.MouseEvent) => void
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
-const CustomButton = ({ children, isGoogleSignIn, inverted, isDisabled, buttonType, ...otherProps } : CustomButtonType) => (
-  <button 
-    type={buttonType}
+const CustomButton = ({ 
+  children, 
+  isGoogleSignIn, 
+  inverted, 
+  isDisabled, 
+  ...otherProps 
+} : CustomButtonType) => (
+  <button
     className={`
       custom-button 
       ${isGoogleSignIn ? 'google-sign-in' : ''}
@@ -21,7 +25,6 @@ const CustomButton = ({ children, isGoogleSignIn, inverted, isDisabled, buttonTy
       `}
     disabled={isDisabled}
     {...otherProps}
-
   >
     {children}
   </button>

@@ -1,88 +1,57 @@
-import { useState, useEffect } from 'react'
-import {useNavigate } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  DndContext,
+  closestCenter
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable'
 
-import CustomButton from 'components/custom-button/custom-button.component'
+import { fetchCollectionsRequested, fetchSingleCollectionRequested } from 'redux/collections/collections.actions'
+import { selectCollections, selectSelectedCollection } from 'redux/collections/collections.selectors'
+import { Collection } from '../../../shared/types/collections'
+
+
+import SortableItem from 'components/sortable-item/sortable-item.component'
+import CollectionsList from 'components/admin/collections-list/collections-list.component'
 import SingleCollection from '../../../components/admin/single-collection/single-collection.component'
 import PreviewCollection from '../../../components/admin/preview-collection/preview-collection.component'
-import AddCollection from '../../../components/admin/add-collection/add-collection.component'
-import EditCollection from '../../../components/admin/edit-collection/edit-collection.component'
-
-import { getCollections, getSingleCollection } from '../../../rest-api/collections'
-import { Collection } from '../../../shared/types/collections'
 
 import './collections.style.scss'
 
+export type reduceFunctionType = {
+  acc: [],
+  collection: Collection
+}
+
 const Collections = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [collectionsList, setCollectionsList] = useState<Collection[]>([])
-  const [isPreviewCollection, setIsPreviewCollection] = useState<boolean>(false)
-  const [isAddCollection, setIsAddCollection] = useState<boolean>(false)
-  const [isEditCollection, setIsEditCollection] = useState<boolean>(false)
-  const [selectedCollection, setSelectedCollection] = useState<Collection>({
-    _id: '',
-    title: '',
-    cover: '',
-    active: false
-  })
+  const { pathname } = useLocation()
 
-  console.log({navigate})
+  const collectionsList: Collection[] = useSelector(selectCollections)
+  const selectedCollection: Collection = useSelector(selectSelectedCollection)
+  const [isPreviewCollection, setIsPreviewCollection] = useState(false)
 
-  const handleAddNewCollection = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setIsPreviewCollection(false)
-    setIsAddCollection(true)
-  }
-
-  const afterCollectionIsAdded = (isAdded: boolean) => {
-    setIsAddCollection(!isAdded)
-    getAllCollections()
-  }
-
-  const afterSelectForPreview = (collectionId: string) => {
-    setIsAddCollection(false)
+  const goToPreview = async (collectionId: string) => {
+    dispatch(fetchSingleCollectionRequested(collectionId))
     setIsPreviewCollection(true)
-
-    getSingleCollection(collectionId).then(response => {
-      const updateItem = {
-        _id: response.data._id,
-        title: response.data.title,
-        cover: response.data.cover,
-        active: response.data.active
-      }
-      setSelectedCollection(updateItem)
-    }).catch(e => {
-      console.log(e)
-    })
-    
   }
-
-  const selectForEdit = (isForEditing: boolean) => {
-    setIsPreviewCollection(false)
-    setIsEditCollection(true)
-  }
+  
   const afterDelete = (isCollectionDeleted: boolean) => {
-    setIsPreviewCollection(false)
-    getAllCollections()
+    setIsPreviewCollection(!isCollectionDeleted)
   }
 
-  const backToPreview = (showPreview: boolean) => {
-    setIsPreviewCollection(showPreview)
-    setIsEditCollection(!showPreview)
-  }
-
-  const getAllCollections = () => {
-    getCollections().then(response => {
-      setCollectionsList(response.data)
-    }).catch(e => {
-      console.log({e})
-    })
-  }
+  
 
   useEffect(() => {
-    getAllCollections()
+    dispatch(fetchCollectionsRequested())
   }, [])
 
-  console.log({collectionsList})
   return (
     <div className='manage-collections center'>
       {/* <Link to='/admin'>Back to admin home</Link> */}
@@ -90,41 +59,30 @@ const Collections = () => {
       <div className='page-title left'>
         <h1>Manage Collections</h1>
       </div>
-      <div className='add-collection-button'>
-        <CustomButton onClick={handleAddNewCollection}>Add Collection</CustomButton>
+      <div className='add-collection-button'> 
+        <button onClick={() => navigate(`${pathname}/add`)}>Add Collection</button>
       </div>
       <div className='collections-list'>
+        <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
+        
         {/* TODO: add reorder posibility */}
-        { collectionsList.length > 0 ? 
+        {/* { collectionsList.length > 0 ? 
           collectionsList.map(collection => (
           <SingleCollection 
             key={collection._id} 
-            collection={collection} 
-            parentCallback={afterSelectForPreview}
+            collectionData={collection} 
+            parentCallback={goToPreview}
           />)) : 
-          'There are no collections added yet.'}
+          'There are no collections added yet.'} */}
       </div>
       <div className='add-edit-collection'>
-        { isAddCollection && 
-          <AddCollection 
-            parentCallback={afterCollectionIsAdded} 
-          /> 
-        }
-        { isPreviewCollection && 
-          <PreviewCollection 
-            collection={selectedCollection} 
-            callbackForEdit={selectForEdit} 
+        { isPreviewCollection ? 
+          <PreviewCollection
+            collection={selectedCollection}
             callbackAfterDelete={afterDelete} 
           /> 
-        }
-        { isEditCollection && 
-          <EditCollection 
-            collection={selectedCollection} 
-            parentCallbackBackToPreview={backToPreview} 
-          /> 
-        }
-        { (!isAddCollection && !isPreviewCollection && !isEditCollection) && 
-          <h4>Select collection to see details or edit or click "Add Collection" button to add new collection</h4> 
+          :
+          <h4>Select collection to see details or click "Add Collection" button to add new collection.</h4>
         }
       </div>
     </div>

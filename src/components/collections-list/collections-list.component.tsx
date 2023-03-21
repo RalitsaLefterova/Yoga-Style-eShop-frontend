@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchCollectionsRequested } from '../../redux/collections/collections.actions'
@@ -14,7 +14,7 @@ const CollectionsList = () => {
   const dispatch = useDispatch()
   const collectionsList: Collection[] = useSelector(selectCollections)
   // const collectionsList = useSelector<IRootState, Collection[]>(selectCollections)
-  const isLoading = useSelector<boolean>(selectIsLoadingCollections)
+  const isLoading = useSelector(selectIsLoadingCollections)
  
   useEffect(() => {
     dispatch(fetchCollectionsRequested())

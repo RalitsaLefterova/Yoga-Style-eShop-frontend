@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -24,6 +24,8 @@ const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
 
 // Admin part
 const Collections = lazy(() => import('./pages/admin/collections/collections.component'))
+const AddCollection = lazy(() => import('./pages/admin/add-collection/add-collection.component'))
+const EditCollection = lazy(() => import('./pages/admin/edit-collection/edit-collection.component'))
 const Products = lazy(() => import('./pages/admin/products/products.component'))
 const AddProduct = lazy(() => import('./pages/admin/add-product/add-product.component'))
 const EditProduct = lazy(() => import('./pages/admin/edit-product/edit-product.component'))
@@ -46,12 +48,12 @@ const { pathname } = useLocation()
 const background = location.state && location.state.background
 // console.log({background})
 
-// console.log({...currentUser})
+console.log({currentUser})
 // console.log(currentUser !== null && currentUser.role)
 
   return (
     <Suspense fallback={<Spinner />}>
-
+      
       <Routes>
         
         <Route path='/' element={<LayoutShop />} >
@@ -70,6 +72,8 @@ const background = location.state && location.state.background
         <Route path='/admin' element={currentUser && currentUser.role === 'ADMIN' ? <LayoutAdmin /> : <h2>Page Not Found</h2>} >
           <Route index element={<div className='right'>dashboard</div>} />
           <Route path='/admin/collections' element={<Collections />} />
+          <Route path='/admin/collections/add' element={<AddCollection />} />
+          <Route path='/admin/collections/edit/:id' element={<EditCollection />} />
           <Route path='/admin/products' element={<Products />} />
           <Route path='/admin/products/add' element={<AddProduct />} />
           <Route path='/admin/products/edit/:id' element={<EditProduct />} />
@@ -80,7 +84,7 @@ const background = location.state && location.state.background
         <Route path='*' element={<h2>Page Not Found</h2>} />
 
       </Routes>
-
+      
       <CustomAlert />
     </Suspense>
   )

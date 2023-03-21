@@ -1,17 +1,17 @@
-import { ChangeEvent, useState } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import { createCollection } from '../../../rest-api/collections'
+import { createCollectionRequested } from 'redux/collections/collections.actions'
 
 import CustomInput from 'components/custom-input/custom-input.component'
 import CustomButton from 'components/custom-button/custom-button.component'
 
 import './add-collection.style.scss'
 
-type parentCallbackType = {
-  parentCallback: (isAdded: boolean) => void
-}
-
-const AddCollection = ({ parentCallback }: parentCallbackType) => {
+const AddCollection = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [title, setTitle] = useState('')
   const [cover, setCover] = useState<File>()
 
@@ -26,21 +26,25 @@ const AddCollection = ({ parentCallback }: parentCallbackType) => {
     setCover(file)
   }
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const data = new FormData()
     data.append('title', title)
     cover && data.append('cover', cover)
     
-    // const collectionResponse = await createCollection(data)
-    await createCollection(data)
-    parentCallback(true)
+    try {
+      dispatch(createCollectionRequested(data, navigate))
+    } catch (error) {
+      console.log('create collection failed', error)
+    }
   }
 
   return (
-    <div className='add-collection'>
-      <div>Add new collection</div>
+    <div className='add-collection-container center'>
+      <div className='page-title left'>
+        <h1>Add new collection</h1>
+      </div>
       <form onSubmit={handleSubmit}>
         <CustomInput 
           type='text'
@@ -52,8 +56,9 @@ const AddCollection = ({ parentCallback }: parentCallbackType) => {
           type='file'
           field='cover'
           onChangeHandler={handleChangeCover}
+          accept='image/png, image/jpeg, image/jpg'
         />
-        <CustomButton buttonType='submit'>Add Collection</CustomButton>
+        <CustomButton type='submit'>Add Collection</CustomButton>
       </form>
     </div>
   )

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import './order-item.style.scss'

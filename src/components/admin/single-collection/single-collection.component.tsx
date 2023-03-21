@@ -1,29 +1,31 @@
+import { Collection } from 'shared/types/collections'
+
 import './single-collection.style.scss'
 
-type Collection = {
-  _id: string,
-  title: string,
-  cover: string,
-  active: boolean
-} 
+type SingleCollectionType = {
+  collectionData: Collection,
+  parentCallback: (_id: string) => void
+}
 
-type ParentCalback = (_id: string) => void
+const SingleCollection = ({ collectionData, parentCallback }: SingleCollectionType) => {
+  const { _id: collectionId, title, cover } = collectionData
 
-const SingleCollection = ({ collection, parentCallback }: { collection: Collection, parentCallback: ParentCalback }) => {
-  console.log({collection})
-  const { _id, title, cover } = collection
-
-  const handlePreviewCollection = () => {
-    parentCallback(_id)
+  const handleGoToPreviewCollection = () => {
+    parentCallback(collectionId as string)
   }
   
   return (
-    <div className='collection-row' onClick={handlePreviewCollection}>
+    <div className='collection-row' onClick={handleGoToPreviewCollection}>
+      <div className='collection-cover'>
+        <div 
+          className='image-container'
+          style={{
+            backgroundImage: `url(${process.env.BACKEND_URL}/${cover})`
+          }}
+        />
+      </div>
       <div className='collection-title'>
         {title}
-      </div>
-      <div className='collection-cover'>
-        <img src={`${process.env.BACKEND_URL}/uploads/collections/${cover}`} />
       </div>
     </div>
   )
