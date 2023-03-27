@@ -39,12 +39,12 @@ import {
 import { 
   setOrders 
 } from '../orders/orders.actions'
-import { setCart } from '../cart/cart.actions'
+import { setCartProducts } from '../cart/cart.actions'
 
 export function* setDataAfterAuthSuccess({ user, token, cart }) {
   yield put(setCurrentUser(user))
   yield put(setToken(token))
-  yield put(setCart(cart))
+  yield put(setCartProducts(cart))
 }
 
 export function* signUp({ payload: { email, password, fullName } }) {

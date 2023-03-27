@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import apiConfig from './api-config'
-import { toggleModal } from '../components/custom-alert/custom-alert.component'
+import { toggleModal } from '../components/custom-components/custom-alert/custom-alert.component'
 
 const axiosInstance = axios.create({
   baseURL: apiConfig.databaseURL

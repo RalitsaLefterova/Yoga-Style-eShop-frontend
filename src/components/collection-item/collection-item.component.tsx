@@ -24,7 +24,7 @@ const CollectionItem = ({ collection, size }: CollectionItemType) => {
     >
       <div 
         className='background-image'
-        style={{backgroundImage: `url(${process.env.BACKEND_URL}/uploads/collections/${cover})`}} 
+        style={{backgroundImage: `url(${process.env.BACKEND_URL}/${cover})`}} 
       />
       <div className='content'>
         <h1 className='title'>{collectionTitle}</h1>

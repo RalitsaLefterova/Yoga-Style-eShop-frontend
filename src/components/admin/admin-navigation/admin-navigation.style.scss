@@ -35,7 +35,11 @@
       margin-left: 30px;
       transition: .3s;
       position: relative;
-  
+
+      :hover {
+        color: $brand-color;
+      } 
+
       .icon-menu {
         width: 34px;
         height: 34px;

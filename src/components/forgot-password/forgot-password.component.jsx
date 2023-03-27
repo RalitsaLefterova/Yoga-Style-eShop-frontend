@@ -5,7 +5,7 @@ import { forgotPasswordRequested } from '../../redux/user/user.actions'
 import { selectIsResetPasswordLinkSent, selectErrorOnForgotPassword } from '../../redux/user/user.selectors'
 
 import FormInput from 'components/form-input/form-input.component'
-import CustomButton from 'components/custom-button/custom-button.component'
+import CustomButton from 'components/custom-components/custom-button/custom-button.component'
 import ErrorContainer from 'components/error-message/error-message.component'
 
 import './forgot-password.style.scss'

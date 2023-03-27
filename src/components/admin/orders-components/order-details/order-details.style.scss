@@ -1,0 +1,19 @@
+.order-details-container {
+  padding: 40px 0;
+}
+
+.products-list-container {
+  display: flex;
+  flex-direction: column;
+
+  .product-details-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  
+    img {
+      width: 150px;
+      height: auto;
+    }
+  }
+}

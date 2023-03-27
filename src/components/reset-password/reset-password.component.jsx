@@ -6,7 +6,7 @@ import { resetPasswordRequested } from 'redux/user/user.actions'
 import { selectIsResetPasswordSuccessfull, selectErrorOnResetPassword } from 'redux/user/user.selectors'
 
 import FormInput from 'components/form-input/form-input.component'
-import CustomButton from 'components/custom-button/custom-button.component'
+import CustomButton from 'components/custom-components/custom-button/custom-button.component'
 import ErrorContainer from 'components/error-message/error-message.component'
 
 import './reset-password.style.scss'

@@ -23,7 +23,7 @@ const SingleCollection = () => {
   const singleCollectionProductsList: Product[] = useSelector(selectSingleCollectionProducts)
 
   useEffect(() => {
-    dispatch(fetchSingleCollectionProductsRequested(collectionTitle))
+    collectionTitle && dispatch(fetchSingleCollectionProductsRequested(collectionTitle))
   }, [])
 
   return (

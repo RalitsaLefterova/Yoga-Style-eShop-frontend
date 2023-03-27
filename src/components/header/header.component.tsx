@@ -7,8 +7,8 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 
 import Logo from '../../assets/svgs/logo.svg'
-import CartIcon from '../cart-icon/cart-icon.component'
-import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import CartIcon from '../shopping-cart/cart-icon/cart-icon.component'
+import CartDropdown from '../shopping-cart/cart-dropdown/cart-dropdown.component'
 
 import './header.style.scss'
 

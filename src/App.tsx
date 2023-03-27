@@ -10,28 +10,30 @@ import LayoutAdmin from 'pages/layout-admin/layout-admin.component'
 import LayoutShop from 'pages/layout-shop/layout-shop.component'
 
 // Shop part
-const CustomAlert = lazy(() => import('./components/custom-alert/custom-alert.component'))
-const HomePage = lazy(() => import('./pages/home/home.component'))
+const CustomAlert = lazy(() => import('./components/custom-components/custom-alert/custom-alert.component'))
+const HomePage = lazy(() => import('./components/home/home.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
-const UserProfile = lazy(() => import('./pages/user-profile/user-profile.component'))
+const UserProfile = lazy(() => import('./components/user-profile/user-profile-container/user-profile.component'))
 const SignIn = lazy(() => import('./components/sign-in/sign-in.component'))
 const SignUp = lazy(() => import('./components/sign-up/sign-up.component'))
 const ForgotPassword = lazy(() => import('./components/forgot-password/forgot-password.component'))
 const ResetPassword = lazy(() => import('./components/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
 const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
-const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
+const Checkout = lazy(() => import('./components/checkout/checkout/checkout.component'))
 
 // Admin part
-const Collections = lazy(() => import('./pages/admin/collections/collections.component'))
-const AddCollection = lazy(() => import('./pages/admin/add-collection/add-collection.component'))
-const EditCollection = lazy(() => import('./pages/admin/edit-collection/edit-collection.component'))
-const Products = lazy(() => import('./pages/admin/products/products.component'))
-const AddProduct = lazy(() => import('./pages/admin/add-product/add-product.component'))
-const EditProduct = lazy(() => import('./pages/admin/edit-product/edit-product.component'))
-const Orders = lazy(() => import('./pages/admin/orders/orders.component'))
-const OrderDetails = lazy(() => import('./pages/admin/order-details/order-details.component'))
-
+const Dashboard = lazy(() => import('./components/admin/dashboard/dashboard.component'))
+const Collections = lazy(() => import('./components/admin/collections-components/collections/collections.component'))
+const AddCollection = lazy(() => import('./components/admin/collections-components/add-collection/add-collection.component'))
+const EditCollection = lazy(() => import('./components/admin/collections-components/edit-collection/edit-collection.component'))
+const ProductsList = lazy(() => import('./components/admin/products-components/products-list/products-list.component'))
+const AddProduct = lazy(() => import('./components/admin/products-components/add-product/add-product.component'))
+const EditProduct = lazy(() => import('./components/admin/products-components/edit-product/edit-product.component'))
+const OrdersList = lazy(() => import('./components/admin/orders-components/orders-list/orders-list.component'))
+const OrderDetails = lazy(() => import('./components/admin/orders-components/order-details/order-details.component'))
+const UsersList = lazy(() => import('./components/admin/users-components/users-list/users-list.component'))
+const UserDetails = lazy(() => import('./components/admin/users-components/user-details/user-details.component'))
 
 import './style/main.scss'
 // import { googleLogin } from './rest-api/users'
@@ -70,15 +72,17 @@ console.log({currentUser})
         </Route>
         
         <Route path='/admin' element={currentUser && currentUser.role === 'ADMIN' ? <LayoutAdmin /> : <h2>Page Not Found</h2>} >
-          <Route index element={<div className='right'>dashboard</div>} />
+          <Route index element={<Dashboard />} />
           <Route path='/admin/collections' element={<Collections />} />
           <Route path='/admin/collections/add' element={<AddCollection />} />
           <Route path='/admin/collections/edit/:id' element={<EditCollection />} />
-          <Route path='/admin/products' element={<Products />} />
+          <Route path='/admin/products' element={<ProductsList />} />
           <Route path='/admin/products/add' element={<AddProduct />} />
           <Route path='/admin/products/edit/:id' element={<EditProduct />} />
-          <Route path='/admin/orders' element={<Orders />} />
+          <Route path='/admin/orders' element={<OrdersList />} />
           <Route path='/admin/orders/:id' element={<OrderDetails />} />
+          <Route path='/admin/users' element={<UsersList />} />
+          <Route path='/admin/users/:id' element={<UserDetails />} />
         </Route>
 
         <Route path='*' element={<h2>Page Not Found</h2>} />

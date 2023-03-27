@@ -11,7 +11,7 @@ import { stripePromise } from './shared/stripe.utils'
 import App from './App'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
-console.log('test')
+
 root.render(
   // <StrictMode>
     <Provider store={store}> 

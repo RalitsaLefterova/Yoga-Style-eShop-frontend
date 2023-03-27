@@ -6,7 +6,7 @@ import { signUpRequested } from '../../redux/user/user.actions'
 import { selectErrorOnSignUp } from '../../redux/user/user.selectors'
 
 import FormInput from '../form-input/form-input.component'
-import CustomButton from '../custom-button/custom-button.component'
+import CustomButton from '../custom-components/custom-button/custom-button.component'
 import ErrorContainer from '../error-message/error-message.component'
 
 import './sign-up.style.scss';
