@@ -4,24 +4,17 @@ import { useNavigate } from 'react-router-dom'
 
 import { selectCartProducts } from '../../../redux/cart/cart.selectors'
 import { toggleCartHidden } from '../../../redux/cart/cart.actions'
+import { CartProduct } from 'shared/types/products'
 
 import CustomButton from '../../custom-components/custom-button/custom-button.component'
-import CartProduct from '../cart-product/cart-product.component'
+import CartItem from '../cart-item/cart-item.component'
 
 import './cart-dropdown.style.scss'
-
-type CartProductsType = {
-  id: string,
-  title: string,
-  mainImageUrl: string,
-  price: number,
-  quantity: number
-}
 
 const CartDropdown = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const cartProducts: CartProductsType[] = useSelector(selectCartProducts)
+  const cartProducts: CartProduct[] = useSelector(selectCartProducts)
   
   const toggleIsCartHidden = () => dispatch(toggleCartHidden())
 
@@ -35,7 +28,7 @@ const CartDropdown = () => {
       <div className="cart-products">
         {cartProducts.length > 0 ? 
           cartProducts.map((product) => 
-            <CartProduct 
+            <CartItem 
               key={product.id}
               id={product.id}
               title={product.title}

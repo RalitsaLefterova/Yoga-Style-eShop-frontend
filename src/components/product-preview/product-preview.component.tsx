@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 
+import { formatCurrency } from 'shared/helpers'
 import { Product } from 'shared/types/products'
 
 import './product-preview.style.scss'
@@ -26,7 +27,7 @@ const ProductPreview = ({ product }: ProductPreviewType) => {
       />
       <div className='product-footer'>
         <span className='title'>{title}</span>
-        <span className='price'>{price}</span>
+        <span className='price'>{formatCurrency(price)}</span>
       </div>
     </div>
   )

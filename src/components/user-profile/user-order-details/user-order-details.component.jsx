@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { formatCurrency } from 'shared/helpers'
 import { getOrderDetailsRequested } from '../../../redux/orders/orders.actions'
 import { selectOrderDetails } from '../../../redux/orders/orders.selectors'
 
@@ -31,11 +32,12 @@ const UserOrderDetails = ({ orderId, handleBackToOrdersList }) => {
       </div>
       {(products || []).map((productItem, index) => {
         const { product, quantity} = productItem
+        const { title, mainImageUrl, price } = product
         return (
           <div className='product-details-container' key={index}>
-            <div><img src={product.mainImageUrl} /></div>
-            <div>{product.title}</div>
-            <div>{product.price}</div>
+            <div><img src={mainImageUrl} /></div>
+            <div>{title}</div>
+            <div>{formatCurrency(price)}</div>
             <div>{quantity}</div>
           </div>
         )}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getOrderDetailsRequested } from '../../../../redux/orders/orders.actions'
 import { selectOrderDetails } from '../../../../redux/orders/orders.selectors'
-import { humanizeDate } from 'shared/helpers'
+import { formatCurrency, humanizeDate } from 'shared/helpers'
 import { Order } from 'shared/types/orders'
 
 import './order-details.style.scss'
@@ -50,7 +50,7 @@ const OrderDetails = () => {
             <div className='product-details-container' key={index}>
               <div><img src={`${process.env.BACKEND_URL}/${mainImageUrl}`} /></div>
               <div>{title}</div>
-              <div>{price}</div>
+              <div>{formatCurrency(price)}</div>
               <div>{quantity}</div>
             </div>
           )}

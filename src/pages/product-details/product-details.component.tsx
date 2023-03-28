@@ -7,13 +7,14 @@ import { addProductToCartRequested } from '../../redux/cart/cart.actions'
 import { selectProduct, selectIsLoading } from '../../redux/products/products.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { Product, ProductColor } from 'shared/types/products'
+import { GenericObject } from 'shared/types/common'
+import { formatCurrency } from 'shared/helpers'
 
 import Spinner from '../../components/spinner/spinner.component'
 import CustomSelect from 'components/custom-components/custom-select/custom-select.component'
 import CustomButton from 'components/custom-components/custom-button/custom-button.component'
 
 import './product-details.style.scss'
-import { GenericObject } from 'shared/types/common'
 
 const ProductDetails = () => {
   const params = useParams()
@@ -119,7 +120,7 @@ const ProductDetails = () => {
 
               {/* TODO: when choose color load sizes if available */}
 
-              <div>Price: {price}</div>
+              <div>Price: {formatCurrency(price)}</div>
 
               <div className='add-to-cart-btn'>
                 {currentUser ? (
