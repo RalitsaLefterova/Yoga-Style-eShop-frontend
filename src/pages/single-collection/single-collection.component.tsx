@@ -11,13 +11,13 @@ import Spinner from '../../components/spinner/spinner.component'
 
 import './single-collection.style.scss'
 
-type CollectionParams = {
+type CollectionRouteParams = {
   collection: string
 }
 
 const SingleCollection = () => {
   const dispatch = useDispatch()
-  const { collection } = useParams<CollectionParams>()
+  const { collection } = useParams<keyof CollectionRouteParams>() as CollectionRouteParams
   const collectionTitle = collection?.replace(/-/g, ' ')
   const isLoading: boolean = useSelector(selectIsLoading)
   const singleCollectionProductsList: Product[] = useSelector(selectSingleCollectionProducts)

@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { useDispatch } from 'react-redux'
 
+import { CartProduct } from 'shared/types/products'
+import { formatCurrency } from 'shared/helpers'
 import { 
   addProductToCartRequested, 
   removeProductFromCartRequested,
@@ -11,9 +11,13 @@ import {
 
 import './checkout-item.style.scss'
 
-const CheckoutItem = memo(({ cartProduct }) => {
+type CheckoutItemProps = {
+  cartProduct: CartProduct
+}
+
+const CheckoutItem = memo(({ cartProduct }: CheckoutItemProps) => {
   const dispatch = useDispatch()
-  const { id: productId, title, mainImageUrl, price, quantity, collectionId } = cartProduct
+  const { id: productId, title, mainImageUrl, price, quantity } = cartProduct
 
   const handleAddToCart = () => {
     dispatch(addProductToCartRequested(productId))
@@ -38,7 +42,7 @@ const CheckoutItem = memo(({ cartProduct }) => {
         <span className='value'>{quantity}</span>
         <div className='arrow' onClick={handleAddToCart}>&#10095;</div>
       </span>
-      <span className='price'>{price}</span>
+      <span className='price'>{formatCurrency(price)}</span>
       <div className='remove-button' onClick={handleClearProductFromCart}>&#10005;</div>
     </div>
   )

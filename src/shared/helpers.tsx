@@ -82,3 +82,6 @@ export const extractChangedValues = (obj: GenericObject) => {
 export const humanizeDate = (date: Date) => {
   return new Date(date).toLocaleDateString()
 }
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, { currency: "EUR", style: "currency" })
+export const formatCurrency = (number: number) => CURRENCY_FORMATTER.format(number)
