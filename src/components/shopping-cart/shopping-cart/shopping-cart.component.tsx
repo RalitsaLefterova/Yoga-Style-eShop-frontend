@@ -27,30 +27,35 @@ const ShoppingCart = () => {
   }, [])
 
   return (
-    <div className={`shopping-cart-wrapper ${hidden ? '' : 'is-visible'}`}>
+    <div className={`shopping-cart-wrapper ${hidden ? '' : 'is-visible'}`} onClick={toggleIsCartHidden}>
       <div className={`shopping-cart-container `}>
         <h2>Cart</h2>
-        <ul className='cart-items'>
-          {cartProducts.length > 0 ? 
-            cartProducts.map(product => 
-              <CartItem 
-                key={product.id}
-                id={product.id}
-                title={product.title}
-                mainImageUrl={product.mainImageUrl}
-                price={product.price}
-                quantity={product.quantity}
-              />
-            ) : (
-                <span className='empty-message'>'Your cart is empty'</span>
-            )
-          }
-        </ul>
-        <div className='cart-total'>
-          <span>Total</span>
-          <span>{formatCurrency(cartTotal)}</span>
-        </div>
-
+        {cartProducts.length > 0 ? (
+          <>
+            <ul className='cart-items'>
+              {cartProducts.map(product => 
+                <CartItem 
+                  key={product.id}
+                  id={product.id}
+                  title={product.title}
+                  mainImageUrl={product.mainImageUrl}
+                  price={product.price}
+                  quantity={product.quantity}
+                />
+              )}
+            </ul>
+            <div className='cart-total'>
+              <span>Total</span>
+              <span>{formatCurrency(cartTotal)}</span>
+            </div>
+            <CustomButton onClick={goToCheckoutHandler} additionalClasses='checkout-btn'>
+              Go to checkout
+            </CustomButton>
+          </>
+        ) : (
+          <div className='empty-message center'>'Your cart is empty.'</div>
+        )
+        }
       </div>
     </div>
   )

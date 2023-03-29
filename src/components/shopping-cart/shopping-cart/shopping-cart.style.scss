@@ -44,7 +44,7 @@
     z-index: 200;
 
     h2 {
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       text-transform: uppercase;
       margin: 1em;
@@ -54,12 +54,12 @@
       padding: 0;
   
       li {
-        border-top: 1px solid #e0e6ef;
+        border-top: 1px solid $border-color-row;
         padding: 1em 2em;
       }
   
       li:last-child {
-        border-bottom: 1px solid #e0e6ef;
+        border-bottom: 1px solid $border-color-row;
       }
     }
   
@@ -68,6 +68,25 @@
       align-items: baseline;
       justify-content: space-between;
       padding: 20px;
+      font-size: 1.5rem;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      font-weight: 500;
+      background-color: $brand-color;
+      border-radius: 0;
+
+      &:hover {
+        color: $white;
+        border: 0px;
+        background-color: $brand-color-light;
+      }
+    }
+
+    .empty-message {
+      margin: 50px auto;
+      font-size: 18px;
     }
   }
 }

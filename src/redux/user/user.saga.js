@@ -39,7 +39,10 @@ import {
 import { 
   setOrders 
 } from '../orders/orders.actions'
-import { setCartProducts } from '../cart/cart.actions'
+import { 
+  closeCartRequested, 
+  setCartProducts 
+} from '../cart/cart.actions'
 
 export function* setDataAfterAuthSuccess({ user, token, cart }) {
   yield put(setCurrentUser(user))
@@ -137,17 +140,18 @@ export function* onResetPasswordRequested() {
   yield takeLatest(UserActionTypes.RESET_PASSWORD_REQUESTED, resetPasswordAsync)
 }
 
+// SIGN OUT //
 export function* signOut({ payload : { navigate } }) {
   try {
     console.log('in try navigate', navigate('/sign-in') )
     yield call(logout)
+    yield put(closeCartRequested())
     yield put(signOutSuccess())
     navigate('/sign-in')
   } catch (error) {
     yield put(signOutFailed(error))
   }
 }
-
 export function* onSignOutRequested() {
   yield takeLatest(UserActionTypes.SIGN_OUT_REQUESTED, signOut)
 }

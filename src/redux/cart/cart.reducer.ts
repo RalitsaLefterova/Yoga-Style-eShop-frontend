@@ -12,6 +12,7 @@ import {
   addProductToCartSuccess, 
   clearProductFromCartFailed, 
   clearProductFromCartSuccess, 
+  closeCartRequested, 
   emptyCart, 
   removeProductFromCartFailed, 
   removeProductFromCartSuccess, 
@@ -46,6 +47,13 @@ const cartReducer = (
     return {
       ...state,
       hidden: !state.hidden
+    }
+  }
+
+  if (closeCartRequested.match(action)) {
+    return {
+      ...state,
+      hidden: true
     }
   }
 

@@ -7,6 +7,7 @@ type CustomButtonType = {
   isGoogleSignIn?: boolean,
   inverted?: boolean,
   isDisabled?: boolean,
+  additionalClasses?: string
   onClick?: (event: React.MouseEvent) => void
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -14,14 +15,16 @@ const CustomButton = ({
   children, 
   isGoogleSignIn, 
   inverted, 
-  isDisabled, 
+  isDisabled,
+  additionalClasses, 
   ...otherProps 
 } : CustomButtonType) => (
   <button
     className={`
       custom-button 
       ${isGoogleSignIn ? 'google-sign-in' : ''}
-      ${inverted ? 'inverted' : ''}
+      ${inverted ? 'inverted' : ''} 
+      ${additionalClasses}
       `}
     disabled={isDisabled}
     {...otherProps}

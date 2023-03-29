@@ -14,6 +14,12 @@ export type ToggleCartHidden = Action<CartActionTypes.TOGGLE_CART_HIDDEN>
 export const toggleCartHidden = withMatcher((): ToggleCartHidden => 
   createAction(CartActionTypes.TOGGLE_CART_HIDDEN))
 
+  
+// CLOSE CART //
+export type CloseCartRequested = Action<CartActionTypes.CLOSE_CART_REQUESTED>
+export const closeCartRequested = withMatcher((): CloseCartRequested => 
+  createAction(CartActionTypes.CLOSE_CART_REQUESTED))
+
 
 // ADD PRODUCT TO CART //
 export type AddProductToCartRequested = ActionWithPayload<CartActionTypes.ADD_PRODUCT_TO_CART_REQUESTED, { productId: string}>
