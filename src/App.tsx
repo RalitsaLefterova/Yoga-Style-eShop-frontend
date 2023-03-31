@@ -13,11 +13,11 @@ import LayoutShop from 'pages/layout-shop/layout-shop.component'
 const CustomAlert = lazy(() => import('./components/custom-components/custom-alert/custom-alert.component'))
 const HomePage = lazy(() => import('./components/home/home.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
-const UserProfile = lazy(() => import('./components/user-profile/user-profile-container/user-profile.component'))
-const SignIn = lazy(() => import('./components/sign-in/sign-in.component'))
-const SignUp = lazy(() => import('./components/sign-up/sign-up.component'))
-const ForgotPassword = lazy(() => import('./components/forgot-password/forgot-password.component'))
-const ResetPassword = lazy(() => import('./components/reset-password/reset-password.component'))
+const UserProfilePage = lazy(() => import('./pages/user-profile/user-profile.component'))
+const SignIn = lazy(() => import('./components/authentication/sign-in/sign-in.component'))
+const SignUp = lazy(() => import('./components/authentication/sign-up/sign-up.component'))
+const ForgotPassword = lazy(() => import('./components/authentication/forgot-password/forgot-password.component'))
+const ResetPassword = lazy(() => import('./components/authentication/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
 const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
 const Checkout = lazy(() => import('./components/checkout/checkout/checkout.component'))
@@ -64,7 +64,7 @@ console.log({currentUser})
           <Route path='/shop/:collection' element={<SingleCollection />} />
           <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
           <Route path='/checkout' element={<Checkout />} />
-          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/profile' element={<UserProfilePage />} />
           <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <SignIn />} />
           <Route path='/sign-up' element={currentUser ? <Navigate replace to='/' /> : <SignUp />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />

@@ -165,24 +165,28 @@ const EditProduct = () => {
         <div className='product-main-info'>
           <div className='form-left-box'>
             <CustomInput 
+              label='Title'
               type='text'
               field='title'
               value={title}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomInput 
+              label='Price'
               type='text'
               field='price'
               value={price}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomInput 
+              label='Description'
               type='text'
               field='description'
               value={description}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomInput 
+              label='Stock'
               type='text'
               field='stock'
               value={stock || 0}
@@ -202,6 +206,7 @@ const EditProduct = () => {
           </div>
           <div className='form-right-box'>
             <CustomInput 
+              label='Image'
               type='file'
               field='Main Image'
               filePath={mainImageUrl}

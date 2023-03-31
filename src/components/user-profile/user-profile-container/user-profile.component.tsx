@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect, useCallback, ChangeEvent } from 'react'
+import { useState, useEffect, useCallback, ChangeEvent } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,8 +7,8 @@ import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@f
 import { extractChangedValues } from '../../../shared/helpers'
 import { selectCurrentUser, selectErrorOnEditUser, selectIsUpsert }  from '../../../redux/user/user.selectors'
 import { 
-  getUserProfileRequested, 
-  editUserRequested, 
+  getLoggedUserProfileRequested, 
+  editLoggedUserRequested, 
   toggleIsUpsert, 
   createAddressRequested, 
   editAddressRequested, 
@@ -17,7 +16,7 @@ import {
   deleteAccountRequested
 } from '../../../redux/user/user.actions'
 import { Address } from 'shared/types/addresses'
-
+import { GenericObject } from 'shared/types/common'
 
 import UserMainInfo from '../user-main-info/user-main-info.component'
 import UserAddressInfo from '../user-address-info/user-address-info.component'
@@ -25,7 +24,7 @@ import UserOrders from '../user-orders/user-orders.component'
 import UserAccountSettings from '../user-account-settings/user-account-settings.component'
 
 import './user-profile.style.scss'
-import { GenericObject } from 'shared/types/common'
+import { User } from 'shared/types/users'
 
 const UserProfile = () => {
   const navigate = useNavigate()
@@ -36,11 +35,11 @@ const UserProfile = () => {
   const errorOnEdit = useSelector(selectErrorOnEditUser)
 
   const [toggleTabState, setToggleTabState] = useState(3)
-  const [userInfo, setUserInfo] = useState(currentUser || {})
+  const [userInfo, setUserInfo] = useState<User | GenericObject>(currentUser || {})
   const [addressToUpsert, setAddressToUpsert] = useState<Address>()
   const [isEditAddress, setIsEditAddress] = useState(false)
   
-  const emptyAddressObj = {
+  const emptyAddressObj: Address | GenericObject = {
     title: '',
     street: '',
     city: '',
@@ -61,9 +60,9 @@ const UserProfile = () => {
   }
   
   const openCreateAddress = () => {
-    setIsEditAddress(false)
-    setAddressToUpsert(emptyAddressObj)
-    handleUpsert()
+    // setIsEditAddress(false)
+    // setAddressToUpsert(emptyAddressObj)
+    // handleUpsert()
   }
 
   const openEditAddress = (address: Address) => {
@@ -80,9 +79,11 @@ const UserProfile = () => {
     }
   }
 
-  const handleSetAsDefaultAddress = (id: string, type: string) => {
-    const dataObj = { [type] : id } 
-    dispatch(editUserRequested(dataObj))
+  const handleSetAsDefaultAddress = (addressId: string, type: string) => {
+    const addressObj = { [type] : addressId } 
+    console.log({addressObj})
+    //TODO: investigate this before use
+    // dispatch(editLoggedUserRequested(addressObj))
   }
 
   const handleDeleteAddress = (id: string) => {
@@ -102,23 +103,23 @@ const UserProfile = () => {
 
   const handleChangeAddress = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
-
-    setAddressToUpsert({
-      ...addressToUpsert,
-      [name]: value
-    })
+    //TODO: investigate this before use
+    // setAddressToUpsert({
+    //   ...addressToUpsert,
+    //   [name]: value
+    // })
   }
   
   const handleEditUserInfo = (property: string) => {
     console.log({property})
-    let dataObj = {}
+    //TODO: investigate this before use
+    // let dataObj: GenericObject = {}
+    // dataObj = property ? 
+    //   userInfo[property].isChanged ? { [property]: userInfo[property].value } : {} 
+    //   : 
+    //   extractChangedValues(userInfo)
 
-    dataObj = property ? 
-      userInfo[property].isChanged ? { [property]: userInfo[property].value } : {} 
-      : 
-      extractChangedValues(userInfo)
-
-    dispatch(editUserRequested(dataObj))
+    // dispatch(editLoggedUserRequested(dataObj))
   }
 
   // const handleChangeAvatar = event => {
@@ -138,7 +139,7 @@ const UserProfile = () => {
     // and then continue with delete account
 
     debugger
-    dispatch(deleteAccountRequested({ navigate }))
+    dispatch(deleteAccountRequested(navigate))
   }
 
 
@@ -152,7 +153,7 @@ const UserProfile = () => {
   }
 
   useEffect(() => {
-    dispatch(getUserProfileRequested())
+    dispatch(getLoggedUserProfileRequested())
   }, [])
 
   useEffect(() => {
@@ -209,16 +210,16 @@ const UserProfile = () => {
               phone={userInfo.phone?.value}
               birthday={userInfo.birthday?.value}
               handleChange={handleChange}
-              handleSaveChanges={handleEditUserInfo}
-              handleUpsert={handleUpsert}
+              // handleSaveChanges={handleEditUserInfo}
+              // handleUpsert={handleUpsert}
               isUpsert={isUpsert}
-              errorOnEdit={errorOnEdit}
-              handleCancel={handleCancel}
+              // errorOnEdit={errorOnEdit}
+              // handleCancel={handleCancel}
             />
           </div>
           
           <div className={toggleTabState === 2 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserAddressInfo
+            {/* <UserAddressInfo
               addresses={userInfo.addresses?.value}
               shippingAddress={userInfo.shippingAddress?.value}
               billingAddress={userInfo.billingAddress?.value}
@@ -234,7 +235,7 @@ const UserProfile = () => {
 
               // errorOnEdit={errorOnEdit}
               // handleCancel={handleCancel}
-            />
+            /> */}
           </div>
           
           <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>

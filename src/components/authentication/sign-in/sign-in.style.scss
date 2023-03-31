@@ -1,0 +1,27 @@
+@import '../../../style/variables';
+
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  margin: 30px auto;
+  padding: 40px;
+  background-color: $white;
+  box-shadow: 0 5px 7px 0 RGB(0 0 0/10%);
+
+  .title {
+    margin: 10px 0;
+  }
+
+  .sign-in-button button {
+    width: 100%;
+  }
+
+  #signInWithGoogle {
+    margin: 0 auto;
+  }
+
+  a:hover {
+    color: $main-color;
+  }
+}

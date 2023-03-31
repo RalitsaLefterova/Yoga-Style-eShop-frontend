@@ -17,7 +17,7 @@ const Header = () => {
   const currentUser = useSelector(selectCurrentUser)
   const hidden = useSelector(selectCartHidden)
 
-  const handleLogoutUser = () => dispatch(signOutRequested({ navigate }))
+  const handleLogoutUser = () => dispatch(signOutRequested(navigate))
 
   return (
     <>

@@ -1,3 +1,79 @@
+@import '../../../style/variables';
+
+@mixin shrink-label {
+  top: -14px;
+  font-size: 12px;
+  color: $main-color;
+}
+
+.input-container {
+  position: relative;
+  margin: 30px 0;
+
+  .form-input {
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 10px 10px 10px 5px;
+    border: none;
+    border-bottom: 1px solid $sub-color;
+    border-radius: 0;
+    background: none;
+    background-color: $white;
+    color: $sub-color;
+    font-size: 18px;
+    
+    &:-webkit-autofill ~ .form-input-label {
+      @include shrink-label();
+    }
+    &:-webkit-autofill:hover ~ .form-input-label {
+      @include shrink-label();
+    } 
+    &:-webkit-autofill:focus ~ .form-input-label {
+      @include shrink-label();
+    }
+    &:not(:placeholder-shown) ~ .form-input-label {
+      @include shrink-label();
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus ~ .form-input-label {
+      @include shrink-label();
+    } 
+  }
+
+  // input:not(:placeholder-shown) ~ .form-input-label,
+  // input:-webkit-autofill ~ .form-input-label {
+  //   top:-20px;
+  // }
+
+  input[type='password'] {
+    letter-spacing: .3em;
+  }
+
+  .form-input-label {
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    transition: 300ms ease all;
+    color: $sub-color;
+    font-size: 16px;
+    font-weight: normal;
+    pointer-events: none;
+
+    &.shrink {
+      @include shrink-label();
+    }
+  }
+
+}
+
+
+
+
 img {
   width: 200px;
   height: auto;

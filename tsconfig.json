@@ -10,7 +10,7 @@
         "dom.iterable",
         "esnext"
       ],
-      "types": ["react/next", "node"],
+      "types": ["react/next", "node", "google.accounts"],
       "downlevelIteration": true,
       "allowJs": true,
       "skipLibCheck": true,

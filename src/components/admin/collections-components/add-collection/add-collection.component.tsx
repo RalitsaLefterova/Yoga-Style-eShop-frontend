@@ -47,12 +47,14 @@ const AddCollection = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <CustomInput 
+          label='Title'
           type='text'
           field='title'
           value={title}
           onChangeHandler={handleChangeTitle}
         />
         <CustomInput 
+          label='Collection cover'
           type='file'
           field='cover'
           onChangeHandler={handleChangeCover}

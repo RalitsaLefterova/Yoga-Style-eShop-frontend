@@ -1,6 +1,6 @@
 import ProductsActionTypes from './products.types'
 import { createAction, Action, ActionWithPayload, withMatcher } from '../reducer.utils'
-import { Product, ProductColor } from 'shared/types/products'
+import { Product } from 'shared/types/products'
 import { NavigateFunction } from 'react-router-dom'
 
 // FETCH ALL PRODUCTS ('admin/products') //

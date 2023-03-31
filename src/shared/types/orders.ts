@@ -1,21 +1,21 @@
 import { Product } from "./products"
 import { Address } from "./addresses"
 
-export type orderProduct = {
+export type OrderProduct = {
   _id: string,
   product: Product,
   quantity: number
 }
 
-export type orderOwner = {
+export type OrderOwner = {
   _id: string,
   fullName: string
 }
 
 export type Order = {
   _id: string,
-  products: orderProduct[],
-  owner: orderOwner,
+  products: OrderProduct[],
+  owner: OrderOwner,
   status: string,
   total: number,
   delivery_address: Address,
