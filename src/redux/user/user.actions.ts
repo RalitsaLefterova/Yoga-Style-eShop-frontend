@@ -3,6 +3,7 @@ import { createAction, Action, ActionWithPayload, withMatcher } from '../reducer
 import { User } from '../../shared/types/users'
 import { NavigateFunction } from 'react-router-dom'
 import { Address } from 'shared/types/addresses'
+import { GenericObject } from 'shared/types/common'
 
 
 // SIGN UP //
@@ -107,8 +108,8 @@ createAction(UserActionTypes.GET_LOGGED_USER_PROFILE_FAILED, error))
 
 
 // EDIT LOGGED USER PROFILE //
-export type EditLoggedUserRequested = ActionWithPayload<UserActionTypes.EDIT_LOGGED_USER_REQUESTED, { data: FormData }>
-export const editLoggedUserRequested = (data: FormData): EditLoggedUserRequested => 
+export type EditLoggedUserRequested = ActionWithPayload<UserActionTypes.EDIT_LOGGED_USER_REQUESTED, { data: User | GenericObject }>
+export const editLoggedUserRequested = (data: User | GenericObject ): EditLoggedUserRequested => 
 createAction(UserActionTypes.EDIT_LOGGED_USER_REQUESTED, { data })
 
 export type EditLoggedUserFailed = ActionWithPayload<UserActionTypes.EDIT_LOGGED_USER_FAILED, Error | string>  

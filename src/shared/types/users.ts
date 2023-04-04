@@ -8,7 +8,7 @@ export type User = {
   addresses: Address[],
   shippingAddress: string,
   billingAddress: string,
-  birthday: Date,
+  birthday: Date | string,
   phone: string,
   avatar: string,
   currency: string,

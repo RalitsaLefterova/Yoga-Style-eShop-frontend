@@ -1,3 +1,5 @@
+import { GenericObject } from 'shared/types/common'
+import { User } from 'shared/types/users'
 import axiosInstance from './api-requests'
 
 type googleLoginData = {
@@ -26,7 +28,7 @@ export const logout = () => axiosInstance.post('/auth/logout')
 
 export const getLoggedUserProfile = () => axiosInstance.get('/users/me')
 
-export const editUserInfo = (data: FormData) => axiosInstance.patch('/users/me', data)
+export const editUserInfo = (data: User | GenericObject ) => axiosInstance.patch('/users/me', data)
 
 export const deleteAccount = () => axiosInstance.delete('users/me')
 

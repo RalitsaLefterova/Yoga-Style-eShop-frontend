@@ -7,12 +7,14 @@
   align-items: center;
   background-color: $white;
   border: 1px solid $user-profile-container-border;
+  border-radius: 5px;
 
   .user-profile-title {
     margin: 20px;
   }
 
   .container {
+    min-height: 400px;
     display: flex;
     background-color: $user-profile-container-background-color;
     word-break: break-all;
@@ -73,7 +75,7 @@
 
       .content-user-info {
         background: white;
-        padding: 20px;
+        padding: 30px 20px 20px;;
         width: 100%;
         height: 100%;
         display: none;

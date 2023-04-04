@@ -60,20 +60,20 @@ const SignIn = () => {
       <h2 className='title center'>Log in to your account</h2>
       <form onSubmit={handleSubmit}>
         <CustomInput
-          type='email'
-          field='email'
-          label='Email'
+          inputType='email'
+          fieldName='email'
+          labelText='Email'
           onChangeHandler={handleChange}
-          value={email}
+          inputValue={email}
           placeholder=" "
           required
         />
         <CustomInput
-          type='password'
-          field='password'
-          label='Password'
+          inputType='password'
+          fieldName='password'
+          labelText='Password'
           onChangeHandler={handleChange}
-          value={password}
+          inputValue={password}
           placeholder=" "
           required
         />

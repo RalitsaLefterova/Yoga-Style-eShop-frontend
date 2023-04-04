@@ -47,35 +47,35 @@ const SignUp = () => {
       <h2 className='title center'>Sign up</h2>
       <form className='sign-up-form' onSubmit={handleSubmit}>
         <CustomInput
-          type='text'
-          field='fullName'
-          label='Name'
+          inputType='text'
+          fieldName='fullName'
+          labelText='Name'
           onChangeHandler={handleChange}
-          value={fullName}
+          inputValue={fullName}
           required
         />
         <CustomInput
-          type='email'
-          field='email'
-          label='Email'
+          inputType='email'
+          fieldName='email'
+          labelText='Email'
           onChangeHandler={handleChange}
-          value={email}
+          inputValue={email}
           required
         />
         <CustomInput
-          type='password'
-          field='password'
-          label='Password'
+          inputType='password'
+          fieldName='password'
+          labelText='Password'
           onChangeHandler={handleChange}
-          value={password}
+          inputValue={password}
           required
         />
         <CustomInput
-          type='confirmPassword'
-          field='confirmPassword'
-          label='Confirm password'
+          inputType='confirmPassword'
+          fieldName='confirmPassword'
+          labelText='Confirm password'
           onChangeHandler={handleChange}
-          value={confirmPassword}
+          inputValue={confirmPassword}
           required
         />
         {(errorOnSignUp || errorOnNotMatchedPasswords) && <ErrorContainer error={errorOnSignUp} customTextMessage={errorOnNotMatchedPasswords} />}

@@ -51,10 +51,10 @@ const EditProductColorData = ({ productId }: EditProductColorDataType) => {
       <div>Add color and images to product</div>
       <form className='add-color-data-form' onSubmit={handleSaveColorData}>
         <CustomInput 
-          label='Color'
-          field='color'
-          type='text'
-          value={color}
+          labelText='Color'
+          fieldName='color'
+          inputType='text'
+          inputValue={color}
           onChangeHandler={handleSetColor}
           placeholder='Write color here...'
           required

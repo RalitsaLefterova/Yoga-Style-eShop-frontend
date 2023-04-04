@@ -32,7 +32,7 @@ export const generateOptions = (type: string, data: any) => {
   }
 }
 
-export const convertDate = (date: Date) => {
+export const convertDate = (date: string | Date) => {
   const newDate = new Date(date),
       day = newDate.getDate(),
       month = newDate.getMonth() + 1,
@@ -79,7 +79,8 @@ export const extractChangedValues = (obj: GenericObject) => {
   return dataObj
 }
 
-export const humanizeDate = (date: Date) => {
+export const humanizeDate = (date: Date | string) => {
+  console.log('in humanize date function', date)
   return new Date(date).toLocaleDateString()
 }
 

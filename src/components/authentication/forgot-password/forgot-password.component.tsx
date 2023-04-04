@@ -36,9 +36,9 @@ const ForgotPassword = () => {
           <h3>Forgot password</h3>
           <span>Please provide the email you are curently registered with. We will send you a reset password link.</span>
           <CustomInput
-            type='email'
-            field='email'
-            label='Email'
+            inputType='email'
+            fieldName='email'
+            labelText='Email'
             onChangeHandler={handleChange}
             value={email}
             required

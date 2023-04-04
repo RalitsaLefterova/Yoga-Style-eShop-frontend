@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
 import { extractChangedValues } from '../../../shared/helpers'
-import { selectCurrentUser, selectErrorOnEditUser, selectIsUpsert }  from '../../../redux/user/user.selectors'
+import { selectCurrentUser, selectErrorOnEditLoggedUser, selectIsUpsert }  from '../../../redux/user/user.selectors'
 import { 
   getLoggedUserProfileRequested, 
   editLoggedUserRequested, 
@@ -32,7 +32,7 @@ const UserProfile = () => {
 
   const currentUser = useSelector(selectCurrentUser)
   const isUpsert = useSelector(selectIsUpsert)
-  const errorOnEdit = useSelector(selectErrorOnEditUser)
+  const errorOnEdit = useSelector(selectErrorOnEditLoggedUser)
 
   const [toggleTabState, setToggleTabState] = useState(3)
   const [userInfo, setUserInfo] = useState<User | GenericObject>(currentUser || {})
@@ -204,11 +204,11 @@ const UserProfile = () => {
         <div className='content-tabs'>
 
           <div className={toggleTabState === 1 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserMainInfo
+            {/* <UserMainInfo
               fullName={userInfo.fullName?.value}
               email={userInfo.email?.value}
               phone={userInfo.phone?.value}
-              birthday={userInfo.birthday?.value}
+              birthday={userInfo.birthday?.value} 
               handleChange={handleChange}
               // handleSaveChanges={handleEditUserInfo}
               // handleUpsert={handleUpsert}
@@ -216,7 +216,7 @@ const UserProfile = () => {
               // errorOnEdit={errorOnEdit}
               // handleCancel={handleCancel}
             />
-          </div>
+          </div> */}
           
           <div className={toggleTabState === 2 ? "content-user-info  active-content" : "content-user-info"}>
             {/* <UserAddressInfo
@@ -239,7 +239,7 @@ const UserProfile = () => {
           </div>
           
           <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserOrders />
+            {/* <UserOrders /> */}
           </div>
 
           <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
@@ -247,18 +247,19 @@ const UserProfile = () => {
           </div>
           
           <div className={toggleTabState === 5 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserAccountSettings 
+            {/* <UserAccountSettings 
               language={userInfo.language?.value}
               currency={userInfo.currency?.value}
               handleChange={handleChange}
               handleSaveChanges={handleEditUserInfo}
               handleDeleteAccount={handleDeleteAccount}
               handleResetOnCancel={updateUserInfoObject}
-            />
+            /> */}
           </div>
           
         </div>
       </div>
+    </div>
     </div>
   )
 }

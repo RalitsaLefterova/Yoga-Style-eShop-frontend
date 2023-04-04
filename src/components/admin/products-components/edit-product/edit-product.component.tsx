@@ -165,31 +165,31 @@ const EditProduct = () => {
         <div className='product-main-info'>
           <div className='form-left-box'>
             <CustomInput 
-              label='Title'
-              type='text'
-              field='title'
-              value={title}
+              labelText='Title'
+              inputType='text'
+              fieldName='title'
+              inputValue={title}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomInput 
-              label='Price'
-              type='text'
-              field='price'
-              value={price}
+              labelText='Price'
+              inputType='text'
+              fieldName='price'
+              inputValue={price}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomInput 
-              label='Description'
-              type='text'
-              field='description'
-              value={description}
+              labelText='Description'
+              inputType='text'
+              fieldName='description'
+              inputValue={description}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomInput 
-              label='Stock'
-              type='text'
-              field='stock'
-              value={stock || 0}
+              labelText='Stock'
+              inputType='text'
+              fieldName='stock'
+              inputValue={stock || 0}
               onChangeHandler={handleSetProductDetails}
             />
             <CustomSelect
@@ -206,9 +206,9 @@ const EditProduct = () => {
           </div>
           <div className='form-right-box'>
             <CustomInput 
-              label='Image'
-              type='file'
-              field='Main Image'
+              labelText='Image'
+              inputType='file'
+              fieldName='Main Image'
               filePath={mainImageUrl}
               accept='image/png image/jpeg image/jpg'
               onChangeHandler={handleChangeMainImage}

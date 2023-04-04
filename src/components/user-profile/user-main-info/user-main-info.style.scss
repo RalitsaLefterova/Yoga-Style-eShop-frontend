@@ -1,3 +1,75 @@
-.error-container {
-  border: 1px solid red;
+@import '../../../style/variables';
+
+.edit-user-buttons-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 20px;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .cancel-edit-btn {
+    border: 1px solid $sub-color-light-gray;
+    background-color: $sub-color-light-gray;
+    color: $sub-color;
+
+      &:hover {
+        background-color: $white;
+        border-color: $sub-color;
+        color: $sub-color;
+      }
+  }
+
+  .save-changes-btn {
+    border-color: $brand-color;
+    background-color: $brand-color;
+    color: $white;
+
+    &:hover {
+      background-color: $white;
+      color: $brand-color;
+    }
+  }
+}
+
+.user-main-info-preview {
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+
+  .user-info-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid $user-profile-container-border;
+
+    span:first-child {
+      width: 100px;
+    }
+
+    span:last-child {
+      font-weight: 700;
+    }
+  }
+
+  .user-info-edit-btn-box {
+    display: flex;
+    justify-content: end;
+    padding: 10px 0;
+    
+    .user-info-edit-btn {
+      background-color: $brand-color;
+
+      &:hover {
+        background-color: $white;
+        border-color: $brand-color;
+        color: $brand-color;
+      }
+    }
+
+  }
 }

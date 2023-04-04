@@ -21,46 +21,41 @@ const UpsertAddress = ({ addressInfo, isEditAddress, onChangeAddress, onSaveAddr
   return (
     <div>
       <CustomInput
-        label='Name your address (e.g. "Home", "Ofice", etc.)'
-        type='text'
-        name='title'
-        field='title'
-        value={addressInfo && addressInfo.title ? addressInfo.title : ''}
+        labelText='Name your address (e.g. "Home", "Ofice", etc.)'
+        inputType='text'
+        fieldName='title'
+        inputValue={addressInfo && addressInfo.title ? addressInfo.title : ''}
         onChangeHandler={onChangeAddress}
       />
       <CustomInput
-        label='Street'
-        type='text'
-        name='street'
-        field='street'
-        value={addressInfo && addressInfo.street ? addressInfo.street : ''}
+        labelText='Street'
+        inputType='text'
+        fieldName='street'
+        inputValue={addressInfo && addressInfo.street ? addressInfo.street : ''}
         onChangeHandler={onChangeAddress}
         required
       />
       <CustomInput
-        label='City'
-        type='text'
-        name='city'
-        field='city'
-        value={addressInfo && addressInfo.city ? addressInfo.city : ''}
+        labelText='City'
+        inputType='text'
+        fieldName='city'
+        inputValue={addressInfo && addressInfo.city ? addressInfo.city : ''}
         onChangeHandler={onChangeAddress}
         required
       />
       <CustomInput
-        label='Postal Code'
-        type='text'
-        name='postalCode'
-        field='postalCode'
-        value={addressInfo && addressInfo.postalCode ? addressInfo.postalCode : ''}
+        labelText='Postal Code'
+        inputType='text'
+        fieldName='postalCode'
+        inputValue={addressInfo && addressInfo.postalCode ? addressInfo.postalCode : ''}
         onChangeHandler={onChangeAddress}
         required
       />
       <CustomInput
-        label='Country'
-        type='text'
-        name='country'
-        field='country'
-        value={addressInfo && addressInfo.country ? addressInfo.country : ''}
+        labelText='Country'
+        inputType='text'
+        fieldName='country'
+        inputValue={addressInfo && addressInfo.country ? addressInfo.country : ''}
         onChangeHandler={onChangeAddress}
         required
       />

@@ -45,11 +45,6 @@
     } 
   }
 
-  // input:not(:placeholder-shown) ~ .form-input-label,
-  // input:-webkit-autofill ~ .form-input-label {
-  //   top:-20px;
-  // }
-
   input[type='password'] {
     letter-spacing: .3em;
   }
@@ -71,16 +66,11 @@
 
 }
 
-// .transparent-date-placeholder {
-//   &:in-range::-webkit-datetime-edit-year-field, 
-//   &:in-range::-webkit-datetime-edit-month-field, 
-//   &:in-range::-webkit-datetime-edit-day-field, 
-//   &:in-range::-webkit-datetime-edit-text { 	
-//     color: transparent; 
-//   }
-// }
-
-img {
-  width: 200px;
-  height: auto;
+.transparent-date-placeholder {
+  &:in-range::-webkit-datetime-edit-year-field, 
+  &:in-range::-webkit-datetime-edit-month-field, 
+  &:in-range::-webkit-datetime-edit-day-field, 
+  &:in-range::-webkit-datetime-edit-text { 	
+    color: transparent; 
+  }
 }

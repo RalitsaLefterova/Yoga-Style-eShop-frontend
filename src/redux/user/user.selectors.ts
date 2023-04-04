@@ -38,7 +38,7 @@ export const selectErrorOnSignUp = createSelector(
   (userSlice) => userSlice.errorOnSignUp
 )
 
-export const selectErrorOnEditUser = createSelector(
+export const selectErrorOnEditLoggedUser = createSelector(
   [selectUserReducer],
   (userSlice) => userSlice.errorOnEditLoggedUser
 ) 

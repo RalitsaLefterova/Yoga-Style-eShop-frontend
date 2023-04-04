@@ -1,33 +1,35 @@
 import { ChangeEventHandler, InputHTMLAttributes } from 'react'
+import { convertDate, humanizeDate } from 'shared/helpers'
 
 import './custom-input.style.scss'
 
 type CustomInputType = {
-  type: string,
-  field: string,
-  label: string,
-  value?: string | number | Date,
+  inputType: string,
+  fieldName: string,
+  labelText: string,
+  inputValue?: string | number,
   filePath?: string,
   onChangeHandler: ChangeEventHandler<HTMLInputElement>
 } & InputHTMLAttributes<HTMLInputElement>
 
-const CustomInput = ({ type, field, label, value = '', filePath, onChangeHandler, ...otherProps }: CustomInputType) => {
+const CustomInput = ({ inputType, fieldName, labelText, inputValue = '', filePath, onChangeHandler, ...otherProps }: CustomInputType) => {
+
   return (
     <div className="input-container flex">
       <label 
-        htmlFor={field}
-        className={`form-input-label ${value !== '' ? 'shrink' : ''}`}
+        htmlFor={fieldName}
+        className={`form-input-label ${inputValue !== '' ? 'shrink' : ''}`}
       >
-        {label}
+        {labelText}
       </label>
-      {(type === 'file' && filePath) ? (<img src={`${process.env.BACKEND_URL}/${filePath}`} />) : null}
+      {(inputType === 'file' && filePath) ? (<img src={`${process.env.BACKEND_URL}/${filePath}`} />) : null}
       <input
         className='form-input'
-        type={type}
-        name={field}
-        id={field}
+        type={inputType}
+        name={fieldName}
+        id={fieldName}
         onChange={onChangeHandler}
-        value={value} 
+        value={inputValue} 
         {...otherProps}
         // autoComplete='off'
       />

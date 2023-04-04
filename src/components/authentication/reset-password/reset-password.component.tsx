@@ -56,19 +56,19 @@ const ResetPassword = () => {
         <form onSubmit={handleSubmit}>
           <h1>Reset Password</h1>
           <CustomInput
-            type='password'
-            field='password'
-            label='Password'
+            inputType='password'
+            fieldName='password'
+            labelText='Password'
             onChangeHandler={handleChange}
-            value={password}
+            inputValue={password}
             required
           />
           <CustomInput
-            type='confirmPassword'
-            field='confirmPassword'
-            label='Confirm password'
+            inputType='confirmPassword'
+            fieldName='confirmPassword'
+            labelText='Confirm password'
             onChangeHandler={handleChange}
-            value={confirmPassword}
+            inputValue={confirmPassword}
             required
           />
           {(errorOnResetPassword || errorPasswordsDoNotMatch) && <ErrorContainer error={errorOnResetPassword} customTextMessage={errorPasswordsDoNotMatch} />}

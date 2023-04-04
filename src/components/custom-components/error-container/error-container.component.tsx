@@ -25,7 +25,7 @@ const ErrorContainer = ({ error, customTextMessage }: ErrorContainerProps) => {
   }
   
   return (
-  <div className='error-message-container center'>
+  <div className='error-message-container center error-color'>
     {fetchErrorMessage()}
   </div>
 )}

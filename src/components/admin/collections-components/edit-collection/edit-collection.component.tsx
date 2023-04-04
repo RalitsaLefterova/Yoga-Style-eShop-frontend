@@ -63,10 +63,10 @@ const EditCollection = () => {
       </div>
       <form>
         <CustomInput 
-          label='Title'
-          type='text'
-          field='title'
-          value={title}
+          labelText='Title'
+          inputType='text'
+          fieldName='title'
+          inputValue={title}
           onChangeHandler={handleChangeTitle}
         />
         <div>
@@ -74,9 +74,9 @@ const EditCollection = () => {
         </div>
         <img src={`${process.env.BACKEND_URL}/${cover}`} alt={`collection ${title}`} />
         <CustomInput 
-          label='Collection cover'
-          type='file'
-          field='cover'
+          labelText='Collection cover'
+          inputType='file'
+          fieldName='cover'
           onChangeHandler={handleChangeCover}
         />
         <CustomButton onClick={handleEdit}>Save</CustomButton>
