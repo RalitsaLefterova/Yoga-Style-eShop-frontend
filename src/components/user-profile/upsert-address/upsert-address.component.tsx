@@ -1,20 +1,32 @@
 import { ChangeEventHandler, InputHTMLAttributes } from 'react'
 
 import { Address } from 'shared/types/addresses'
+import { GenericObject } from 'shared/types/common'
 
 import CustomInput from 'components/custom-components/custom-input/custom-input.component'
 import CustomButton from '../../custom-components/custom-button/custom-button.component'
+import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './upsert-address.style.scss'
 
+
 type UpsertAddressProps = {
-  addressInfo: Address,
+  addressInfo: Address | GenericObject,
   isEditAddress: boolean,
   onChangeAddress: ChangeEventHandler<HTMLInputElement> 
-  onSaveAddress: () => void
+  onSaveAddress: () => void,
+  handleCancel: () => void,
+  errorOnEditLoggedUser: Error | null
 } & InputHTMLAttributes<HTMLInputElement>
 
-const UpsertAddress = ({ addressInfo, isEditAddress, onChangeAddress, onSaveAddress }: UpsertAddressProps) => {
+const UpsertAddress = ({ 
+  addressInfo, 
+  isEditAddress, 
+  onChangeAddress, 
+  onSaveAddress, 
+  handleCancel,
+  errorOnEditLoggedUser
+}: UpsertAddressProps) => {
 
   // console.log('in upsert address', addressInfo)
 
@@ -59,7 +71,13 @@ const UpsertAddress = ({ addressInfo, isEditAddress, onChangeAddress, onSaveAddr
         onChangeHandler={onChangeAddress}
         required
       />
-      <CustomButton name='address' onClick={onSaveAddress} inverted>{isEditAddress ? 'Save address' : 'Create address'}</CustomButton>
+      {errorOnEditLoggedUser && <ErrorContainer error={errorOnEditLoggedUser} />}
+      <div className='upsert-address-buttons-box'>
+        <CustomButton onClick={handleCancel} additionalClasses='cancel-upsert-btn'>Cancel</CustomButton>
+        <CustomButton name='address' onClick={onSaveAddress}  additionalClasses='save-changes-btn'>
+          {isEditAddress ? 'Save address' : 'Create address'}
+        </CustomButton>
+      </div>
     </div>
   )
 }

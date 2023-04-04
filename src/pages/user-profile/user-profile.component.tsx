@@ -4,15 +4,17 @@ import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
-import { editLoggedUserRequested, getLoggedUserProfileRequested, toggleIsUpsert } from 'redux/user/user.actions'
+import { createAddressRequested, deleteAddressRequested, editAddressRequested, editLoggedUserRequested, getLoggedUserProfileRequested, toggleIsUpsert } from 'redux/user/user.actions'
 import { selectCurrentUser, selectErrorOnEditLoggedUser, selectIsUpsert } from 'redux/user/user.selectors'
 import { User } from 'shared/types/users'
+import { Address } from 'shared/types/addresses'
+import { GenericObject } from 'shared/types/common'
+import { extractChangedValues } from 'shared/helpers'
+
+import UserMainInfo from 'components/user-profile/user-main-info/user-main-info.component'
+import UserAddressInfo from 'components/user-profile/user-address-info/user-address-info.component'
 
 import './user-profile.style.scss'
-import UserMainInfo from 'components/user-profile/user-main-info/user-main-info.component'
-import { GenericObject } from 'shared/types/common'
-import { displayFormDataEntries, extractChangedValues } from 'shared/helpers'
-import UserAddressInfo from 'components/user-profile/user-address-info/user-address-info.component'
 
 const UserProfilePage = () => {
   const dispatch = useDispatch()
@@ -28,10 +30,13 @@ const UserProfilePage = () => {
   ]
 
   const isUpsert = useSelector(selectIsUpsert)
-  const [toggleTabState, setToggleTabState] = useState(1)
+  const [toggleTabState, setToggleTabState] = useState(3)
 
   const currentUser: User | null = useSelector(selectCurrentUser)
   const [userInfo, setUserInfo] = useState<User | GenericObject>(currentUser || {})
+
+  const [addressToUpsert, setAddressToUpsert] = useState<Address | GenericObject>({})
+  const [isEditAddress, setIsEditAddress] = useState(false)
 
   const toggleTab = (index: number) => {
     isUpsert && dispatch(toggleIsUpsert())
@@ -73,6 +78,51 @@ const UserProfilePage = () => {
     // dispatch(editLoggedUserRequested(dataObj))
   }
 
+  const openCreateAddress = () => {
+    const emptyAddressObj: Address | GenericObject = {
+      title: '',
+      street: '',
+      city: '',
+      postalCode: '',
+      country: ''
+    }
+    
+    setIsEditAddress(false)
+    setAddressToUpsert(emptyAddressObj)
+    handleUpsert()
+  }
+
+  const openEditAddress = (address: Address) => {
+    setAddressToUpsert(address)
+    setIsEditAddress(true)
+    handleUpsert()
+  }
+
+  const handleChangeAddress = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target
+    setAddressToUpsert({
+      ...addressToUpsert,
+      [name]: value
+    })
+  }
+
+  const handleSaveAddress = () => {
+    const address = addressToUpsert
+    if (address) {
+      const addressId = address._id
+      addressId ? dispatch(editAddressRequested(addressId, address as Address)) : dispatch(createAddressRequested(address as Address))
+    }
+  }
+
+  const handleSetAsDefaultAddress = (addressId: string, type: string) => {
+    const addressObj = { [type] : addressId } 
+    dispatch(editLoggedUserRequested(addressObj))
+  }
+
+  const handleDeleteAddress = (addressId: string) => {
+    dispatch(deleteAddressRequested(addressId))
+  }
+
   const updateUserInfoObject = () => {
     const collectedUserData: GenericObject = {}
     currentUser && Object.entries(currentUser).forEach(([key, data]) => {
@@ -83,18 +133,16 @@ const UserProfilePage = () => {
   }
 
   useEffect(() => {
-    console.log('test second useEffect')
     updateUserInfoObject()
   }, [currentUser])
 
   useEffect(() => {
-    console.log('in useEffect')
     dispatch(getLoggedUserProfileRequested())
   }, [])
 
   return (
     <div className='user-profile-page'>
-      <h3 className='user-profile-title'>My Account</h3>
+      <h3 className='user-profile- title'>My Account</h3>
       <div className='container'>
 
         <div className='menu-tabs'> 
@@ -128,7 +176,22 @@ const UserProfilePage = () => {
             />
           </div>
           <div className={toggleTabState === 2 ? "content-user-info  active-content" : "content-user-info"}>
-            2
+            <UserAddressInfo 
+              addresses={userInfo.addresses?.value} 
+              shippingAddress={userInfo.shippingAddress?.value} 
+              billingAddress={userInfo.billingAddress?.value} 
+              isUpsert={isUpsert} 
+              isEditAddress={isEditAddress} 
+              addressToUpsert={addressToUpsert} 
+              openCreateAddress={openCreateAddress}
+              openEditAddress={openEditAddress}
+              handleDeleteAddress={handleDeleteAddress}
+              handleSetAsDefaultAddress={handleSetAsDefaultAddress}
+              handleChangeAddress={handleChangeAddress} 
+              handleSaveChanges={handleSaveAddress}
+              errorOnEditLoggedUser={errorOnEditLoggedUser}
+              handleCancel={handleCancel}
+              />
           </div>
           <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
             3

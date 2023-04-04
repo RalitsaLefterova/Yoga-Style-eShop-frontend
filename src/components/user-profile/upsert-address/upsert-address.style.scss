@@ -1,0 +1,36 @@
+@import '../../../style/variables';
+
+.upsert-address-buttons-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  button {
+    margin-left: 20px;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .cancel-upsert-btn {
+    border: 1px solid $sub-color-light-gray;
+    background-color: $sub-color-light-gray;
+    color: $sub-color;
+
+      &:hover {
+        background-color: $white;
+        border-color: $sub-color;
+        color: $sub-color;
+      }
+  }
+
+  .save-changes-btn {
+    border-color: $brand-color;
+    background-color: $brand-color;
+    color: $white;
+
+    &:hover {
+      background-color: $white;
+      color: $brand-color;
+    }
+  }
+}

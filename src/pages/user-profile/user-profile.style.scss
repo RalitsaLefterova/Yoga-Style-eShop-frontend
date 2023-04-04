@@ -48,12 +48,8 @@
         border-right: 1px solid rgba(0, 0, 0, 0.274);
       }
 
-      .tabs:last-child {
-        border-bottom: none;
-      }
-
       .active-tabs  {
-        background: white;
+        background-color: white;
         border-bottom: 1px solid transparent;
       }
       
@@ -101,12 +97,6 @@
         display: block;
       }
 
-      .addresses-container {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding: 20px 0 10px;
-      }
     }
   }
 }

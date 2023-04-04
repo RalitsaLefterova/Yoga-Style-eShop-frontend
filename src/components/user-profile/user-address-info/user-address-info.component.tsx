@@ -7,35 +7,40 @@ import UpsertAddress from '../upsert-address/upsert-address.component'
 import CustomButton from '../../custom-components/custom-button/custom-button.component'
 
 import './user-address-info.style.scss'
+import { GenericObject } from 'shared/types/common'
 
 type UserAddressInfoProps = {
   addresses: Address[],
   shippingAddress: string, 
   billingAddress: string,
-  handleSaveChanges: () => void, 
   isUpsert: boolean, 
-  handleChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void,
+  addressToUpsert: Address | GenericObject,
   isEditAddress: boolean,
-  // openCreateAddress,
-  // openEditAddress,
-  // handleDeleteAddress,
-  addressToUpsert: Address,
-  // handleSetAsDefaultAddress
+  openCreateAddress: () => void,
+  openEditAddress: (address: Address) => void,
+  handleDeleteAddress: (addressId: string) => void,
+  handleSetAsDefaultAddress: (addressId: string, type: string) => void,
+  handleSaveChanges: () => void, 
+  handleChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void,
+  errorOnEditLoggedUser: Error | null,
+  handleCancel: () => void
 }
 
 const UserAddressInfo = ({
   addresses,
   shippingAddress, 
   billingAddress,
-  handleSaveChanges, 
   isUpsert, 
-  handleChangeAddress,
+  addressToUpsert,
   isEditAddress,
-  // openCreateAddress,
-  // openEditAddress,
-  // handleDeleteAddress,
-  // addressToUpsert,
-  // handleSetAsDefaultAddress
+  openCreateAddress,
+  openEditAddress,
+  handleDeleteAddress,
+  handleSetAsDefaultAddress,
+  handleChangeAddress,
+  handleSaveChanges, 
+  errorOnEditLoggedUser,
+  handleCancel
 }: UserAddressInfoProps) => {
 
   const extractDefaultAddresses = () => {
@@ -58,22 +63,24 @@ const UserAddressInfo = ({
 
   return (
     <>
-    {/* {console.log({isUpsert})} */}
+      {console.log({isUpsert})}
       {isUpsert ? (
       <>
-        {/* <UpsertAddress 
+        <UpsertAddress 
           isEditAddress={isEditAddress}
           addressInfo={addressToUpsert}
           onSaveAddress={handleSaveChanges}
           onChangeAddress={handleChangeAddress}
-        /> */}
+          handleCancel={handleCancel}
+          errorOnEditLoggedUser={errorOnEditLoggedUser}
+        />
       </>
       ) : (
       <div>
         <div>
           <h2>Default Addresses</h2>
           <hr />
-          {/* {shippingAddress || billingAddress ? (
+          {shippingAddress || billingAddress ? (
             <div className='addresses-container'>
               {extractDefaultAddresses().map((address, index) => (
                 <UserAddressPreview
@@ -89,31 +96,36 @@ const UserAddressInfo = ({
             </div>
           ) : (
             <div>You don't have default shipping and billing address</div>
-          )} */}
+          )}
         </div>
         <div>
           <h2>Additional Address Entries</h2>
           <hr />
           
-          {/* {additionalAddresses && additionalAddresses.length > 0 ? (
-            <div className='addresses-container'>
-              {additionalAddresses.map(address => (
-                <UserAddressPreview 
-                  address={address} 
-                  key={address._id}
-                  onEditAddress={openEditAddress} 
-                  onDeleteAddress={handleDeleteAddress}
-                  shippingAddress={shippingAddress}
-                  billingAddress={billingAddress}
-                  onSetAsDefaultAddress={handleSetAsDefaultAddress}
-                />
-              ))}
-            </div> 
-          ) : (
-            <div>You don't have additional addresses</div>
-          )} */}
+          <div className='addresses-container'>
+            {additionalAddresses && additionalAddresses.length > 0 ? (
+              <>
+                {additionalAddresses.map(address => (
+                  <UserAddressPreview 
+                    address={address} 
+                    key={address._id}
+                    onEditAddress={openEditAddress} 
+                    onDeleteAddress={handleDeleteAddress}
+                    shippingAddress={shippingAddress}
+                    billingAddress={billingAddress}
+                    onSetAsDefaultAddress={handleSetAsDefaultAddress}
+                  />
+                ))}
+              </>
+              ) : (
+                <span>You don't have additional addresses</span>
+              )
+            }
+          </div> 
         </div>
-        {/* <CustomButton onClick={openCreateAddress} inverted>Add new address</CustomButton> */}
+        <div className='user-addresses-create-btn-box'>
+          <CustomButton onClick={openCreateAddress}  additionalClasses='user-addresses-create-btn'>Add new address</CustomButton>
+        </div>
       </div>
       )}
     </>

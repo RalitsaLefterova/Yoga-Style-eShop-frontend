@@ -1,0 +1,24 @@
+@import '../../../style/variables';
+
+.addresses-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px 0 10px;
+}
+
+.user-addresses-create-btn-box {
+  display: flex;
+  justify-content: end;
+  padding: 10px 0;
+  
+  .user-addresses-create-btn {
+    background-color: $brand-color;
+
+    &:hover {
+      background-color: $white;
+      border-color: $brand-color;
+      color: $brand-color;
+    }
+  }
+}
