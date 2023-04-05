@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
+import CustomImageContainer from 'components/custom-components/custom-image-container/custom-image-container.component'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { formatCurrency, humanizeDate } from 'shared/helpers'
 import { Address } from 'shared/types/addresses'
 import { Order } from 'shared/types/orders'
 import { getOrderDetailsRequested } from '../../../redux/orders/orders.actions'
-import { selectOrderDetails } from '../../../redux/orders/orders.selectors'
+import { selectSelectedOrderDetails } from '../../../redux/orders/orders.selectors'
 
 import './user-order-details.style.scss'
 
@@ -16,41 +20,65 @@ type UserOrderDetailsProps = {
 
 const UserOrderDetails = ({ orderId, handleBackToOrdersList }: UserOrderDetailsProps) => {
   const dispatch = useDispatch()
-  const order: Order = useSelector(selectOrderDetails)
-  const { createdAt, delivery_address, products, status, total } = order
-  const { city, postalCode, street, country }: Address = delivery_address
+  const navigate = useNavigate()
+  const order: Order = useSelector(selectSelectedOrderDetails)
+  const { createdAt, delivery_address, products, status, total } = order || {}
+  const { city, postalCode, street, country }: Address = delivery_address || {}
+
+  const goToProduct = (productId: string, collectionId: string) => {
+    navigate(`/shop/${collectionId}/${productId}`)
+    // /shop/bags-and-backpacks/62937e4954f82c04cc98da8c
+  }
 
   useEffect(() => {
     dispatch(getOrderDetailsRequested(orderId))
   }, [])
 
   return (
-    <>
-      <button onClick={handleBackToOrdersList}>
+    <div className='order-details-container'>
+      <div className='back-btn' onClick={handleBackToOrdersList} >
+        <FontAwesomeIcon icon={faAngleLeft} />
         Go back to orders list
-      </button>  
-
-      <div>
-        <div>Order date: <span>{humanizeDate(createdAt)}</span></div>
-        <div>Status: <span>{status}</span></div>
-        <div>Delivery address: {street}, {city} {postalCode}, {country}</div>
-        <div>Total: <span>{formatCurrency(total)}</span></div>
       </div>
-      <div>
+
+      <div className='center uppercase-text'>Order details</div>
+
+      <div className='order-details'>
+        <div className='order-details-row'>
+          <span>Order date: </span>
+          <span>{humanizeDate(createdAt)}</span>
+        </div>
+        <div className='order-details-row'>
+          <span>Status:</span>
+          <span>{status}</span>
+        </div>
+        <div className='order-details-row'>
+          <span>Delivery address:</span>
+          <span>{street}, {city} {postalCode}, {country}</span>
+        </div>
+        <div className='order-details-row'>
+          <span>Total:</span> 
+          <span>{formatCurrency(total)}</span>
+        </div>
+      </div>
+      <div className='product-details-container'>
+        <div className='title center'>Order Items:</div>
         {(products || []).map((productItem, index) => {
           const { product, quantity } = productItem
-          const { title, mainImageUrl, price } = product
+          const { _id: productId, title, mainImageUrl, price, collectionId } = product
           return (
-            <div className='product-details-container' key={index}>
-              <div><img src={mainImageUrl} /></div>
-              <div>{title}</div>
-              <div>{formatCurrency(price)}</div>
-              <div>{quantity}</div>
+            <div className='product-details' key={index} onClick={() => goToProduct(productId, collectionId)}>
+              <div className='product-image'>
+                <CustomImageContainer image={mainImageUrl} />
+              </div>
+              <div className='product-title left'>{title}</div>
+              <div className='product-price right'>{formatCurrency(price)}</div>
+              <div className='product-quantity'>{quantity}</div>
             </div>
           )}
         )}
       </div>
-    </>
+    </div>
   )
 }
 

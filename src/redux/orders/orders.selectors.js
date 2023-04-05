@@ -7,7 +7,7 @@ export const selectOrders = createSelector(
   (orders) => orders.ordersList
 )
 
-export const selectOrderDetails = createSelector(
+export const selectSelectedOrderDetails = createSelector(
   [selectOrdersReducer],
   (orders) => orders.selectedOrder
 )

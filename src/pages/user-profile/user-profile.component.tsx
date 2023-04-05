@@ -13,6 +13,7 @@ import { extractChangedValues } from 'shared/helpers'
 
 import UserMainInfo from 'components/user-profile/user-main-info/user-main-info.component'
 import UserAddressInfo from 'components/user-profile/user-address-info/user-address-info.component'
+import UserOrders from 'components/user-profile/user-orders/user-orders.component'
 
 import './user-profile.style.scss'
 
@@ -194,7 +195,7 @@ const UserProfilePage = () => {
               />
           </div>
           <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
-            3
+            <UserOrders />
           </div>
           <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
             4

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getOrderDetailsRequested } from '../../../../redux/orders/orders.actions'
-import { selectOrderDetails } from '../../../../redux/orders/orders.selectors'
+import { selectSelectedOrderDetails } from '../../../../redux/orders/orders.selectors'
 import { formatCurrency, humanizeDate } from 'shared/helpers'
 import { Order } from 'shared/types/orders'
 
@@ -13,7 +13,7 @@ import './order-details.style.scss'
 const OrderDetails = () => {
   const dispatch = useDispatch()
   const params = useParams()
-  const order: Order = useSelector(selectOrderDetails)
+  const order: Order = useSelector(selectSelectedOrderDetails)
   const { _id: orderId, createdAt, owner, delivery_address, products, status, total } = order
   const { city, postalCode, street, country } = delivery_address || {}
   const { _id: ownerId, fullName } = owner || {}

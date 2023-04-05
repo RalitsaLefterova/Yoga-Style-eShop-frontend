@@ -1,0 +1,21 @@
+@import '../../../style/variables';
+
+.view-order-details-btn-box {
+  display: flex;
+  justify-content: end;
+
+  .view-order-details-btn {
+    background-color: $brand-color-light;
+    border: 1px solid $brand-color-light;
+    height: 30px;
+    line-height: 30px;
+    min-width: fit-content;
+    font-weight: lighter;
+
+    &:hover {
+      background-color: $brand-color;
+      border-color: $brand-color;
+      color: $white;
+    }
+  }
+}

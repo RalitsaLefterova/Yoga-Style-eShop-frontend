@@ -9,6 +9,7 @@ export type ProductColor = {
 }
 
 export type Product = {
+  _id: string,
   id: string,
   title: string,
   price: number,

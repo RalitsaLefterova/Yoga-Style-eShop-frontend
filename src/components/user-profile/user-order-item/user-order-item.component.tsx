@@ -1,3 +1,4 @@
+import CustomButton from 'components/custom-components/custom-button/custom-button.component'
 import { formatCurrency, humanizeDate } from 'shared/helpers'
 import { Order } from 'shared/types/orders'
 
@@ -17,7 +18,9 @@ const UserOrderItem = ({ orderInfo, handleOpenOrderDetails }: UserOrderItemProps
       <td>{status}</td>
       <td>{formatCurrency(total)}</td>
       <td>
-        <button onClick={() => handleOpenOrderDetails(orderId)}>details</button>
+        <div className='view-order-details-btn-box'>
+          <CustomButton onClick={() => handleOpenOrderDetails(orderId)} additionalClasses='view-order-details-btn'>view details</CustomButton>
+        </div>
       </td>
     </tr>
   )

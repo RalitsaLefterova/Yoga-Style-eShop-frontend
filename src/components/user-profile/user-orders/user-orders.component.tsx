@@ -11,18 +11,18 @@ import './user-orders.style.scss'
 import { Order } from 'shared/types/orders'
 
 const UserOrders = () => {
-const ordersList: Order[] = useSelector(selectOrders)
-const [selectedOrderId, setSelectedOrderId] = useState('')
-const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false)
+  const ordersList: Order[] = useSelector(selectOrders)
+  const [selectedOrderId, setSelectedOrderId] = useState('')
+  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false)
 
-const openOrderDetails = (orderId: string) => {
-  setSelectedOrderId(orderId)
-  setIsOrderDetailsOpen(true)
-}
+  const openOrderDetails = (orderId: string) => {
+    setSelectedOrderId(orderId)
+    setIsOrderDetailsOpen(true)
+  }
 
-const closeOrderDetails = () => {
-  setIsOrderDetailsOpen(false)
-}
+  const closeOrderDetails = () => {
+    setIsOrderDetailsOpen(false)
+  }
 
   const ordersTableHeader = () => {
     const headerCellsName = ['Order date', 'Status', 'Total', ' ']
@@ -51,26 +51,28 @@ const closeOrderDetails = () => {
     </tbody>
 
   return (
-    <>
+    <div className='user-orders-container'>
     {ordersList.length === 0 ? 
-      <div>
-        No orders are placed yet. 
-        <Link to='/shop'>Start shopping.</Link>
+      <div className='no-orders-message-box'>
+        <span>No orders are placed yet.</span> 
+        <Link to='/shop'>Start shopping</Link>
       </div> 
       : 
       isOrderDetailsOpen ? (
         <UserOrderDetails 
-        orderId={selectedOrderId}
-        handleBackToOrdersList={closeOrderDetails} 
-      />
+          orderId={selectedOrderId}
+          handleBackToOrdersList={closeOrderDetails} 
+        />
       ) : (
-        <table>
-          {ordersTableHeader()}
-          {ordersTableBody()}
-        </table>
+        <div className='orders-list-container'>
+          <table>
+            {ordersTableHeader()}
+            {ordersTableBody()}
+          </table>
+        </div>
       )
     }
-    </>
+    </div>
   )
 }
 

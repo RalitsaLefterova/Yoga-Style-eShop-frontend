@@ -1,0 +1,55 @@
+@import '../../../style/variables';
+
+.user-orders-container {
+  display: flex;
+  height: 100%;
+
+  .no-orders-message-box {
+    display: flex;
+    margin: 50px auto;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+
+    a {
+      color: $brand-color-light;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+
+      &:hover {
+        color: $brand-color;
+      }
+    }
+  }
+
+  .orders-list-container {
+    width: 100%;
+
+    table {
+      width: 100%;
+
+      thead {
+        border-bottom: 1px solid $sub-color-light-gray;
+        font-weight: 700;
+      }
+
+      tbody {
+        tr {
+          height: 54px;
+          border-bottom: 1px solid $sub-color-light-gray;
+        }
+      }
+
+      td {
+        min-width: 70px;
+
+        &:last-child {
+          justify-content: end;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+}
