@@ -196,7 +196,7 @@ const EditProduct = () => {
               typeOfData='collections'
               data={collections}
               handler={handleSetProductDetails}
-              label='Collection'
+              labelText='Collection'
               // label={`* ${strings.Collection}`}
               placeholder='Select collection'
               selectname='collectionId'

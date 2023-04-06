@@ -23,7 +23,7 @@ const PaymentForm = () => {
   const amount = parseFloat((total * 100).toFixed())
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   
-  console.log({currentUser})
+  // console.log({currentUser})
   const paymentHandler = async (event: FormEvent) => {
     event.preventDefault()
 

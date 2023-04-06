@@ -1,0 +1,42 @@
+@import '../../../style/variables';
+
+.settings-container {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  border-bottom: 1px solid $sub-color-light-gray;
+  padding: 20px 0;
+
+  span {
+    min-width: 120px;
+  }
+}
+
+.settings-btn {
+  background-color: $brand-color-light;
+  border: 1px solid $brand-color-light;
+  text-transform: capitalize;
+  min-width: 150px;
+  padding: 0 15px;
+  height: 30px;
+  line-height: 30px;
+  font-weight: 500;
+  
+  &:hover {
+    border: 1px solid $brand-color-light;
+    color: $brand-color-light;
+  }
+}
+
+.delete-account-btn {
+  background-color: $white;
+  border: 1px solid $error-color;
+  color: $error-color;
+  text-transform: capitalize;
+  
+  &:hover {
+    background-color: $white;
+    border: 1px solid $warning-color;
+    color: $warning-color;
+  }
+}

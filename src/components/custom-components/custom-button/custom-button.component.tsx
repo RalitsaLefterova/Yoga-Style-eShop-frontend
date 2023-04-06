@@ -3,7 +3,7 @@ import React, { ButtonHTMLAttributes } from 'react'
 import './custom-button.style.scss'
 
 type CustomButtonType = {
-  children: string,
+  children: string | JSX.Element | JSX.Element[],
   isGoogleSignIn?: boolean,
   inverted?: boolean,
   isDisabled?: boolean,

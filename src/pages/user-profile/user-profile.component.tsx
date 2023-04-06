@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
-import { createAddressRequested, deleteAddressRequested, editAddressRequested, editLoggedUserRequested, getLoggedUserProfileRequested, toggleIsUpsert } from 'redux/user/user.actions'
+import { createAddressRequested, deleteAccountRequested, deleteAddressRequested, editAddressRequested, editLoggedUserRequested, getLoggedUserProfileRequested, toggleIsUpsert } from 'redux/user/user.actions'
 import { selectCurrentUser, selectErrorOnEditLoggedUser, selectIsUpsert } from 'redux/user/user.selectors'
 import { User } from 'shared/types/users'
 import { Address } from 'shared/types/addresses'
@@ -16,6 +16,7 @@ import UserAddressInfo from 'components/user-profile/user-address-info/user-addr
 import UserOrders from 'components/user-profile/user-orders/user-orders.component'
 
 import './user-profile.style.scss'
+import UserAccountSettings from 'components/user-profile/user-account-settings/user-account-settings.component'
 
 const UserProfilePage = () => {
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ const UserProfilePage = () => {
   ]
 
   const isUpsert = useSelector(selectIsUpsert)
-  const [toggleTabState, setToggleTabState] = useState(3)
+  const [toggleTabState, setToggleTabState] = useState(1)
 
   const currentUser: User | null = useSelector(selectCurrentUser)
   const [userInfo, setUserInfo] = useState<User | GenericObject>(currentUser || {})
@@ -46,7 +47,7 @@ const UserProfilePage = () => {
 
   const handleUpsert = () => dispatch(toggleIsUpsert())
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { value, name } = event.target
     console.log('handleChange', value, name, typeof(value))
     setUserInfo({ 
@@ -64,19 +65,10 @@ const UserProfilePage = () => {
   }
 
   const handleEditUserInfo = () => {
-    console.log('handleEditUserInfo', {userInfo})
+    // console.log('handleEditUserInfo', {userInfo})
     let changedValues: GenericObject = {}
-    changedValues = extractChangedValues(userInfo)
-    
+    changedValues = extractChangedValues(userInfo)  
     dispatch(editLoggedUserRequested(changedValues))
-    //TODO: investigate this before use
-    // let dataObj: GenericObject = {}
-    // dataObj = property ? 
-    //   userInfo[property].isChanged ? { [property]: userInfo[property].value } : {} 
-    //   : 
-    //   extractChangedValues(userInfo)
-
-    // dispatch(editLoggedUserRequested(dataObj))
   }
 
   const openCreateAddress = () => {
@@ -122,6 +114,14 @@ const UserProfilePage = () => {
 
   const handleDeleteAddress = (addressId: string) => {
     dispatch(deleteAddressRequested(addressId))
+  }
+
+  const handleDeleteAccount = () => {
+    // TODO: check for orders with status active and unused gift cards 
+    // and then continue with delete account
+
+    debugger
+    // dispatch(deleteAccountRequested(navigate))
   }
 
   const updateUserInfoObject = () => {
@@ -198,10 +198,17 @@ const UserProfilePage = () => {
             <UserOrders />
           </div>
           <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
-            4
+            Payments here...
           </div>
           <div className={toggleTabState === 5 ? "content-user-info  active-content" : "content-user-info"}>
-            5
+            <UserAccountSettings 
+              language={userInfo.language?.value}
+              currency={userInfo.currency?.value}
+              handleChange={handleChange}
+              handleSaveChanges={handleEditUserInfo}
+              handleDeleteAccount={handleDeleteAccount}
+              handleResetOnCancel={updateUserInfoObject}
+            />
           </div>
         </div>
       </div>

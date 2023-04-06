@@ -8,23 +8,23 @@ export const regExEmail = () =>
 
 export const regExPhone = () => /^(?=.*[0-9])[- +()0-9]+$/;
 
-export const generateOptions = (type: string, data: any) => {
+export const generateOptions = (type: string, data: Collection[] | ProductColor[] | string[]) => {
 
   switch (type) {
 
     case 'collections':
-      return (data || []).map((collection: Collection) => (
+      return (data as Collection[] || []).map((collection: Collection) => (
         <option key={collection._id} value={collection._id}>{collection.title}</option>
       ))
 
     case 'colors':
-      return (data || []).map((color: ProductColor) => (
+      return (data as ProductColor[] || []).map((color: ProductColor) => (
         <option key={color._id} value={color._id}>{color.color}</option>
       ))
 
     case 'language':
     case 'currency':
-      return data.map((property: string[], index: number) => (
+      return (data as string[] || []).map((property: string, index: number) => (
           <option key={index} value={property}>{property}</option>
         ))
 
@@ -80,7 +80,7 @@ export const extractChangedValues = (obj: GenericObject) => {
 }
 
 export const humanizeDate = (date: Date | string) => {
-  console.log('in humanize date function', date)
+  // console.log('in humanize date function', date)
   return new Date(date).toLocaleDateString()
 }
 

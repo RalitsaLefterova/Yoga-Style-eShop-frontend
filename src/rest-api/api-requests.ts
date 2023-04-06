@@ -9,11 +9,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   req => {
-  const user = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
-  req.headers.Authorization = user && user.token ? `Bearer ${user.token}` : ''
+  const user = JSON.parse(JSON.parse(localStorage.getItem('persist:root') || '').user || '')
+  req.headers && (req.headers.Authorization = user && user.token ? `Bearer ${user.token}` : '')
   return req
   },
-  (error) => promise.reject(error)
+  (error) => Promise.reject(error)
 )
 
 axiosInstance.interceptors.response.use(
@@ -28,8 +28,8 @@ axiosInstance.interceptors.response.use(
       toggleModal(true, {
         title: 'Session expired',
         text: 'Your session has expired. You will be redirected to the login page.',
-        textCenter: true,
         type: 'warning',
+        textCenter: true,
         showCancelButton: false,
         confirmButtonText: 'OK',
         hasSessionExpired: true

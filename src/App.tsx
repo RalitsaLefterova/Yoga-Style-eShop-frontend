@@ -50,7 +50,7 @@ const { pathname } = useLocation()
 const background = location.state && location.state.background
 // console.log({background})
 
-console.log({currentUser})
+// console.log({currentUser})
 // console.log(currentUser !== null && currentUser.role)
 
   return (

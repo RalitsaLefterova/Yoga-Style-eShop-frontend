@@ -24,7 +24,7 @@ const UserAddressPreview = ({
   
   const { _id: addressId, street, city, country, postalCode, title } = address
 
-  console.log('AddressPreview', {address}, {shippingAddress}, {billingAddress})
+  // console.log('AddressPreview', {address}, {shippingAddress}, {billingAddress})
 
   const labelText = () => {
     if (shippingAddress && billingAddress && shippingAddress === billingAddress && shippingAddress === addressId) {

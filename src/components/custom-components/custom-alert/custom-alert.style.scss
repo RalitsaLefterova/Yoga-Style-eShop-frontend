@@ -1,3 +1,5 @@
+@import '../../../style/variables';
+
 .alert-modal-container {
   position: absolute;
   top: 0;
@@ -22,6 +24,18 @@
     border-radius: 7px;
     // width: SCREEN_WIDTH * 0.9
 
+    h1, h3 {
+      color: $error-color;
+    }
+
+    .warning-message-list {
+      margin: 10px 30px;
+
+      li {
+        list-style: disc;
+      }
+    }
+
     .buttons-box {
       display: flex;
       justify-content: center;
@@ -29,7 +43,39 @@
       button {
         margin: 5px;
         min-width: 140px;
-        cursor: pointer;
+        width: 200px;
+        padding: 5px 20px;
+        font-weight: 600;
+        align-items: center;
+        // text-transform: capitalize;
+
+        span {
+          line-height: 20px;
+        }
+      }
+
+      .btn-type-cancel {
+        background-color: $white;
+        border: 1px solid $sub-color;
+        color: black;
+
+        &:hover {
+          background-color: $sub-color;
+          border: 1px solid $sub-color;
+          color: $white;
+        }
+      }
+
+      .btn-type-warning {
+        background-color: $error-color;
+        border: 1px solid $error-color;
+        color: $white;
+
+        &:hover {
+          background-color: $warning-color;
+          border: 1px solid $warning-color;
+          color: $white;
+        }
       }
     }
   }

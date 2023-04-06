@@ -7,18 +7,18 @@ import { generateOptions } from 'shared/helpers'
 import './custom-select.style.scss'
 
 type CustomSelectType = {
-  data: ProductColor[] | Collection[],
+  data: ProductColor[] | Collection[] | string[],
   typeOfData: string,
   placeholder: string,
-  label: string,
+  labelText: string,
   selectname: string,
   extraClasses?: string
   handler: ChangeEventHandler<HTMLSelectElement>
 } & SelectHTMLAttributes<HTMLSelectElement>
 
-const CustomSelect = ({ typeOfData, data, placeholder, selectname, value = '', handler, label, ...otherProps }: CustomSelectType) => (
+const CustomSelect = ({ typeOfData, data, placeholder, selectname, value = '', handler, labelText, ...otherProps }: CustomSelectType) => (
   <div className={`flex ${otherProps.extraClasses}`}>
-    <label htmlFor={selectname}>{label}</label>
+    <label htmlFor={selectname}>{labelText}</label>
     <div className="selectWrapper">
       <select onChange={handler} name={selectname} id={selectname} defaultValue={value} required>
         <option disabled value=''>{placeholder}</option>

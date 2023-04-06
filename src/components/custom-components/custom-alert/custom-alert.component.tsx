@@ -1,13 +1,28 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import { sessionExpired } from '../../../redux/user/user.actions'
+import { navigateAfterSessionExpired } from '../../../redux/user/user.actions'
 
 import './custom-alert.style.scss'
+import CustomButton from '../custom-button/custom-button.component'
 
-let toggleModal = () => {}
+type DataValProps = {
+  title?: string, 
+  text?: JSX.Element | string,
+  type?: string, 
+  textCenter?: boolean,
+  showCancelButton?: boolean, 
+  cancelButtonText?: string,
+  showConfirmButton?: boolean,
+  confirmButtonText?: string, 
+  onConfirmRedirectTo?: string,
+  onConfirmAction?: () => void,
+  showCloseButton?: boolean,
+  hasSessionExpired?: boolean
+}
+
+let toggleModal = (showVal: boolean, dataVal: DataValProps) => {}
 
 const CustomAlert = () => {
   const dispatch = useDispatch()
@@ -15,7 +30,7 @@ const CustomAlert = () => {
   const location = useLocation()
   // console.log({location})
   const [show, setShow] = useState(false)
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<DataValProps>({})
 
   const { 
     title, 
@@ -28,8 +43,9 @@ const CustomAlert = () => {
     onConfirmRedirectTo,
     onConfirmAction,
     showCloseButton,
-    hasSessionExpired
-  } = data || {}
+    hasSessionExpired,
+    showConfirmButton
+  } = data
 
   // console.log('inside CustomAlert')
 
@@ -44,7 +60,7 @@ const CustomAlert = () => {
     onConfirmRedirectTo && navigate(onConfirmRedirectTo)
 
     if (hasSessionExpired) {
-      dispatch(sessionExpired({ navigate }))
+      dispatch(navigateAfterSessionExpired(navigate))
       navigate('/sign-in')
       // setShow(false)
     }
@@ -92,18 +108,16 @@ const CustomAlert = () => {
             <div className={textCenter ? "center" : ""}>{text}</div>
 
             <div className='buttons-box'>
-              {showCancelButton && 
-                <button onClick={handleCloseModal}>
-                  {cancelButtonText}
-                </button>
+              {showCancelButton && cancelButtonText && 
+                <CustomButton onClick={handleCloseModal} additionalClasses='btn-type-cancel'>
+                  <span>{cancelButtonText}</span>
+                </CustomButton>
               }
-              <button onClick={handleConfirm}>
-                {confirmButtonText}
-              </button>
+              {confirmButtonText && 
+                <CustomButton onClick={handleConfirm} additionalClasses={type === 'warning' ? 'btn-type-warning' : ''}>
+                  <span>{confirmButtonText}</span>
+                </CustomButton>}
             </div>
-
-            
-
           </div>
         </div>
       }

@@ -112,7 +112,7 @@ const ProductDetails = () => {
                     typeOfData='colors'
                     placeholder='Select color'
                     selectname='color'
-                    label='Color'
+                    labelText='Color'
                     handler={changeColorImages}
                   />
                 </div>
