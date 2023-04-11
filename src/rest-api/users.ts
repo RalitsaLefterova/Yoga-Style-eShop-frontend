@@ -38,11 +38,10 @@ export const resetPassword = (userId: string, resetToken: string, password: stri
   return axiosInstance.post(`auth/reset-password/${userId}/${resetToken}`, { password })
 }
 
-// export const getUsers = () => axiosInstance.get('/users')
 export const getAllUsers = () => axiosInstance.get('/users')
 
 export const adminGetUserById = (userId: string) => axiosInstance.get(`/users/${userId}`)
 
-export const adminEditUserById = (userId: string, data: FormData) => axiosInstance.patch(`/users/${userId}`, data)
+export const adminEditUserById = (userId: string, data: User) => axiosInstance.patch(`/users/${userId}`, data)
 
 export const adminDeleteUserById = (userId: string) => axiosInstance.delete(`/users/${userId}`)

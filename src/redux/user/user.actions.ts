@@ -164,8 +164,44 @@ export type AdminGetAllUsersFailed = ActionWithPayload<UserActionTypes.ADMIN_GET
 export const adminGetAllUsersFailed = withMatcher((error: Error): AdminGetAllUsersFailed => 
   createAction(UserActionTypes.ADMIN_GET_ALL_USERS_FAILED, error))
 
-  // GET USER BY ID (ADMIN) //
 
-  // EDIT USER BY ID (ADMIN) //
+// GET USER BY ID (ADMIN) //
+export type AdminGetUserByIdRequested = ActionWithPayload<UserActionTypes.ADMIN_GET_USER_BY_ID_REQUESTED, { userId: string }>
+export const adminGetUserByIdRequested = withMatcher((userId: string): AdminGetUserByIdRequested =>
+  createAction(UserActionTypes.ADMIN_GET_USER_BY_ID_REQUESTED, { userId }))
 
-  // DELETE USER BY ID (ADMIN) //
+export type AdminGetUserByIdSuccess = ActionWithPayload<UserActionTypes.ADMIN_GET_USER_BY_ID_SUCCESS, User>
+export const adminGetUserByIdSuccess = withMatcher((user: User): AdminGetUserByIdSuccess => 
+  createAction(UserActionTypes.ADMIN_GET_USER_BY_ID_SUCCESS, user))
+
+export type AdminGetUserByIdFailed = ActionWithPayload<UserActionTypes.ADMIN_GET_USER_BY_ID_FAILED, Error>
+export const adminGetUserByIdFailed = withMatcher((error: Error): AdminGetUserByIdFailed => 
+  createAction(UserActionTypes.ADMIN_GET_USER_BY_ID_FAILED, error))
+
+  
+// EDIT USER BY ID (ADMIN) //
+export type AdminEditUserByIdRequested = ActionWithPayload<UserActionTypes.ADMIN_EDIT_USER_BY_ID_REQUESTED, { userId: string, data: User }>
+export const adminEditUserByIdRequested = withMatcher((userId: string, data: User): AdminEditUserByIdRequested =>
+  createAction(UserActionTypes.ADMIN_EDIT_USER_BY_ID_REQUESTED, { userId, data }))
+
+export type AdminEditUserByIdSuccess = ActionWithPayload<UserActionTypes.ADMIN_EDIT_USER_BY_ID_SUCCESS, User>
+export const adminEditUserByIdSuccess = withMatcher((user: User): AdminEditUserByIdSuccess =>
+  createAction(UserActionTypes.ADMIN_EDIT_USER_BY_ID_SUCCESS, user))
+
+export type AdminEditUserByIdFailed = ActionWithPayload<UserActionTypes.ADMIN_EDIT_USER_BY_ID_FAILED, Error>
+export const adminEditUserByIdFailed = withMatcher((error: Error): AdminEditUserByIdFailed => 
+  createAction(UserActionTypes.ADMIN_EDIT_USER_BY_ID_FAILED, error))
+
+
+// DELETE USER BY ID (ADMIN) //
+export type AdminDeleteUserByIdRequested = ActionWithPayload<UserActionTypes.ADMIN_DELETE_USER_BY_ID_REQUESTED, { userId: string, navigate: NavigateFunction }>
+export const adminDeleteUserByIdRequested = withMatcher((userId: string, navigate: NavigateFunction): AdminDeleteUserByIdRequested =>
+  createAction(UserActionTypes.ADMIN_DELETE_USER_BY_ID_REQUESTED, { userId, navigate }))
+
+export type AdminDeleteUserByIdSuccess = Action<UserActionTypes.ADMIN_DELETE_USER_BY_ID_SUCCESS>
+export const adminDeleteUserByIdSuccess = withMatcher((): AdminDeleteUserByIdSuccess => 
+  createAction(UserActionTypes.ADMIN_DELETE_USER_BY_ID_SUCCESS))
+
+export type AdminDeleteUserByIdFailed = ActionWithPayload<UserActionTypes.ADMIN_DELETE_USER_BY_ID_FAILED, Error>
+export const adminDeleteUserByIdFailed = withMatcher((error: Error): AdminDeleteUserByIdFailed => 
+  createAction(UserActionTypes.ADMIN_DELETE_USER_BY_ID_FAILED, error))

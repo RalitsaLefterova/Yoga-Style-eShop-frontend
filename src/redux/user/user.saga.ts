@@ -10,7 +10,11 @@ import {
   deleteAccount,
   forgotPassword,
   resetPassword,
-  getLoggedUserProfile
+  getLoggedUserProfile,
+  getAllUsers,
+  adminGetUserById,
+  adminEditUserById,
+  adminDeleteUserById
 } from '../../rest-api/users'
 import { 
   createAddress,
@@ -46,7 +50,18 @@ import {
   ResetPasswordRequested,
   EditLoggedUserRequested,
   DeleteAddressRequested,
-  NavigateAfterSessionExpired
+  NavigateAfterSessionExpired,
+  adminGetAllUsersFailed,
+  adminGetAllUsersSuccess,
+  AdminGetUserByIdRequested,
+  adminGetUserByIdSuccess,
+  adminGetUserByIdFailed,
+  AdminEditUserByIdRequested,
+  adminEditUserByIdFailed,
+  adminEditUserByIdSuccess,
+  AdminDeleteUserByIdRequested,
+  adminDeleteUserByIdFailed,
+  adminDeleteUserByIdSuccess
 } from './user.actions'
 import { 
   setOrders 
@@ -189,10 +204,10 @@ export function* signOutAsync({ payload : { navigate } }: SignOutRequested) {
   }
 }
 export function* onSignOutRequested() {
-  console.log('test')
   yield* takeLatest(UserActionTypes.SIGN_OUT_REQUESTED, signOutAsync)
 }
 
+// GET LOGGED USER PROFILE //
 export function* getLoggedUserProfileAsync() {
   try {
     const getLoggedUserProfileResponse = yield* call(getLoggedUserProfile)
@@ -207,6 +222,7 @@ export function* onGetLoggedUserProfileRequested() {
   yield* takeLatest(UserActionTypes.GET_LOGGED_USER_PROFILE_REQUESTED, getLoggedUserProfileAsync)
 }
 
+// EDIT LOGGED USER PROFILE //
 export function* editLoggedUserAsync({ payload: { data }}: EditLoggedUserRequested) {
   try {
     const response = yield* call(editUserInfo, data)
@@ -290,6 +306,64 @@ export function* onResetErrorMessagesRequested() {
   yield* takeLatest(UserActionTypes.RESET_ERROR_MESSAGES, resetErrorMessagesAsync)
 }
 
+// GET ALL USERS (ADMIN) //
+export function* adminGetAllUsersAsync() {
+  try {
+    const adminGetAllUsersResponse = yield* call(getAllUsers)
+    if (adminGetAllUsersResponse.data) {
+      yield* put(adminGetAllUsersSuccess(adminGetAllUsersResponse.data))
+    }
+  } catch (error) {
+    yield put(adminGetAllUsersFailed(error as Error))
+  }
+}
+export function* onAdminGetAllUsersRequested() {
+  yield* takeLatest(UserActionTypes.ADMIN_GET_ALL_USERS_REQUESTED, adminGetAllUsersAsync)
+}
+
+// GET USER BY ID (ADMIN) //
+export function* adminGetUserByIdAsync({ payload: { userId }}: AdminGetUserByIdRequested) {
+  console.log('in saga adminGetUserByIdAsync')
+  try {
+    const adminGetUserByIdResponse = yield* call(adminGetUserById, userId)
+    if (adminGetUserByIdResponse.data) {
+      yield* put(adminGetUserByIdSuccess(adminGetUserByIdResponse.data))
+    }
+  } catch (error) {
+    yield* put(adminGetUserByIdFailed(error as Error))
+  }
+}
+export function* onAdminGetUserByIdRequested() {
+  yield* takeLatest(UserActionTypes.ADMIN_GET_USER_BY_ID_REQUESTED, adminGetUserByIdAsync)
+}
+
+// EDIT USER BY ID (ADMIN) //
+export function* adminEditUserByIdAsync({ payload: { userId, data }}: AdminEditUserByIdRequested) {
+  try {
+    const adminEditUserByIdResponse = yield* call(adminEditUserById, userId, data)
+    yield* put(adminEditUserByIdSuccess(adminEditUserByIdResponse.data))
+  } catch (error) {
+    yield* put(adminEditUserByIdFailed(error as Error))
+  }
+}
+export function* onAdminEditUserByIdRequested() {
+  yield* takeLatest(UserActionTypes.ADMIN_EDIT_USER_BY_ID_REQUESTED, adminEditUserByIdAsync)
+}
+
+// DELETE USER BY ID (ADMIN) //
+export function* adminDeleteUserByIdAsync({ payload: { userId, navigate }}: AdminDeleteUserByIdRequested) {
+  try {
+    const adminDeleteUserByIdResponse = yield* call(adminDeleteUserById, userId)
+    navigate('/admin/users')
+    yield* put(adminDeleteUserByIdSuccess())
+  } catch (error) {
+    yield* put(adminDeleteUserByIdFailed(error as Error))
+  }
+}
+export function* onAdminDeleteUserByIdRequested() {
+  yield* takeLatest(UserActionTypes.ADMIN_DELETE_USER_BY_ID_REQUESTED, adminDeleteUserByIdAsync)
+}
+
 export function* userSaga() {
   yield* all([
     call(onEmailSignInRequested),
@@ -305,6 +379,10 @@ export function* userSaga() {
     call(onEditAddressRequested),
     call(onDeleteAddressRequested),
     call(onDeleteAccountRequested),
-    call(onResetErrorMessagesRequested)
+    call(onResetErrorMessagesRequested),
+    call(onAdminGetAllUsersRequested),
+    call(onAdminGetUserByIdRequested),
+    call(onAdminEditUserByIdRequested),
+    call(onAdminDeleteUserByIdRequested)
   ])
 }

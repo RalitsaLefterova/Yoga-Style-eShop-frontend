@@ -1,13 +1,26 @@
-const UserDetails = () => {
+import { Link, useLocation } from 'react-router-dom'
+
+import { User } from 'shared/types/users'
+
+import './user-details.style.scss'
+
+type UserDetailsProps = {
+  user: User
+}
+
+const UserDetails = ({ user }: UserDetailsProps) => {
+  const { pathname } = useLocation()
+  const { _id: userId, fullName, email, role } = user
+
   return (
-    <div className='admin-page-container center'>
-      <div className='page-title left'>
-        <h1>User details</h1>
-      </div>
-      <div>
-        User details here...
-      </div>
-    </div>
+    <tr>
+      <th>{fullName}</th>
+      <th>{email}</th>
+      <th>{role}</th>
+      <th>
+        <Link to={`${pathname}/edit/${userId}`}>Edit</Link>
+      </th>
+    </tr>
   )
 }
 

@@ -20,13 +20,19 @@ import {
   forgotPasswordSuccess, 
   resetPasswordFailed, 
   resetPasswordSuccess, 
-  resetErrorMessagesRequested
+  resetErrorMessagesRequested,
+  adminEditUserByIdSuccess,
+  adminEditUserByIdRequested,
+  adminEditUserByIdFailed,
+  adminDeleteUserByIdSuccess,
+  adminGetUserByIdSuccess,
+  adminGetUserByIdRequested
 } from './user.actions';
 
 export type UserState = {
   readonly currentUser: User | null
   readonly token: string
-  readonly selectedUser: User | GenericObject
+  readonly selectedUser: User | GenericObject | null
   readonly usersList: User[]
   readonly isLoading: boolean,
   readonly isUpsert: boolean
@@ -41,6 +47,7 @@ export type UserState = {
   readonly errorOnForgotPassword: Error | null
   readonly errorOnResetPassword: Error | null
   readonly errorOnGetAllUsers: Error | null
+  readonly errorOnEditUserById: Error | null
 }
 
 const INITIAL_STATE: UserState = {
@@ -60,7 +67,8 @@ const INITIAL_STATE: UserState = {
   errorOnDeleteAccount: null,
   errorOnForgotPassword: null,
   errorOnResetPassword: null,
-  errorOnGetAllUsers: null
+  errorOnGetAllUsers: null,
+  errorOnEditUserById: null
 };
 
 const userReducer = (
@@ -185,7 +193,11 @@ const userReducer = (
       }
     }
 
-    if (adminGetAllUsersRequested.match(action)) {
+    if (
+      adminGetAllUsersRequested.match(action) ||
+      adminGetUserByIdRequested.match(action) ||
+      adminEditUserByIdRequested.match(action)
+    ) {
       return {
         ...state,
         isLoading: true
@@ -201,11 +213,44 @@ const userReducer = (
       }
     }
 
+
     if (adminGetAllUsersFailed.match(action)) {
       return {
         ...state,
         isLoading: false,
         errorOnGetAllUsers: action.payload
+      }
+    }
+
+    if (adminGetUserByIdSuccess.match(action)) {
+      return {
+        ...state,
+        isLoading: false,
+        selectedUser: action.payload
+      }
+    }
+
+    if (adminEditUserByIdSuccess.match(action)) {
+      return {
+        ...state,
+        isLoading: false,
+        selectedUser: action.payload,
+        errorOnEditUserById: null
+      }
+    }
+
+    if (adminEditUserByIdFailed.match(action)) {
+      return {
+        ...state,
+        isLoading: false,
+        errorOnEditUserById: action.payload
+      }
+    }
+
+    if (adminDeleteUserByIdSuccess.match(action)) {
+      return {
+        ...state,
+        selectedUser: null
       }
     }
   

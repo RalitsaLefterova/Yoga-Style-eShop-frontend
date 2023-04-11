@@ -52,3 +52,13 @@ export const selectErrorOnResetPassword = createSelector(
   [selectUserReducer],
   (userSlice) => userSlice.errorOnResetPassword
 )
+
+export const selectUsersList = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.usersList
+)
+
+export const selectSelectedUser = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.selectedUser
+)
