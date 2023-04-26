@@ -4,21 +4,26 @@ import { Collection } from '../../shared/types/collections'
 
 import './collection-item.style.scss'
 
-type CollectionItemType = {
+export type CollectionItemPropsType = {
   collection: Collection,
   size: string
 }
  
-const CollectionItem = ({ collection, size }: CollectionItemType) => {
+const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { title, cover } = collection
 
+  
   const collectionTitle = (title as string).replace('and', '&').toUpperCase()
   const navigationCollectionTitle = (title as string).replace(/\s+/g, '-').toLowerCase()
-
+  
+  console.log({pathname}, `${pathname}/${navigationCollectionTitle}`)
+  
   return (
     <div 
+      data-testid="collection-item"
+      id='collection-item'
       className={`${size} collection-item`} 
       onClick={() => navigate(`${pathname}/${navigationCollectionTitle}`)}
     >
