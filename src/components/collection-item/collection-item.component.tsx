@@ -3,10 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Collection } from '../../shared/types/collections'
 
 import './collection-item.style.scss'
+import React from 'react'
 
 export type CollectionItemPropsType = {
   collection: Collection,
-  size: string
+  size: 'small' | 'medium' | 'large'
 }
  
 const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
@@ -18,7 +19,12 @@ const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
   const collectionTitle = (title as string).replace('and', '&').toUpperCase()
   const navigationCollectionTitle = (title as string).replace(/\s+/g, '-').toLowerCase()
   
-  console.log({pathname}, `${pathname}/${navigationCollectionTitle}`)
+  // console.log({pathname}, `${pathname}/${navigationCollectionTitle}`)
+  console.log('---test---', navigate)
+
+  // if (!navigate) {
+  //   return null
+  // }
   
   return (
     <div 
