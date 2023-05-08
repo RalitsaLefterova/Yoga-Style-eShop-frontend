@@ -35,13 +35,13 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-      "jsx": "react",
-      // "jsx": "react-jsx",
+      // "jsx": "react",
+      "jsx": "react-jsx",
       "useUnknownInCatchVariables": true,
       "sourceMap": true
   },
   "include": [
-    // "src", 
+    "src", 
     "./globals.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",

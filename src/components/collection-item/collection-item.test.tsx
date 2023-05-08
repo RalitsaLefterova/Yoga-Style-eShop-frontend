@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, RenderResult } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import { useLocation } from 'react-router-dom'
 import * as reactRouterDom from 'react-router-dom'
 import { Collection } from '../../shared/types/collections'
@@ -44,10 +44,11 @@ describe('Test CollectionItem component', () => {
   })
 
   it('renders CollectionItem component without crashing', () => {
-    const { getByTestId } = render(<CollectionItem {...mockProps} />)
+    const { container } = render(<CollectionItem {...mockProps} />)
+    const collectionItem = container.querySelector('.collection-item')
 
-    expect(getByTestId('collection-item')).toBeInstanceOf(HTMLElement)
-    expect(getByTestId('collection-item')).toBeInTheDocument()
+    // expect(collectionItem).toBeInstanceOf(HTMLElement)
+    expect(collectionItem).toBeInTheDocument()
   })
   
   it('renders the component with the correct props', () => {
@@ -73,10 +74,10 @@ describe('Test CollectionItem component', () => {
   it('navigates to the correct URL when clicked', () => {
     jest.spyOn(reactRouterDom, 'useNavigate').mockReturnValue(navigate)
     const expectedPath = mockProps.collection.title && `${pathname}/${mockProps.collection.title.replace(/\s+/g, '-').toLowerCase()}`
-    const { getByTestId }: RenderResult = render(<CollectionItem {...mockProps} />)
-    const collectionItem = getByTestId('collection-item')
+    const { container } = render(<CollectionItem {...mockProps} />)
+    const collectionItem = container.querySelector('.collection-item')
     
-    fireEvent.click(collectionItem)
+    fireEvent.click(collectionItem as HTMLElement)
 
     expect(navigate).toHaveBeenCalledTimes(1)
     expect(navigate).toHaveBeenCalledWith(expectedPath)

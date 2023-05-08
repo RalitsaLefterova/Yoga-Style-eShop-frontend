@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Collection } from '../../shared/types/collections'
 
 import './collection-item.style.scss'
-import React from 'react'
 
 export type CollectionItemPropsType = {
   collection: Collection,
@@ -15,21 +14,18 @@ const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
   const { pathname } = useLocation()
   const { title, cover } = collection
 
-  
   const collectionTitle = (title as string).replace('and', '&').toUpperCase()
   const navigationCollectionTitle = (title as string).replace(/\s+/g, '-').toLowerCase()
   
   const handleClick = () => {
     const path = `${pathname}/${navigationCollectionTitle}`
-    console.log('navigate:', path)
+    // console.log('navigate:', path)
     navigate(path)
-    console.log('navigate called')
+    // console.log('navigate called')
   }
 
   return (
-    <div 
-      data-testid="collection-item"
-      id='collection-item'
+    <div
       className={`${size} collection-item`} 
       onClick={handleClick}
     >
