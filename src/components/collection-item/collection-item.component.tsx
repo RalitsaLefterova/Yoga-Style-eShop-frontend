@@ -19,19 +19,19 @@ const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
   const collectionTitle = (title as string).replace('and', '&').toUpperCase()
   const navigationCollectionTitle = (title as string).replace(/\s+/g, '-').toLowerCase()
   
-  // console.log({pathname}, `${pathname}/${navigationCollectionTitle}`)
-  console.log('---test---', navigate)
+  const handleClick = () => {
+    const path = `${pathname}/${navigationCollectionTitle}`
+    console.log('navigate:', path)
+    navigate(path)
+    console.log('navigate called')
+  }
 
-  // if (!navigate) {
-  //   return null
-  // }
-  
   return (
     <div 
       data-testid="collection-item"
       id='collection-item'
       className={`${size} collection-item`} 
-      onClick={() => navigate(`${pathname}/${navigationCollectionTitle}`)}
+      onClick={handleClick}
     >
       <div 
         className='background-image'

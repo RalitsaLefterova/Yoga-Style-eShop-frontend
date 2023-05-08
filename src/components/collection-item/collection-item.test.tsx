@@ -1,18 +1,23 @@
 import React from 'react'
-import { render, fireEvent, screen, RenderResult } from '@testing-library/react'
-// import { describe, expect, jest } from '@jest/globals'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { render, fireEvent, RenderResult } from '@testing-library/react'
+import { useLocation } from 'react-router-dom'
+import * as reactRouterDom from 'react-router-dom'
+import { Collection } from '../../shared/types/collections'
 
 import CollectionItem, { CollectionItemPropsType } from './collection-item.component'
 
-jest.mock('react-router-dom', () => ({
-  // ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn(),
-  useLocation: jest.fn(),
-}))
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {
+    ...originalModule,
+    useNavigate: jest.fn(),
+    useLocation: jest.fn(),
+  };
+});
+
 
 describe('Test CollectionItem component', () => {
-  const mockCollection = {
+  const mockCollection: Collection  = {
     title: 'yoga equipment',
     cover: 'yoga-equipment.jpg',
   };
@@ -21,22 +26,17 @@ describe('Test CollectionItem component', () => {
     size: 'large'
   };
 
-  let navigate: ReturnType<typeof useNavigate>
-  let location: ReturnType<typeof useLocation>
-  let pathname: string
+  const navigate = jest.fn()
+  const pathname = '/shop'
 
   beforeEach(() => {
-    pathname = '/shop'
-    location = { 
+    (useLocation as jest.Mock).mockReturnValue({
       pathname: pathname,
       search: '',
       hash: '',
       state: null,
       key: 'unique-key'
-    }
-
-    navigate && (useNavigate as jest.Mock).mockReturnValue(navigate)
-    location && (useLocation as jest.Mock).mockReturnValue(location)
+    })
   })
 
   afterEach(() => {
@@ -45,39 +45,37 @@ describe('Test CollectionItem component', () => {
 
   it('renders CollectionItem component without crashing', () => {
     const { getByTestId } = render(<CollectionItem {...mockProps} />)
+
     expect(getByTestId('collection-item')).toBeInstanceOf(HTMLElement)
     expect(getByTestId('collection-item')).toBeInTheDocument()
   })
   
   it('renders the component with the correct props', () => {
     render(<CollectionItem {...mockProps} />)  
+
     expect(mockProps.collection.title).toBeDefined()
     expect(mockProps.collection.cover).toBeDefined()
     expect(mockProps.size).toBeDefined()
   })
 
-  // it('renders the correct DOM structure', () => {
-  //   const { container } = render(<CollectionItem {...mockProps} />)
+  it('renders the correct DOM structure', () => {
+    const { container } = render(<CollectionItem {...mockProps} />)
+    const collectionItem = container.querySelector('.collection-item')
+    const backgroundImage = container.querySelector('.background-image')
+    const title = container.querySelector('.title')
+    const expectedTitle = mockProps.collection.title?.toUpperCase()
 
-  //   const collectionItem = container.querySelector('.collection-item')
-  //   const backgroundImage = container.querySelector('.background-image')
-  //   const title = container.querySelector('.title')
-
-  //   expect(collectionItem).toHaveClass(mockProps.size)
-  //   expect(backgroundImage).toHaveStyle(`background-image: url(${process.env.BACKEND_URL}/${mockProps.collection.cover})`)
-  //   expect(title).toHaveTextContent(mockProps.collection.title && mockProps.collection.title.toUpperCase())
-
-  //   // const collectionItem = screen.getByTestId('collection-item')
-  //   // expect(collectionItem).toHaveClass(mockProps.size)
-
-  //   // const title = getByText(mockProps.collection.title.toUpperCase())
-  //   // expect(title).toBeInTheDocument()
-  // })
+    expect(collectionItem).toHaveClass(mockProps.size)
+    expect(backgroundImage).toHaveStyle(`background-image: url(${process.env.BACKEND_URL}/${mockProps.collection.cover})`)
+    expect(title).toHaveTextContent(expectedTitle as string)
+  })
 
   it('navigates to the correct URL when clicked', () => {
+    jest.spyOn(reactRouterDom, 'useNavigate').mockReturnValue(navigate)
     const expectedPath = mockProps.collection.title && `${pathname}/${mockProps.collection.title.replace(/\s+/g, '-').toLowerCase()}`
     const { getByTestId }: RenderResult = render(<CollectionItem {...mockProps} />)
     const collectionItem = getByTestId('collection-item')
+    
     fireEvent.click(collectionItem)
 
     expect(navigate).toHaveBeenCalledTimes(1)
