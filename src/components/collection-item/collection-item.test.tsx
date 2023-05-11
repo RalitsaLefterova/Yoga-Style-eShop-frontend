@@ -1,9 +1,8 @@
-import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { useLocation } from 'react-router-dom'
 import * as reactRouterDom from 'react-router-dom'
-import { Collection } from '../../shared/types/collections'
 
+import { Collection } from '../../shared/types/collections'
 import CollectionItem, { CollectionItemPropsType } from './collection-item.component'
 
 jest.mock('react-router-dom', () => {

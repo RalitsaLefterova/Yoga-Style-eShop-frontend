@@ -13,7 +13,6 @@ import './collections-list.style.scss';
 const CollectionsList = () => {
   const dispatch = useDispatch()
   const collectionsList: Collection[] = useSelector(selectCollections)
-  // const collectionsList = useSelector<IRootState, Collection[]>(selectCollections)
   const isLoading = useSelector(selectIsLoadingCollections)
  
   useEffect(() => {
@@ -24,10 +23,16 @@ const CollectionsList = () => {
     <div className="collections-list">
       <div className="collection-menu">
         {
-          isLoading ? (<Spinner />) : (
-          collectionsList.map(collection => (
-            <CollectionItem key={collection._id} collection={collection} size="large" />
-          )))
+          isLoading ? (
+            <Spinner />
+          ) : (
+
+            <div className='collections-container'>
+              {collectionsList.map(collection => (
+                <CollectionItem key={collection._id} collection={collection} size="large" />
+              ))}
+            </div>           
+            )
         }
       </div>
     </div>
