@@ -1,4 +1,5 @@
 import { render, fireEvent } from '@testing-library/react'
+import { screen } from '@testing-library/dom'
 import { useLocation } from 'react-router-dom'
 import * as reactRouterDom from 'react-router-dom'
 
@@ -68,6 +69,11 @@ describe('Test CollectionItem component', () => {
     expect(collectionItem).toHaveClass(mockProps.size)
     expect(backgroundImage).toHaveStyle(`background-image: url(${process.env.BACKEND_URL}/${mockProps.collection.cover})`)
     expect(title).toHaveTextContent(expectedTitle as string)
+
+    // alternative (working) variant with `screen`
+    // const collectionTitle = screen.getByText('YOGA EQUIPMENT')
+    // console.log({collectionTitle})
+    // expect(collectionTitle).toHaveTextContent(expectedTitle as string)
   })
 
   it('navigates to the correct URL when clicked', () => {

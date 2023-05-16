@@ -26,7 +26,6 @@ const CollectionsList = () => {
           isLoading ? (
             <Spinner />
           ) : (
-
             <div className='collections-container'>
               {collectionsList.map(collection => (
                 <CollectionItem key={collection._id} collection={collection} size="large" />
