@@ -113,11 +113,11 @@ describe('Test CollectionsList component', () => {
     expect(spinner).not.toBeInTheDocument()
 
     // Check that the collections container is rendered
-    expect(container.getElementsByClassName('collections-container').length).toBe(1)
+    expect(container.getElementsByClassName('collection-menu').length).toBe(1)
     expect(document.getElementsByClassName('collection-item').length).toBe(2)
 
     // alternative (working) variant
-    // const collectionsContainer = document.querySelector('.collections-container')
+    // const collectionsContainer = document.querySelector('.collection-menu')
     // expect(collectionsContainer).toBeInTheDocument()
     // const collectionItem = document.querySelector('.collection-item')
     // expect(collectionItem).toBeInTheDocument()

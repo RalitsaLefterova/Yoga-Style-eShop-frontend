@@ -21,19 +21,17 @@ const CollectionsList = () => {
   
   return (
     <div className="collections-list">
-      <div className="collection-menu">
-        {
-          isLoading ? (
-            <Spinner />
-          ) : (
-            <div className='collections-container'>
-              {collectionsList.map(collection => (
-                <CollectionItem key={collection._id} collection={collection} size="large" />
-              ))}
-            </div>           
-            )
-        }
-      </div>
+      {
+        isLoading ? (
+          <Spinner />
+        ) : (
+          <div className='collection-menu'>
+            {collectionsList.map(collection => (
+              <CollectionItem key={collection._id} collection={collection} size="large" />
+            ))}
+          </div>           
+          )
+      }
     </div>
   )}
 
