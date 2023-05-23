@@ -52,10 +52,12 @@ const ProductDetails = () => {
   }
 
   useEffect(() => {
+    console.log('--- fetch product details ---')
     params.productId && dispatch(fetchProductRequested(params.productId))
   }, [])
 
   useEffect(() => {
+    console.log('--- set main image ---')
     setMainImage(activeColorImages[0])
   }, [activeColorImages])
 
@@ -91,7 +93,7 @@ const ProductDetails = () => {
                 {title}
               </div>
 
-              {colors && (
+              {/* {colors && colors.length > 0 && (
                 <div>
                   <span>Color: </span>
                   <select name='color' onChange={changeColorImages} defaultValue=''>
@@ -103,16 +105,16 @@ const ProductDetails = () => {
                     }
                   </select>
                 </div>
-              )}
+              )} */}
 
-              {colors && (
+              {colors && colors.length > 0 && (
                 <div>
                   <CustomSelect
                     data={colors}
                     typeOfData='colors'
                     placeholder='Select color'
                     selectname='color'
-                    labelText='Color'
+                    labelText='Color:'
                     handler={changeColorImages}
                   />
                 </div>

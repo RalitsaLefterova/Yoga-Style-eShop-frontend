@@ -185,6 +185,9 @@ const EditProduct = () => {
               inputValue={description}
               onChangeHandler={handleSetProductDetails}
             />
+            <textarea
+              value={description}
+            />
             <CustomInput 
               labelText='Stock'
               inputType='text'

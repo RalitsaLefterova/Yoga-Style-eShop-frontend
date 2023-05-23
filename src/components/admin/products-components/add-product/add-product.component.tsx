@@ -1,27 +1,30 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 import { createProductRequested } from '../../../../redux/products/products.actions'
 import { fetchCollectionsShortInfoRequested } from '../../../../redux/collections/collections.actions'
 import { selectCollectionsShortInfo } from '../../../../redux/collections/collections.selectors'
 // import { checkFormDataEntries } from '../../../components/utils/utils'
+import { Collection } from 'shared/types/collections'
+import { CreateProduct } from 'shared/types/products'
 
+import YogaStyleInput from '../../../custom-components/yoga-style-input/yoga-style-input.component'
 import CustomSelect from '../../../custom-components/custom-select/custom-select.component'
+import CustomButton from '../../../custom-components/custom-button/custom-button.component'
 
 import './add-product.style.scss'
-import CustomButton from 'components/custom-components/custom-button/custom-button.component'
-import { Collection } from 'shared/types/collections'
 
 const AddProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const collections: Collection[] = useSelector(selectCollectionsShortInfo)
-  // const [mainImageUrl, setMainImage] = useState()
-  const [productData, setProduct] = useState({
+  const [productData, setProduct] = useState<CreateProduct>({
     title: '',
     description: '',
-    mainImageUrl: '',
+    mainImageUrl: null,
     price: 0.00,
     stock: 0,
     collectionId: '',
@@ -51,6 +54,32 @@ const AddProduct = () => {
     setProduct({...productData, [name]: value})
   }
 
+  const handleSetProductDescription = (value: string) => {
+    console.log('react quill test', value)
+    setProduct({...productData, description: value})
+  }
+
+  const showImagePreview = () => {
+    console.log('productData.mainImageUrl', productData.mainImageUrl)
+    console.log('type', typeof(productData.mainImageUrl))
+    if (productData.mainImageUrl) {
+      const uri = URL.createObjectURL(productData.mainImageUrl)
+      return (
+        <div className='thumb'>
+          <div className='thumb-inner'>
+            <img
+              src={uri}
+              // Revoke data uri after image is loaded
+              onLoad={() => { URL.revokeObjectURL(uri) }}
+            />
+          </div>
+        </div>
+      )
+    }
+
+    return null
+  }
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData()
@@ -76,66 +105,67 @@ const AddProduct = () => {
   useEffect(() => {
     dispatch(fetchCollectionsShortInfoRequested())
   }, [])
-
+  
   return (
     <div className='admin-page-container center'>
       <div className='page-title left'>
         <h1>Add new product</h1>
       </div>
       <form onSubmit={handleSubmit}>
+        <YogaStyleInput 
+          labelText='Title'
+          inputType='text'
+          fieldName='title'
+          inputValue={title}
+          onChangeHandler={handleSetProductDetails}
+        />
+
+        {productData.mainImageUrl && showImagePreview()}
+
+        <YogaStyleInput 
+          labelText='File'
+          inputType='file'
+          fieldName='mainImageUrl'
+          onChangeHandler={handleSetProductDetails}
+          accept='image/png image/jpeg image/jpg'
+        />
+
         <div className="flex">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            name='title'
-            id="title"
-            onChange={handleSetProductDetails}
-            value={title}
-          />
-        </div>
-        <div className="flex">
-          <label htmlFor="file">File</label>
-          <input
-            type="file"
-            name='mainImageUrl'
-            id="file"
-            onChange={handleSetProductDetails} 
-            accept='image/png image/jpeg image/jpg'
-          />
-        </div>
-        <div className="flex">
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            name='description'
-            id="description"
-            onChange={handleSetProductDetails}
+          <label 
+            htmlFor='description'
+            className='form-input-label'
+          >
+            Description
+          </label>
+          <ReactQuill
+            id='description'
+            theme='snow'
             value={description}
+            onChange={handleSetProductDescription} 
           />
         </div>
-        <div className="flex">
-          <label htmlFor="price">Price</label>
-          <input
-            type="number"
-            min="0.00" 
-            max="10000.00" 
-            step="0.01" 
-            name='price'
-            id="price"
-            onChange={handleSetProductDetails}
-            value={price}
+        <div className='flex flex-direction-row'>
+          <YogaStyleInput 
+            labelText='Price'
+            inputType='number'
+            fieldName='price'
+            inputValue={price}
+            onChangeHandler={handleSetProductDetails}
+            min='0.00' 
+            max='10000.00' 
+            step='0.01'
           />
-        </div>
-        <div className="flex">
-          <label htmlFor="stock">Stock</label>
-          <input
-            type="number"
-            name='stock'
-            id="stock"
-            onChange={handleSetProductDetails}
-            value={stock}
+          <YogaStyleInput 
+            labelText='Stock'
+            inputType='number'
+            fieldName='stock'
+            inputValue={stock}
+            onChangeHandler={handleSetProductDetails}
+            min='0'
           />
+
         </div>
+        
         <div className="flex">
           <label htmlFor="active">Publish immidiatly after saving</label>
           <input
@@ -158,23 +188,7 @@ const AddProduct = () => {
           value={collectionId}
           extraClasses=''
         />
-        {/* <select 
-          name='collectionId' 
-          id='collectionId' 
-          onChange={handleSetCollectionId}
-          className='select-collection capitalize-first'
-        >
-          <option>Choose collection</option>
-          {collectionsList.map(collection => 
-            <option 
-              value={collection._id} 
-              key={collection._id}
-              className='capitalize-first'
-            >
-              {collection.title}
-            </option>
-          )}
-        </select> */}
+
         <CustomButton type='submit'>Add product</CustomButton>
         <CustomButton type='reset'>Clear form</CustomButton>
       </form>

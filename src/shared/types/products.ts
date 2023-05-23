@@ -1,3 +1,13 @@
+export type CreateProduct = {
+  title: string,
+  price: number,
+  stock: number,
+  mainImageUrl: File | null,
+  collectionId: string,
+  active: boolean,
+  description: string
+}
+
 export type ProductColor = {
   _id: string,
   color: string,
