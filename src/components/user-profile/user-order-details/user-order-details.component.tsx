@@ -65,7 +65,7 @@ const UserOrderDetails = ({ orderId, handleBackToOrdersList }: UserOrderDetailsP
         <div className='title center'>Order Items:</div>
         {(products || []).map((productItem, index) => {
           const { product, quantity } = productItem
-          const { _id: productId, title, mainImageUrl, price, collectionId } = product
+          const { id: productId, title, mainImageUrl, price, collectionId } = product
           return (
             <div className='product-details' key={index} onClick={() => goToProduct(productId, collectionId)}>
               <div className='product-image'>

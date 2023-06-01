@@ -7,7 +7,7 @@ export type CreateProduct = {
   active: boolean,
   description: string
 }
-
+ 
 export type ProductColor = {
   _id: string,
   color: string,
@@ -19,7 +19,6 @@ export type ProductColor = {
 }
 
 export type Product = {
-  _id: string,
   id: string,
   title: string,
   price: number,
