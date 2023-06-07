@@ -5,47 +5,45 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Product } from 'shared/types/products'
 import { fetchProductForEditRequested, editProductRequested } from '../../../../redux/products/products.actions'
 import { selectProduct } from '../../../../redux/products/products.selectors'
-import { selectCollections } from '../../../../redux/collections/collections.selectors'
+import { selectCollectionsShortInfo } from '../../../../redux/collections/collections.selectors'
 import { displayFormDataEntries } from '../../../../shared/helpers'
+import { Collection } from 'shared/types/collections'
 
 import CustomInput from '../../../custom-components/custom-input/custom-input.component'
 import CustomSelect from '../../../custom-components/custom-select/custom-select.component'
+import CustomButton from 'components/custom-components/custom-button/custom-button.component'
 import ProductColorsList from 'components/admin/products-components/product-colors-list/product-colors-list.component'
 import AddProductColor from 'components/admin/products-components/add-product-color/add-product-color.component'
 // import EditProductColorData from 'components/admin/products-components/edit-product-color-data/edit-product-color-data.component'
 
 import './edit-product.style.scss'
-import CustomButton from 'components/custom-components/custom-button/custom-button.component'
-import { GenericObject } from 'shared/types/common'
+import YogaStyleTextEditor from 'components/custom-components/yoga-style-text-editor/yoga-style-text-editor.component'
+import YogaStyleInput from 'components/custom-components/yoga-style-input/yoga-style-input.component'
+import YogaStyleSelect from 'components/custom-components/yoga-style-select/yoga-style-select.component'
+
+type HandleSetProductData = (
+  event: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string
+) => void
 
 const EditProduct = () => {
   const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const collections = useSelector(selectCollections)
-  const product: Product | GenericObject = useSelector(selectProduct)
+  const collections: Collection[] = useSelector(selectCollectionsShortInfo)
+  const product: Product = useSelector(selectProduct)
   const [productData, setProductData] = useState(product)
-  //   {
-  //   title: product ? product.title : '',
-  //   mainImageUrl: product ? product.mainImageUrl : '',
-  //   description: product ? product.description : '',
-  //   price: product ? product.price : 0.00,
-  //   stock: product ? product.stock : 0,
-  //   collectionId: product ? product.collectionId : '',
-  //   active: product ? product.active : false,
-  //   colors: product ? product.colors : []
-  // }
 
   const { 
+    id: productId,
     title, 
-    mainImageUrl, 
-    description, 
     price, 
     stock, 
+    mainImageUrl, 
     collectionId, 
     active, 
+    description, 
     colors 
-  }: Product | GenericObject = productData
+  }: Product = productData
 
   // const [additionalData, setAdditionalImageData] = useState({
   //   color: '',
@@ -65,13 +63,38 @@ const EditProduct = () => {
 
   // console.log({newMainImageUrl})
 
+  
+  const handleSetProductData = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement> | string
+  ) => {
+    setProductData((prevProductData) => {
+      if (typeof event === 'string') {
+        return { ...prevProductData, description: event };
+      } else {
+        const { name, value } = event.target as HTMLInputElement | HTMLSelectElement;
+        return { ...prevProductData, [name]: value };
+      }
+    });
+  };
+  
   const handleSetProductDetails = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    console.log(event.target.name, event.target.value)
-    setProductData({
-      ...productData,
-      [event.target.name]: event.target.value
-    })
-  }
+    handleSetProductData(event);
+  };
+  
+  const handleSetProductDescription = (value: string) => {
+    handleSetProductData(value);
+  };
+
+  // const handleSetProductDetails = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  //   setProductData({
+  //     ...productData,
+  //     [event.target.name]: event.target.value
+  //   })
+  // }
+
+  // const handleSetProductDescription = (value: string) => {
+  //   setProductData({...productData, description: value})
+  // }
 
   const handleChangeMainImage = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log('image: ', event.target.files[0])
@@ -100,8 +123,8 @@ const EditProduct = () => {
       title, 
       mainImageUrl, 
       description, 
-      price: JSON.stringify(price), 
-      stock: JSON.stringify(stock), 
+      price: price.toString(), 
+      stock: stock.toString(), 
       collectionId, 
       active: JSON.stringify(active) 
     }
@@ -114,7 +137,7 @@ const EditProduct = () => {
     isNewMainImageUrlSet && newMainImageUrl && data.append('mainImageUrl', newMainImageUrl)
 
     // displayFormDataEntries(formData)
-    params.id && dispatch(editProductRequested(params.id, data, navigate))
+    params.id && dispatch(editProductRequested(productId, data, navigate))
   }
 
   // const handleSubmitAdditionalImageData = async event => {
@@ -144,8 +167,6 @@ const EditProduct = () => {
   //   }
   // }
 
-  
-
   useEffect(() => {
     params.id && dispatch(fetchProductForEditRequested(params.id))
   }, [])
@@ -155,73 +176,68 @@ const EditProduct = () => {
     setProductData(product)
   }, [product])
 
+  console.log({productData})
+
   return (
     <div className='edit-product-container center'> 
       <div className='page-title left'>
         <h1>Edit product</h1>
       </div>
-      <form className='form-main-info' onSubmit={handleSubmitMainInfo}>
+      <div className='product-main-information-container'>
         <label className='main-label'>Product's main info </label>
-        <div className='product-main-info'>
-          <div className='form-left-box'>
-            <CustomInput 
-              labelText='Title'
-              inputType='text'
-              fieldName='title'
-              inputValue={title}
-              onChangeHandler={handleSetProductDetails}
-            />
-            <CustomInput 
-              labelText='Price'
-              inputType='text'
-              fieldName='price'
-              inputValue={price}
-              onChangeHandler={handleSetProductDetails}
-            />
-            <CustomInput 
-              labelText='Description'
-              inputType='text'
-              fieldName='description'
-              inputValue={description}
-              onChangeHandler={handleSetProductDetails}
-            />
-            <textarea
-              value={description}
-            />
-            <CustomInput 
-              labelText='Stock'
-              inputType='text'
-              fieldName='stock'
-              inputValue={stock || 0}
-              onChangeHandler={handleSetProductDetails}
-            />
-            <CustomSelect
-              typeOfData='collections'
-              data={collections}
-              handler={handleSetProductDetails}
-              labelText='Collection'
-              // label={`* ${strings.Collection}`}
-              placeholder='Select collection'
-              selectname='collectionId'
-              value={collectionId}
-              extraClasses=''
-            ></CustomSelect>
+        <form className='form-main-info' onSubmit={handleSubmitMainInfo}>
+          <YogaStyleInput 
+            labelText='Title'
+            inputType='text'
+            fieldName='title'
+            inputValue={title}
+            onChangeHandler={handleSetProductDetails}
+          />
+          <YogaStyleInput 
+            labelText='Price'
+            inputType='text'
+            fieldName='price'
+            inputValue={price}
+            onChangeHandler={handleSetProductDetails}
+          />
+          <YogaStyleInput 
+            labelText='Stock'
+            inputType='text'
+            fieldName='stock'
+            inputValue={stock || 0}
+            onChangeHandler={handleSetProductDetails}
+          />
+          <YogaStyleSelect 
+            typeOfData='collections'
+            data={collections}
+            handler={handleSetProductDetails}
+            labelText='Collection'
+            // label={`* ${strings.Collection}`}
+            placeholder='Select collection'
+            selectName='collectionId'
+            value={collectionId}
+            extraClasses=''
+          />
+          <YogaStyleTextEditor 
+            fieldName='description'
+            labelText='Description'
+            editorValue={description}
+            onChange={handleSetProductDescription}
+          />
+          <YogaStyleInput 
+            labelText='Image'
+            inputType='file'
+            fieldName='Main Image'
+            filePath={mainImageUrl}
+            accept='image/png image/jpeg image/jpg'
+            onChangeHandler={handleChangeMainImage}
+          />
+          <div className='button-save-main-info'>
+            <CustomButton type='submit'>Save changes</CustomButton>
           </div>
-          <div className='form-right-box'>
-            <CustomInput 
-              labelText='Image'
-              inputType='file'
-              fieldName='Main Image'
-              filePath={mainImageUrl}
-              accept='image/png image/jpeg image/jpg'
-              onChangeHandler={handleChangeMainImage}
-            />
-          </div>
-        </div>
-        <div className='button-save-main-info'>
-          <CustomButton type='submit'>Save changes</CustomButton>
-        </div>
-      </form>
+        </form>
+      </div>
+      
       <div className='additional-information-container'>
         <label className='main-label'>Product's inventory</label>
         {params.id &&<AddProductColor productId={params.id} />}

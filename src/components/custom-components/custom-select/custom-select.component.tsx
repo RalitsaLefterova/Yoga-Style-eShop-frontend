@@ -20,7 +20,13 @@ const CustomSelect = ({ typeOfData, data, placeholder, selectname, value = '', h
   <div className={`flex ${otherProps.extraClasses}`}>
     <label htmlFor={selectname}>{labelText}</label>
     <div className="selectWrapper">
-      <select onChange={handler} name={selectname} id={selectname} defaultValue={value} required>
+      <select 
+        onChange={handler} 
+        name={selectname} 
+        id={selectname} 
+        value={value}
+        required
+      >
         <option disabled value=''>{placeholder}</option>
         {generateOptions(typeOfData, data)}
       </select>

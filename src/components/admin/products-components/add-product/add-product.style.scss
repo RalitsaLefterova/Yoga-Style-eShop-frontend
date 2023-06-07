@@ -1,16 +1,9 @@
-.select-collection {
-  option {
-    display: inline-block;
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 
-    &.capitalize-first {
-      display: inline-block;
-      text-transform: lowercase;
-    }
-    &.capitalize-first::first-letter {
-      text-transform: uppercase;
-    }
+  button {
+    margin-left: 10px;
   }
 }
-
-
-

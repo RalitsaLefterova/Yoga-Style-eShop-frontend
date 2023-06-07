@@ -13,7 +13,7 @@ const ProductColorsList = () => {
   const productId: string = selectedProduct.id
   const colors: ProductColor[] = selectedProduct.colors
 
-  console.log('in ProductColorsList:', selectedProduct, colors)
+  // console.log('in ProductColorsList:', selectedProduct, colors)
   return (
     <div>
       {colors && colors.length > 0 ? 

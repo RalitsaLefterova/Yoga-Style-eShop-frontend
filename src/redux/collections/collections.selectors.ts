@@ -20,7 +20,7 @@ export const selectCollectionsShortInfo = createSelector(
   (collections): Collection[] => 
     collections.reduce((acc, collection) => {
       const { _id, title } = collection
-      acc.concat({ _id, title })
+      acc = acc.concat({ _id, title })
       return acc
     }, [] as Collection[])
 )

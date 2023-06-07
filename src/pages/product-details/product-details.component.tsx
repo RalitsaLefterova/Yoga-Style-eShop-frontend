@@ -7,7 +7,6 @@ import { addProductToCartRequested } from '../../redux/cart/cart.actions'
 import { selectProduct, selectIsLoading } from '../../redux/products/products.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { Product, ProductColor } from 'shared/types/products'
-import { GenericObject } from 'shared/types/common'
 import { formatCurrency } from 'shared/helpers'
 
 import Spinner from '../../components/spinner/spinner.component'
@@ -23,7 +22,7 @@ const ProductDetails = () => {
   const currentUser = useSelector(selectCurrentUser)
 
   const productDetails = useSelector(selectProduct)
-  const { title, price, mainImageUrl, colors }: Product | GenericObject = productDetails
+  const { title, price, mainImageUrl, colors, description }: Product = productDetails
   
   const [selectedColor, setSelectedColor] = useState<ProductColor>()
   const [activeColorImages, setActiveColorImages] = useState<string[]>([])
@@ -39,7 +38,7 @@ const ProductDetails = () => {
 
   const changeColorImages = (event: ChangeEvent<HTMLSelectElement>) => {
     const colorId: string = event.target.value
-    const newSelectedColor: ProductColor = (colors as ProductColor[]) && colors.find((colorItem: ProductColor) => colorItem._id === colorId)
+    const newSelectedColor = colors && colors.find((colorItem: ProductColor) => colorItem._id === colorId)
 
     if (newSelectedColor) {
       setSelectedColor(newSelectedColor)
@@ -62,11 +61,11 @@ const ProductDetails = () => {
   }, [activeColorImages])
 
   return (
-    <div className='product-details-container'>
+    <div className='product-details-page'>
       {
         isLoading ? 
           (<Spinner />) : 
-          (<Fragment>
+          (<div className='product-container'>
             <div className='images-container'>
               <div 
                 className='product-main-image'
@@ -87,7 +86,7 @@ const ProductDetails = () => {
                 )}
               </div>
             </div>
-            <div className='product-info'>
+            <div className='product-info-container'>
 
               <div className='product-title'>
                 {title}
@@ -136,7 +135,10 @@ const ProductDetails = () => {
                 )}
               </div>
             </div>
-          </Fragment>)
+            <div className='product-description-container'>
+              <div dangerouslySetInnerHTML={{ __html: description }} />
+            </div>
+          </div>)
       }
     </div>
   )

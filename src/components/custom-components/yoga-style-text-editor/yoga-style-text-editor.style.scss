@@ -1,0 +1,30 @@
+@import '../../../style/variables';
+
+.yoga-style-text-editor-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 5px;
+
+  .yoga-style-label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .yoga-style-text-editor {
+    border-radius: 5px;
+
+    .ql-editor {
+      height: 200px;
+      background-color: #f7f7f7;
+      font-size: 14px;
+      font-weight: 300;
+      overflow: scroll;
+    }
+  }
+  
+
+}

@@ -23,16 +23,7 @@ const YogaStyleInput = ({ inputType, fieldName, labelText, inputValue = '', file
         {labelText}
       </label>
       {(inputType === 'file' && filePath) ? (<img src={`${process.env.BACKEND_URL}/${filePath}`} />) : null}
-      {/* <input 
-        id={fieldName}
-        className='yoga-style-input'
-        type={inputType}
-        name={fieldName}
-        onChange={onChangeHandler}
-        value={inputValue} 
-        {...otherProps}
-      /> */}
-
+       
       {(inputType === 'file') ? 
         (
           <label className="file">

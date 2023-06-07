@@ -1,7 +1,6 @@
 @import '../../style/variables';
 
-
-.product-details-container {
+.product-details-page {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -9,8 +8,12 @@
   margin: 0 auto;
   width: 80vw;
   
-  // border: 1px solid red;
-
+  .product-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
   .images-container {
     width: 50%;
     height: 100%;
@@ -49,7 +52,7 @@
     }
   }
 
-  .product-info {
+  .product-info-container {
     width: 50%;
     height: 350px;
     display: flex;
@@ -63,10 +66,10 @@
       font-weight: bold;
     }
 
-    .add-to-cart-btn {
-
-    }
   }
 
+  .product-description-container {
+    width: 100%;
+  }
 
 }

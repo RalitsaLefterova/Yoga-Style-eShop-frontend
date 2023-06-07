@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux'
 
 import { Product } from 'shared/types/products'
-import { GenericObject } from 'shared/types/common'
+
 import { 
   addColorToProductFailed,
   addColorToProductSuccess,
@@ -25,7 +25,7 @@ import {
 export type ProductsState = {
   readonly allProducts: Product[]
   readonly singleCollectionProducts: Product[]
-  readonly selectedProduct: Product | GenericObject
+  readonly selectedProduct: Product
   readonly isLoading: boolean
   readonly error: Error | null
 }
@@ -33,7 +33,17 @@ export type ProductsState = {
 const INITIAL_STATE: ProductsState = {
   allProducts: [],
   singleCollectionProducts: [], 
-  selectedProduct: {},
+  selectedProduct: {
+    id: '',
+    title: '',
+    price: 0,
+    stock: 0,
+    mainImageUrl: '',
+    collectionId: '',
+    active: false,
+    description: '',
+    colors: []
+  },
   isLoading: false,
   error: null
 }

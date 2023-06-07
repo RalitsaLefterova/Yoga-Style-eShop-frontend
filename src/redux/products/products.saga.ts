@@ -75,6 +75,7 @@ export function* fetchProductForEditAsync({ payload: { productId } }: FetchProdu
   try {
     const response = yield* call(getSingleProductForEdit, productId)
     const { product, collections } = response.data
+    console.log('in saga', {product}, {collections})
     yield* put(fetchProductSuccess(product))
     yield* put(fetchCollectionsSuccess(collections))
   } catch (error) {

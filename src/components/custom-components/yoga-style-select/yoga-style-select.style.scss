@@ -1,0 +1,32 @@
+.yoga-style-select-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 5px;
+
+  .yoga-style-label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .yoga-style-select-box {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+    padding: 0 10px;
+    background-color: #f7f7f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 300;
+    text-transform: uppercase;
+
+    .select-placeholder {
+      text-transform: none;
+    }
+  }
+}

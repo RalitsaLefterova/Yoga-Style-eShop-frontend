@@ -1,8 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 
 import { createProductRequested } from '../../../../redux/products/products.actions'
 import { fetchCollectionsShortInfoRequested } from '../../../../redux/collections/collections.actions'
@@ -12,9 +10,11 @@ import { Collection } from 'shared/types/collections'
 import { CreateProduct } from 'shared/types/products'
 
 import YogaStyleInput from '../../../custom-components/yoga-style-input/yoga-style-input.component'
-import CustomSelect from '../../../custom-components/custom-select/custom-select.component'
+import YogaStyleTextEditor from 'components/custom-components/yoga-style-text-editor/yoga-style-text-editor.component'
+import YogaStyleSelect from 'components/custom-components/yoga-style-select/yoga-style-select.component'
 import CustomButton from '../../../custom-components/custom-button/custom-button.component'
 
+import 'react-quill/dist/quill.snow.css'
 import './add-product.style.scss'
 
 const AddProduct = () => {
@@ -32,6 +32,8 @@ const AddProduct = () => {
   })
 
   const { title, mainImageUrl, description, price, stock, collectionId, active } = productData
+
+  console.log('description', productData.description)
 
   const handleSetProductDetails = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const name = event.target.name
@@ -87,8 +89,8 @@ const AddProduct = () => {
       title, 
       mainImageUrl, 
       description, 
-      price: JSON.stringify(price), 
-      stock: JSON.stringify(stock), 
+      price: price.toString(), 
+      stock: stock.toString(),
       collectionId, 
       active: JSON.stringify(active) 
     }
@@ -130,20 +132,12 @@ const AddProduct = () => {
           accept='image/png image/jpeg image/jpg'
         />
 
-        <div className="flex">
-          <label 
-            htmlFor='description'
-            className='form-input-label'
-          >
-            Description
-          </label>
-          <ReactQuill
-            id='description'
-            theme='snow'
-            value={description}
-            onChange={handleSetProductDescription} 
-          />
-        </div>
+        <YogaStyleTextEditor
+          fieldName='description'
+          labelText='Description'
+          editorValue={description}
+          onChange={handleSetProductDescription}
+        />
         <div className='flex flex-direction-row'>
           <YogaStyleInput 
             labelText='Price'
@@ -163,11 +157,21 @@ const AddProduct = () => {
             onChangeHandler={handleSetProductDetails}
             min='0'
           />
-
         </div>
         
+        <YogaStyleSelect 
+            typeOfData='collections'
+            data={collections}
+            handler={handleSetProductDetails}
+            labelText='Collection'
+            // label={`* ${strings.Collection}`}
+            placeholder='Select collection'
+            selectName='collectionId'
+            value={collectionId}
+            extraClasses=''
+          />
+
         <div className="flex">
-          <label htmlFor="active">Publish immidiatly after saving</label>
           <input
             type="checkbox"
             name='active'
@@ -175,22 +179,12 @@ const AddProduct = () => {
             onChange={handleSetProductDetails}
             checked={active}
           />
+          <label htmlFor="active">Publish immidiatly after saving</label>
         </div>
-
-        <CustomSelect
-          typeOfData='collections'
-          data={collections}
-          handler={handleSetProductDetails}
-          labelText='Collection'
-          // label={`* ${strings.Collection}`}
-          placeholder='Select collection'
-          selectname='collectionId'
-          value={collectionId}
-          extraClasses=''
-        />
-
-        <CustomButton type='submit'>Add product</CustomButton>
-        <CustomButton type='reset'>Clear form</CustomButton>
+        <div className='buttons-container'>
+          <CustomButton type='reset' inverted>Clear form</CustomButton>
+          <CustomButton type='submit'>Add product</CustomButton>
+        </div>
       </form>
     </div>
   )
