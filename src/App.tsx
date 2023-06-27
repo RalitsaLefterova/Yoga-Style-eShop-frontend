@@ -11,7 +11,7 @@ import LayoutShop from 'pages/layout-shop/layout-shop.component'
 
 // Shop part
 const CustomAlert = lazy(() => import('./components/custom-components/custom-alert/custom-alert.component'))
-const HomePage = lazy(() => import('./components/home/home.component'))
+const HomePage = lazy(() => import('./pages/home/home.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
 const UserProfilePage = lazy(() => import('./pages/user-profile/user-profile.component'))
 const SignIn = lazy(() => import('./components/authentication/sign-in/sign-in.component'))
