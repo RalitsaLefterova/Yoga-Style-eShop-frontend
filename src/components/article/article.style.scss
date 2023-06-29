@@ -1,0 +1,32 @@
+@import '../../style/variables';
+
+.articles-container {
+  display: flex;
+  justify-content: space-between;
+  width: 1000px;
+  padding: 55px 0;
+  
+  .article-box {
+    display: flex;
+    width: 310px;
+    flex-direction: column;
+
+    h2 {
+      margin-bottom: 5px;
+    }
+
+    .article-image-box {
+      width: 310px;
+
+      img {
+        width: 100%;
+        border: 1px solid $sub-color-light-gray;
+      }
+    }
+
+    .article-text-box {
+      padding-top: 10px;
+      text-align: justify;
+    }
+  }
+}
