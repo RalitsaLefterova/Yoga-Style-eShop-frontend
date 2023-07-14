@@ -1,29 +1,30 @@
+@import '../../../style/colors';
 @import '../../../style/variables';
 
   .vertical-nav-menu-container {
-    height: 100vh;
-    left: 0;
-    top: 0;
     position: fixed;
-    padding-bottom: 50px;
+    z-index: 23;
+    top: 0;
+    left: 0;
     width: 270px;
+    height: 100vh;
+    padding-bottom: 50px;
     background: $admin-nav-bg-color;
     box-shadow: 0 12px 25px RGB(80 143 244 / 30%);
     font-family: $admin-font;
-    z-index: 23;
-    // border: 1px solid red;
-  
+
     .admin-page-title {
       color: #4a7cc2;
     }
-  
+
     .sidebar_menu > li {
-      margin-left: 0;
       margin-right: 20px;
+      margin-left: 0;
     }
-  
+
     .sidebar_menu > li > a {
       display: grid;
+      position: relative;
       grid-template-columns: 34px auto;
       grid-gap: 15px;
       align-items: center;
@@ -34,7 +35,6 @@
       margin-top: 25px;
       margin-left: 30px;
       transition: .3s;
-      position: relative;
 
       :hover {
         color: $brand-color;

@@ -4,12 +4,6 @@ $add-font: 'Montserrat', sans-serif;
 
 $border-rad: .3rem;
 
-// Define breakpoints variables
-$breakpoint-mobile: 600px;
-$breakpoint-tablet-portrait: 768px;
-$breakpoint-tablet-landscape: 992px;
-$breakpoint-desktop: 1200px;
-
 $phone-breakpoint:    0;
 $phone-width:         100%;
 $tablet-breakpoint:   768px;
@@ -29,51 +23,3 @@ $phone-to-laptop:   '(min-width: #{$phone-breakpoint})    and (max-width: #{$des
 $tablet-to-laptop:  '(min-width: #{$tablet-breakpoint})   and (max-width: #{$desktop-breakpoint - 1})';
 $tablet-to-desktop: '(min-width: #{$tablet-breakpoint})';
 $laptop-to-desktop: '(min-width: #{$laptop-breakpoint})';
-
-
-
-
-
-
-
-
-
-
-
-$white: #fff;
-$black: #000;
-$red: #f00;
-
-$menu-item-title-color: #4a4a4a;
-$error-image-text-color: #2f8e89;
-$carousel-shadow: #2e3d49;
-
-$spinner-container-border-color: #c3c3c3;
-$spinner-container-border-top-color: #636767;
-
-$gray: #808080;
-$yellow: #fff700;
-$error-color: #f00;
-$error-bg-color: #fda49a;
-$disabled-bg-color: #c6c6c6;
-$warning-color: #a01d1b;
-
-$bg-color: #f8f8f8;
-$admin-nav-bg-color: #eee;
-$border-color: #ccc;
-
-$sub-color: $gray;
-$sub-color-light-gray: #e7eaed;
-$main-color: #26466d;
-$brand-color: #26466d;
-$brand-color-light: #4b79b1;
-
-
-$google-blue-light: #4285f4;
-$google-blue-dark: #357ae8;
-
-$border-color-row: #e0e6ef;
-$border-color-img: #b5b1b1;
-
-$user-profile-container-border: #e0e6ef;
-$user-profile-container-background-color: #f1f1f1;

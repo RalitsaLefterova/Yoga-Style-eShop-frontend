@@ -1,4 +1,4 @@
-@import '../../../style/variables';
+@import '../../../style/colors';
 
 .yoga-style-text-editor-container {
   display: flex;
@@ -19,12 +19,10 @@
 
     .ql-editor {
       height: 200px;
+      overflow: scroll;
       background-color: #f7f7f7;
       font-size: 14px;
       font-weight: 300;
-      overflow: scroll;
     }
   }
-  
-
 }

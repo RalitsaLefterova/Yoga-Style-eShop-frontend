@@ -1,4 +1,4 @@
-@import '../../../style/variables';
+@import '../../../style/colors';
 
 .upsert-address-buttons-box {
   display: flex;
@@ -16,11 +16,11 @@
     background-color: $sub-color-light-gray;
     color: $sub-color;
 
-      &:hover {
-        background-color: $white;
-        border-color: $sub-color;
-        color: $sub-color;
-      }
+    &:hover {
+      background-color: $white;
+      border-color: $sub-color;
+      color: $sub-color;
+    }
   }
 
   .save-changes-btn {
