@@ -1,32 +1,30 @@
 @import '../../style/variables';
+@import '../../style/mixins';
 
-.articles-container {
+.article-box {
   display: flex;
-  justify-content: space-between;
-  width: 1000px;
-  padding: 55px 0;
-  
-  .article-box {
-    display: flex;
-    width: 310px;
-    flex-direction: column;
+  flex-direction: column;
+  width: 90%;
+  padding: 20px;
 
-    h2 {
-      margin-bottom: 5px;
+  @include respond-above($tablet-breakpoint) {
+    max-width: 400px;
+  }
+
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  .article-image-box {
+    width: 100%;
+
+    img {
+      border: 1px solid $sub-color-light-gray;
     }
+  }
 
-    .article-image-box {
-      width: 310px;
-
-      img {
-        width: 100%;
-        border: 1px solid $sub-color-light-gray;
-      }
-    }
-
-    .article-text-box {
-      padding-top: 10px;
-      text-align: justify;
-    }
+  .article-text-box {
+    padding-top: 10px;
+    text-align: justify;
   }
 }

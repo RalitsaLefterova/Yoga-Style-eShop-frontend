@@ -1,0 +1,31 @@
+@import './variables';
+
+@mixin respond-above-mobile {
+  @media only screen and (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  @media only screen and (max-width: ($breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin respond-between($breakpoint-min, $breakpoint-max) {
+  @media only screen and (min-width: $breakpoint-min) and (max-width: ($breakpoint-max - 1px)) {
+    @content;
+  }
+}
+
+@mixin respond-above($breakpoint) {
+  @media only screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}

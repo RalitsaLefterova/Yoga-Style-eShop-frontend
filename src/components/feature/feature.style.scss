@@ -1,32 +1,31 @@
 @import '../../style/variables';
+@import '../../style/mixins';
 
-.features-container {
+.feature-box {
   display: flex;
-  justify-content: space-between;
-  width: 1000px;
-  padding: 55px 0;
+  flex-direction: row;
+  padding: 55px 20px;
 
-  .feature-box {
-    display: flex;
-    justify-content: space-between;
+  .feature-image-box {
+    width: 240px;
+    height: 240px;
 
-    .feature-image-box {
-      width: 240px;
-      height: 240px;
-      
-      img {
-        width: 100%;
-        border-radius: 50%;
-      }
+    @include respond-between($laptop-breakpoint, $desktop-breakpoint) {
+      width: 180px;
+      height: 180px;
     }
-    
-    .feature-text-box {
-      width: 240px;
-      padding: 0 0 0 20px;
 
-      h3 {
-        margin-top: 0;
-      }
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .feature-text-box {
+    max-width: 280px;
+    padding: 0 0 0 20px;
+
+    h3 {
+      margin-top: 0;
     }
   }
 }

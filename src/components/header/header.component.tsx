@@ -5,7 +5,7 @@ import { signOutRequested } from '../../redux/user/user.actions'
 import { selectCartHidden } from '../../redux/cart/cart.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 
-import Logo from '../../assets/svgs/logo.svg'
+import Logo from '../../assets/svgs/yoga-style-logo.svg'
 import CartIcon from '../shopping-cart/cart-icon/cart-icon.component'
 import ShoppingCart from 'components/shopping-cart/shopping-cart/shopping-cart.component'
 

@@ -11,7 +11,7 @@ import './home.style.scss'
 const HomePage = () => (
   <div className='homepage'>
 
-    <div className='main-banner-container'>
+    <div className='main-baner-container'>
       <img src={baner} />
       <span className='centered-text'>Do yoga with style!</span>
     </div>
@@ -23,30 +23,26 @@ const HomePage = () => (
     </div>
 
     <div className='bottles-add-container'>
-      <div className='add-img-box'>
-        <img src={stailessSteelBottle} />
+
+      <div 
+        className='add-img-box' 
+        style={{backgroundImage: `url(${stailessSteelBottle})`}}
+      >
       </div>
 
-      <div className='rectangular-right'></div>
-      <div className='arrow-right'></div>
-
       <div className='add-text-container center'>
-        <div className='add-text-bos-centered'>
-          <p className='add-text-big uppercase-text'>
-            keep your
-          </p>
-          <p className='add-text-bigger uppercase-text'>
-            cool
-          </p>
-          <p className='add-text-normal'>
-            with our new insulated 
-            <br /> 
-            stainless steel bottles
-          </p>
-          <p className='shop-now-link-box'>
-            <a className='uppercase-text'>shop now &gt;</a>
-          </p>
-        </div>
+        <p className='font-size-3em uppercase-text'>
+          keep your
+        </p>
+        <p className='font-size-5em uppercase-text'>
+          cool
+        </p>
+        <p className='font-size-1-5em'>
+          with our new insulated 
+          <br /> 
+          stainless steel bottles
+        </p>
+        <a className='uppercase-text margin-top-40px font-size-1-5em'>shop now &gt;</a>
       </div>
     </div>
 

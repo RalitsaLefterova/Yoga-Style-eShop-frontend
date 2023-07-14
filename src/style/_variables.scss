@@ -2,6 +2,44 @@ $main-font: 'Open Sans Condensed', sans-serif;
 $admin-font: 'Open Sans', sans-serif;
 $add-font: 'Montserrat', sans-serif;
 
+$border-rad: .3rem;
+
+// Define breakpoints variables
+$breakpoint-mobile: 600px;
+$breakpoint-tablet-portrait: 768px;
+$breakpoint-tablet-landscape: 992px;
+$breakpoint-desktop: 1200px;
+
+$phone-breakpoint:    0;
+$phone-width:         100%;
+$tablet-breakpoint:   768px;
+$tablet-width:        720px;
+$laptop-breakpoint:   992px;
+$laptop-width:        960px;
+$desktop-breakpoint: 1200px;
+$desktop-width:      1140px;
+
+$phone:             '(min-width: #{$phone-breakpoint})   and (max-width: #{$tablet-breakpoint - 1})';
+$tablet:            '(min-width: #{$tablet-breakpoint})  and (max-width: #{$laptop-breakpoint - 1})';
+$laptop:            '(min-width: #{$laptop-breakpoint})  and (max-width: #{$desktop-breakpoint - 1})';
+$desktop:           '(min-width: #{$desktop-breakpoint})';
+
+$phone-to-tablet:   '(min-width: #{$phone-breakpoint})    and (max-width: #{$laptop-breakpoint - 1})';
+$phone-to-laptop:   '(min-width: #{$phone-breakpoint})    and (max-width: #{$desktop-breakpoint - 1})';
+$tablet-to-laptop:  '(min-width: #{$tablet-breakpoint})   and (max-width: #{$desktop-breakpoint - 1})';
+$tablet-to-desktop: '(min-width: #{$tablet-breakpoint})';
+$laptop-to-desktop: '(min-width: #{$laptop-breakpoint})';
+
+
+
+
+
+
+
+
+
+
+
 $white: #fff;
 $black: #000;
 $red: #f00;
@@ -33,8 +71,6 @@ $brand-color-light: #4b79b1;
 
 $google-blue-light: #4285f4;
 $google-blue-dark: #357ae8;
-
-$border-rad: .3rem;
 
 $border-color-row: #e0e6ef;
 $border-color-img: #b5b1b1;
