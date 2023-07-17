@@ -10,39 +10,47 @@
   position: relative;
   margin: 30px 0;
 
+  img {
+    width: 200px;
+    height: auto;
+  }
+
   .form-input {
     display: block;
     width: 100%;
-    margin: 0px;
+    margin: 0;
     padding: 10px 10px 10px 5px;
-    border: none;
+    border: 0;
     border-bottom: 1px solid $sub-color;
     border-radius: 0;
     background: none;
     background-color: $white;
     color: $sub-color;
     font-size: 18px;
-    
+
     &:-webkit-autofill ~ .form-input-label {
       @include shrink-label();
     }
+
     &:-webkit-autofill:hover ~ .form-input-label {
       @include shrink-label();
-    } 
+    }
+
     &:-webkit-autofill:focus ~ .form-input-label {
       @include shrink-label();
     }
+
     &:not(:placeholder-shown) ~ .form-input-label {
       @include shrink-label();
     }
 
     &:focus {
       outline: none;
-    }
 
-    &:focus ~ .form-input-label {
-      @include shrink-label();
-    } 
+      ~ .form-input-label {
+        @include shrink-label();
+      }
+    }
   }
 
   // input:not(:placeholder-shown) ~ .form-input-label,
@@ -56,8 +64,8 @@
 
   .form-input-label {
     position: absolute;
-    left: 5px;
     top: 10px;
+    left: 5px;
     transition: 300ms ease all;
     color: $sub-color;
     font-size: 16px;
@@ -72,15 +80,10 @@
 }
 
 // .transparent-date-placeholder {
-//   &:in-range::-webkit-datetime-edit-year-field, 
-//   &:in-range::-webkit-datetime-edit-month-field, 
-//   &:in-range::-webkit-datetime-edit-day-field, 
-//   &:in-range::-webkit-datetime-edit-text { 	
-//     color: transparent; 
+//   &:in-range::-webkit-datetime-edit-year-field,
+//   &:in-range::-webkit-datetime-edit-month-field,
+//   &:in-range::-webkit-datetime-edit-day-field,
+//   &:in-range::-webkit-datetime-edit-text {
+//     color: transparent;
 //   }
 // }
-
-img {
-  width: 200px;
-  height: auto;
-}
