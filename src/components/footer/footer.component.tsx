@@ -15,7 +15,7 @@ const Footer = () => {
   }
 
   const handleSubscribeUser = () => {
-    //TODO: Handle subscribe user in backend first!!!
+    //TODO: Handle subscribe/unsubscribe user in backend first!!!
   }
 
   return (
