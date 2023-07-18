@@ -1,29 +1,68 @@
 @import '../../style/colors';
+@import '../../style/mixins';
 
 .footer-container {
-  margin-top: auto;
-  padding: 20px 20px 0;
-  min-height: 200px;
   display: flex;
   flex-direction: column;
+  min-height: 200px;
+  margin-top: auto;
+  padding: 20px 20px 0;
   background-color: $main-color;
   color: $white;
 
   .info-links {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     padding: 10px;
+
+    @include respond-above($tablet-breakpoint) {
+      flex-direction: row;
+    }
 
     .options {
       display: flex;
       flex-direction: column;
-      padding: 20px;
+      padding: 20px 40px;
+      text-align: center;
 
-      .footer-input {
-        margin: 0;
+      .subscribe-input {
+        label {
+          margin-top: 0;
+          font-size: 1.1em;
+          text-align: center;
+
+          @include respond-above($tablet-breakpoint) {
+            text-align: left;
+          }
+        }
+
+        input {
+          border-radius: 2px;
+        }
+      }
+
+      .subscribe-button {
+        background-color: $brand-color-light;
+
+        &:hover {
+          border: 0;
+          background-color: $brand-color-dark;
+          color: $white;
+        }
+      }
+
+      @include respond-above($tablet-breakpoint) {
+        text-align: left;
       }
     }
+
+    @include respond-above($tablet-breakpoint) {
+      .newsletter-container {
+        width: 350px;
+      }
+    }
+    
   }
 
   a {
@@ -33,7 +72,7 @@
 
   .owner-box {
     margin-top: auto;
-    padding: 20px 0 0 0;
-    border-top: 0.1px solid $sub-color;
+    padding: 20px 0 0;
+    border-top: .1px solid $sub-color;
   }
 }

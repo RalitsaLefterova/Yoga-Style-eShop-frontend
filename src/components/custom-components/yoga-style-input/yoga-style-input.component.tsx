@@ -3,7 +3,7 @@ import { ChangeEventHandler, InputHTMLAttributes } from 'react'
 import './yoga-style-input.style.scss'
 
 type YogaStyleInputProps = {
-  inputType: string,
+  inputType?: string,
   fieldName: string,
   labelText: string,
   inputValue?: string | number,
@@ -12,7 +12,7 @@ type YogaStyleInputProps = {
   extraClasses?: string,
 } & InputHTMLAttributes<HTMLInputElement>
 
-const YogaStyleInput = ({ inputType, fieldName, labelText, inputValue = '', filePath, onChangeHandler, extraClasses = '', ...otherProps }: YogaStyleInputProps) => {
+const YogaStyleInput = ({ inputType = 'text', fieldName, labelText, inputValue = '', filePath, onChangeHandler, extraClasses = '', ...otherProps }: YogaStyleInputProps) => {
 
   return (
     <div className={`yoga-style-input-container ${extraClasses}`}>

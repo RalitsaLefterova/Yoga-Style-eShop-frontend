@@ -1,30 +1,30 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
-import './custom-button.style.scss'
+import './yoga-style-button.style.scss'
 
-type CustomButtonType = {
+type YogaStyleButtonProps = {
   children: string | JSX.Element | JSX.Element[],
   isGoogleSignIn?: boolean,
   inverted?: boolean,
   isDisabled?: boolean,
-  additionalClasses?: string,
-  onClick?: (event: React.MouseEvent) => void
+  extraClasses?: string,
+  onClick?: (event: React.MouseEvent) => void 
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-const CustomButton = ({ 
+const YogaStyleButton = ({
   children, 
   isGoogleSignIn, 
   inverted, 
   isDisabled,
-  additionalClasses, 
-  ...otherProps 
-} : CustomButtonType) => (
+  extraClasses, 
+  ...otherProps
+}: YogaStyleButtonProps) => (
   <button
     className={`
-      custom-button 
+      yoga-style-button 
       ${isGoogleSignIn ? 'google-sign-in' : ''}
       ${inverted ? 'inverted' : ''} 
-      ${additionalClasses}
+      ${extraClasses}
       `}
     disabled={isDisabled}
     {...otherProps}
@@ -33,4 +33,4 @@ const CustomButton = ({
   </button>
 )
 
-export default CustomButton
+export default YogaStyleButton
