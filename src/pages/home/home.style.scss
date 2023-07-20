@@ -55,7 +55,7 @@
     height: 800px;
     background-image: linear-gradient(0deg, $brand-color-light, $brand-color);
     color: $white;
-    font-family: $add-font;
+    font-family: $advertising-font;
 
     @include respond-above($tablet-breakpoint) {
       flex-direction: row-reverse;

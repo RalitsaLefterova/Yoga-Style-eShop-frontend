@@ -12,6 +12,7 @@ import LayoutShop from 'pages/layout-shop/layout-shop.component'
 // Shop part
 const CustomAlert = lazy(() => import('./components/custom-components/custom-alert/custom-alert.component'))
 const HomePage = lazy(() => import('./pages/home/home.component'))
+const AboutUsPage = lazy(() => import('./pages/about-us/about-us.component'))
 const ShopPage = lazy(() => import('./pages/shop/shop.component'))
 const UserProfilePage = lazy(() => import('./pages/user-profile/user-profile.component'))
 const SignIn = lazy(() => import('./components/authentication/sign-in/sign-in.component'))
@@ -60,6 +61,7 @@ const background = location.state && location.state.background
         
         <Route path='/' element={<LayoutShop />} >
           <Route index element={<HomePage />} />
+          <Route path='/about-us' element={<AboutUsPage />} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/shop/:collection' element={<SingleCollection />} />
           <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
