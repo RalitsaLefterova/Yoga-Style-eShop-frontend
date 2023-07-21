@@ -10,10 +10,12 @@ const AboutUsPage = () => (
   <>
     <div className='about-us-container intro'>
       {/* <img src={baner} /> */}
-      <div 
-        className='img-box'
-        style={{backgroundImage: `url(${aboutUsIntro})`}}
-      />
+      <div className='img-container'>
+        <div 
+          className='img-box'
+          style={{backgroundImage: `url(${aboutUsIntro})`}}
+        />
+      </div>
       <div className='text-container'>
         <div className='content'>
           <h3>Welcome to Yoga Style,</h3>
@@ -28,6 +30,12 @@ const AboutUsPage = () => (
       </div>
     </div>
     <div className='about-us-container our-mission'>
+      <div className='img-container'>
+        <div 
+          className='img-box'
+          style={{backgroundImage: `url(${aboutUsOurMission})`}}
+        />
+      </div>
       <div className='text-container'>
         <div className='content'>
           <p>
@@ -42,16 +50,14 @@ const AboutUsPage = () => (
           <div className='line' />
         </div>
       </div>
-      <div 
-        className='img-box'
-        style={{backgroundImage: `url(${aboutUsOurMission})`}}
-      />
     </div>
     <div className='about-us-container happiness'>
-      <div 
-        className='img-box'
-        style={{backgroundImage: `url(${aboutUsHappiness})`}}
-      />
+      <div className='img-container'>
+        <div 
+          className='img-box'
+          style={{backgroundImage: `url(${aboutUsHappiness})`}}
+        />
+      </div>
       <div className='text-container'>
         <div className='content'>
           <div className='line' />

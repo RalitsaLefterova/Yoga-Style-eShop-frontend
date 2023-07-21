@@ -2,36 +2,83 @@
 @import '../../style/variables';
 @import '../../style/mixins';
 
-
 .about-us-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 500px;
 
-  .img-box {
-    width: 50%;
+  @include respond-above($tablet-breakpoint) {
+    flex-direction: row;
+    align-items: center;
     height: 500px;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: cover;
+  }
+
+  .img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    @include respond-above($tablet-breakpoint) {
+      width: 50%;
+      height: 100%;
+    }
+
+    .img-box {
+      z-index: 1;
+      width: 100%;
+      height: 300px;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: cover;
+
+      @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+      }
+
+      @include respond-above($laptop-breakpoint) {
+        width: 100%;
+        height: 500px;
+        border-radius: 0;
+      }
+    }
   }
 
   .text-container {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 100%;
     font-family: $advertising-font;
     vertical-align: middle;
+
+    @include respond-above($tablet-breakpoint) {
+      width: 50%;
+    }
 
     p {
       width: 70%;
       margin: auto;
+      font-size: .8em;
       text-align: justify;
+
+      @include respond-above($desktop-breakpoint) {
+        font-size: 1em;
+      }
     }
 
     .line {
-      width: 60%;
+      width: 70%;
       height: 1px;
+
+      @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+        width: 80%;
+      }
+
+      @include respond-above($desktop-breakpoint) {
+        width: 60%;
+      }
     }
   }
 }
@@ -42,32 +89,81 @@
   color: $light-steel-blue;
 
   h3 {
-    padding: 0 0 20px 50px;
+    padding: 40px 0 20px 50px;
+    font-size: 1em;
+    font-weight: 500;
+
+    @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+      padding: 0 0 20px;
+    }
+
+    @include respond-above($desktop-breakpoint) {
+      padding: 0 0 20px 50px;
+      font-size: unset;
+    }
   }
 
   .line {
     margin: 0 auto 0 0;
     background-color: $light-steel-blue;
+
+    @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+      margin: 0 auto 0 -70px;
+    }
+
   }
 
   p {
     padding-top: 40px;
+    padding-bottom: 40px;
     text-indent: 0;
+
+    @include respond-above($tablet-breakpoint) {
+      padding-bottom: 0;
+    }
   }
 }
 
 .our-mission {
+  padding-bottom: 40px;
   background-color: $cadet-blue;
   color: $light-steel-blue;
 
+  @include respond-above($tablet-breakpoint) {
+    flex-direction: row-reverse;
+    padding-bottom: 0;
+  }
+
   p {
+    padding-top: 40px;
     padding-bottom: 50px;
     text-indent: 20px;
+
+    @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+      flex-direction: row-reverse;
+      padding-top: 20px;
+      padding-bottom: 30px;
+    }
+
+    @include respond-above($laptop-breakpoint) {
+      flex-direction: row-reverse;
+      padding-top: 0;
+    }
   }
 
   .line {
     margin: 0 0 0 auto;
     background-color: $light-steel-blue;
+
+    @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+      margin: 0 -150px 0 auto;
+    }
+  }
+
+  .img-box {
+    @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+      margin-bottom: -55px;
+    }
   }
 }
 
@@ -75,13 +171,37 @@
   background-color: $light-steel-blue;
   color: $dark-slate-blue;
 
-  .line {
-    margin: 0 auto 0 0;
-    background-color: $dark-slate-blue;
+  .img-box {
+    @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+      margin-top: -55px;
+    }
   }
 
-  p {
-    padding-top: 50px;
-    text-indent: 20px;
+  .text-container {
+    padding-top: 40px;
+
+    @include respond-above($tablet-breakpoint) {
+      padding-top: 0;
+    }
+
+    .line {
+      margin: 0 auto 0 0;
+      background-color: $dark-slate-blue;
+
+      @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+        margin: 0 auto 0 -150px;
+      }
+    }
+
+    p {
+      padding-top: 20px;
+      padding-bottom: 40px;
+      text-indent: 20px;
+
+      @include respond-above($tablet-breakpoint) {
+        padding-top: 50px;
+        padding-bottom: 0;
+      }
+    }
   }
 }
