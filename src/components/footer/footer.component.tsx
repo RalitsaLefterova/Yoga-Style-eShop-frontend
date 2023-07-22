@@ -23,7 +23,7 @@ const Footer = () => {
       
       <div className='info-links'>
         <div className='options'>
-          <Link className='option' to='/aboutus'>About us</Link>
+          <Link className='option' to='/about-us'>About us</Link>
           <Link className='option' to='/contacts'>Contacts</Link>
           <Link className='option' to='/privacy-policy'>Privacy Policy</Link>
         </div>

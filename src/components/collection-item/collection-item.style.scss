@@ -1,15 +1,25 @@
 @import '../../style/colors';
+@import '../../style/variables';
+@import '../../style/mixins';
 
 .collection-item {
-  align-items: center;
-  border: 1px solid $black;
   display: flex;
   flex: 1 1 auto;
-  height: 240px;
+  align-items: center;
   justify-content: center;
+  min-width: 50%;
+  height: 240px;
   margin: 0 7.5px 15px;
-  min-width: 30%;
   overflow: hidden;
+  border: 1px solid $black;
+
+  @include respond-between($tablet-breakpoint, $laptop-breakpoint) {
+    min-width: 40%;
+  }
+
+  @include respond-above($laptop-breakpoint) {
+    min-width: 30%;
+  }
 
   &:hover {
     cursor: pointer;
@@ -37,29 +47,29 @@
   }
 
   .background-image {
+    width: 100%;
+    height: 100%;
     background-position: center;
     background-size: cover;
-    height: 100%;
-    width: 100%;
   }
 
   .content {
-    align-items: center;
-    background-color: $white;
-    border: 1px solid $black;
     display: flex;
-    flex-direction: column;
-    height: 90px;
-    justify-content: center;
-    opacity: .7;
-    padding: 0 25px;
     position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    padding: 0 25px;
+    border: 1px solid $black;
+    opacity: .7;
+    background-color: $white;
 
     .title {
-      color: #4a4a4a;
+      margin-bottom: 6px;
+      color: $menu-item-title-color;
       font-size: 22px;
       font-weight: bold;
-      margin-bottom: 6px;
     }
 
     .subtitle {
