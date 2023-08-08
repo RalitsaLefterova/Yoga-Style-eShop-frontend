@@ -6,6 +6,7 @@ import { selectUsersList } from 'redux/user/user.selectors'
 import { User } from 'shared/types/users'
 
 import UserDetails from '../user-details/user-details.component'
+import Spinner from 'components/spinner/spinner.component'
 
 import './users-list.style.scss'
 
@@ -25,22 +26,25 @@ const UsersList = () => {
         <h1>Manage users</h1>
       </div>
       <div className='table-container'>
-        <table>
-          {/* <caption>Products Information</caption> */}
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {usersList.map(user => (
-              <UserDetails key={user._id} user={user} />
-            ))}
-          </tbody>
-        </table>
+        {usersList && usersList.length !== 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {usersList.map(user => (
+                <UserDetails key={user._id} user={user} />
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   )
