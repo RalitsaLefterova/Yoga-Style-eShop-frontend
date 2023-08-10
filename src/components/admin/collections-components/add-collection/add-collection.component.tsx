@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux'
 
 import { createCollectionRequested } from 'redux/collections/collections.actions'
 
-import CustomInput from 'components/custom-components/custom-input/custom-input.component'
-import CustomButton from 'components/custom-components/custom-button/custom-button.component'
+import YogaStyleInput from 'components/custom-components/yoga-style-input/yoga-style-input.component'
+import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
+import ImagePreview from 'components/image-preview/image-preview.component'
 
 import './add-collection.style.scss'
 
@@ -22,13 +23,11 @@ const AddCollection = () => {
 
   const handleChangeCover = (event: ChangeEvent<HTMLInputElement>) => {
     const file: File = (event.target.files as FileList)[0]
-    console.log('type of the "file"', typeof(file), file)
     setCover(file)
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     const data = new FormData()
     data.append('title', title)
     cover && data.append('cover', cover)
@@ -45,23 +44,25 @@ const AddCollection = () => {
       <div className='page-title left'>
         <h1>Add new collection</h1>
       </div>
-      <form onSubmit={handleSubmit}>
-        <CustomInput 
-          labelText='Title'
-          inputType='text'
-          fieldName='title'
-          inputValue={title}
-          onChangeHandler={handleChangeTitle}
-        />
-        <CustomInput 
-          labelText='Collection cover'
-          inputType='file'
-          fieldName='cover'
-          onChangeHandler={handleChangeCover}
-          accept='image/png, image/jpeg, image/jpg'
-        />
-        <CustomButton type='submit'>Add Collection</CustomButton>
-      </form>
+      <div className='add-collection-form-container'>
+        <form onSubmit={handleSubmit}>
+          <YogaStyleInput 
+            fieldName='title'
+            labelText='Title'
+            inputValue={title}
+            onChangeHandler={handleChangeTitle}
+          />
+          {cover && <ImagePreview image={cover} />}
+          <YogaStyleInput
+            labelText='Collection cover'
+            inputType='file'
+            fieldName='cover'
+            onChangeHandler={handleChangeCover}
+            accept='image/png, image/jpeg, image/jpg'
+          />
+          <YogaStyleButton type='submit'>Add Collection</YogaStyleButton>
+        </form>
+      </div>
     </div>
   )
 }
