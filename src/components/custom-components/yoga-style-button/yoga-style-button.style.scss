@@ -4,16 +4,14 @@
   display: flex;
   justify-content: center;
   width: auto;
-  // height: 50px;
-  padding: 5px 35px;
-  border: 0;
-  background-color: $brand-color;
+  padding: 8px 35px;
+  border: 1px solid $brand-color-light;
+  background-color: $brand-color-light;
   color: $white;
   font-family: inherit;
   font-size: 1em;
-  // font-weight: bold;
   letter-spacing: .5px;
-  // line-height: 50px;
+  text-align: center;
   text-transform: uppercase;
   cursor: pointer;
 

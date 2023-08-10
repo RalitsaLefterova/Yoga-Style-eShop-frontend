@@ -15,7 +15,7 @@ import { fetchCollectionsRequested, fetchSingleCollectionRequested } from 'redux
 import { selectCollections, selectSelectedCollection } from 'redux/collections/collections.selectors'
 import { Collection } from '../../../../shared/types/collections'
 
-
+import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
 import SortableItem from 'components/sortable-item/sortable-item.component'
 import CollectionsList from 'components/admin/collections-components/collections-list/collections-list.component'
 import CollectionItem from '../collection-item/collection-item.component'
@@ -46,8 +46,6 @@ const Collections = () => {
     setIsPreviewCollection(!isCollectionDeleted)
   }
 
-  
-
   useEffect(() => {
     dispatch(fetchCollectionsRequested())
   }, [])
@@ -59,8 +57,12 @@ const Collections = () => {
       <div className='page-title left'>
         <h1>Manage Collections</h1>
       </div>
-      <div className='add-collection-button'> 
-        <button onClick={() => navigate(`${pathname}/add`)}>Add Collection</button>
+      <div className='add-collection-button-container'> 
+        <YogaStyleButton
+          onClick={() => navigate(`${pathname}/add`)}
+        >
+          Add Collection
+          </YogaStyleButton>
       </div>
       <div className='collections-list'>
         <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
@@ -75,14 +77,14 @@ const Collections = () => {
           />)) : 
           'There are no collections added yet.'} */}
       </div>
-      <div className='add-edit-collection'>
+      <div className='add-edit-collection-section'>
         { isPreviewCollection ? 
           <CollectionPreview
             collection={selectedCollection}
             callbackAfterDelete={afterDelete} 
           /> 
           :
-          <h4>Select collection to see details or click "Add Collection" button to add new collection.</h4>
+          <h4>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h4>
         }
       </div>
     </div>
