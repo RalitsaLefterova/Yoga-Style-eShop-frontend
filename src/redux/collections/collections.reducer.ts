@@ -2,6 +2,7 @@ import { AnyAction } from 'redux'
 
 import { Collection } from 'shared/types/collections'
 import { Product } from 'shared/types/products'
+import { ErrorResponse } from 'shared/interfaces/error-response'
 import { 
   fetchCollectionsRequested,
   fetchCollectionsSuccess,
@@ -22,7 +23,7 @@ export type CollectionsState = {
   readonly selectedCollection: Collection
   readonly selectedCollectionProducts: Product[]
   readonly isLoading: boolean
-  readonly error: Error | null
+  readonly error: ErrorResponse | Error | null
 }
 
 const INITIAL_STATE: CollectionsState = {
@@ -64,7 +65,8 @@ const collectionsReducer = (
     ) {
     return {
       ...state,
-      selectedCollection: action.payload
+      selectedCollection: action.payload,
+      error: null
     }
   }
 

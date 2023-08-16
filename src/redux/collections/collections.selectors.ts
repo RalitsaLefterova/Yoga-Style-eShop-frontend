@@ -29,3 +29,8 @@ export const selectSelectedCollection = createSelector(
   [selectCollectionsReducer],
   (collectionsSlice) => collectionsSlice.selectedCollection
 )
+
+export const selectError = createSelector(
+  [selectCollectionsReducer],
+  (collectionSlice) => collectionSlice.error
+)

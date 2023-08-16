@@ -1,8 +1,9 @@
-import { AxiosError } from 'axios'
+import { ErrorResponse } from 'shared/interfaces/error-response'
+
 import './error-container.style.scss'
 
 type ErrorContainerProps = {
-  error: Error | null,
+  error: ErrorResponse | null,
   customTextMessage?: string
 }
 
@@ -12,22 +13,16 @@ const ErrorContainer = ({ error, customTextMessage }: ErrorContainerProps) => {
 
     if (customTextMessage && customTextMessage !== '') return customTextMessage
 
-    // console.log('error instanceof Error', error instanceof Error)
-    // console.log('error instanceof AxiosError', error instanceof AxiosError)
-    // console.log('error?.response?.data', error?.response?.data)
-
-    // if (error?.response && error.response.data) return error?.response.data
-
-    if (error instanceof Error) return error.message
-    // const errorMessage = (error as Error).message || 'Something went wrong.'
+    if (error) return error.message || 'Something went wrong.'
 
     return null
   }
   
   return (
-  <div className='error-message-container center error-color'>
-    {fetchErrorMessage()}
-  </div>
-)}
+    <div className='error-message-container center error-color'>
+      {fetchErrorMessage()}
+    </div>
+  )
+}
 
 export default ErrorContainer

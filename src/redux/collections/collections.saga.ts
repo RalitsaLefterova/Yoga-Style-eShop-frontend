@@ -1,5 +1,5 @@
 import { takeLatest, all, call, put } from 'typed-redux-saga'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 import CollectionsActionTypes from './collections.types'
 import { 
@@ -32,17 +32,22 @@ import {
   editCollectionPositionFailed
 } from './collections.actions'
 import { Collection } from 'shared/types/collections'
+import { ErrorResponse } from 'shared/interfaces/error-response'
+import { handleRequestError } from 'components/request-error-handler/request-error-handler.component'
 
 // CREATE COLLECTION 
 export function* createCollectionRequestedAsync({ payload: { data, navigate }}: CreateCollectionRequested) {
-  console.log('createCollectionRequestedAsync', {data})
   try {
+    console.log('create Collection before making the request')
     const createCollectionResponse = yield* call(createCollection, data)
-    console.log({createCollectionResponse})
+    // console.log('create Collection response', {createCollectionResponse})
     yield* put(createCollectionSuccess(createCollectionResponse.data))
     navigate('/admin/collections')
+  
   } catch (error) {
-    yield* put(createCollectionFailed(error as Error))
+    const apiError: ErrorResponse = handleRequestError(error)
+    // console.log('in createCollectionRequestedAsync', apiError)
+    yield* put(createCollectionFailed(apiError))
   }
 }
 export function* onCreateCollectionRequested() {

@@ -1,12 +1,14 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { createCollectionRequested } from 'redux/collections/collections.actions'
+import { selectError } from 'redux/collections/collections.selectors'
 
 import YogaStyleInput from 'components/custom-components/yoga-style-input/yoga-style-input.component'
 import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
 import ImagePreview from 'components/image-preview/image-preview.component'
+import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './add-collection.style.scss'
 
@@ -15,6 +17,7 @@ const AddCollection = () => {
   const dispatch = useDispatch()
   const [title, setTitle] = useState('')
   const [cover, setCover] = useState<File>()
+  const error = useSelector(selectError)
 
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const titleValue: string = event.target.value
@@ -31,12 +34,8 @@ const AddCollection = () => {
     const data = new FormData()
     data.append('title', title)
     cover && data.append('cover', cover)
-    
-    try {
-      dispatch(createCollectionRequested(data, navigate))
-    } catch (error) {
-      console.log('create collection failed', error)
-    }
+
+    dispatch(createCollectionRequested(data, navigate))
   }
 
   return (
@@ -60,6 +59,7 @@ const AddCollection = () => {
             onChangeHandler={handleChangeCover}
             accept='image/png, image/jpeg, image/jpg'
           />
+          {error && <ErrorContainer error={error} />}
           <YogaStyleButton type='submit'>Add Collection</YogaStyleButton>
         </form>
       </div>
