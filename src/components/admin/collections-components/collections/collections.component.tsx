@@ -1,24 +1,13 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  DndContext,
-  closestCenter
-} from '@dnd-kit/core'
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy
-} from '@dnd-kit/sortable'
 
 import { fetchCollectionsRequested, fetchSingleCollectionRequested } from 'redux/collections/collections.actions'
 import { selectCollections, selectSelectedCollection } from 'redux/collections/collections.selectors'
 import { Collection } from '../../../../shared/types/collections'
 
 import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
-import SortableItem from 'components/sortable-item/sortable-item.component'
 import CollectionsList from 'components/admin/collections-components/collections-list/collections-list.component'
-import CollectionItem from '../collection-item/collection-item.component'
 import CollectionPreview from '../collection-preview/collection-preview.component'
 
 import './collections.style.scss'
@@ -64,29 +53,30 @@ const Collections = () => {
           Add Collection
           </YogaStyleButton>
       </div>
-      <div className='collections-list'>
-        <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
-        
-        {/* TODO: add reorder posibility */}
-        {/* { collectionsList.length > 0 ? 
-          collectionsList.map(collection => (
-          <SingleCollectionPreview 
-            key={collection._id} 
-            collectionData={collection} 
-            parentCallback={goToPreview}
-          />)) : 
-          'There are no collections added yet.'} */}
-      </div>
-      <div className='add-edit-collection-section'>
-        { isPreviewCollection ? 
-          <CollectionPreview
-            collection={selectedCollection}
-            callbackAfterDelete={afterDelete} 
-          /> 
-          :
-          <h4>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h4>
-        }
-      </div>
+        {collectionsList.length === 0 ? (
+          <div className='padding-top-bottom-20'>
+            Currently, no collections have been added.
+          </div>
+        ) : (
+          <>
+            <div className='collections-list'>
+              <div className='padding-top-bottom-20'>
+                Customize the Collection Order: Simply drag and drop to arrange collections as you prefer.
+              </div>
+              <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
+            </div>
+            <div className='add-edit-collection-section'>
+              { isPreviewCollection ? 
+                <CollectionPreview
+                  collection={selectedCollection}
+                  callbackAfterDelete={afterDelete} 
+                /> 
+                :
+                <h4>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h4>
+              }
+            </div>
+          </>
+        )}
     </div>
   )
 }

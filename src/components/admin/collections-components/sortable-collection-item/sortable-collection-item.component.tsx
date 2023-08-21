@@ -1,16 +1,16 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
-import './sortable-item.style.scss'
+import './sortable-collection-item.style.scss'
 
-type SortableItemType = {
+type SortableCollectionItemType = {
   collectionId: string, 
   title: string, 
   cover: string,
   parentCallback: (_id: string) => void
 }
 
-const SortableItem = ({ collectionId, title, cover, parentCallback }: SortableItemType) => {
+const SortableCollectionItem = ({ collectionId, title, cover, parentCallback }: SortableCollectionItemType) => {
 
   const {
     attributes,
@@ -57,4 +57,4 @@ const SortableItem = ({ collectionId, title, cover, parentCallback }: SortableIt
   )
 }
 
-export default SortableItem
+export default SortableCollectionItem
