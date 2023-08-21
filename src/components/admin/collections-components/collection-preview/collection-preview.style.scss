@@ -1,5 +1,42 @@
-.collection-image-box {
-  img {
-    width: 100%;
+@import '../../../../style/colors';
+
+.collection-preview-container {
+  border: 1px solid $gray;
+  border-radius: 5px;
+
+  .section-title {
+    font-weight: 500;
+  }
+
+  .collection-image-box {
+    width: 80%;
+    margin: auto;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 10px auto;
+
+    button {
+      width: 150px;
+      margin: 0 20px;
+    }
+
+    .delete-btn-style {
+      border-color: $black;
+      background-color: $black;
+
+      &:hover {
+        background-color: $white;
+        color: $black;
+      }
+    }
   }
 }
+
