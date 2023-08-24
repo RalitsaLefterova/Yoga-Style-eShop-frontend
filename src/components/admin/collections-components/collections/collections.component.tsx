@@ -72,7 +72,7 @@ const Collections = () => {
                   callbackAfterDelete={afterDelete} 
                 /> 
                 :
-                <h4>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h4>
+                <h2>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h2>
               }
             </div>
           </>

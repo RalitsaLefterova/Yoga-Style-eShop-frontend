@@ -15,7 +15,8 @@ import {
   editCollectionFailed,
   deleteCollectionSuccess,
   deleteCollectionFailed,
-  editCollectionPositionSuccess
+  editCollectionPositionSuccess,
+  fetchActiveCollectionsRequested
 } from './collections.actions'
 
 export type CollectionsState = {
@@ -39,7 +40,10 @@ const collectionsReducer = (
   action = {} as AnyAction
 ): CollectionsState => {
   
-  if (fetchCollectionsRequested.match(action)) {
+  if (
+    fetchCollectionsRequested.match(action)||
+    fetchActiveCollectionsRequested.match(action)
+  ) {
     return {
       ...state,
       isLoading: true

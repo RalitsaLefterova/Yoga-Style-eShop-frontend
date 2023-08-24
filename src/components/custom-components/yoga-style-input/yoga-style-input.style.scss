@@ -10,19 +10,19 @@
   .yoga-style-label {
     display: block;
     margin-top: 30px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
   }
 
   .yoga-style-input {
     display: block;
-    height: 40px;
     width: 100%;
-    background-color: #f7f7f7;
-    border: 1px solid #e6e6e6;
-    border-radius: 5px;
-    padding: 0 10px;
+    height: 40px;
     margin: 5px 0;
+    padding: 0 10px;
+    border: 1px solid $yoga-style-input-border-color;
+    border-radius: 5px;
+    background-color: $yoga-style-input-background-color;
     font-size: 14px;
     font-weight: 300;
 
@@ -30,69 +30,60 @@
       // outline: none;
       outline: 1px solid $brand-color-light;
     }
-  }
 
-  input[type="file"] {
-    appearance: none;
+    &[type="file"] {
+      appearance: none;
+    }
   }
 
   .file {
-    position: relative;
     display: inline-block;
-    cursor: pointer;
+    position: relative;
     height: 40px;
-  } 
+    cursor: pointer;
 
-  .file input {
-    min-width: 14rem;
-    margin: 0;
-    filter: alpha(opacity=0);
-    opacity: 0;
-}
+    input {
+      min-width: 14rem;
+      margin: 0;
+      opacity: 0;
+      filter: alpha(opacity = 0);
+    }
+  }
 
   .file-custom {
     position: absolute;
+    z-index: 5;
     top: 0;
     right: 0;
     left: 0;
-    z-index: 5;
     height: 2.5rem;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
+    border: .075rem solid $file-custom-border-color;
+    border-radius: .25rem;
+    background-color: $white;
+    box-shadow: inset 0 .2rem .4rem $file-custom-box-shadow-color;
+    color: $file-custom-font-color;
     line-height: 1.5;
-    color: #555;
-    background-color: #fff;
-    border: 0.075rem solid #ddd;
-    border-radius: 0.25rem;
-    box-shadow: inset 0 0.2rem 0.4rem rgba(0,0,0,.05);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 
-    &:before {
-      position: absolute;
-      top: -0.075rem;
-      right: -0.075rem;
-      bottom: -0.075rem;
-      z-index: 6;
+    &::before {
+      content: 'Browse';
       display: block;
-      content: "Browse";
-      padding: 0.4rem 1rem;
-      line-height: 1.5;
-      color: #555;
-      background-color: #eee;
-      border: 0.075rem solid #ddd;
+      position: absolute;
+      z-index: 6;
+      top: -.075rem;
+      right: -.075rem;
+      bottom: -.075rem;
+      padding: .4rem 1rem;
+      border: .075rem solid $file-custom-border-color;
       border-radius: 0 5px 5px 0;
+      background-color: $very-light-gray;
+      color: $file-custom-font-color;
+      line-height: 1.5;
     }
 
-    &:after {
-      content: "Choose file...";
+    &::after {
+      content: 'Choose file...';
     }
   }
-
-  img {
-    width: 200px;
-    height: auto;
-  }
-
 }

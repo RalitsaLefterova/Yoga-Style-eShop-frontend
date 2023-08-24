@@ -1,5 +1,7 @@
 import { ChangeEventHandler, InputHTMLAttributes } from 'react'
 
+import ImagePreview from 'components/image-preview/image-preview.component'
+
 import './yoga-style-input.style.scss'
 
 type YogaStyleInputProps = {
@@ -9,11 +11,11 @@ type YogaStyleInputProps = {
   inputValue?: string | number,
   filePath?: string,
   onChangeHandler: ChangeEventHandler<HTMLInputElement>
-  extraClasses?: string,
+  extraClasses?: string
 } & InputHTMLAttributes<HTMLInputElement>
 
 const YogaStyleInput = ({ inputType = 'text', fieldName, labelText, inputValue = '', filePath, onChangeHandler, extraClasses = '', ...otherProps }: YogaStyleInputProps) => {
-
+  console.log('in YogaStyleInput filePath:', filePath)
   return (
     <div className={`yoga-style-input-container ${extraClasses}`}>
       <label 
@@ -22,13 +24,15 @@ const YogaStyleInput = ({ inputType = 'text', fieldName, labelText, inputValue =
       >
         {labelText}
       </label>
-      {(inputType === 'file' && filePath) ? (<img src={`${process.env.BACKEND_URL}/${filePath}`} />) : null}
+
+      {(inputType === 'file') && filePath && <ImagePreview image={filePath} />}
        
       {(inputType === 'file') ? 
         (
           <label className="file">
             <input 
               id={fieldName}
+              className='yoga-style-input'
               type={inputType}
               name={fieldName}
               onChange={onChangeHandler}

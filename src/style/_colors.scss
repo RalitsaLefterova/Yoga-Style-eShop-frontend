@@ -1,9 +1,11 @@
 $white: #fff;
 $black: #000;
 $red: #f00;
-
 $gray: #808080;
+$light-gray: #ccc;
+$very-light-gray: #eee;
 $yellow: #fff700;
+
 $error-color: #f00;
 $error-bg-color: #fda49a;
 $disabled-bg-color: #c6c6c6;
@@ -17,8 +19,8 @@ $spinner-container-border-color: #c3c3c3;
 $spinner-container-border-top-color: #636767;
 
 $bg-color: #f8f8f8;
-$admin-nav-bg-color: #eee;
-$border-color: #ccc;
+$admin-nav-bg-color: $very-light-gray;
+$border-color: $light-gray;
 
 $sub-color: $gray;
 $sub-color-light-gray: #e7eaed;
@@ -42,3 +44,11 @@ $user-profile-container-background-color: #f1f1f1;
 
 $white-transparent: rgba(255, 255, 255, 0);
 $box-shadow-color: rgba(0, 0, 0, .1);
+
+$yoga-style-input-border-color: #e6e6e6;
+$yoga-style-input-background-color: #f7f7f7;
+$file-custom-border-color: #ddd;
+$file-custom-font-color: #555;
+$file-custom-box-shadow-color: rgba(0, 0, 0, .05);
+
+$alert-modal-container-background-color: rgba(0, 0, 0, 0.7);

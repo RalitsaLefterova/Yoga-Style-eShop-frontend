@@ -2,29 +2,30 @@
 
 .alert-modal-container {
   position: absolute;
+  z-index: 100;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  justify-content: center;
   flex: 1;
+  justify-content: center;
+  transition: opacity 500ms;
+  background-color: $alert-modal-container-background-color;
 
   .modal-elements-container {
+    position: relative;
+    flex-direction: column;
+    max-width: 500px;
     margin: 70px auto;
     padding: 10px 30px 20px;
-    max-width: 500px;
-    position: relative;
     transition: all 5s ease-in-out;
-    background-color: #fff;
-    border-color: rgba(0, 0, 0, 0.1);
-    flex-direction: column;
     border-radius: 7px;
+    border-color: $box-shadow-color;
+    background-color: $white;
     // width: SCREEN_WIDTH * 0.9
 
-    h1, h3 {
+    h1,
+    h3 {
       color: $error-color;
     }
 
@@ -41,12 +42,12 @@
       justify-content: center;
 
       button {
-        margin: 5px;
-        min-width: 140px;
+        align-items: center;
         width: 200px;
+        min-width: 140px;
+        margin: 5px;
         padding: 5px 20px;
         font-weight: 600;
-        align-items: center;
         // text-transform: capitalize;
 
         span {
@@ -55,30 +56,28 @@
       }
 
       .btn-type-cancel {
-        background-color: $white;
         border: 1px solid $sub-color;
-        color: black;
+        background-color: $white;
+        color: $black;
 
         &:hover {
-          background-color: $sub-color;
           border: 1px solid $sub-color;
+          background-color: $sub-color;
           color: $white;
         }
       }
 
       .btn-type-warning {
-        background-color: $error-color;
         border: 1px solid $error-color;
+        background-color: $error-color;
         color: $white;
 
         &:hover {
-          background-color: $warning-color;
           border: 1px solid $warning-color;
+          background-color: $warning-color;
           color: $white;
         }
       }
     }
   }
-
-  
 }

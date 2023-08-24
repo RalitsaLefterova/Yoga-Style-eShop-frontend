@@ -225,9 +225,9 @@ const EditProduct = () => {
             onChange={handleSetProductDescription}
           />
           <YogaStyleInput 
-            labelText='Image'
+            labelText='Main Image'
             inputType='file'
-            fieldName='Main Image'
+            fieldName='mainImageUrl'
             filePath={mainImageUrl}
             accept='image/png image/jpeg image/jpg'
             onChangeHandler={handleChangeMainImage}

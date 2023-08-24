@@ -13,6 +13,10 @@ export type FetchCollectionsShortInfoRequested = Action<CollectionsActionTypes.F
 export const fetchCollectionsShortInfoRequested = withMatcher((): FetchCollectionsShortInfoRequested =>
   createAction(CollectionsActionTypes.FETCH_COLLECTIONS_SHORT_INFO_REQUESTED))
 
+export type FetchActiveCollectionsRequested = Action<CollectionsActionTypes.FETCH_ACTIVE_COLLECTIONS_REQUESTED>
+export const fetchActiveCollectionsRequested = withMatcher((): FetchActiveCollectionsRequested =>
+  createAction(CollectionsActionTypes.FETCH_ACTIVE_COLLECTIONS_REQUESTED))
+
 export type FetchCollectionsSuccess = ActionWithPayload<CollectionsActionTypes.FETCH_COLLECTIONS_SUCCESS, Collection[]>
 export const fetchCollectionsSuccess = withMatcher((collections: Collection[]): FetchCollectionsSuccess =>
   createAction(CollectionsActionTypes.FETCH_COLLECTIONS_SUCCESS, collections))

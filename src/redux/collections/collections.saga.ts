@@ -9,6 +9,7 @@ import {
   editCollectionPosition,
   getCollections, 
   getCollectionsShortInfo,
+  getActiveCollections,
   getSingleCollection
 } from '../../rest-api/collections'
 import { 
@@ -149,11 +150,26 @@ export function* onFetchCollectionsShortInfoRequested() {
   yield* takeLatest(CollectionsActionTypes.FETCH_COLLECTIONS_SHORT_INFO_REQUESTED, fetchCollectionsShortInfoAsync)
 }
 
+// FETCH ACTIVE COLLECTIONS
+export function* fetchActiveCollectionsRequestedAsync() {
+  try {
+    const collectionsResponse = yield* call(getActiveCollections)
+    yield* put(fetchCollectionsSuccess(collectionsResponse.data))
+  } catch (error) {
+    yield* put(fetchCollectionsFailed(error as Error))
+  }
+}
+export function* onFetchActiveCollectionsRequested() {
+  console.log('')
+  yield* takeLatest(CollectionsActionTypes.FETCH_ACTIVE_COLLECTIONS_REQUESTED, fetchActiveCollectionsRequestedAsync)
+}
+
 export function* collectionsSaga() {
   // 'all' is an effect that says: run everything inside and only complete when all of it is done
   yield* all([
     call(onFetchCollectionsRequested),
     call(onFetchCollectionsShortInfoRequested),
+    call(onFetchActiveCollectionsRequested),
     call(onFetchSingleCollectionRequested),
     call(onCreateCollectionRequested),
     call(onEditCollectionRequested),

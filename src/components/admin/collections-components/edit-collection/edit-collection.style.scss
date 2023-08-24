@@ -1,13 +1,44 @@
+@import '../../../../style/colors';
+
 .edit-collection-container {
-  width: 100%;
+  display: flex;
   top: 0;
   left: 270px;
-  display: flex;
   flex-wrap: wrap;
+  width: 100%;
 
   .page-title {
     width: 100%;
     padding: 30px 0 30px 20px;
-    color: #fff;
+    color: $white;
+  }
+
+  .edit-collection-form-container {
+    width: 100%;
+    margin-top: 60px;
+
+    .checkbox-description {
+      font-size: .9em;
+    }
+
+    .error-message-container {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: flex-start;
+
+      .edit-collection-button,
+      .cancel-edit-collection-button {
+        width: 150px;
+        margin-top: 30px;
+      }
+
+      .cancel-edit-collection-button {
+        margin-left: 30px;
+      }
+    }
   }
 }

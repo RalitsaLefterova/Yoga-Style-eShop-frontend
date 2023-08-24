@@ -10,6 +10,10 @@ export const getCollectionsShortInfo = () => {
   return axiosInstance.get('/collections?short=true')
 }
 
+export const getActiveCollections = () => {
+  return axiosInstance.get('/collections?active=true')
+}
+
 export const getSingleCollection = (collectionId: string) => {
   return axiosInstance.get(`/collections/${collectionId}`)
 }
