@@ -30,14 +30,16 @@ const Collections = () => {
     dispatch(fetchSingleCollectionRequested(collectionId))
     setIsPreviewCollection(true)
   }
-  
-  const afterDelete = (isCollectionDeleted: boolean) => {
-    setIsPreviewCollection(!isCollectionDeleted)
-  }
 
   useEffect(() => {
     dispatch(fetchCollectionsRequested())
   }, [])
+
+  useEffect(() => {
+    if (!collectionsList.some(collection => collection._id === selectedCollection._id)) {
+      setIsPreviewCollection(false);
+    }
+  }, [collectionsList, selectedCollection])
 
   return (
     <div className='manage-collections center'>
@@ -67,10 +69,7 @@ const Collections = () => {
             </div>
             <div className='add-edit-collection-section'>
               { isPreviewCollection ? 
-                <CollectionPreview
-                  collection={selectedCollection}
-                  callbackAfterDelete={afterDelete} 
-                /> 
+                <CollectionPreview collection={selectedCollection} /> 
                 :
                 <h2>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h2>
               }

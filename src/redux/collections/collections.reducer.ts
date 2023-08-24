@@ -52,13 +52,22 @@ const collectionsReducer = (
 
   if (
     fetchCollectionsSuccess.match(action) ||
-    deleteCollectionSuccess.match(action) ||
     editCollectionPositionSuccess.match(action)
   ) {
     return {
       ...state,
       collectionsList: action.payload,
       isLoading: false
+    }
+  }
+
+  if (deleteCollectionSuccess.match(action)) {
+    return {
+      ...state,
+      collectionsList: action.payload,
+      selectedCollection: {},
+      isLoading: false,
+      error: null
     }
   }
 
@@ -70,6 +79,7 @@ const collectionsReducer = (
     return {
       ...state,
       selectedCollection: action.payload,
+      isLoading: false,
       error: null
     }
   }

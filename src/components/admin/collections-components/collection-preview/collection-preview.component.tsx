@@ -1,38 +1,36 @@
 import { FormEvent } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { deleteCollectionRequested } from 'redux/collections/collections.actions'
+import { selectError } from 'redux/collections/collections.selectors'
 import { Collection } from 'shared/types/collections'
 
 import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
+import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './collection-preview.style.scss'
 
 type PreviewCollectionType = {
   collection: Collection
-  callbackAfterDelete: (isCollectionDeleted: boolean) => void
 }
 
-const CollectionPreview = ({ collection, callbackAfterDelete }: PreviewCollectionType) => {
+const CollectionPreview = ({ collection }: PreviewCollectionType) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { _id: collectionId, title, cover } = collection
+  const error = useSelector(selectError)
+
+  console.log({error})
 
   const handleStartEditing = () => {
-    // callbackForEdit(true)
     navigate(`${pathname}/edit/${collectionId}`)
   }
 
   const handleDelete = async (event: FormEvent) => {
     event.preventDefault()
-    try {
-      collectionId && dispatch(deleteCollectionRequested(collectionId))
-      callbackAfterDelete(true)
-    } catch (error) {
-      console.log('delete collection failed', error)
-    }
+    collectionId && dispatch(deleteCollectionRequested(collectionId))
   }
 
   return (
@@ -46,6 +44,7 @@ const CollectionPreview = ({ collection, callbackAfterDelete }: PreviewCollectio
       <div className='collection-image-box center'>
         <img src={`${process.env.BACKEND_URL}/${cover}`} alt={`collection ${title}`} />
       </div>
+      {error && <ErrorContainer error={error} />}
       <div className='buttons-container center'>
         <YogaStyleButton onClick={handleStartEditing} >Edit</YogaStyleButton>
         <YogaStyleButton onClick={handleDelete} extraClasses='delete-btn-style' >Delete</YogaStyleButton>

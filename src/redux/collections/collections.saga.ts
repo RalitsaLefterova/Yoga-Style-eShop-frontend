@@ -47,7 +47,6 @@ export function* createCollectionRequestedAsync({ payload: { data, navigate }}: 
   
   } catch (error) {
     const apiError: ErrorResponse = handleRequestError(error)
-    // console.log('in createCollectionRequestedAsync', apiError)
     yield* put(createCollectionFailed(apiError))
   }
 }
@@ -95,10 +94,10 @@ export function* deleteCollectionRequestedAsync({ payload: { collectionId }}: De
   console.log('deleteCollectionRequestedAsync', {collectionId})
   try {
     const deleteCollectionResponse = yield* call(deleteCollection, collectionId)
-    console.log({deleteCollectionResponse})
     yield* put(deleteCollectionSuccess(deleteCollectionResponse.data))
   } catch (error) {
-    yield* put(deleteCollectionFailed(error as Error))
+    const apiError: ErrorResponse = handleRequestError(error)
+    yield* put(deleteCollectionFailed(apiError))
   }
 }
 export function* onDeleteCollectionRequested() {
