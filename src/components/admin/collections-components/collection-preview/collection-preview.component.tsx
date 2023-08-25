@@ -22,8 +22,6 @@ const CollectionPreview = ({ collection }: PreviewCollectionType) => {
   const { _id: collectionId, title, cover } = collection
   const error = useSelector(selectError)
 
-  console.log({error})
-
   const handleStartEditing = () => {
     navigate(`${pathname}/edit/${collectionId}`)
   }

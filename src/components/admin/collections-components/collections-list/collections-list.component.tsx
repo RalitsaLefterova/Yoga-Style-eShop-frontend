@@ -28,12 +28,10 @@ type CollectionsListType = {
 const CollectionsList = ({ collections, parentCallback }: CollectionsListType) => {
   const dispatch = useDispatch()
   const [collectionsArray, setCollectionsArray] = useState<Collection[]>([])
-  const itemIds: any = useMemo(() => collectionsArray.map((collection) => collection._id), [collectionsArray]);
-  // console.log({collectionsArray}, {itemIds})
+  const itemIds: any = useMemo(() => collectionsArray.map((collection) => collection._id), [collectionsArray])
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event
-    // console.log({active}, {over})
     const collectionId = active.id
 
     let newPosition = collectionsArray.findIndex(item => item._id === over.id)
@@ -42,18 +40,16 @@ const CollectionsList = ({ collections, parentCallback }: CollectionsListType) =
       newPosition = 0 //Special case for moving to the beginning of the list
     } 
 
-    // console.log({newPosition}, typeof(newPosition))
-
     if (active.id !== over.id) {
-      const draggedCollection = collectionsArray.find(item => item._id === active.id);
+      const draggedCollection = collectionsArray.find(item => item._id === active.id)
   
       if (draggedCollection) {
         // Update the visual order immediately in the frontend
         setCollectionsArray(items => {
-          const newItems = items.filter(item => item._id !== active.id);
-          newItems.splice(newPosition, 0, draggedCollection);
-          return newItems;
-        });
+          const newItems = items.filter(item => item._id !== active.id)
+          newItems.splice(newPosition, 0, draggedCollection)
+          return newItems
+        })
   
         // Dispatch the action to update the backend order
         dispatch(editCollectionPositionRequested(collectionId, newPosition));

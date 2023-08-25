@@ -37,7 +37,7 @@ const Collections = () => {
 
   useEffect(() => {
     if (!collectionsList.some(collection => collection._id === selectedCollection._id)) {
-      setIsPreviewCollection(false);
+      setIsPreviewCollection(false)
     }
   }, [collectionsList, selectedCollection])
 

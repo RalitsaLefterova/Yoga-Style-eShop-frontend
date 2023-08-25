@@ -17,11 +17,11 @@ const EditCollection = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const params = useParams()
-
   const collection: Collection = useSelector(selectSelectedCollection)
   const [collectionData, setCollectionData] = useState(collection)
   const [newCover, setNewCover] = useState<File>()
   const error = useSelector(selectError)
+  const [errorOnMissingProperty, setErrorOnMissingProperty] = useState('')
 
   const {
     _id: collectionId = '',
@@ -53,6 +53,12 @@ const EditCollection = () => {
   const handleEdit = async (event: FormEvent) => {
     event.preventDefault()
     const data = new FormData()
+
+    if (!title) {
+      setErrorOnMissingProperty('Missing collection title')
+      return
+    } 
+
     title && data.append('title', title)
     newCover && data.append('cover', newCover)
     data.append('active', JSON.stringify(active))
@@ -72,8 +78,6 @@ const EditCollection = () => {
   useEffect(() => {
     setCollectionData(collection)
   }, [collection])
-
-  console.log('collectionData:', collectionData)
 
   return (
     <div className='edit-collection-container center'>
@@ -110,7 +114,7 @@ const EditCollection = () => {
           accept='image/png image/jpeg image/jpg'
           onChangeHandler={handleChangeCover}
         />
-        {error && <ErrorContainer error={error} />}
+        {(error || errorOnMissingProperty) && <ErrorContainer error={error} customTextMessage={errorOnMissingProperty} />}
         <div className='buttons-container'>
           <YogaStyleButton 
             onClick={handleEdit} 

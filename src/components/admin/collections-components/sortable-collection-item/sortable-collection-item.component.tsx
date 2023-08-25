@@ -11,7 +11,6 @@ type SortableCollectionItemType = {
 }
 
 const SortableCollectionItem = ({ collectionId, title, cover, parentCallback }: SortableCollectionItemType) => {
-
   const {
     attributes,
     listeners,
@@ -26,7 +25,6 @@ const SortableCollectionItem = ({ collectionId, title, cover, parentCallback }: 
   }
 
   const handleGoToPreviewCollection = () => {
-    console.log('handleGoToPreviewCollection is clicked')
     parentCallback(collectionId)
   }
 

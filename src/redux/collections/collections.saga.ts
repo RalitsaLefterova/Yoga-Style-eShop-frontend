@@ -41,10 +41,8 @@ export function* createCollectionRequestedAsync({ payload: { data, navigate }}: 
   try {
     console.log('create Collection before making the request')
     const createCollectionResponse = yield* call(createCollection, data)
-    // console.log('create Collection response', {createCollectionResponse})
     yield* put(createCollectionSuccess(createCollectionResponse.data))
-    navigate('/admin/collections')
-  
+    navigate('/admin/collections')  
   } catch (error) {
     const apiError: ErrorResponse = handleRequestError(error)
     yield* put(createCollectionFailed(apiError))
@@ -59,13 +57,13 @@ export function* editCollectionRequestedAsync({ payload: { collectionId, data, n
   console.log('editCollectionRequestedAsync', {collectionId}, {data})
   try {
     const editCollectionResponse = yield* call(editCollection, collectionId, data)
-    console.log({editCollectionResponse})
     if (editCollectionResponse.data) {
       yield* put(editCollectionSuccess(editCollectionResponse.data))
     }
     navigate('/admin/collections')
   } catch (error) {
-    yield* put(editCollectionFailed(error as Error))
+    const apiError: ErrorResponse = handleRequestError(error)
+    yield* put(editCollectionFailed(apiError))
   }
 }
 export function* onEditCollectionRequested() {
@@ -91,7 +89,6 @@ export function* onEditCollectionPositionRequested() {
 
 // DELETE COLLECTION
 export function* deleteCollectionRequestedAsync({ payload: { collectionId }}: DeleteCollectionRequested) {
-  console.log('deleteCollectionRequestedAsync', {collectionId})
   try {
     const deleteCollectionResponse = yield* call(deleteCollection, collectionId)
     yield* put(deleteCollectionSuccess(deleteCollectionResponse.data))
@@ -106,7 +103,6 @@ export function* onDeleteCollectionRequested() {
 
 // FETCH SINGLE COLLECTION
 export function* fetchSingleCollectionRequestedAsync({ payload: { collectionId } }: FetchSingleCollectionRequested) {
-  console.log('in saga fetchSingleCollectionRequestedAsync', collectionId)
   try {
     const singleCollectionResponse = yield* call(getSingleCollection, collectionId)
     if (axios.isAxiosError(singleCollectionResponse)) {
