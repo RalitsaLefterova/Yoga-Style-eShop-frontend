@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { createCollectionRequested } from 'redux/collections/collections.actions'
-import { selectError } from 'redux/collections/collections.selectors'
+import { selectError, selectIsLoadingCollections } from 'redux/collections/collections.selectors'
 
 import YogaStyleInput from 'components/custom-components/yoga-style-input/yoga-style-input.component'
 import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
@@ -18,6 +18,7 @@ const AddCollection = () => {
   const [title, setTitle] = useState('')
   const [cover, setCover] = useState<File>()
   const error = useSelector(selectError)
+  const isLoading = useSelector(selectIsLoadingCollections)
 
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const titleValue: string = event.target.value
@@ -37,6 +38,8 @@ const AddCollection = () => {
 
     dispatch(createCollectionRequested(data, navigate))
   }
+
+  console.log({isLoading})
 
   return (
     <div className='add-collection-container center'>

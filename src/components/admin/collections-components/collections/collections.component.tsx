@@ -55,27 +55,33 @@ const Collections = () => {
           Add Collection
           </YogaStyleButton>
       </div>
-        {collectionsList.length === 0 ? (
-          <div className='padding-top-bottom-20'>
-            Currently, no collections have been added.
+      {collectionsList.length === 0 ? (
+        <div className='full-width padding-top-bottom-20'>
+          Currently, no collections have been added.
+        </div>
+      ) : (
+        <>
+          <div className='collections-list'>
+            <div className='padding-top-bottom-20'>
+              Customize the Collection Order: Simply drag and drop to arrange collections as you prefer.
+            </div>
+            <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
           </div>
-        ) : (
-          <>
-            <div className='collections-list'>
-              <div className='padding-top-bottom-20'>
-                Customize the Collection Order: Simply drag and drop to arrange collections as you prefer.
-              </div>
-              <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
-            </div>
-            <div className='add-edit-collection-section'>
-              { isPreviewCollection ? 
-                <CollectionPreview collection={selectedCollection} /> 
-                :
-                <h2>Select collection to see details <br /> or click "Add Collection" button to add new collection.</h2>
-              }
-            </div>
-          </>
-        )}
+          <div className='add-edit-collection-section'>
+            { isPreviewCollection ? 
+              <CollectionPreview collection={selectedCollection} /> 
+              :
+              <h2>
+                Choose a collection to view details. <br />
+                Create a new collection using the 'Add Collection' button. <br />
+                While previewing, you can edit or delete using buttons. <br />
+                For making a collection visible to e-shop users, 
+                access the edit page where you'll find an 'Active' checkbox.  
+              </h2>
+            }
+          </div>
+        </>
+      )}
     </div>
   )
 }

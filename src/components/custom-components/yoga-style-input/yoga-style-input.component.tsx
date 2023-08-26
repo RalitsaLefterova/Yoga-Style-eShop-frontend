@@ -15,7 +15,7 @@ type YogaStyleInputProps = {
 } & InputHTMLAttributes<HTMLInputElement>
 
 const YogaStyleInput = ({ inputType = 'text', fieldName, labelText, inputValue = '', filePath, onChangeHandler, extraClasses = '', ...otherProps }: YogaStyleInputProps) => {
-  console.log('in YogaStyleInput filePath:', filePath)
+  
   return (
     <div className={`yoga-style-input-container ${extraClasses}`}>
       <label 

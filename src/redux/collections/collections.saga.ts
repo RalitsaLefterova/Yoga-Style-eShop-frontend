@@ -39,7 +39,6 @@ import { handleRequestError } from 'components/request-error-handler/request-err
 // CREATE COLLECTION 
 export function* createCollectionRequestedAsync({ payload: { data, navigate }}: CreateCollectionRequested) {
   try {
-    console.log('create Collection before making the request')
     const createCollectionResponse = yield* call(createCollection, data)
     yield* put(createCollectionSuccess(createCollectionResponse.data))
     navigate('/admin/collections')  
@@ -54,7 +53,6 @@ export function* onCreateCollectionRequested() {
 
 // EDIT COLLECTION
 export function* editCollectionRequestedAsync({ payload: { collectionId, data, navigate }}: EditCollectionRequested) {
-  console.log('editCollectionRequestedAsync', {collectionId}, {data})
   try {
     const editCollectionResponse = yield* call(editCollection, collectionId, data)
     if (editCollectionResponse.data) {
@@ -72,7 +70,6 @@ export function* onEditCollectionRequested() {
 
 // EDIT COLLECTION POSITION
 export function* editCollectionPositionRequestedAsync({ payload: { collectionId, position }}: EditCollectionPositionRequested) {
-  console.log('editCollectionRequestedAsync', {collectionId}, {position})
   try {
     const editCollectionPositionResponse = yield* call(editCollectionPosition, collectionId, position)
     console.log({editCollectionPositionResponse})
