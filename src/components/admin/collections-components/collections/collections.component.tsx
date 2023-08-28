@@ -71,13 +71,13 @@ const Collections = () => {
             { isPreviewCollection ? 
               <CollectionPreview collection={selectedCollection} /> 
               :
-              <h2>
+              <h3>
                 Choose a collection to view details. <br />
                 Create a new collection using the 'Add Collection' button. <br />
                 While previewing, you can edit or delete using buttons. <br />
-                For making a collection visible to e-shop users, 
-                access the edit page where you'll find an 'Active' checkbox.  
-              </h2>
+                For making a collection visible to e-shop users, access the edit page
+                where you'll find an 'Active' checkbox.  
+              </h3>
             }
           </div>
         </>
