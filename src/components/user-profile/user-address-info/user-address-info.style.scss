@@ -2,8 +2,8 @@
 
 .addresses-container {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
   padding: 20px 0 10px;
 }
 
@@ -11,13 +11,13 @@
   display: flex;
   justify-content: end;
   padding: 10px 0;
-  
+
   .user-addresses-create-btn {
     background-color: $brand-color;
 
     &:hover {
-      background-color: $white;
       border-color: $brand-color;
+      background-color: $white;
       color: $brand-color;
     }
   }

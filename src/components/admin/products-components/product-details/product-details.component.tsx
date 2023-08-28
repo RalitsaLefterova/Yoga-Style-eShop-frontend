@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 import { Product } from 'shared/types/products'
 import { editProductRequested } from 'redux/products/products.actions'
@@ -16,7 +18,7 @@ const ProductDetails = ({ product }: ProductDetailsType) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const { id: productId , title, price, stock, active: activeStatus } = product
+  const { id: productId , title, price, stock, active: activeStatus, mainImageUrl } = product
   const [active, setActive] = useState(activeStatus)
 
   const handleChangeActive = (newValue: boolean) => {
@@ -33,16 +35,26 @@ const ProductDetails = ({ product }: ProductDetailsType) => {
           type='checkbox' 
           name='active' 
           onChange={() => handleChangeActive(!active)}
-          // value={active}
-          // checked={active ? 'checked' : ''}
           checked={active}
         />
       </th>
-      <th>{title}</th>
+      <th>
+        <div className='product-title-box'>
+          <div 
+          className='img-container'
+          style={{backgroundImage: `url(${process.env.BACKEND_URL}/${mainImageUrl})`}} 
+        />
+          {title}
+        </div>
+      </th>
       <th>{formatCurrency(price)}</th>
       <th>{stock ? stock : 0}</th>
-      <th>
-        <Link to={`${pathname}/edit/${productId}`}>Edit</Link>
+      <th className='edit-product-box'>
+        <Link to={`${pathname}/edit/${productId}`}>
+          <span title="Edit product">
+            <FontAwesomeIcon icon={faEdit} />
+          </span>
+        </Link>
       </th>
     </tr>
   )
