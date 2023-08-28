@@ -12,7 +12,9 @@ import { CreateProduct } from 'shared/types/products'
 import YogaStyleInput from '../../../custom-components/yoga-style-input/yoga-style-input.component'
 import YogaStyleTextEditor from 'components/custom-components/yoga-style-text-editor/yoga-style-text-editor.component'
 import YogaStyleSelect from 'components/custom-components/yoga-style-select/yoga-style-select.component'
-import CustomButton from '../../../custom-components/custom-button/custom-button.component'
+import YogaStyleCheckbox from 'components/custom-components/yoga-style-checkbox/yoga-style-checkbox.component'
+import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
+import ImagePreview from 'components/image-preview/image-preview.component'
 
 import 'react-quill/dist/quill.snow.css'
 import './add-product.style.scss'
@@ -33,8 +35,6 @@ const AddProduct = () => {
 
   const { title, mainImageUrl, description, price, stock, collectionId, active } = productData
 
-  console.log('description', productData.description)
-
   const handleSetProductDetails = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const name = event.target.name
     const target = event.target as HTMLInputElement
@@ -44,11 +44,9 @@ const AddProduct = () => {
       case 'active':
         target && (value = target.checked)
         break
-
       case 'mainImageUrl':
         target && target.files && (value = target.files[0])
         break
-
       default:
         value = target.value
     }
@@ -57,29 +55,7 @@ const AddProduct = () => {
   }
 
   const handleSetProductDescription = (value: string) => {
-    console.log('react quill test', value)
     setProduct({...productData, description: value})
-  }
-
-  const showImagePreview = () => {
-    console.log('productData.mainImageUrl', productData.mainImageUrl)
-    console.log('type', typeof(productData.mainImageUrl))
-    if (productData.mainImageUrl) {
-      const uri = URL.createObjectURL(productData.mainImageUrl)
-      return (
-        <div className='thumb'>
-          <div className='thumb-inner'>
-            <img
-              src={uri}
-              // Revoke data uri after image is loaded
-              onLoad={() => { URL.revokeObjectURL(uri) }}
-            />
-          </div>
-        </div>
-      )
-    }
-
-    return null
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -121,24 +97,21 @@ const AddProduct = () => {
           inputValue={title}
           onChangeHandler={handleSetProductDetails}
         />
-
-        {productData.mainImageUrl && showImagePreview()}
-
+        {mainImageUrl &&  <ImagePreview image={mainImageUrl} /> }
         <YogaStyleInput 
-          labelText='File'
+          labelText='Main Image'
           inputType='file'
           fieldName='mainImageUrl'
           onChangeHandler={handleSetProductDetails}
           accept='image/png image/jpeg image/jpg'
         />
-
         <YogaStyleTextEditor
           fieldName='description'
           labelText='Description'
           editorValue={description}
           onChange={handleSetProductDescription}
         />
-        <div className='flex flex-direction-row'>
+        <div className='flex flex-direction-row gap-20'>
           <YogaStyleInput 
             labelText='Price'
             inputType='number'
@@ -158,32 +131,28 @@ const AddProduct = () => {
             min='0'
           />
         </div>
-        
         <YogaStyleSelect 
-            typeOfData='collections'
-            data={collections}
-            handler={handleSetProductDetails}
-            labelText='Collection'
-            // label={`* ${strings.Collection}`}
-            placeholder='Select collection'
-            selectName='collectionId'
-            value={collectionId}
-            extraClasses=''
-          />
-
-        <div className="flex">
-          <input
-            type="checkbox"
-            name='active'
-            id="active"
-            onChange={handleSetProductDetails}
-            checked={active}
-          />
-          <label htmlFor="active">Publish immidiatly after saving</label>
-        </div>
+          typeOfData='collections'
+          data={collections}
+          handler={handleSetProductDetails}
+          labelText='Collection'
+          // label={`* ${strings.Collection}`}
+          placeholder='Select collection'
+          selectName='collectionId'
+          value={collectionId}
+          extraClasses=''
+        />
+        <YogaStyleCheckbox
+          itemId='active'
+          labelText='Publish immidiatly after saving'
+          fieldName='active'
+          inputValue={active}
+          onChangeHandler={handleSetProductDetails}
+          extraClasses='checkbox-container'
+        />
         <div className='buttons-container'>
-          <CustomButton type='reset' inverted>Clear form</CustomButton>
-          <CustomButton type='submit'>Add product</CustomButton>
+          <YogaStyleButton type='reset' inverted>Clear form</YogaStyleButton>
+          <YogaStyleButton type='submit'>Add product</YogaStyleButton>
         </div>
       </form>
     </div>
