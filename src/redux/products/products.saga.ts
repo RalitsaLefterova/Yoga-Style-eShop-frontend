@@ -41,6 +41,8 @@ import {
   fetchCollectionsSuccess 
 } from '../collections/collections.actions'
 import { AxiosError } from 'axios'
+import { handleRequestError } from 'components/request-error-handler/request-error-handler.component'
+import { ErrorResponse } from 'shared/interfaces/error-response'
 
 
 // CREATE PRODUCT //
@@ -50,7 +52,8 @@ export function* createProductAsync({ payload: { data, navigate }}: CreateProduc
     console.log('create product responce: ', response)
     navigate('/admin/products')
   } catch (error) {
-    yield* put(createProductFailed(error as Error))
+    const apiError: ErrorResponse = handleRequestError(error)
+    yield* put(createProductFailed(apiError))
   }
 }
 export function* onCreateProductRequested() {
@@ -121,7 +124,8 @@ export function* editProductAsync({ payload: { productId, data, navigate }}: Edi
     yield* put(editProductSuccess(response.data))
     navigate('/admin/products')
   } catch (error) {
-    yield* put(editProductFailed(error as Error))
+    const apiError: ErrorResponse = handleRequestError(error)
+    yield* put(editProductFailed(apiError))
   }
 }
 export function* onEditProductRequested() {
@@ -131,7 +135,6 @@ export function* onEditProductRequested() {
 // ADD COLOR TO PRODUCT //
 export function* addColorToProductAsync({ payload: { productId, data }}: AddColorToProductRequested) {
   try {
-    console.log('in saga', productId, data)
     const response = yield* call(addColorToProduct, productId, data)
     if (response.data) {
       yield* put(addColorToProductSuccess(response.data))
@@ -140,8 +143,8 @@ export function* addColorToProductAsync({ payload: { productId, data }}: AddColo
       throw new Error(response.response?.data)
     }
   } catch (error) {
-    // console.log('in saga error:', error)
-    yield* put(addColorToProductFailed(error as Error))
+    const apiError: ErrorResponse = handleRequestError(error)
+    yield* put(addColorToProductFailed(apiError))
   }
 }
 export function* onAddColorToProductRequested() {

@@ -1,3 +1,5 @@
+@import '../../../style/colors';
+
 .yoga-style-select-container {
   display: flex;
   flex-direction: column;
@@ -18,12 +20,16 @@
     height: 40px;
     margin: 5px 0;
     padding: 0 10px;
-    background-color: #f7f7f7;
-    border: 1px solid #e6e6e6;
+    border: 1px solid $yoga-style-input-border-color;
     border-radius: 5px;
+    background-color: $yoga-style-input-background-color;
     font-size: 14px;
     font-weight: 300;
     text-transform: uppercase;
+
+    &:focus-visible {
+      outline: 1px solid $brand-color-light;
+    }
 
     .select-placeholder {
       text-transform: none;

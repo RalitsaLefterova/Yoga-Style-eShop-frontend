@@ -1,7 +1,8 @@
+import { NavigateFunction } from 'react-router-dom'
+
 import ProductsActionTypes from './products.types'
 import { createAction, Action, ActionWithPayload, withMatcher } from '../reducer.utils'
-import { Product } from 'shared/types/products'
-import { NavigateFunction } from 'react-router-dom'
+import { CreateProductColor, Product } from 'shared/types/products'
 
 // FETCH ALL PRODUCTS ('admin/products') //
 export type FetchAllProductsRequested = Action<ProductsActionTypes.FETCH_ALL_PRODUCTS_REQUESTED>
@@ -81,8 +82,8 @@ export const editProductFailed = withMatcher((error: Error): EditProductFailed =
 
 
 // ADD COLOR TO PRODUCT //
-export type AddColorToProductRequested = ActionWithPayload<ProductsActionTypes.ADD_COLOR_TO_PRODUCT_REQUESTED, { productId: string , data: FormData }>
-export const addColorToProductRequested = withMatcher((productId: string , data: FormData): AddColorToProductRequested => 
+export type AddColorToProductRequested = ActionWithPayload<ProductsActionTypes.ADD_COLOR_TO_PRODUCT_REQUESTED, { productId: string , data: CreateProductColor }>
+export const addColorToProductRequested = withMatcher((productId: string , data: CreateProductColor): AddColorToProductRequested => 
   createAction(ProductsActionTypes.ADD_COLOR_TO_PRODUCT_REQUESTED, { productId, data }))
 
 export type AddColorToProductSuccess = ActionWithPayload<ProductsActionTypes.ADD_COLOR_TO_PRODUCT_SUCCESS, Product>

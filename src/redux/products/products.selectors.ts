@@ -29,3 +29,8 @@ export const selectError = createSelector(
   [selectProductsReducer],
   (productsSlice) => productsSlice.error
 )
+
+export const selectErrorOnAddColor = createSelector(
+  [selectProductsReducer],
+  (productsSlice) => productsSlice.errorOnAddColor
+)

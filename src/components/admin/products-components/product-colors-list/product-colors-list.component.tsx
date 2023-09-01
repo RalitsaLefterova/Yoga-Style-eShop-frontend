@@ -9,9 +9,9 @@ import ProductColorPreview from '../product-color-preview/product-color-preview.
 import './product-colors-list.style.scss'
 
 const ProductColorsList = () => {
-  const selectedProduct: Product | GenericObject = useSelector(selectProduct)
+  const selectedProduct: Product = useSelector(selectProduct)
   const productId: string = selectedProduct.id
-  const colors: ProductColor[] = selectedProduct.colors
+  const colors: ProductColor[] | undefined = selectedProduct.colors
 
   // console.log('in ProductColorsList:', selectedProduct, colors)
   return (
@@ -32,9 +32,10 @@ const ProductColorsList = () => {
               ))}
             </tbody> 
           </table>
-        ) 
-        : (
-          <div>There are no additional information added yet.</div>
+        ) : (
+          <p>
+            Currently, no additional color options have been included.
+          </p>
         )
       }
     </div>

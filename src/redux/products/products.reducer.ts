@@ -8,6 +8,7 @@ import {
   createProductFailed,
   createProductRequested,
   editProductColorDataSuccess,
+  editProductFailed,
   editProductSuccess,
   fetchAllProductsFailed,
   fetchAllProductsRequested, 
@@ -28,6 +29,7 @@ export type ProductsState = {
   readonly selectedProduct: Product
   readonly isLoading: boolean
   readonly error: Error | null
+  readonly errorOnAddColor: Error | null
 }
 
 const INITIAL_STATE: ProductsState = {
@@ -45,7 +47,8 @@ const INITIAL_STATE: ProductsState = {
     colors: []
   },
   isLoading: false,
-  error: null
+  error: null,
+  errorOnAddColor: null
 }
 
 const productsReducer = (
@@ -109,12 +112,22 @@ const productsReducer = (
       fetchSingleCollectionProductsFailed.match(action) ||
       fetchProductFailed.match(action) ||
       createProductFailed.match(action) ||
-      addColorToProductFailed.match(action)
+      editProductFailed.match(action)
     ) {
       return {
         ...state,
           isLoading: false,
           error: action.payload
+      }
+    }
+
+    if (
+      addColorToProductFailed.match(action)
+    ) {
+      return {
+        ...state,
+          isLoading: false,
+          errorOnAddColor: action.payload
       }
     }
 

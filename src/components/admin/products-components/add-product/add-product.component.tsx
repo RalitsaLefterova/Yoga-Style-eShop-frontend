@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createProductRequested } from '../../../../redux/products/products.actions'
 import { fetchCollectionsShortInfoRequested } from '../../../../redux/collections/collections.actions'
 import { selectCollectionsShortInfo } from '../../../../redux/collections/collections.selectors'
-// import { checkFormDataEntries } from '../../../components/utils/utils'
 import { Collection } from 'shared/types/collections'
 import { CreateProduct } from 'shared/types/products'
+import { selectError } from 'redux/products/products.selectors'
+// import { checkFormDataEntries } from '../../../componen ts/utils/utils'
 
 import YogaStyleInput from '../../../custom-components/yoga-style-input/yoga-style-input.component'
 import YogaStyleTextEditor from 'components/custom-components/yoga-style-text-editor/yoga-style-text-editor.component'
@@ -15,6 +16,7 @@ import YogaStyleSelect from 'components/custom-components/yoga-style-select/yoga
 import YogaStyleCheckbox from 'components/custom-components/yoga-style-checkbox/yoga-style-checkbox.component'
 import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
 import ImagePreview from 'components/image-preview/image-preview.component'
+import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import 'react-quill/dist/quill.snow.css'
 import './add-product.style.scss'
@@ -22,6 +24,7 @@ import './add-product.style.scss'
 const AddProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const error = useSelector(selectError)
   const collections: Collection[] = useSelector(selectCollectionsShortInfo)
   const [productData, setProduct] = useState<CreateProduct>({
     title: '',
@@ -144,12 +147,13 @@ const AddProduct = () => {
         />
         <YogaStyleCheckbox
           itemId='active'
-          labelText='Publish immidiatly after saving'
+          labelText='Make visible on the website immediately upon saving.'
           fieldName='active'
           inputValue={active}
           onChangeHandler={handleSetProductDetails}
           extraClasses='checkbox-container'
         />
+        {error && <ErrorContainer error={error} />}
         <div className='buttons-container'>
           <YogaStyleButton type='reset' inverted>Clear form</YogaStyleButton>
           <YogaStyleButton type='submit'>Add product</YogaStyleButton>

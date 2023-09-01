@@ -28,7 +28,7 @@ const EditProductColorData = ({ productId }: EditProductColorDataType) => {
     const formData = new FormData()
     formData.append('color', color)
     images.map(image => formData.append('images', image))
-    dispatch(addColorToProductRequested(productId, formData))
+    // dispatch(addColorToProductRequested(productId, formData))
   }
 
   // const onDrop = useCallback(acceptedFiles => {

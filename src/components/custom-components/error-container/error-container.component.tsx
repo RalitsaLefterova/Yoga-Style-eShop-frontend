@@ -4,10 +4,11 @@ import './error-container.style.scss'
 
 type ErrorContainerProps = {
   error: ErrorResponse | null,
-  customTextMessage?: string
+  customTextMessage?: string,
+  extraClasses?: string
 }
 
-const ErrorContainer = ({ error, customTextMessage }: ErrorContainerProps) => {
+const ErrorContainer = ({ error, customTextMessage, extraClasses }: ErrorContainerProps) => {
   
   const fetchErrorMessage = () => {
 
@@ -19,7 +20,7 @@ const ErrorContainer = ({ error, customTextMessage }: ErrorContainerProps) => {
   }
   
   return (
-    <div className='error-message-container center error-color'>
+    <div className={`error-message-container error-color ${extraClasses}`}>
       {fetchErrorMessage()}
     </div>
   )

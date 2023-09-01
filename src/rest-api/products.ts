@@ -1,5 +1,7 @@
 import axiosInstance from './api-requests'
 import { multipartFormDataConfig } from './api-config'
+import { displayFormDataEntries } from 'shared/helpers'
+import { CreateProductColor } from 'shared/types/products'
 
 export const createProduct = (data: FormData) => {
   return axiosInstance.post('/products', data, multipartFormDataConfig)
@@ -25,12 +27,8 @@ export const editProduct = (productId: string, data: FormData) => {
   return axiosInstance.patch(`/products/${productId}`, data, multipartFormDataConfig)
 }
 
-// export const addAdditionalImageToProduct = (productId: string, data: FormData) => {
-//   return axiosInstance.post(`/products/${productId}/images`, data, multipartFormDataConfig)
-// }
-
-export const addColorToProduct = (productId: string, data: FormData) => {
-  // console.log(' in request addColorToProduct: ', productId, data)
+export const addColorToProduct = (productId: string, data: CreateProductColor) => {
+  console.log(' in request addColorToProduct: ', productId, data)
   return axiosInstance.post(`/products/${productId}/colors`, data)
 }
 

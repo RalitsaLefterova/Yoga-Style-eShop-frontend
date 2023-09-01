@@ -1,19 +1,23 @@
 import React, { useState, useCallback, ChangeEvent, FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectError } from 'redux/products/products.selectors'
+import { selectErrorOnAddColor } from 'redux/products/products.selectors'
 import { addColorToProductRequested } from 'redux/products/products.actions'
+
+import YogaStyleInput from 'components/custom-components/yoga-style-input/yoga-style-input.component'
+import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
+import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './add-product-color.style.scss'
 
-type AddProductColorType = {
+type AddProductColorProps = {
   productId: string
 }
 
-const AddProductColor = ({ productId }: AddProductColorType) => {
+const AddProductColor = ({ productId }: AddProductColorProps) => {
   const dispatch = useDispatch()
   const [color, setColor] = useState('')
-  const error = useSelector(selectError)
+  const error = useSelector(selectErrorOnAddColor)
 
   const handleSetColor = (event: ChangeEvent<HTMLInputElement>) => {
     setColor(event.target.value)
@@ -21,33 +25,30 @@ const AddProductColor = ({ productId }: AddProductColorType) => {
 
   const handleSaveColor = async (event: FormEvent) => {
     event.preventDefault()
-    const data = new FormData()
-    color && data.append('color', color)
-    dispatch(addColorToProductRequested(productId, data))
+    dispatch(addColorToProductRequested(productId, { color }))
   }
-
+  console.log('in AddProductColor', color)
   return (
-    <div>
-      <div>Add color</div>
-      <form className='add-color-form' onSubmit={handleSaveColor}>
-        <div className=''>
-          <label htmlFor='color'>Color</label>
-          <input
-            type='text'
-            name='color'
-            id='color'
-            onChange={handleSetColor}
-            value={color}
-            placeholder='Write color here...'
-            required 
-          />
-        </div>
-        {error && <div>{error.message}</div>}
-        <div className=''>
-          <button type='submit'>Add color</button>
-        </div>
-      </form>
-    </div>
+    <form className='add-color-form' onSubmit={handleSaveColor}>
+      <div className='left'>
+        <p>
+          You can add different colors for the product and associate images with each color to showcase variations.<br />
+          This allows customers to view the product in their preferred 
+          color choices, making their shopping experience more personalized and engaging.
+        </p>
+        <YogaStyleInput 
+          fieldName='color'
+          itemID='color'
+          labelText='Add color'
+          placeholder='Write the name of the color here...'
+          inputValue={color}
+          onChangeHandler={handleSetColor}
+          required
+        />
+        {error && <ErrorContainer error={error} />}
+        <YogaStyleButton type='submit'>Save Color</YogaStyleButton>
+      </div>
+    </form>
   )
 }
 

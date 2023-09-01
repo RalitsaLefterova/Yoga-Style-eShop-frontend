@@ -24,7 +24,7 @@ const YogaStyleButton = ({
       yoga-style-button 
       ${isGoogleSignIn ? 'google-sign-in' : ''}
       ${inverted ? 'inverted' : ''} 
-      ${extraClasses}
+      ${extraClasses || ''}
       `}
     disabled={isDisabled}
     {...otherProps}
