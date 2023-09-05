@@ -14,6 +14,7 @@ import CustomSelect from 'components/custom-components/custom-select/custom-sele
 import CustomButton from 'components/custom-components/custom-button/custom-button.component'
 
 import './product-details.style.scss'
+import YogaStyleSelect from 'components/custom-components/yoga-style-select/yoga-style-select.component'
 
 const ProductDetails = () => {
   const params = useParams()
@@ -92,27 +93,13 @@ const ProductDetails = () => {
                 {title}
               </div>
 
-              {/* {colors && colors.length > 0 && (
-                <div>
-                  <span>Color: </span>
-                  <select name='color' onChange={changeColorImages} defaultValue=''>
-                    <option value="" disabled >Select color</option>
-                    {colors && colors.map((colorItem: ProductColor) => 
-                      <option key={colorItem._id} value={colorItem._id}>
-                        {colorItem.color}
-                      </option>)
-                    }
-                  </select>
-                </div>
-              )} */}
-
               {colors && colors.length > 0 && (
                 <div>
-                  <CustomSelect
+                  <YogaStyleSelect
                     data={colors}
                     typeOfData='colors'
                     placeholder='Select color'
-                    selectname='color'
+                    selectName='color'
                     labelText='Color:'
                     handler={changeColorImages}
                   />
@@ -121,19 +108,23 @@ const ProductDetails = () => {
 
               {/* TODO: when choose color load sizes if available */}
 
-              <div>Price: {formatCurrency(price)}</div>
-
-              <div className='add-to-cart-btn'>
-                {currentUser ? (
-                   <CustomButton type='button' onClick={handleAddToCart}>
-                    Add to cart
-                  </CustomButton>
-                ) : (
-                  <span>
-                    <Link to='/sign-in'>Sign in</Link> to start shopping.
-                  </span>
-                )}
+              <div className='flex flex-direction-column align-flex-start'>
+                <div className='padding-top-bottom-20'>
+                  Price: <strong>{formatCurrency(price)}</strong>
+                </div>
+                <div className='add-to-cart-btn'>
+                  {currentUser ? (
+                    <CustomButton type='button' onClick={handleAddToCart}>
+                      Add to cart
+                    </CustomButton>
+                  ) : (
+                    <span>
+                      <Link to='/sign-in'>Sign in</Link> to start shopping.
+                    </span>
+                  )}
+                </div>
               </div>
+
             </div>
             <div className='product-description-container'>
               <div dangerouslySetInnerHTML={{ __html: description }} />

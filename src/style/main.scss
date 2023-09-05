@@ -72,6 +72,14 @@ label {
   flex-direction: row;
 }
 
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.align-flex-start {
+  align-items: flex-start;
+}
+
 .gap-20 {
   gap: 20px;
 }
