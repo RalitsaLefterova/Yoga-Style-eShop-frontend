@@ -183,11 +183,19 @@ const EditProduct = () => {
       
       <div className='additional-information-container'>
         <label className='main-label'>Product's inventory</label>
+        <p>
+          This section empowers you to customize your product's appearance, stock, 
+          and size availability, providing a seamless shopping experience for your customers.
+        </p>
+        <p>
+          You can add different colors for the product and associate images with each color to showcase variations.<br />
+          This allows customers to view the product in their preferred 
+          color choices, making their shopping experience more personalized and engaging.
+        </p>
+        <hr className='margin-top-40px' />
         {params.id &&<AddProductColor productId={params.id} />}
-        <div>
-          <hr className='margin-top-40px' />  
-        </div>
-        <div className='colors-data-list margin-top-40px'>
+        <hr className='margin-top-40px' /> 
+        <div className='colors-data-list'>
           <ProductColorsList />
         </div>
       </div>

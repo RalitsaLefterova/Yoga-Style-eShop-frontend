@@ -26,16 +26,12 @@ const AddProductColor = ({ productId }: AddProductColorProps) => {
   const handleSaveColor = async (event: FormEvent) => {
     event.preventDefault()
     dispatch(addColorToProductRequested(productId, { color }))
+    setColor('')
   }
-  console.log('in AddProductColor', color)
+
   return (
     <form className='add-color-form' onSubmit={handleSaveColor}>
       <div className='left'>
-        <p>
-          You can add different colors for the product and associate images with each color to showcase variations.<br />
-          This allows customers to view the product in their preferred 
-          color choices, making their shopping experience more personalized and engaging.
-        </p>
         <YogaStyleInput 
           fieldName='color'
           itemID='color'

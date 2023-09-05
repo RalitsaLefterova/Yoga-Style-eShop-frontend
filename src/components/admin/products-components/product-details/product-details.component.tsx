@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import { Product } from 'shared/types/products'
-import { editProductRequested } from 'redux/products/products.actions'
+import { editProductRequested, deleteProductRequested } from 'redux/products/products.actions'
 import { formatCurrency } from 'shared/helpers'
 
 import './product-details.style.scss'
@@ -26,6 +26,10 @@ const ProductDetails = ({ product }: ProductDetailsType) => {
     data.append('active', JSON.stringify(newValue))
     setActive(newValue)
     productId && dispatch(editProductRequested(productId, data, navigate))
+  }
+
+  const handleDeleteProduct = () => {
+    dispatch(deleteProductRequested(productId))
   }
 
   return (
@@ -55,6 +59,11 @@ const ProductDetails = ({ product }: ProductDetailsType) => {
             <FontAwesomeIcon icon={faEdit} />
           </span>
         </Link>
+      </th>
+      <th className='delete-product-box'>
+        <span onClick={handleDeleteProduct} title="Delete product">
+          <FontAwesomeIcon icon={faTrash} />
+        </span>
       </th>
     </tr>
   )

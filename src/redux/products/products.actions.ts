@@ -2,7 +2,7 @@ import { NavigateFunction } from 'react-router-dom'
 
 import ProductsActionTypes from './products.types'
 import { createAction, Action, ActionWithPayload, withMatcher } from '../reducer.utils'
-import { CreateProductColor, Product } from 'shared/types/products'
+import { CreateProductColor, Product, RemoveImageFromColor } from 'shared/types/products'
 
 // FETCH ALL PRODUCTS ('admin/products') //
 export type FetchAllProductsRequested = Action<ProductsActionTypes.FETCH_ALL_PRODUCTS_REQUESTED>
@@ -81,6 +81,20 @@ export const editProductFailed = withMatcher((error: Error): EditProductFailed =
   createAction(ProductsActionTypes.EDIT_PRODUCT_FAILED, error))
 
 
+// DELETE PRODUCT //
+export type DeleteProductRequested = ActionWithPayload<ProductsActionTypes.DELETE_PRODUCT_REQUESTED, { productId: string }>
+export const deleteProductRequested = withMatcher((productId: string): DeleteProductRequested =>
+  createAction(ProductsActionTypes.DELETE_PRODUCT_REQUESTED, { productId }))
+
+export type DeleteProductSuccess = ActionWithPayload<ProductsActionTypes.DELETE_PRODUCT_SUCCESS, Product[]>
+export const deleteProductSuccess = withMatcher((products: Product[]): DeleteProductSuccess => 
+  createAction(ProductsActionTypes.DELETE_PRODUCT_SUCCESS, products))
+
+export type DeleteProductFailed = ActionWithPayload<ProductsActionTypes.DELETE_PRODUCT_FAILED, Error>
+export const deleteProductFailed = withMatcher((error: Error): DeleteProductFailed =>
+  createAction(ProductsActionTypes.DELETE_PRODUCT_FAILED, error))
+
+
 // ADD COLOR TO PRODUCT //
 export type AddColorToProductRequested = ActionWithPayload<ProductsActionTypes.ADD_COLOR_TO_PRODUCT_REQUESTED, { productId: string , data: CreateProductColor }>
 export const addColorToProductRequested = withMatcher((productId: string , data: CreateProductColor): AddColorToProductRequested => 
@@ -110,8 +124,8 @@ export const editProductColorDataFailed = withMatcher((error: Error): EditProduc
 
   
 // REMOVE ONE IMAGE FROM COLOR'S IMAGES //
-export type RemoveOneImageFromColorImagesRequested = ActionWithPayload<ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_REQUESTED, { productId: string, colorId: string , data: FormData }>
-export const removeOneImageFromColorImagesRequested = withMatcher((productId: string, colorId: string , data: FormData): RemoveOneImageFromColorImagesRequested => 
+export type RemoveOneImageFromColorImagesRequested = ActionWithPayload<ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_REQUESTED, { productId: string, colorId: string , data: RemoveImageFromColor }>
+export const removeOneImageFromColorImagesRequested = withMatcher((productId: string, colorId: string , data: RemoveImageFromColor): RemoveOneImageFromColorImagesRequested => 
   createAction(ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_REQUESTED, { productId, colorId, data }))
 
 export type RemoveOneImageFromColorImagesSuccess = ActionWithPayload<ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_SUCCESS, Product>
@@ -121,3 +135,17 @@ export const removeOneImageFromColorImagesSuccess = withMatcher((product: Produc
 export type RemoveOneImageFromColorImagesFailed = ActionWithPayload<ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_FAILED, Error>
 export const removeOneImageFromColorImagesFailed = withMatcher((error: Error): RemoveOneImageFromColorImagesFailed =>
   createAction(ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_FAILED, error))
+
+
+// DELETE COLOR FROM PRODUCT //
+export type DeleteColorFromProductRequested = ActionWithPayload<ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_REQUESTED, { productId: string, colorId: string }>
+export const deleteColorFromProductRequested = withMatcher((productId: string, colorId: string): DeleteColorFromProductRequested => 
+  createAction(ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_REQUESTED, { productId, colorId }))
+
+export type DeleteColorFromProductSuccess = ActionWithPayload<ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_SUCCESS, Product>
+export const deleteColorFromProductSuccess = withMatcher((product: Product): DeleteColorFromProductSuccess => 
+  createAction(ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_SUCCESS, product))
+
+export type DeleteColorFromProductFailed = ActionWithPayload<ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_FAILED, Error>
+export const deleteColorFromProductFailed = withMatcher((error: Error): DeleteColorFromProductFailed =>
+  createAction(ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_FAILED, error))

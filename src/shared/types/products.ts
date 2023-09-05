@@ -22,6 +22,10 @@ export type ProductColor = {
   }
 }
 
+export type RemoveImageFromColor = {
+  imgUrl: string
+}
+
 export type Product = {
   id: string,
   title: string,

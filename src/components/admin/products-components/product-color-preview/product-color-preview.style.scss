@@ -1,11 +1,21 @@
+@import '../../../../style/colors';
+
 .color-data-row {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid $black;
 
   td {
     padding: 15px;
 
+    .color-name-container {
+      font-size: 1.2em;
+    }
+
     .dropzone-container {
-      border: 1px dashed gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60px;
+      border: 1px dashed $gray;
     }
 
     .thumbs-container {
@@ -16,18 +26,18 @@
 
       .thumb {
         display: inline-flex;
-        border-radius: 2px;
-        border: 1px solid #eaeaea;
-        margin-bottom: 8px;
-        margin-right: 8px;
+        box-sizing: border-box;
         width: 100px;
         height: 100px;
+        margin-right: 8px;
+        margin-bottom: 8px;
         padding: 4px;
-        box-sizing: border-box;
-  
+        border: 1px solid $sub-color-light-gray;
+        border-radius: 2px;
+
         .thumb-inner {
           display: flex;
-          min-width: 0px;
+          min-width: 0;
           overflow: hidden;
 
           img {
@@ -43,35 +53,57 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      padding: 0 0 20px;
 
       .image-box {
         position: relative;
         width: 100px;
         height: 100px;
-        background-size: contain;
+        border: 1px solid $sub-color-light-gray;
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        border: 1px solid #dedede;
+        background-size: contain;
 
         .delete-image-btn {
-          background: red;
-          color: white;
-          padding: 0px 3px 3px 3px;
-          border-top-right-radius: 1px;
-          font-size: 0.8em;
-          font-weight: bold;
           position: absolute;
-          right: 0px;
-          top: 0px;
+          top: 0;
+          right: 0;
           width: 20px;
           height: 20px;
-          border-top-left-radius: 0px;
-          border-bottom-left-radius: 0px;
-          border-bottom-right-radius: 0px;
+          padding: 0 3px 3px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 1px;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          background: $red;
+          color: $white;
+          font-size: .8em;
+          font-weight: bold;
           cursor: pointer;
         }
       }
     }
   }
 
+  .delete-color-collumn {
+    width: 200px;
+
+    .delete-color-btn {
+      width: 180px;
+      padding: 8px 20px;
+      border-color: $red;
+      background-color: $red;
+      font-size: .9em;
+
+      &:hover {
+        border-color: $red;
+        background-color: $white;
+        color: $red;
+      }
+
+      svg {
+        margin-left: 10px;
+      }
+    }
+  }
 }

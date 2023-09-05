@@ -10,7 +10,9 @@ import {
   getSingleProduct,
   addColorToProduct,
   editProductColorData,
-  removeImageFromColorImages
+  removeImageFromColorImages,
+  deleteColorFromProduct,
+  deleteProduct
 } from '../../rest-api/products'
 import { 
   fetchAllProductsSuccess,
@@ -35,7 +37,13 @@ import {
   EditProductRequested,
   AddColorToProductRequested,
   EditProductColorDataRequested,
-  RemoveOneImageFromColorImagesRequested
+  RemoveOneImageFromColorImagesRequested,
+  DeleteColorFromProductRequested,
+  deleteColorFromProductFailed,
+  deleteColorFromProductSuccess,
+  DeleteProductRequested,
+  deleteProductSuccess,
+  deleteProductFailed
 } from './products.actions'
 import { 
   fetchCollectionsSuccess 
@@ -132,6 +140,20 @@ export function* onEditProductRequested() {
   yield* takeLatest(ProductsActionTypes.EDIT_PRODUCT_REQUESTED, editProductAsync)
 }
 
+// DELETE PRODUCT //
+export function* deleteProductAsync({ payload: { productId }}: DeleteProductRequested) {
+  try {
+    const response = yield* call(deleteProduct, productId)
+    console.log('delete product response', response.data)
+    yield* put(deleteProductSuccess(response.data))
+  } catch (error) {
+    yield* put(deleteProductFailed(error as Error))
+  }
+}
+export function* onDeleteProductRequested() {
+  yield* takeLatest(ProductsActionTypes.DELETE_PRODUCT_REQUESTED, deleteProductAsync)
+}
+
 // ADD COLOR TO PRODUCT //
 export function* addColorToProductAsync({ payload: { productId, data }}: AddColorToProductRequested) {
   try {
@@ -189,6 +211,21 @@ export function* onRemoveOneImageFromColorImagesRequested() {
   yield* takeLatest(ProductsActionTypes.REMOVE_ONE_IMAGE_FROM_COLOR_IMAGES_REQUESTED, removeOneImageFromColorImagesAsync)
 }
 
+// DELETE COLOR FROM PRODUCT //
+export function* deleteColorFromProductAsync({ payload: { productId, colorId }}: DeleteColorFromProductRequested) {
+  try {
+    const response = yield* call(deleteColorFromProduct, productId, colorId)
+    if (response.data) {
+      yield* put(deleteColorFromProductSuccess(response.data))
+    }
+  } catch (error) {
+    yield* put(deleteColorFromProductFailed(error as Error))
+  }
+}
+export function* onDeleteColorFromProductRequested() {
+  yield* takeLatest(ProductsActionTypes.DELETE_COLOR_FROM_PRODUCT_REQUESTED, deleteColorFromProductAsync)
+}
+
 export function* productsSaga() {
   yield* all([
     call(onFetchAllProductsRequested),
@@ -197,8 +234,10 @@ export function* productsSaga() {
     call(onFetchSingleCollectionProductsRequested),
     call(onCreateProductRequested),
     call(onEditProductRequested),
+    call(onDeleteProductRequested),
     call(onAddColorToProductRequested),
     call(onEditProductColorDataRequested),
-    call(onRemoveOneImageFromColorImagesRequested)
+    call(onRemoveOneImageFromColorImagesRequested),
+    call(onDeleteColorFromProductRequested)
   ])
 }

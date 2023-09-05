@@ -7,6 +7,12 @@ import {
   addColorToProductSuccess,
   createProductFailed,
   createProductRequested,
+  deleteColorFromProductFailed,
+  deleteColorFromProductRequested,
+  deleteColorFromProductSuccess,
+  deleteProductFailed,
+  deleteProductRequested,
+  deleteProductSuccess,
   editProductColorDataSuccess,
   editProductFailed,
   editProductSuccess,
@@ -30,6 +36,7 @@ export type ProductsState = {
   readonly isLoading: boolean
   readonly error: Error | null
   readonly errorOnAddColor: Error | null
+  readonly errorOnDeleteColor: Error | null
 }
 
 const INITIAL_STATE: ProductsState = {
@@ -48,7 +55,8 @@ const INITIAL_STATE: ProductsState = {
   },
   isLoading: false,
   error: null,
-  errorOnAddColor: null
+  errorOnAddColor: null,
+  errorOnDeleteColor: null
 }
 
 const productsReducer = (
@@ -61,23 +69,30 @@ const productsReducer = (
     fetchProductRequested.match(action) ||
     fetchProductForEditRequested.match(action) ||
     fetchSingleCollectionProductsRequested.match(action) ||
-    createProductRequested.match(action)
+    createProductRequested.match(action) ||
+    deleteProductRequested.match(action) ||
+    deleteColorFromProductRequested.match(action)
   ) {
     return {
       ...state,
       isLoading: true,
-      error: null
+      error: null,
+      errorOnAddColor: null,
+      errorOnDeleteColor: null
     }
   }
 
   if (
-    fetchAllProductsSuccess.match(action) 
+    fetchAllProductsSuccess.match(action) ||
+    deleteProductSuccess.match(action)
   ) {
     return {
       ...state,
       isLoading: false,
       allProducts: action.payload,
-      error: null
+      error: null,
+      errorOnAddColor: null,
+      errorOnDeleteColor: null
     }
   }
 
@@ -97,7 +112,8 @@ const productsReducer = (
     editProductSuccess.match(action) ||
     addColorToProductSuccess.match(action) ||
     editProductColorDataSuccess.match(action) ||
-    removeOneImageFromColorImagesSuccess.match(action)
+    removeOneImageFromColorImagesSuccess.match(action) ||
+    deleteColorFromProductSuccess.match(action)
     ) {
       return {
         ...state,
@@ -112,7 +128,8 @@ const productsReducer = (
       fetchSingleCollectionProductsFailed.match(action) ||
       fetchProductFailed.match(action) ||
       createProductFailed.match(action) ||
-      editProductFailed.match(action)
+      editProductFailed.match(action) ||
+      deleteProductFailed.match(action)
     ) {
       return {
         ...state,
@@ -131,6 +148,15 @@ const productsReducer = (
       }
     }
 
+    if (
+      deleteColorFromProductFailed.match(action)
+    ) {
+      return {
+        ...state,
+          isLoading: false,
+          errorOnDeleteColor: action.payload
+      }
+    }
 
   return state
 

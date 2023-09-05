@@ -43,23 +43,31 @@ const ProductsList = () => {
       
       <div className='table-container'>
         {productsList.length > 0 ? (
-          <table>
-            {/* <caption>Products Information</caption> */}
-            <thead>
-              <tr>
-                <th className='active-status-box'>Active</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-            {productsList.map(product => (
-              <ProductDetails key={product.id} product={product} />
-            ))}
-            </tbody>
-          </table>
+          <>
+            <p className='left padding-top-bottom-20'>
+              * The checkbox in the column <strong>'Active'</strong> serves as a visibility toggle for product. 
+              When marked as "Active," the product becomes accessible to users using the online shop. 
+              On the other hand, if the product is inactive, it remains hidden from view.
+            </p>
+            <table>
+              {/* <caption>Products Information</caption> */}
+              <thead>
+                <tr>
+                  <th className='active-status-box'>Active *</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {productsList.map(product => (
+                <ProductDetails key={product.id} product={product} />
+                ))}
+              </tbody>
+            </table>
+          </>
         ) : (
           <h3 className='padding-top-bottom-50'>No products have been added yet.</h3>
         )}
