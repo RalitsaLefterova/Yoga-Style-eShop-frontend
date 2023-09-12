@@ -34,7 +34,7 @@ const CollectionPreview = ({ collection }: PreviewCollectionType) => {
   return (
     <div className='collection-preview-container'>
       <div className='section-title center'>
-        <h2>Collection Preview</h2>
+        <h3>Collection Preview</h3>
       </div>
       <div className='capitalize-text padding-top-bottom-20'>
         <h1>"{collection.title}"</h1>

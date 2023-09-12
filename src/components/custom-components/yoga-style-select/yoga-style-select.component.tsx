@@ -12,7 +12,8 @@ type YogaStyleSelectProps = {
   placeholder: string,
   labelText: string,
   selectName: string,
-  extraClasses?: string
+  extraClasses?: string,
+  value: string,
   handler: ChangeEventHandler<HTMLSelectElement>
 } & SelectHTMLAttributes<HTMLSelectElement>
 

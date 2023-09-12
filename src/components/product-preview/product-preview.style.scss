@@ -1,4 +1,4 @@
-@import '../../style/variables';
+@import '../../style/colors';
 
 .product-item {
   display: flex;
@@ -14,8 +14,11 @@
     width: 100%;
     height: 95%;
     margin-bottom: 5px;
+    border: 1px solid $border-color-img;
+    background-color: $white;
+    background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
   }
 
   .custom-button {

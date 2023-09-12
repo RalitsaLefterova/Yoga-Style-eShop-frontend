@@ -102,6 +102,7 @@ const ProductDetails = () => {
                     selectName='color'
                     labelText='Color:'
                     handler={changeColorImages}
+                    value={selectedColor?._id || ''}
                   />
                 </div>
               )}
