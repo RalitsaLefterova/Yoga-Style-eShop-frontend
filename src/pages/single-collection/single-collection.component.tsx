@@ -30,16 +30,29 @@ const SingleCollection = () => {
     <div className='single-collection-preview'>
       <h1 className='title center'>{collectionTitle?.toUpperCase()}</h1>
       {
-        isLoading ? 
-          (<Spinner />) : 
-          (<div className='products-container'>
-            {singleCollectionProductsList.map(product => (
+        isLoading ?
+          (<Spinner />) :
+          (singleCollectionProductsList.length > 0 ? (
+            <div className='products-container'>
+              {singleCollectionProductsList.map(product => (
               <ProductPreview 
                 key={product.id} 
                 product={product} 
               />
             ))}
-          </div>)
+            </div>
+          ) : (
+            <>
+              <h3>
+                Get Ready for an Upgrade!
+              </h3>
+              <p>
+                Our '{collectionTitle?.toUpperCase()}' collection is getting a makeover, 
+                and we can't wait to reveal our fresh, fashion-forward styles. 
+                Stay tuned for the hottest trends and timeless classics, all coming your way very soon!
+              </p>
+            </>
+          ))
       }
     </div>
   )
