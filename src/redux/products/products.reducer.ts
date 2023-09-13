@@ -64,11 +64,19 @@ const productsReducer = (
   action = {} as AnyAction
 ): ProductsState => {
 
+  if (fetchSingleCollectionProductsRequested.match(action)) {
+    return {
+      ...state,
+      isLoading: true,
+      singleCollectionProducts: [],
+      error: null
+    }
+  }
+
   if (
     fetchAllProductsRequested.match(action) ||
     fetchProductRequested.match(action) ||
     fetchProductForEditRequested.match(action) ||
-    fetchSingleCollectionProductsRequested.match(action) ||
     createProductRequested.match(action) ||
     deleteProductRequested.match(action) ||
     deleteColorFromProductRequested.match(action)
