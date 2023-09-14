@@ -22,7 +22,8 @@ describe('Test CollectionItem component', () => {
     title: 'yoga equipment',
     urlTitle: 'yoga-equipment',
     cover: 'yoga-equipment.jpg',
-    active: true
+    active: true,
+    collectionTeaser: 'teaser text here...'
   }
   const mockProps: CollectionItemPropsType = {
     collection: mockCollection,

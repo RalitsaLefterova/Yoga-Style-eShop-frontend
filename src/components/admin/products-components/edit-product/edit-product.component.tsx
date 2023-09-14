@@ -59,11 +59,11 @@ const EditProduct = () => {
   }
   
   const handleSetProductDetails = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    handleSetProductData(event);
+    handleSetProductData(event)
   }
   
   const handleSetProductDescription = (value: string) => {
-    handleSetProductData(value);
+    handleSetProductData(value)
   }
 
   const handleChangeMainImage = (event: ChangeEvent<HTMLInputElement>) => {

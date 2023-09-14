@@ -30,14 +30,16 @@ describe('Test CollectionsList component', () => {
       title: 'Collection 1',
       urlTitle: 'collection-1',
       cover: 'collection-1.jpg',
-      active: true
+      active: true,
+      collectionTeaser: 'teaser text here...'
     },
     {
       _id: '2',
       title: 'Collection 2',
       urlTitle: 'collection-2',
       cover: 'collection-2.jpg',
-      active: true
+      active: true,
+      collectionTeaser: 'teaser text here...'
     }
   ]
 

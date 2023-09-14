@@ -34,7 +34,8 @@ const INITIAL_STATE: CollectionsState = {
     title: '',
     urlTitle: '',
     cover: '',
-    active: false
+    active: false,
+    collectionTeaser: ''
   },
   selectedCollectionProducts: [],
   isLoading: false,
@@ -76,7 +77,8 @@ const collectionsReducer = (
         title: '',
         urlTitle: '',
         cover: '',
-        active: false
+        active: false,
+        collectionTeaser: ''
       },
       isLoading: false,
       error: null

@@ -8,7 +8,8 @@ export type Collection = {
   title: string,
   urlTitle: string,
   cover: string,
-  active: boolean
+  active: boolean,
+  collectionTeaser: string
 }
 
 export type CollectionShortInfo = {

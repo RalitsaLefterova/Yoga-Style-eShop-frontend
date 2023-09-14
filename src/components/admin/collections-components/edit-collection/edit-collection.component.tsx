@@ -12,6 +12,7 @@ import YogaStyleCheckbox from 'components/custom-components/yoga-style-checkbox/
 import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './edit-collection.style.scss'
+import YogaStyleTextEditor from 'components/custom-components/yoga-style-text-editor/yoga-style-text-editor.component'
 
 const EditCollection = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,8 @@ const EditCollection = () => {
     title,
     urlTitle,
     cover,
-    active = false
+    active = false,
+    collectionTeaser
   }: Collection = collectionData
 
   const handleSetCollectionData = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +40,13 @@ const EditCollection = () => {
     setCollectionData((prevCollectionData) => ({
       ...prevCollectionData, 
       [name]: newValue
+    }))
+  }
+
+  const handleSetCollectionTeaser = (value: string) => {
+    setCollectionData((prevCollectionData) => ({
+      ...prevCollectionData, 
+      collectionTeaser: value
     }))
   }
 
@@ -62,6 +71,7 @@ const EditCollection = () => {
 
     title && data.append('title', title)
     newCover && data.append('cover', newCover)
+    collectionTeaser && data.append('collectionTeaser', collectionTeaser)
     data.append('active', JSON.stringify(active))
 
     collectionId && dispatch(editCollectionRequested(collectionId, data, navigate))
@@ -115,6 +125,12 @@ const EditCollection = () => {
           accept='image/png image/jpeg image/jpg'
           onChangeHandler={handleChangeCover}
         />
+        <YogaStyleTextEditor 
+            fieldName='description'
+            labelText='Description'
+            editorValue={collectionTeaser}
+            onChange={handleSetCollectionTeaser}
+          />
         {(error || errorOnMissingProperty) && <ErrorContainer error={error} customTextMessage={errorOnMissingProperty} />}
         <div className='buttons-container'>
           <YogaStyleButton 

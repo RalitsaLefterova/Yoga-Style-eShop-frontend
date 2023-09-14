@@ -1,3 +1,5 @@
+@import '../../style/colors';
+
 .single-collection-preview {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,12 @@
 
   .title {
     margin-bottom: 25px;
+    color: $main-color;
     font-size: 28px;
+  }
+
+  .teaser-text-container {
+    color: $brand-color-light;
   }
 
   .products-container {

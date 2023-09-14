@@ -11,12 +11,14 @@ import ImagePreview from 'components/image-preview/image-preview.component'
 import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './add-collection.style.scss'
+import YogaStyleTextEditor from 'components/custom-components/yoga-style-text-editor/yoga-style-text-editor.component'
 
 const AddCollection = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [title, setTitle] = useState('')
   const [cover, setCover] = useState<File>()
+  const [collectionTeaser, setCollectionTeaser] = useState('')
   const error = useSelector(selectError)
   const isLoading = useSelector(selectIsLoadingCollections)
 
@@ -30,11 +32,16 @@ const AddCollection = () => {
     setCover(file)
   }
 
+  const handleChangeCollectionTeaser = (value: string) => {
+    setCollectionTeaser(value)
+  }
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData()
     data.append('title', title)
     cover && data.append('cover', cover)
+    collectionTeaser && data.append('collectionTeaser', collectionTeaser)
 
     dispatch(createCollectionRequested(data, navigate))
   }
@@ -59,6 +66,12 @@ const AddCollection = () => {
             fieldName='cover'
             onChangeHandler={handleChangeCover}
             accept='image/png, image/jpeg, image/jpg'
+          />
+          <YogaStyleTextEditor 
+            fieldName='collectionTeaser'
+            labelText='Collection teaser'
+            editorValue={collectionTeaser}
+            onChange={handleChangeCollectionTeaser}
           />
           {error && <ErrorContainer error={error} />}
           <YogaStyleButton type='submit'>Add Collection</YogaStyleButton>

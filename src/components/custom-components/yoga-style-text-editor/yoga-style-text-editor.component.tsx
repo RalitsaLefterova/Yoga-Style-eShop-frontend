@@ -20,6 +20,14 @@ const YogaStyleTextEditor = ({ fieldName, labelText, editorValue, onChange }: Yo
       // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
       ["bold", "italic", "underline", "strike"],
       // [{ color: [] }, { background: [] }],              // dropdown with defaults from theme
+      [{
+        color: [
+          "#26466d", // main-color
+          "#26466d", // brand-color
+          "#4b79b1", // brand-color-light
+          "#182f4c", // brand-color-dark
+        ]
+      }],
       // [{ 'align': [] }],
       [{ script:  "sub" }, { script:  "super" }],
       [

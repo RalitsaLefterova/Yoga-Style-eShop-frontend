@@ -46,7 +46,8 @@ import {
   deleteProductFailed
 } from './products.actions'
 import { 
-  fetchCollectionsSuccess 
+  fetchCollectionsSuccess,
+  fetchSingleCollectionSuccess 
 } from '../collections/collections.actions'
 import { AxiosError } from 'axios'
 import { handleRequestError } from 'components/request-error-handler/request-error-handler.component'
@@ -115,7 +116,11 @@ export function* onFetchProductRequested() {
 export function* fetchSingleCollectionProductsAsync({ payload: { collectionTitle } }: FetchSingleCollectionProductsRequested) {
   try {
     const productsResponse = yield* call(getCollectionProducts, collectionTitle)
-    yield* put(fetchSingleCollectionProductsSuccess(productsResponse.data))
+    console.log({productsResponse})
+    const products = productsResponse.data.products
+    const collection = productsResponse.data.collection
+    yield* put(fetchSingleCollectionProductsSuccess(products))
+    yield* put(fetchSingleCollectionSuccess(collection))
   } catch (error) {
     yield* put(fetchSingleCollectionProductsFailed(error as Error))
   }
