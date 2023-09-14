@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { RootState } from 'redux/root-reducer'
 import { CollectionsState } from './collections.reducer'
-import { Collection } from 'shared/types/collections'
+import { Collection, CollectionShortInfo } from 'shared/types/collections'
 
 const selectCollectionsReducer = (state: RootState): CollectionsState => state.collections
 
@@ -17,12 +17,12 @@ export const selectIsLoadingCollections = createSelector(
 
 export const selectCollectionsShortInfo = createSelector(
   [selectCollections],
-  (collections): Collection[] => 
+  (collections): CollectionShortInfo[] => 
     collections.reduce((acc, collection) => {
       const { _id, title } = collection
       acc = acc.concat({ _id, title })
       return acc
-    }, [] as Collection[])
+    }, [] as CollectionShortInfo[])
 )
 
 export const selectSelectedCollection = createSelector(

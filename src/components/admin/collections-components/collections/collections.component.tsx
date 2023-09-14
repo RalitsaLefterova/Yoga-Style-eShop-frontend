@@ -23,7 +23,7 @@ const Collections = () => {
   const { pathname } = useLocation()
 
   const collectionsList: Collection[] = useSelector(selectCollections)
-  const selectedCollection: Collection = useSelector(selectSelectedCollection)
+  const selectedCollection: Collection | null = useSelector(selectSelectedCollection)
   const [isPreviewCollection, setIsPreviewCollection] = useState(false)
 
   const goToPreview = async (collectionId: string) => {
@@ -36,7 +36,7 @@ const Collections = () => {
   }, [])
 
   useEffect(() => {
-    if (!collectionsList.some(collection => collection._id === selectedCollection._id)) {
+    if (!collectionsList.some(collection => collection._id === selectedCollection?._id)) {
       setIsPreviewCollection(false)
     }
   }, [collectionsList, selectedCollection])
@@ -68,7 +68,7 @@ const Collections = () => {
             <CollectionsList collections={collectionsList} parentCallback={goToPreview} />
           </div>
           <div className='add-edit-collection-section'>
-            { isPreviewCollection ? 
+            { isPreviewCollection && selectedCollection ? 
               <CollectionPreview collection={selectedCollection} /> 
               :
               <>

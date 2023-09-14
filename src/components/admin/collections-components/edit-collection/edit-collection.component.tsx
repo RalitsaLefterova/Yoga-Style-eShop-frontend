@@ -26,6 +26,7 @@ const EditCollection = () => {
   const {
     _id: collectionId = '',
     title,
+    urlTitle,
     cover,
     active = false
   }: Collection = collectionData

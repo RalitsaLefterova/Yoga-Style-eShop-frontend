@@ -12,13 +12,12 @@ export type CollectionItemPropsType = {
 const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const { title, cover } = collection
+  const { title, urlTitle, cover } = collection
 
   const collectionTitle = (title as string).replace('and', '&').toUpperCase()
-  const navigationCollectionTitle = (title as string).replace(/\s+/g, '-').toLowerCase()
   
   const handleClick = () => {
-    const path = `${pathname}/${navigationCollectionTitle}`
+    const path = `${pathname}/${urlTitle}`
     // console.log('navigate:', path)
     navigate(path)
     // console.log('navigate called')

@@ -6,7 +6,7 @@ import { Product } from 'shared/types/products'
 import { fetchProductForEditRequested, editProductRequested } from '../../../../redux/products/products.actions'
 import { selectError, selectProduct } from '../../../../redux/products/products.selectors'
 import { selectCollectionsShortInfo } from '../../../../redux/collections/collections.selectors'
-import { Collection } from 'shared/types/collections'
+import { CollectionShortInfo } from 'shared/types/collections'
 import { displayFormDataEntries } from '../../../../shared/helpers'
 
 import ProductColorsList from 'components/admin/products-components/product-colors-list/product-colors-list.component'
@@ -29,7 +29,7 @@ const EditProduct = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const error = useSelector(selectError)
-  const collections: Collection[] = useSelector(selectCollectionsShortInfo)
+  const collections: CollectionShortInfo[] = useSelector(selectCollectionsShortInfo)
   const product: Product = useSelector(selectProduct)
   const [productData, setProductData] = useState(product)
   const [newMainImageUrl, setNewMainImageUrl] = useState<File>()

@@ -1,6 +1,6 @@
 import React from 'react'
 import { GenericObject} from './types/common';
-import { Collection } from './types/collections';
+import { CollectionShortInfo } from './types/collections';
 import { ProductColor } from './types/products';
 
 export const regExEmail = () =>
@@ -8,12 +8,12 @@ export const regExEmail = () =>
 
 export const regExPhone = () => /^(?=.*[0-9])[- +()0-9]+$/;
 
-export const generateOptions = (type: string, data: Collection[] | ProductColor[] | string[]) => {
+export const generateOptions = (type: string, data: CollectionShortInfo[] | ProductColor[] | string[]) => {
 
   switch (type) {
 
     case 'collections':
-      return (data as Collection[] || []).map((collection: Collection) => (
+      return (data as CollectionShortInfo[] || []).map((collection: CollectionShortInfo) => (
         <option key={collection._id} value={collection._id}>{collection.title}</option>
       ))
 

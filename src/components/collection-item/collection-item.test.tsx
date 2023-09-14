@@ -18,9 +18,12 @@ jest.mock('react-router-dom', () => {
 
 describe('Test CollectionItem component', () => {
   const mockCollection: Collection  = {
+    _id: '1',
     title: 'yoga equipment',
+    urlTitle: 'yoga-equipment',
     cover: 'yoga-equipment.jpg',
-  };
+    active: true
+  }
   const mockProps: CollectionItemPropsType = {
     collection: mockCollection,
     size: 'large'

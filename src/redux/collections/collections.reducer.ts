@@ -29,7 +29,13 @@ export type CollectionsState = {
 
 const INITIAL_STATE: CollectionsState = {
   collectionsList: [],
-  selectedCollection: {},
+  selectedCollection: {
+    _id: '',
+    title: '',
+    urlTitle: '',
+    cover: '',
+    active: false
+  },
   selectedCollectionProducts: [],
   isLoading: false,
   error: null
@@ -65,7 +71,13 @@ const collectionsReducer = (
     return {
       ...state,
       collectionsList: action.payload,
-      selectedCollection: {},
+      selectedCollection: {
+        _id: '',
+        title: '',
+        urlTitle: '',
+        cover: '',
+        active: false
+      },
       isLoading: false,
       error: null
     }

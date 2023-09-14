@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createProductRequested } from '../../../../redux/products/products.actions'
 import { fetchCollectionsShortInfoRequested } from '../../../../redux/collections/collections.actions'
 import { selectCollectionsShortInfo } from '../../../../redux/collections/collections.selectors'
-import { Collection } from 'shared/types/collections'
+import { CollectionShortInfo } from 'shared/types/collections'
 import { CreateProduct } from 'shared/types/products'
 import { selectError } from 'redux/products/products.selectors'
 // import { checkFormDataEntries } from '../../../componen ts/utils/utils'
@@ -25,7 +25,7 @@ const AddProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const error = useSelector(selectError)
-  const collections: Collection[] = useSelector(selectCollectionsShortInfo)
+  const collections: CollectionShortInfo[] = useSelector(selectCollectionsShortInfo)
   const [productData, setProduct] = useState<CreateProduct>({
     title: '',
     description: '',

@@ -25,8 +25,20 @@ jest.mock('react-redux', () => {
 
 describe('Test CollectionsList component', () => {
   const mockCollectionsList: Collection[] = [
-    { _id: '1', title: 'Collection 1' },
-    { _id: '2', title: 'Collection 2' }
+    {
+      _id: '1',
+      title: 'Collection 1',
+      urlTitle: 'collection-1',
+      cover: 'collection-1.jpg',
+      active: true
+    },
+    {
+      _id: '2',
+      title: 'Collection 2',
+      urlTitle: 'collection-2',
+      cover: 'collection-2.jpg',
+      active: true
+    }
   ]
 
   const navigate = jest.fn()

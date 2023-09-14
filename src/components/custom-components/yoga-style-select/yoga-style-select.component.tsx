@@ -1,5 +1,5 @@
 import { ChangeEventHandler, SelectHTMLAttributes } from 'react'
-import { Collection } from 'shared/types/collections.js'
+import { CollectionShortInfo } from 'shared/types/collections.js'
 
 import { ProductColor } from 'shared/types/products.js'
 import { generateOptions } from 'shared/helpers'
@@ -7,7 +7,7 @@ import { generateOptions } from 'shared/helpers'
 import './yoga-style-select.style.scss'
 
 type YogaStyleSelectProps = {
-  data: ProductColor[] | Collection[] | string[],
+  data: ProductColor[] | CollectionShortInfo[] | string[],
   typeOfData: string,
   placeholder: string,
   labelText: string,

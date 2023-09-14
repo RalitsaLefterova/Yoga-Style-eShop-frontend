@@ -63,7 +63,7 @@ const background = location.state && location.state.background
           <Route index element={<HomePage />} />
           <Route path='/about-us' element={<AboutUsPage />} />
           <Route path='/shop' element={<ShopPage />} />
-          <Route path='/shop/:collection' element={<SingleCollection />} />
+          <Route path='/shop/:collectionTitle' element={<SingleCollection />} />
           <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/profile' element={<UserProfilePage />} />

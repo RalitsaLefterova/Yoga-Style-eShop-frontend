@@ -12,15 +12,17 @@ import Spinner from '../../components/spinner/spinner.component'
 import './single-collection.style.scss'
 
 type CollectionRouteParams = {
-  collection: string
+  collectionTitle: string
 }
 
 const SingleCollection = () => {
   const dispatch = useDispatch()
-  const { collection } = useParams<keyof CollectionRouteParams>() as CollectionRouteParams
-  const collectionTitle = collection?.replace(/-/g, ' ')
+  const { collectionTitle } = useParams<CollectionRouteParams>()
+  
   const isLoading: boolean = useSelector(selectIsLoading)
   const singleCollectionProductsList: Product[] = useSelector(selectSingleCollectionProducts)
+
+  const title = (collectionTitle as string).replace(/-/g, ' ').replace('and', '&').toUpperCase()
 
   useEffect(() => {
     collectionTitle && dispatch(fetchSingleCollectionProductsRequested(collectionTitle))
@@ -28,7 +30,7 @@ const SingleCollection = () => {
 
   return (
     <div className='single-collection-preview'>
-      <h1 className='title center'>{collectionTitle?.toUpperCase()}</h1>
+      <h1 className='title center'>{title}</h1>
       {
         isLoading ?
           (<Spinner />) :

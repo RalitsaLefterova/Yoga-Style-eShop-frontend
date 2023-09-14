@@ -39,8 +39,6 @@ const AddCollection = () => {
     dispatch(createCollectionRequested(data, navigate))
   }
 
-  console.log({isLoading})
-
   return (
     <div className='add-collection-container center'>
       <div className='page-title left'>
