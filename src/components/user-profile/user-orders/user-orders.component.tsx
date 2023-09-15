@@ -54,8 +54,8 @@ const UserOrders = () => {
     <div className='user-orders-container'>
     {ordersList.length === 0 ? 
       <div className='no-orders-message-box'>
-        <span>No orders are placed yet.</span> 
-        <Link to='/shop'>Start shopping</Link>
+        <span>No orders are placed yet.</span>
+        <Link to='/shop'> &gt;&gt; Start shopping &lt;&lt; </Link>
       </div> 
       : 
       isOrderDetailsOpen ? (

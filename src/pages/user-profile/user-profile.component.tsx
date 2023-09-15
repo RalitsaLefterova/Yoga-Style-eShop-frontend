@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faLocationDot, faClipboardList, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 
@@ -141,77 +141,92 @@ const UserProfilePage = () => {
     dispatch(getLoggedUserProfileRequested())
   }, [])
 
+  console.log({currentUser})
+
   return (
-    <div className='user-profile-page'>
-      <h3 className='user-profile- title'>My Account</h3>
-      <div className='container'>
+    <div className='user-profile-page-container'>
 
-        <div className='menu-tabs'> 
-          {tabsInfo.map((tabInfo, index) => {
-            const { label, icon} = tabInfo
-            const tabNumber = index + 1
-            return <div 
-                className={toggleTabState === tabNumber ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab(tabNumber)}
-                key={index}
-              >
-                <FontAwesomeIcon icon={icon} />
-                <span>{label}</span>
-              </div>
-          })}
+      {currentUser && currentUser.role === 'ADMIN' ? 
+        <div className='admin-button-box'>
+          <div className='admin-box-title'>Welcome ADMIN</div>
+          <Link className='admin-button' to='/admin'>Access Admin System</Link>
         </div>
+      :
+        null
+      }
+      
+      <div className='profile-box'>
+        <h3 className='user-profile-title'>Account Information</h3>
+        <div className='container'>
 
-        <div className='content-tabs'>
-          <div className={toggleTabState === 1 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserMainInfo
-              fullName={userInfo.fullName?.value}
-              email={userInfo.email?.value}
-              phone={userInfo.phone?.value}
-              birthday={userInfo.birthday?.value}
-              isUpsert={isUpsert}
-              handleUpsert={handleUpsert}
-              handleChange={handleChange}
-              handleCancel={handleCancel}
-              handleSaveChanges={handleEditUserInfo}
-              errorOnEditLoggedUser={errorOnEditLoggedUser}
-            />
+          <div className='menu-tabs'> 
+            {tabsInfo.map((tabInfo, index) => {
+              const { label, icon} = tabInfo
+              const tabNumber = index + 1
+              return <div 
+                  className={toggleTabState === tabNumber ? "tabs active-tabs" : "tabs"}
+                  onClick={() => toggleTab(tabNumber)}
+                  key={index}
+                >
+                  <FontAwesomeIcon icon={icon} />
+                  <span>{label}</span>
+                </div>
+            })}
           </div>
-          <div className={toggleTabState === 2 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserAddressInfo 
-              addresses={userInfo.addresses?.value} 
-              shippingAddress={userInfo.shippingAddress?.value} 
-              billingAddress={userInfo.billingAddress?.value} 
-              isUpsert={isUpsert} 
-              isEditAddress={isEditAddress} 
-              addressToUpsert={addressToUpsert} 
-              openCreateAddress={openCreateAddress}
-              openEditAddress={openEditAddress}
-              handleDeleteAddress={handleDeleteAddress}
-              handleSetAsDefaultAddress={handleSetAsDefaultAddress}
-              handleChangeAddress={handleChangeAddress} 
-              handleSaveChanges={handleSaveAddress}
-              errorOnEditLoggedUser={errorOnEditLoggedUser}
-              handleCancel={handleCancel}
+
+          <div className='content-tabs'>
+            <div className={toggleTabState === 1 ? "content-user-info  active-content" : "content-user-info"}>
+              <UserMainInfo
+                fullName={userInfo.fullName?.value}
+                email={userInfo.email?.value}
+                phone={userInfo.phone?.value}
+                birthday={userInfo.birthday?.value}
+                isUpsert={isUpsert}
+                handleUpsert={handleUpsert}
+                handleChange={handleChange}
+                handleCancel={handleCancel}
+                handleSaveChanges={handleEditUserInfo}
+                errorOnEditLoggedUser={errorOnEditLoggedUser}
               />
-          </div>
-          <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserOrders />
-          </div>
-          <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
-            Payments here...
-          </div>
-          <div className={toggleTabState === 5 ? "content-user-info  active-content" : "content-user-info"}>
-            <UserAccountSettings 
-              language={userInfo.language?.value}
-              currency={userInfo.currency?.value}
-              handleChange={handleChange}
-              handleSaveChanges={handleEditUserInfo}
-              handleDeleteAccount={handleDeleteAccount}
-              handleResetOnCancel={updateUserInfoObject}
-            />
+            </div>
+            <div className={toggleTabState === 2 ? "content-user-info  active-content" : "content-user-info"}>
+              <UserAddressInfo 
+                addresses={userInfo.addresses?.value} 
+                shippingAddress={userInfo.shippingAddress?.value} 
+                billingAddress={userInfo.billingAddress?.value} 
+                isUpsert={isUpsert} 
+                isEditAddress={isEditAddress} 
+                addressToUpsert={addressToUpsert} 
+                openCreateAddress={openCreateAddress}
+                openEditAddress={openEditAddress}
+                handleDeleteAddress={handleDeleteAddress}
+                handleSetAsDefaultAddress={handleSetAsDefaultAddress}
+                handleChangeAddress={handleChangeAddress} 
+                handleSaveChanges={handleSaveAddress}
+                errorOnEditLoggedUser={errorOnEditLoggedUser}
+                handleCancel={handleCancel}
+                />
+            </div>
+            <div className={toggleTabState === 3 ? "content-user-info  active-content" : "content-user-info"}>
+              <UserOrders />
+            </div>
+            <div className={toggleTabState === 4 ? "content-user-info  active-content" : "content-user-info"}>
+              Payments here...
+            </div>
+            <div className={toggleTabState === 5 ? "content-user-info  active-content" : "content-user-info"}>
+              <UserAccountSettings 
+                language={userInfo.language?.value}
+                currency={userInfo.currency?.value}
+                handleChange={handleChange}
+                handleSaveChanges={handleEditUserInfo}
+                handleDeleteAccount={handleDeleteAccount}
+                handleResetOnCancel={updateUserInfoObject}
+              />
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   )
 }

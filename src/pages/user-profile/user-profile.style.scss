@@ -1,102 +1,139 @@
 @import '../../style/colors';
 
-.user-profile-page {
-  width: 850px;
-  margin: 20px auto;
-  padding: 20px;
+.user-profile-page-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  background-color: $white;
-  border: 1px solid $user-profile-container-border;
-  border-radius: 5px;
+  width: 100%;
 
-  .user-profile-title {
-    margin: 20px;
-  }
-
-  .container {
-    min-height: 400px;
+  .admin-button-box {
     display: flex;
-    background-color: $user-profile-container-background-color;
-    word-break: break-all;
-    border: 1px solid rgba(0, 0, 0, 0.274);
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 
-    .menu-tabs {
-      display: flex;
-      flex-direction: column;
-      min-width: 160px;
+    .admin-box-title {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
 
-      .tabs {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        width: 100%;
-        padding: 15px 0px;
-        text-align: center;
-        background: rgba(128, 128, 128, 0.075);
-        cursor: pointer;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.274);
-        box-sizing: content-box;
-        outline: none;
-      }
+    .admin-button {
+      padding: 10px 50px;
+      border: 1px solid $brand-color;
+      background-color: $brand-color;
+      color: $white;
+      font-weight: bold;
+      letter-spacing: 1px;
+      word-spacing: 4px;
+      text-transform: uppercase;
 
-      svg, span {
-        margin-left: 20px;
+      &:hover {
+        background-color: $white;
         color: $brand-color;
       }
-
-      .tabs:not(:last-child){
-        border-right: 1px solid rgba(0, 0, 0, 0.274);
-      }
-
-      .active-tabs  {
-        background-color: white;
-        border-bottom: 1px solid transparent;
-      }
-      
-      .active-tabs::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: -5px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(100% + 2px);
-        height: 5px;
-        background: rgb(88, 147, 241);
-      }
-    }
-
-    .content-tabs {
-      flex-grow : 1;
-
-      .content-user-info {
-        background: white;
-        padding: 30px 20px 20px;;
-        width: 100%;
-        height: 100%;
-        display: none;
-      }
-
-      .content-user-info h2 {
-        padding: 0px 0 5px 0px;
-      }
-
-      // .content-user-info hr {
-      //   width: 100px;
-      //   height: 2px;
-      //   background: #222;
-      //   margin-bottom: 5px;
-      // }
-
-      .content-user-info p {
-        width: 100%;
-        height: 100%;
-      }
-
-      .active-content {
-        display: block;
-      }
-
     }
   }
+
+  .profile-box {
+    align-items: center;
+    width: 850px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid $user-profile-container-border;
+    border-radius: 5px;
+    background-color: $white;
+
+    .user-profile-title {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    .container {
+      min-height: 400px;
+      display: flex;
+      background-color: $user-profile-container-background-color;
+      word-break: break-all;
+      border: 1px solid rgba(0, 0, 0, 0.274);
+  
+      .menu-tabs {
+        display: flex;
+        flex-direction: column;
+        min-width: 160px;
+  
+        .tabs {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          width: 100%;
+          padding: 15px 0px;
+          text-align: center;
+          background: rgba(128, 128, 128, 0.075);
+          cursor: pointer;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+          box-sizing: content-box;
+          outline: none;
+        }
+
+        svg, span {
+          margin-left: 20px;
+          color: $brand-color;
+        }
+
+        .tabs:not(:last-child){
+          border-right: 1px solid rgba(0, 0, 0, 0.274);
+        }
+
+        .active-tabs  {
+          background-color: white;
+          border-bottom: 1px solid transparent;
+        }
+
+        .active-tabs::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: calc(100% + 2px);
+          height: 5px;
+          background: rgb(88, 147, 241);
+        }
+      }
+
+      .content-tabs {
+        flex-grow : 1;
+
+        .content-user-info {
+          background: white;
+          padding: 30px 20px 20px;;
+          width: 100%;
+          height: 100%;
+          display: none;
+        }
+
+        .content-user-info h2 {
+          padding: 0px 0 5px 0px;
+        }
+
+        // .content-user-info hr {
+        //   width: 100px;
+        //   height: 2px;
+        //   background: #222;
+        //   margin-bottom: 5px;
+        // }
+
+        .content-user-info p {
+          width: 100%;
+          height: 100%;
+        }
+
+        .active-content {
+          display: block;
+        }
+
+      }
+    }
+  }
+
 }

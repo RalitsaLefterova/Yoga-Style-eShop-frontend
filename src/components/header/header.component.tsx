@@ -40,7 +40,7 @@ const Header = () => {
             {currentUser ? ( 
               <>
                 <Link className='nav-link' to='/profile'>PROFILE</Link>
-                {currentUser.role === 'ADMIN' && <Link className='nav-link' to='/admin'>ADMIN</Link>}
+                {/* {currentUser.role === 'ADMIN' && <Link className='nav-link' to='/admin'>ADMIN</Link>} */}
                 <div className="nav-link" onClick={handleLogoutUser}>SIGN OUT</div>
               </>
             ) : (

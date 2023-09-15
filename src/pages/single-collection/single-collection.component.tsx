@@ -69,7 +69,7 @@ const SingleCollection = () => {
                       Stay tuned for a grand unveiling that will redefine your shopping experience.
                     </p>
                     <p className='padding-top-bottom-20'>
-                      In the meantime, explore our existing <Link className='underline' to={'/shop'}>collections</Link> and discover a world of style, quality, and fashion. 
+                      In the meantime, explore our existing <Link className='shop-link' to={'/shop'}>collections</Link> and discover a world of style, quality, and fashion. 
                       <br />
                       We promise the wait will be worth it, and we can't wait to have you as part of this exciting journey.
                     </p>
