@@ -1,4 +1,3 @@
-import CustomImageContainer from 'components/custom-components/custom-image-container/custom-image-container.component'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +9,8 @@ import { Address } from 'shared/types/addresses'
 import { Order } from 'shared/types/orders'
 import { getOrderDetailsRequested } from '../../../redux/orders/orders.actions'
 import { selectSelectedOrderDetails } from '../../../redux/orders/orders.selectors'
+
+import YogaStyleThumbnail from 'components/custom-components/yoga-style-thumbnail/yoga-style-thumbnail.component'
 
 import './user-order-details.style.scss'
 
@@ -69,7 +70,7 @@ const UserOrderDetails = ({ orderId, handleBackToOrdersList }: UserOrderDetailsP
           return (
             <div className='product-details' key={index} onClick={() => goToProduct(productId, collectionId)}>
               <div className='product-image'>
-                <CustomImageContainer image={mainImageUrl} />
+                <YogaStyleThumbnail image={mainImageUrl} />
               </div>
               <div className='product-title left'>{title}</div>
               <div className='product-price right'>{formatCurrency(price)}</div>

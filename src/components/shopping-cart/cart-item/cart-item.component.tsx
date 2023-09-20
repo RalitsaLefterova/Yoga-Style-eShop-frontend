@@ -1,8 +1,8 @@
-import CustomImageContainer from 'components/custom-components/custom-image-container/custom-image-container.component'
 import { memo } from 'react'
 
 import { formatCurrency } from 'shared/helpers'
 
+import YogaStyleThumbnail from 'components/custom-components/yoga-style-thumbnail/yoga-style-thumbnail.component'
 import RemoveIcon from '../../../assets/svgs/remove.svg'
 
 import './cart-item.style.scss'
@@ -20,7 +20,7 @@ const CartItem = ({ id, title, mainImageUrl, price, quantity }: CartItemProps) =
   return (
     <li id={id} className='cart-item-container'>
       <div className='product-image'>
-        <CustomImageContainer image={mainImageUrl} />
+        <YogaStyleThumbnail image={mainImageUrl} />
       </div>
       {/* <img src={mainImageUrl} alt={`${title}`} /> */}
       <div className='product-details'>

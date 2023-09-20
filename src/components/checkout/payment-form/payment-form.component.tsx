@@ -7,8 +7,10 @@ import { selectCurrentUser } from '../../../redux/user/user.selectors'
 import { selectCartTotal } from '../../../redux/cart/cart.selectors'
 import { makePayment } from '../../../rest-api/payments'
 import { createOrderRequested } from '../../../redux/orders/orders.actions'
+import { selectIsLoading, selectPaymentError } from 'redux/orders/orders.selectors'
 
-import CustomButton from '../../custom-components/custom-button/custom-button.component'
+import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
+import ErrorContainer from 'components/custom-components/error-container/error-container.component'
 
 import './payment-form.style.scss'
 
@@ -22,6 +24,9 @@ const PaymentForm = () => {
   const total = useSelector(selectCartTotal)
   const amount = parseFloat((total * 100).toFixed())
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
+  const isLoading = useSelector(selectIsLoading)
+  const paymentError = useSelector(selectPaymentError)
+  const [error, setError] = useState('')
   
   // console.log({currentUser})
   const paymentHandler = async (event: FormEvent) => {
@@ -53,15 +58,17 @@ const PaymentForm = () => {
     setIsProcessingPayment(false)
 
     if (paymentResult.error) {
-      console.log('Payment error: ', paymentResult.error)
-      alert('There was an issue with your payment. Please make sure you use the provided credit card.')
+      console.log('Payment error: ', paymentResult.error, paymentResult.error.message)
+      setError('There was an issue with your payment. ' + paymentResult.error.message)
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         dispatch(createOrderRequested({ total }))
         alert('Payment succesfull.')
+        //TODO: replace alerts with apropriate message for the user!!!
+        setError('')
         // TODO alert to user to thank for successfully placed order
         // Message: CONGRATULATIONS!
-        // Message: Your order has been placed.
+        // Message: Your order has been placed. 
         // Message: You can see details for current order in profile/orders (link to current order in profile?)
         // Button "Continue Shopping"
         // Message: "You will receive an email with tracking information once your goods have been shipped."
@@ -71,25 +78,28 @@ const PaymentForm = () => {
   }
 
   return (
+    // TODO: Add 'paymentError' in the orders' state; Move the payment functionality otside the component;
     <div className='payment-form-container'>
       <div className='form-container'>
         <h2>Credit Card Payment:</h2>
-
-        <CardElement />
-
-        <CustomButton 
-          isDisabled={isProcessingPayment} 
-          onClick={paymentHandler} 
-          inverted 
-        >
-          Pay now
-        </CustomButton>
 
         <div className="test-warning">
           *Use the following test credit card for payments
           <br />
           4242 4242 4242 4242 - Exp: 04/24 - CVC: 244
         </div>
+
+        <CardElement />
+
+        {error && <ErrorContainer customTextMessage={error} />}
+        <YogaStyleButton
+          isDisabled={isProcessingPayment}
+          onClick={paymentHandler}
+          extraClasses='payment-button'
+        >
+          Pay now
+        </YogaStyleButton>
+
       </div>
       
     </div>

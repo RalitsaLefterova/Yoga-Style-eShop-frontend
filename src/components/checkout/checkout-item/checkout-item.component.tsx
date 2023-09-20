@@ -9,6 +9,8 @@ import {
   clearProductFromCartRequested
 } from '../../../redux/cart/cart.actions'
 
+import YogaStyleThumbnail from 'components/custom-components/yoga-style-thumbnail/yoga-style-thumbnail.component'
+
 import './checkout-item.style.scss'
 
 type CheckoutItemProps = {
@@ -32,19 +34,27 @@ const CheckoutItem = memo(({ cartProduct }: CheckoutItemProps) => {
   }
   
   return (
-    <div className='checkout-product-container'>
-      <div className='image-container'>
-        <img src={mainImageUrl} alt={title} />
-      </div>
-      <span className='title'>{title}</span>
-      <span className='quantity'>
-        <div className='arrow' onClick={handleRemoveFromCart}>&#10094;</div>
-        <span className='value'>{quantity}</span>
-        <div className='arrow' onClick={handleAddToCart}>&#10095;</div>
-      </span>
-      <span className='price'>{formatCurrency(price)}</span>
-      <div className='remove-button' onClick={handleClearProductFromCart}>&#10005;</div>
-    </div>
+    <tr>
+      <td className='product-description'>
+        <div className='image-container'>
+          <YogaStyleThumbnail image={mainImageUrl} />
+        </div>
+        <div className='title'>{title}</div>
+      </td>
+      <td>
+        <div className='quantity'>
+          <span className='arrow' onClick={handleRemoveFromCart}>&#10094;</span>
+          <span className='value'>{quantity}</span>
+          <span className='arrow' onClick={handleAddToCart}>&#10095;</span>
+        </div>
+      </td>
+      <td>
+        <span className='price'>{formatCurrency(price)}</span>
+      </td>
+      <td>
+        <div className='remove-button' onClick={handleClearProductFromCart}>&#10005;</div>
+      </td>
+    </tr>
   )
 })
 

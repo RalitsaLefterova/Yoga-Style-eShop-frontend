@@ -1,0 +1,34 @@
+@import '../../style/colors';
+
+.checkout-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 65%;
+  margin: 30px auto;
+
+
+  .checkout-items-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    height: 100px;
+    padding: 8px;
+    border-bottom: 1px solid $border-color-row;
+    text-align: center;
+  }
+
+  th:first-child {
+    width: 70%;
+    text-align: left;
+  }
+
+  .total {
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 30px;
+  }
+}

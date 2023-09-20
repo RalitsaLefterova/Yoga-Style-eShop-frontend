@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { CartProduct } from 'shared/types/products'
 import { selectCartHidden, selectCartProducts, selectCartTotal } from 'redux/cart/cart.selectors'
@@ -53,7 +53,12 @@ const ShoppingCart = () => {
             </CustomButton>
           </>
         ) : (
-          <div className='empty-message center'>'Your cart is empty.'</div>
+          <div className='empty-message center'>
+            <p>Your cart is empty.</p>
+            <Link to='/shop' className='underline'>
+              <strong>Start shopping.</strong>
+            </Link>
+          </div>
         )
         }
       </div>

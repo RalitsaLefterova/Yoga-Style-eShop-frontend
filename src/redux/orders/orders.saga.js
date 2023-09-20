@@ -20,13 +20,13 @@ import {
 export function* createOrderAsync({ payload: { data }}) {
   try {
     const response = yield call(createOrder, data)
-    console.log('on createOrderAsync', {response})
+    console.log('on createOrderAsync (saga)', {response})
     yield put(emptyCart())
   } catch (error) {
+    console.log('Error on fail to create order', error)
     yield put(createOrderFailed(error))
   }
 }
-
 export function* onCreateOrderRequested() {
   yield takeLatest(OrdersActionTypes.CREATE_ORDER_REQUESTED, createOrderAsync)
 }
@@ -39,7 +39,6 @@ export function* getOrderDetailsAsync({ payload: { orderId }}) {
     yield put(getOrderDetailsFailed(error))
   }
 }
-
 export function* onGetOrderDetailsRequested() {
   yield takeLatest(OrdersActionTypes.GET_ORDER_DETAILS_REQUESTED, getOrderDetailsAsync)
 }
@@ -52,7 +51,6 @@ export function* getOrdersAsync() {
     yield put(getOrdersFailed(error))
   }
 }
-
 export function* onGetOrdersRequested() {
   yield takeLatest(OrdersActionTypes.GET_ORDERS_REQUESTED, getOrdersAsync)
 }

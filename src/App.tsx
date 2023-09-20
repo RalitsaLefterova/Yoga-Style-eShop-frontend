@@ -21,7 +21,7 @@ const ForgotPassword = lazy(() => import('./components/authentication/forgot-pas
 const ResetPassword = lazy(() => import('./components/authentication/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
 const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
-const Checkout = lazy(() => import('./components/checkout/checkout/checkout.component'))
+const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
 
 // Admin part
 const Dashboard = lazy(() => import('./components/admin/dashboard/dashboard.component'))
