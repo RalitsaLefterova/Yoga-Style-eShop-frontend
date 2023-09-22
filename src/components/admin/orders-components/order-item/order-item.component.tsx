@@ -16,9 +16,15 @@ const OrderItem = ({ orderInfo }: OrderItemType) => {
 
   return (
     <tr>
-      <td>{humanizeDate(createdAt)}</td>
-      <td><Link to={`/admin/users/${ownerId}`}>{fullName}</Link></td>
-      <td>{status}</td>
+      <td>
+        {humanizeDate(createdAt)}
+      </td>
+      <td>
+        <Link to={`/admin/users/${ownerId}`}>{fullName}</Link>
+      </td>
+      <td>
+        {status}
+      </td>
       <td>
         <Link to={`${pathname}/${orderId}`}>details</Link>
       </td>

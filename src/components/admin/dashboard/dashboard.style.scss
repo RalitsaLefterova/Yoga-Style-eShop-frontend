@@ -1,13 +1,16 @@
-.dashboard-container {
-  width: 100%;
-  // top: 0;
-  // left: 270px;
-  // display: flex;
-  // flex-wrap: wrap;
+@import '../../../style/colors';
 
-  // .page-title {
-  //   width: 100%;
-  //   padding: 30px 0 30px 20px;
-  //   color: #fff;
-  // }
+.statistics-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  .orders-statistics-container,
+  .top-3-products-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid $border-color-row;
+    border-radius: 5px;
+  }
 }

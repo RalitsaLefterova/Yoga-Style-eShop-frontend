@@ -15,7 +15,7 @@ const AdminNavigation = () => {
   return (
     <div className="vertical-nav-menu-container center">
         <div className='admin-page-title'>
-          <h3>Yoga Style Admin</h3>
+          <h3>`Yoga Style` Backstage</h3>
         </div>
         <ul className="sidebar_menu">
           <li>

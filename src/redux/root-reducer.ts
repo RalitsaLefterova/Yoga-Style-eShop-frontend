@@ -7,13 +7,15 @@ import collectionsReducer from './collections/collections.reducer'
 import productsReducer from './products/products.reducer'
 import cartReducer from './cart/cart.reducer'
 import ordersReducer from './orders/orders.reducer'
+import statisticsReducer from './statistics/statistics.reducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   collections: collectionsReducer,
   products: productsReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  statistics: statisticsReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

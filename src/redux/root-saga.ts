@@ -5,6 +5,7 @@ import { collectionsSaga } from './collections/collections.saga'
 import { productsSaga } from './products/products.saga'
 import { cartSaga } from './cart/cart.saga'
 import { ordersSaga } from './orders/orders.saga'
+import { statisticsSaga } from './statistics/statistics.saga'
 
 export function* rootSaga() {
   yield* all([
@@ -12,6 +13,7 @@ export function* rootSaga() {
     call(collectionsSaga),
     call(productsSaga),
     call(cartSaga),
-    call(ordersSaga)
+    call(ordersSaga),
+    call(statisticsSaga)
   ])
 }

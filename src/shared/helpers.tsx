@@ -66,7 +66,6 @@ export const displayFormDataEntries = (formData: FormData) => {
   }
 }
 
-
 export const extractChangedValues = (obj: GenericObject) => {
   const dataObj: GenericObject = {}
 
@@ -83,6 +82,12 @@ export const humanizeDate = (date: Date | string) => {
   // console.log('in humanize date function', date)
   return new Date(date).toLocaleDateString()
 }
+
+export const getMonthShortName = (month: number) => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+  return months[month - 1]
+} 
 
 const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, { currency: "EUR", style: "currency" })
 export const formatCurrency = (number: number) => CURRENCY_FORMATTER.format(number)

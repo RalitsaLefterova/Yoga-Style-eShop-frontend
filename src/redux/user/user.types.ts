@@ -59,4 +59,4 @@ enum UserActionTypes {
 
 }
 
-export default UserActionTypes;
+export default UserActionTypes
