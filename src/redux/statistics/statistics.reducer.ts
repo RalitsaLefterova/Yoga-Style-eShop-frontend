@@ -25,7 +25,7 @@ export type StatisticsState = {
   readonly dailyOrdersStatistic: DailyOrdersStatistic[]
   readonly monthlyOrdersStatistic: MonthyOrdersStatistic[]
   readonly yearlyOrdersStatistic: YearlyOrdersStatistic[]
-  readonly top3BestsellingProducts: Top3BestsellingProducts
+  readonly top3BestsellingProducts: Top3BestsellingProducts | null
   readonly isLoading: boolean
   readonly isLoadingOrdersStatistic: boolean
   readonly isLoadingTop3BestsellingProducts: boolean
@@ -38,53 +38,7 @@ const INITIAL_STATE: StatisticsState = {
   dailyOrdersStatistic: [],
   monthlyOrdersStatistic: [],
   yearlyOrdersStatistic: [],
-  top3BestsellingProducts: {
-    first: {
-      product: {
-        id: '',
-        title: '',
-        price: 0,
-        stock: 0,
-        mainImageUrl: '',
-        collectionId: '',
-        active: false,
-        description: '',
-        colors: []
-      },
-      totalQuantity: 0,
-      mostRecentOrderDate: ''
-    },
-    second: {
-      product: {
-        id: '',
-        title: '',
-        price: 0,
-        stock: 0,
-        mainImageUrl: '',
-        collectionId: '',
-        active: false,
-        description: '',
-        colors: []
-      },
-      totalQuantity: 0,
-      mostRecentOrderDate: ''
-    },
-    third: {
-      product: {
-        id: '',
-        title: '',
-        price: 0,
-        stock: 0,
-        mainImageUrl: '',
-        collectionId: '',
-        active: false,
-        description: '',
-        colors: []
-      },
-      totalQuantity: 0,
-      mostRecentOrderDate: ''
-    }
-  },
+  top3BestsellingProducts: null,
   isLoading: false,
   isLoadingOrdersStatistic: false,
   isLoadingTop3BestsellingProducts: false,
@@ -182,7 +136,8 @@ const statisticsReducer = (
     return {
       ...state,
       isLoadingTop3BestsellingProducts: false,
-      errorOnFetchingTop3BestsellingProducts: action.payload
+      errorOnFetchingTop3BestsellingProducts: action.payload,
+      top3BestsellingProducts: null
     }
   }
 

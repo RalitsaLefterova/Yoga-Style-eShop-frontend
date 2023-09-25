@@ -3,18 +3,41 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { fetchTop3BestsellingProductsRequested } from 'redux/statistics/statistics.actions'
 import { selectTop3BestsellingProducts } from 'redux/statistics/statistics.selectors'
+import { isNotEmptyObject } from 'shared/helpers'
+import { Top3BestsellingProducts } from 'shared/types/statistics'
+
+import PodiumItem from '../podium-item/podium-item.component'
 
 import './top-3-bestsellers.style.scss'
-import YogaStyleThumbnail from 'components/custom-components/yoga-style-thumbnail/yoga-style-thumbnail.component'
-import { Top3BestsellingProducts } from 'shared/types/statistics'
 
 const Top3Bestsellers = () => {
   const dispatch = useDispatch()
-  const top3BestsellingProducts: Top3BestsellingProducts = useSelector(selectTop3BestsellingProducts)
+  const top3BestsellingProducts: Top3BestsellingProducts | null = useSelector(selectTop3BestsellingProducts)
 
-  console.log(top3BestsellingProducts)
+  console.log({top3BestsellingProducts})
 
-  const { first, second, third } = top3BestsellingProducts
+  const generatePodium = () => {
+    const { first, second, third } = top3BestsellingProducts as Top3BestsellingProducts
+
+    const places = [
+      { place: 'second', color: 'silver', product: second.product },
+      { place: 'first', color: 'gold', product: first.product },
+      { place: 'third', color: 'bronze', product: third.product }
+    ]
+
+    return (
+      <>
+        {places.map(({ place, color, product }) => (
+          <PodiumItem
+            key={place}
+            place={place}
+            color={color}
+            product={product}
+          />
+        ))}
+      </>
+    )
+  }
 
   useEffect(() => {
     dispatch(fetchTop3BestsellingProductsRequested())
@@ -26,33 +49,11 @@ const Top3Bestsellers = () => {
         <h3>Top 3 Bestselling Products</h3>
       </p>
       <div className="podium">
-        <div className="place second">
-          <div className='image-box'>
-            <YogaStyleThumbnail image={second.product.mainImageUrl} />
-          </div>
-          <div className='top silver-box' />
-          <div className='base'>
-            <span>{second.product.title} more test text more and morrkdffkgkdf text bla bla bla</span>
-          </div>
-        </div>
-        <div className="place first">
-          <div className='image-box'>
-            <YogaStyleThumbnail image={first.product.mainImageUrl} /> 
-          </div>
-          <div className='top gold-box' />
-          <div className='base'>
-            <span>{first.product.title} more test text more and morrkdffkgkdf text bla bla bla</span> 
-          </div>
-        </div>
-        <div className="place third">
-          <div className='image-box'>
-            <YogaStyleThumbnail image={third.product.mainImageUrl} />
-          </div>
-          <div className='top bronze-box' />
-          <div className='base'>
-            <span>{third.product.title} more test text more and morrkdffkgkdf text bla bla bla</span>
-          </div>
-        </div>
+        {top3BestsellingProducts !== null && isNotEmptyObject(top3BestsellingProducts) ?
+          <>{generatePodium()}</>
+          : 
+          <div>No orders have been placed yet.</div>
+        }
       </div>
     </>
   )
