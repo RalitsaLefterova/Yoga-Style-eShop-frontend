@@ -1,9 +1,14 @@
+.statistic-title {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
 .podium {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
-  width: 600px;
+  width: 500px;
   height: 300px;
 }
 

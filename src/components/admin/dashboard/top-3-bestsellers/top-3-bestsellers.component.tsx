@@ -45,14 +45,16 @@ const Top3Bestsellers = () => {
 
   return (
     <>
-      <p>
-        <h3>Top 3 Bestselling Products</h3>
+      <p className='statistic-title'>
+        Top 3 Bestselling Products
       </p>
       <div className="podium">
         {top3BestsellingProducts !== null && isNotEmptyObject(top3BestsellingProducts) ?
           <>{generatePodium()}</>
           : 
-          <div>No orders have been placed yet.</div>
+          <div className='flex full-height'>
+            No orders have been placed yet.
+          </div>
         }
       </div>
     </>
