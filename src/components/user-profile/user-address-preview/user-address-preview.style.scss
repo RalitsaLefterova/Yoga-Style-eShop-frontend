@@ -1,34 +1,39 @@
+@import '../../../style/colors';
+
 .address-box {
-  padding: 0px;
   width: 48%;
+  padding: 0;
+  border: 1px solid $user-profile-address-box-shadow;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: $user-profile-address-box-shadow 0 1px 4px;
 
   .default-address-label {
     padding: 1px 20px 3px;
-    color: white;
-    background-color: #4a7cc2;
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    background-color: $user-profile-links-color;
+    color: $white;
   }
 
   .address-data {
     position: relative;
     margin-right: 10px;
-    padding: 0px 20px;
+    padding: 0 20px;
 
     .address-title {
       padding-top: 20px;
     }
 
     .set-default-address-links {
-      margin: 10px 0px;
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
 
       span {
+        color: $user-profile-links-color;
         font-size: 14px;
-        color: #4a7cc2;
-        cursor: pointer;
+        text-decoration: underline;
+        cursor: pointer; 
       }
     }
 
@@ -37,8 +42,9 @@
       top: 15px;
       right: 0;
 
-      .edit-button, .delete-button {
-        display: flex;   
+      .edit-button,
+      .delete-button {
+        display: flex;
         justify-content: center;
         width: 31px;
         height: 31px;
@@ -48,18 +54,10 @@
         svg {
           width: 16px;
           height: 16px;
-          color: #4a7cc2;
+          color: $user-profile-links-color;
           vertical-align: middle;
-        }  
+        }
       }
     }
-
-    
   }
-
-  
-
-  
-
-  
 }

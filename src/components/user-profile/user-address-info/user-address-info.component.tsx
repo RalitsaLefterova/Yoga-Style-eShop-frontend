@@ -95,7 +95,7 @@ const UserAddressInfo = ({
               ))}
             </div>
           ) : (
-            <div>You don't have default shipping and billing address</div>
+            <div className='no-address-message-wrapper'>You don't have default shipping and billing address</div>
           )}
         </div>
         <div>
@@ -118,7 +118,7 @@ const UserAddressInfo = ({
                 ))}
               </>
               ) : (
-                <span>You don't have additional addresses</span>
+                <span className='no-address-message-wrapper'>You don't have additional addresses</span>
               )
             }
           </div> 
