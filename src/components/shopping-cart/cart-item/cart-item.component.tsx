@@ -1,37 +1,61 @@
 import { memo } from 'react'
+import { useDispatch } from 'react-redux'
 
+import { CartProduct } from 'shared/types/products'
 import { formatCurrency } from 'shared/helpers'
+import { 
+  addProductToCartRequested, 
+  removeProductFromCartRequested,
+  clearProductFromCartRequested
+} from '../../../redux/cart/cart.actions'
 
 import YogaStyleThumbnail from 'components/custom-components/yoga-style-thumbnail/yoga-style-thumbnail.component'
-import RemoveIcon from '../../../assets/svgs/remove.svg'
 
 import './cart-item.style.scss'
 
 type CartItemProps = {
-  id: string,
-  title: string,
-  mainImageUrl: string,
-  price: number,
-  quantity: number
+  cartProduct: CartProduct
 }
 
-const CartItem = ({ id, title, mainImageUrl, price, quantity }: CartItemProps) => {
+const CartItem = memo(({ cartProduct }: CartItemProps) => {
+  const dispatch = useDispatch()
+  const { id: productId, title, mainImageUrl, price, quantity } = cartProduct
 
+  const handleAddToCart = () => {
+    dispatch(addProductToCartRequested(productId))
+  }
+
+  const handleRemoveFromCart = () => {
+    dispatch(removeProductFromCartRequested(productId))
+  }
+
+  const handleClearProductFromCart = () => {
+    dispatch(clearProductFromCartRequested(productId))
+  }
+  
   return (
-    <li id={id} className='cart-item-container'>
-      <div className='product-image'>
-        <YogaStyleThumbnail image={mainImageUrl} />
-      </div>
-      {/* <img src={mainImageUrl} alt={`${title}`} /> */}
-      <div className='product-details'>
-        <span className='title'>{title}</span>
-        <span className='price'>{quantity} x {formatCurrency(price)}</span>
-      </div>
-      <div className='remove-item-btn'>
-        <RemoveIcon />
-      </div>
-    </li>
+    <tr>
+      <td className='product-description'>
+        <div className='image-container'>
+          <YogaStyleThumbnail image={mainImageUrl} />
+        </div>
+        <div className='title'>{title}</div>
+      </td>
+      <td>
+        <div className='quantity'>
+          <span className='arrow' onClick={handleRemoveFromCart}>&#10094;</span>
+          <span className='value'>{quantity}</span>
+          <span className='arrow' onClick={handleAddToCart}>&#10095;</span>
+        </div>
+      </td>
+      <td>
+        <span className='price'>{formatCurrency(price)}</span>
+      </td>
+      <td>
+        <div className='remove-button' onClick={handleClearProductFromCart}>&#10005;</div>
+      </td>
+    </tr>
   )
-}
+})
 
-export default memo(CartItem)
+export default CartItem

@@ -1,0 +1,30 @@
+.sidebar-cart-item-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  .product-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 70%;
+    padding-left: 5px;
+
+    .title {
+      font-size: 16px;
+    }
+  }
+
+  .remove-item-btn {
+    cursor: pointer;
+  }
+}

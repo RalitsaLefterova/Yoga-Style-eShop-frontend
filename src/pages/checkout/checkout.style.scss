@@ -7,28 +7,35 @@
   width: 65%;
   margin: 30px auto;
 
+  .checkout-steps-pages {
+    height: 400px;
+    margin-top: 50px;
+  }
 
-  .checkout-items-table {
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    border-collapse: collapse;
+    max-width: 600px;
+    margin-top: 50px;
   }
 
-  th,
-  td {
-    height: 100px;
+  .button-style {
     padding: 8px;
-    border-bottom: 1px solid $border-color-row;
-    text-align: center;
-  }
+    border: 0;
+    border-radius: 4px;
+    background: $brand-color-light;
+    color: $white;
+    cursor: pointer;
 
-  th:first-child {
-    width: 70%;
-    text-align: left;
-  }
+    &:active {
+      transform: scale(.98);
+    }
 
-  .total {
-    margin-top: 30px;
-    margin-left: auto;
-    font-size: 30px;
+    &:disabled {
+      background: #f3e7f3;
+      color: $black;
+      cursor: not-allowed;
+    }
   }
 }

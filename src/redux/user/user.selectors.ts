@@ -62,3 +62,13 @@ export const selectSelectedUser = createSelector(
   [selectUserReducer],
   (userSlice) => userSlice.selectedUser
 )
+
+export const selectCurrentUserShippingAddress = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.currentUserShippingAddress
+)
+
+export const selectErrorOnGetShippingAddress = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.errorOnGetShippingAddress
+)

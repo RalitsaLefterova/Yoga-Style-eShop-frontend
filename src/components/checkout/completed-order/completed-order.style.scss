@@ -1,0 +1,28 @@
+@import '../../../style/colors';
+
+.finish-step-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+
+  svg {
+    width: 50px;
+    height: 50px;
+    color: $brand-color-light;
+  }
+
+  a {
+    padding: 10px 40px;
+    border: 1px solid $brand-color-light;
+    border-radius: 3px;
+    background-color: $brand-color-light;
+    color: $white;
+
+    &:hover {
+      background-color: $white;
+      color: $brand-color-light;
+    }
+  }
+}

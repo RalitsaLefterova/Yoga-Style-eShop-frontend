@@ -28,6 +28,8 @@ export const logout = () => axiosInstance.post('/auth/logout')
 
 export const getLoggedUserProfile = () => axiosInstance.get('/users/me')
 
+export const getCurrentUserShippingAddress = () => axiosInstance.get('/users/me/shipping-address')
+
 export const editUserInfo = (data: User | GenericObject ) => axiosInstance.patch('/users/me', data)
 
 export const deleteAccount = () => axiosInstance.delete('users/me')

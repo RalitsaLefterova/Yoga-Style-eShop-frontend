@@ -26,11 +26,16 @@ import {
   adminEditUserByIdFailed,
   adminDeleteUserByIdSuccess,
   adminGetUserByIdSuccess,
-  adminGetUserByIdRequested
+  adminGetUserByIdRequested,
+  getCurrentUserShippingAddressRequested,
+  getCurrentUserShippingAddressSuccess,
+  getCurrentUserShippingAddressFailed
 } from './user.actions';
+import { Address } from 'shared/types/addresses';
 
 export type UserState = {
   readonly currentUser: User | null
+  readonly currentUserShippingAddress: Address | null
   readonly token: string
   readonly selectedUser: User | GenericObject | null
   readonly usersList: User[]
@@ -48,10 +53,12 @@ export type UserState = {
   readonly errorOnResetPassword: Error | null
   readonly errorOnGetAllUsers: Error | null
   readonly errorOnEditUserById: Error | null
+  readonly errorOnGetShippingAddress: Error | null | string
 }
 
 const INITIAL_STATE: UserState = {
   currentUser: null,
+  currentUserShippingAddress: null,
   token: '',
   selectedUser: {},
   usersList: [],
@@ -68,8 +75,9 @@ const INITIAL_STATE: UserState = {
   errorOnForgotPassword: null,
   errorOnResetPassword: null,
   errorOnGetAllUsers: null,
-  errorOnEditUserById: null
-};
+  errorOnEditUserById: null,
+  errorOnGetShippingAddress: null
+}
 
 const userReducer = (
   state = INITIAL_STATE, 
@@ -253,6 +261,33 @@ const userReducer = (
         selectedUser: null
       }
     }
+
+    if (getCurrentUserShippingAddressRequested.match(action)) {
+      return {
+        ...state,
+        isLoading: true,
+        errorOnGetShippingAddress: null
+      }
+    }
+
+    if (getCurrentUserShippingAddressSuccess.match(action)) {
+      return {
+        ...state,
+        isLoading: false,
+        currentUserShippingAddress: action.payload,
+        errorOnGetShippingAddress: null
+      }
+    }
+
+    if (getCurrentUserShippingAddressFailed.match(action)) {
+      return {
+        ...state,
+        isLoading: false,
+        currentUserShippingAddress: null,
+        errorOnGetShippingAddress: action.payload
+      }
+    }
+
   
     return state
   }

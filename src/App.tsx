@@ -21,7 +21,9 @@ const ForgotPassword = lazy(() => import('./components/authentication/forgot-pas
 const ResetPassword = lazy(() => import('./components/authentication/reset-password/reset-password.component'))
 const SingleCollection = lazy(() => import('./pages/single-collection/single-collection.component'))
 const ProductDetails = lazy(() => import('./pages/product-details/product-details.component'))
+const ShoppingCart = lazy(() => import('./pages/shopping-cart/shopping-cart.component'))
 const Checkout = lazy(() => import('./pages/checkout/checkout.component'))
+
 
 // Admin part
 const Dashboard = lazy(() => import('./components/admin/dashboard/dashboard.component'))
@@ -65,6 +67,7 @@ const background = location.state && location.state.background
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/shop/:collectionTitle' element={<SingleCollection />} />
           <Route path='/shop/:collection/:productId' element={<ProductDetails />} />
+          <Route path='/cart' element={<ShoppingCart />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/profile' element={<UserProfilePage />} />
           <Route path='/sign-in' element={currentUser ? <Navigate replace to='/' /> : <SignIn />} />

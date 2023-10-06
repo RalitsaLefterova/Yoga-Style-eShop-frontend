@@ -8,11 +8,11 @@ import { toggleCartHidden } from 'redux/cart/cart.actions'
 import { formatCurrency } from 'shared/helpers'
 
 import CustomButton from 'components/custom-components/custom-button/custom-button.component'
-import CartItem from '../cart-item/cart-item.component'
+import SidebarCartItem from '../sidebar-cart-item/sidebar-cart-item.component'
 
-import './shopping-cart.style.scss'
+import './shopping-cart-sidebar.style.scss'
 
-const ShoppingCart = () => {
+const ShoppingCartSidebar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const cartProducts: CartProduct[] = useSelector(selectCartProducts)
@@ -23,7 +23,7 @@ const ShoppingCart = () => {
 
   const goToCheckoutHandler = useCallback(() => {
     toggleIsCartHidden()
-    navigate('/checkout')
+    navigate('/cart')
   }, [])
 
   return (
@@ -34,7 +34,7 @@ const ShoppingCart = () => {
           <>
             <ul className='cart-items'>
               {cartProducts.map(product => 
-                <CartItem 
+                <SidebarCartItem 
                   key={product.id}
                   id={product.id}
                   title={product.title}
@@ -48,8 +48,8 @@ const ShoppingCart = () => {
               <span>Total</span>
               <span>{formatCurrency(cartTotal)}</span>
             </div>
-            <CustomButton onClick={goToCheckoutHandler} additionalClasses='checkout-btn'>
-              Go to checkout
+            <CustomButton onClick={goToCheckoutHandler} additionalClasses='manage-cart-btn'>
+              Manage shopping cart
             </CustomButton>
           </>
         ) : (
@@ -64,7 +64,6 @@ const ShoppingCart = () => {
       </div>
     </div>
   )
-
 }
 
-export default ShoppingCart
+export default ShoppingCartSidebar

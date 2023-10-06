@@ -14,7 +14,8 @@ import {
   getAllUsers,
   adminGetUserById,
   adminEditUserById,
-  adminDeleteUserById
+  adminDeleteUserById,
+  getCurrentUserShippingAddress
 } from '../../rest-api/users'
 import { 
   createAddress,
@@ -61,7 +62,9 @@ import {
   adminEditUserByIdSuccess,
   AdminDeleteUserByIdRequested,
   adminDeleteUserByIdFailed,
-  adminDeleteUserByIdSuccess
+  adminDeleteUserByIdSuccess,
+  getCurrentUserShippingAddressSuccess,
+  getCurrentUserShippingAddressFailed
 } from './user.actions'
 import { 
   setOrders 
@@ -73,6 +76,8 @@ import {
 import { User } from 'shared/types/users'
 import { CartProduct } from 'shared/types/products'
 import { AxiosError } from 'axios'
+import { ErrorResponse } from 'shared/interfaces/error-response'
+import { handleRequestError } from 'components/request-error-handler/request-error-handler.component'
 
 type SetDataAfterAuthSuccessProps = {
   user: User, 
@@ -283,6 +288,20 @@ export function* onDeleteAddressRequested() {
   yield* takeLatest(UserActionTypes.DELETE_ADDRESS_REQUESTED, deleteAddressAsync)
 }
 
+// GET CURRENT USER SHIPPING ADDRESS
+export function* getCurrentUserShippingAddressAsync() {
+  try {
+    const response = yield* call(getCurrentUserShippingAddress)
+    yield* put(getCurrentUserShippingAddressSuccess(response.data))
+  } catch (error) {
+    const apiError: ErrorResponse = handleRequestError(error)
+    yield* put(getCurrentUserShippingAddressFailed(apiError))
+  }
+}
+export function* onGetCurrentUserShippingAddressRequested() {
+  yield* takeLatest(UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_REQUESTED, getCurrentUserShippingAddressAsync)
+}
+
 // DELETE USER ACCOUNT (LOGGED USER) //
 export function* deleteAccountAsync({ payload: { navigate }}: DeleteAccountRequested) {
   try {
@@ -378,6 +397,7 @@ export function* userSaga() {
     call(onCreateAddressRequested),
     call(onEditAddressRequested),
     call(onDeleteAddressRequested),
+    call(onGetCurrentUserShippingAddressRequested),
     call(onDeleteAccountRequested),
     call(onResetErrorMessagesRequested),
     call(onAdminGetAllUsersRequested),

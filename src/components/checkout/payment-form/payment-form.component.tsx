@@ -5,9 +5,10 @@ import { StripeCardElement } from '@stripe/stripe-js'
 
 import { selectCurrentUser } from '../../../redux/user/user.selectors'
 import { selectCartTotal } from '../../../redux/cart/cart.selectors'
-import { makePayment } from '../../../rest-api/payments'
+import { makePaymentIntent } from '../../../rest-api/payments'
 import { createOrderRequested } from '../../../redux/orders/orders.actions'
 import { selectIsLoading, selectPaymentError } from 'redux/orders/orders.selectors'
+import { formatCurrency } from 'shared/helpers'
 
 import YogaStyleButton from 'components/custom-components/yoga-style-button/yoga-style-button.component'
 import ErrorContainer from 'components/custom-components/error-container/error-container.component'
@@ -16,7 +17,11 @@ import './payment-form.style.scss'
 
 const ifValidCardElement = (card: StripeCardElement | null): card is StripeCardElement => card !== null
 
-const PaymentForm = () => {
+type PaymentFormProps = {
+  handleGoToNextStep: () => void
+}
+
+const PaymentForm = ({ handleGoToNextStep }: PaymentFormProps) => {
   const dispatch = useDispatch()
   const stripe = useStripe()
   const elements = useElements()
@@ -27,8 +32,12 @@ const PaymentForm = () => {
   const isLoading = useSelector(selectIsLoading)
   const paymentError = useSelector(selectPaymentError)
   const [error, setError] = useState('')
+
+  const appearance = {
+    theme: 'stripe'
+  }
   
-  // console.log({currentUser})
+  
   const paymentHandler = async (event: FormEvent) => {
     event.preventDefault()
 
@@ -36,10 +45,10 @@ const PaymentForm = () => {
 
     setIsProcessingPayment(true)
 
-    const responsePayment = await makePayment({ amount })
-    console.log({responsePayment})
+    const responsePaymentIntent = await makePaymentIntent({ amount })
+    console.log({responsePaymentIntent})
 
-    const clientSecret = responsePayment.data.client_secret
+    const clientSecret = responsePaymentIntent.data.client_secret
 
     const cardDetails = elements.getElement(CardElement)
     if (!ifValidCardElement(cardDetails)) return
@@ -63,25 +72,21 @@ const PaymentForm = () => {
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         dispatch(createOrderRequested({ total }))
-        alert('Payment succesfull.')
-        //TODO: replace alerts with apropriate message for the user!!!
+        handleGoToNextStep()
         setError('')
-        // TODO alert to user to thank for successfully placed order
-        // Message: CONGRATULATIONS!
-        // Message: Your order has been placed. 
-        // Message: You can see details for current order in profile/orders (link to current order in profile?)
-        // Button "Continue Shopping"
-        // Message: "You will receive an email with tracking information once your goods have been shipped."
-        // Email: Hey "Client_Name", Thanks so much for your purchase! ...
+        // alert('Payment succesfull.')
+        //TODO: replace alerts with apropriate message for the user!!!       
       }
     }
   }
+
+  console.log({total})
 
   return (
     // TODO: Add 'paymentError' in the orders' state; Move the payment functionality otside the component;
     <div className='payment-form-container'>
       <div className='form-container'>
-        <h2>Credit Card Payment:</h2>
+        {/* <h2>Credit Card Payment:</h2> */}
 
         <div className="test-warning">
           *Use the following test credit card for payments
@@ -89,16 +94,20 @@ const PaymentForm = () => {
           4242 4242 4242 4242 - Exp: 04/24 - CVC: 244
         </div>
 
-        <CardElement />
+        <div className="card-element-container">
+          <label className="card-element-label">Card Details</label>
+          <CardElement className="StripeElement" />
+          {error && <ErrorContainer customTextMessage={error} extraClasses='card-element-error' />}
+        </div>
 
-        {error && <ErrorContainer customTextMessage={error} />}
-        <YogaStyleButton
-          isDisabled={isProcessingPayment}
-          onClick={paymentHandler}
-          extraClasses='payment-button'
-        >
-          Pay now
-        </YogaStyleButton>
+        <div className='payment-button-wrapper'>
+          <YogaStyleButton
+            isDisabled={isProcessingPayment}
+            onClick={paymentHandler}
+          >
+            {`Pay now ${formatCurrency(total)}`}
+          </YogaStyleButton>
+        </div>
 
       </div>
       

@@ -20,7 +20,7 @@ module.exports = {
   devServer: {
     static: 'dist',
     open: true,
-    hot: false,
+    hot: true,
     port: process.env.PORT || 3000,
     historyApiFallback: true
   },

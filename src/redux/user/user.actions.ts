@@ -131,6 +131,20 @@ export const deleteAddressRequested = withMatcher((addressId: string): DeleteAdd
   createAction(UserActionTypes.DELETE_ADDRESS_REQUESTED, { addressId }))
 
 
+// GET CURRENT USER SHIPPING ADDRESS
+export type GetCurrentUserShippingAddressRequested = Action<UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_REQUESTED>
+export const getCurrentUserShippingAddressRequested = withMatcher((): GetCurrentUserShippingAddressRequested =>
+  createAction(UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_REQUESTED))
+  
+export type GetCurrentUserShippingAddressSuccess = ActionWithPayload<UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_SUCCESS, Address>
+export const getCurrentUserShippingAddressSuccess = withMatcher((address: Address): GetCurrentUserShippingAddressSuccess =>
+  createAction(UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_SUCCESS, address))
+  
+export type GetCurrentUserShippingAddressFailed = ActionWithPayload<UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_FAILED, Error | string>  
+export const getCurrentUserShippingAddressFailed = withMatcher((error: Error | string): GetCurrentUserShippingAddressFailed => 
+  createAction(UserActionTypes.GET_CURRENT_USER_SHIPPING_ADDRESS_FAILED, error))
+
+
 // DELETE USER ACCOUNT (LOGGED USER) //
 export type DeleteAccountRequested = ActionWithPayload<UserActionTypes.DELETE_ACCOUNT_REQUESTED, { navigate: NavigateFunction }>
 export const deleteAccountRequested = withMatcher((navigate: NavigateFunction): DeleteAccountRequested =>

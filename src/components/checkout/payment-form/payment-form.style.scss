@@ -7,18 +7,70 @@
   padding-top: 40px;
 
   .form-container {
+    align-items: center;
     min-width: 500px;
     height: 100px;
 
     .test-warning {
       position: relative;
-      padding: 40px 0;
+      padding: 20px 0 10px;
       color: $red;
-      font-size: 24px;
+      font-size: 20px;
     }
 
-    .payment-button {
+    .payment-button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
       margin-top: 40px;
+
+      button {
+        width: 200px;
+      }
     }
+
+    .card-element-container {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+    
+      .StripeElement {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: #333;
+        background-color: #fff;
+    
+        &.StripeElement--focus {
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+    
+        &.StripeElement--invalid {
+          border-color: #fa755a;
+        }
+    
+        &.StripeElement--webkit-autofill {
+          background-color: #fefde5 !important;
+        }
+      }
+    }
+
+    .card-element-label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .card-element-error {
+      font-size: 14px;
+      color: #fa755a;
+      margin-top: 5px;
+    }
+
+    
   }
 }

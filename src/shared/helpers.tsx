@@ -57,7 +57,8 @@ export const inputDate = (option: string) => {
 
 export const isNotEmptyObject = (obj: GenericObject) => {
   // console.log(Object.keys(obj).length)
-  return Object.keys(obj).length != 0
+  if (!obj) return false
+  return Object.keys(obj).length !== 0
 }
 
 export const displayFormDataEntries = (formData: FormData) => {

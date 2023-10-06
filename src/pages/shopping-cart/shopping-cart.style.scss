@@ -1,0 +1,51 @@
+@import '../../style/colors';
+
+.shopping-cart-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 65%;
+  margin: 30px auto;
+
+  .shopping-cart-items-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    height: 100px;
+    padding: 8px;
+    border-bottom: 1px solid $border-color-row;
+    text-align: center;
+  }
+
+  th:first-child {
+    width: 70%;
+    text-align: left;
+  }
+
+  .total {
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 30px;
+  }
+
+  .go-to-checkout-btn-box {
+    margin: 40px auto;
+
+    .go-to-checkout-btn {
+      padding: 12px 30px;
+      border: 1px solid $brand-color;
+      background-color: $brand-color;
+      color: $white;
+      font-size: 1.1em;
+
+      &:hover {
+        background-color: $white;
+        color: $brand-color;
+      }
+    }
+  }
+
+}

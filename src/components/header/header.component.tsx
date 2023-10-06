@@ -7,7 +7,7 @@ import { selectCurrentUser } from '../../redux/user/user.selectors'
 
 import Logo from '../../assets/svgs/yoga-style-logo.svg'
 import CartIcon from '../shopping-cart/cart-icon/cart-icon.component'
-import ShoppingCart from 'components/shopping-cart/shopping-cart/shopping-cart.component'
+import ShoppingCartSidebar from 'components/shopping-cart/shopping-cart-sidebar/shopping-cart-sidebar.component'
 
 import './header.style.scss'
 
@@ -52,7 +52,7 @@ const Header = () => {
         </div>
 
       </div>
-      <ShoppingCart />
+      <ShoppingCartSidebar />
     </>
   )
 }
