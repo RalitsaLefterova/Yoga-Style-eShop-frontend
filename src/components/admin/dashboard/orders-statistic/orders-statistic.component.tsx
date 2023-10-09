@@ -22,10 +22,6 @@ const OrdersStatistic = () => {
       orders: dailyOrder.totalOrders
     }
   })
-  // .sort((a, b) => {
-  //   // Use localeCompare to compare the strings, which works well for sorting strings like dates
-  //   return a.name.localeCompare(b.name)
-  // })
 
   console.log({dailyOrdersData})
 
