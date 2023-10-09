@@ -1,7 +1,6 @@
 import { AnyAction } from 'redux'
-import { GenericObject } from 'shared/types/common';
 
-import { User } from 'shared/types/users';
+import { User } from 'shared/types/users'
 import { 
   setCurrentUser, 
   setToken, 
@@ -30,14 +29,14 @@ import {
   getCurrentUserShippingAddressRequested,
   getCurrentUserShippingAddressSuccess,
   getCurrentUserShippingAddressFailed
-} from './user.actions';
-import { Address } from 'shared/types/addresses';
+} from './user.actions'
+import { Address } from 'shared/types/addresses'
 
 export type UserState = {
   readonly currentUser: User | null
   readonly currentUserShippingAddress: Address | null
   readonly token: string
-  readonly selectedUser: User | GenericObject | null
+  readonly selectedUser: User | null
   readonly usersList: User[]
   readonly isLoading: boolean,
   readonly isUpsert: boolean
@@ -60,7 +59,7 @@ const INITIAL_STATE: UserState = {
   currentUser: null,
   currentUserShippingAddress: null,
   token: '',
-  selectedUser: {},
+  selectedUser: null,
   usersList: [],
   isLoading: false,
   isUpsert: false,
@@ -203,7 +202,6 @@ const userReducer = (
 
     if (
       adminGetAllUsersRequested.match(action) ||
-      adminGetUserByIdRequested.match(action) ||
       adminEditUserByIdRequested.match(action)
     ) {
       return {
@@ -227,6 +225,14 @@ const userReducer = (
         ...state,
         isLoading: false,
         errorOnGetAllUsers: action.payload
+      }
+    }
+
+    if (adminGetUserByIdRequested.match(action)) {
+      return {
+        ...state,
+        isLoading: true,
+        selectedUser: null
       }
     }
 
