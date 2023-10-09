@@ -14,5 +14,6 @@ export type User = {
   currency: string,
   language: string,
   cart: CartProduct[],
-  role: string
+  role: string,
+  createdAt: string
 }

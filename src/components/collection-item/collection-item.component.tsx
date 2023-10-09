@@ -16,17 +16,14 @@ const CollectionItem = ({ collection, size }: CollectionItemPropsType) => {
 
   const collectionTitle = (title as string).replace('and', '&').toUpperCase()
   
-  const handleClick = () => {
-    const path = `${pathname}/${urlTitle}`
-    // console.log('navigate:', path)
-    navigate(path)
-    // console.log('navigate called')
+  const handleOpenCollection = () => {
+    navigate(`${pathname}/${urlTitle}`)
   }
 
   return (
     <div
       className={`${size} collection-item`} 
-      onClick={handleClick}
+      onClick={handleOpenCollection}
     >
       <div 
         className='background-image'

@@ -1,0 +1,9 @@
+@import '../../../../style/colors';
+
+.user-row {
+
+  &:hover {
+    background-color: $light-gray;
+    cursor: pointer;
+  }
+}

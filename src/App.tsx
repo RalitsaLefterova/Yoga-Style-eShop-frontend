@@ -36,6 +36,7 @@ const EditProduct = lazy(() => import('./components/admin/products-components/ed
 const OrdersList = lazy(() => import('./components/admin/orders-components/orders-list/orders-list.component'))
 const OrderDetails = lazy(() => import('./components/admin/orders-components/order-details/order-details.component'))
 const UsersList = lazy(() => import('./components/admin/users-components/users-list/users-list.component'))
+const UserDetails = lazy(() => import('./components/admin/users-components/user-details/user-details.component'))
 const EditUser = lazy(() => import('./components/admin/users-components/edit-user/edit-user.component'))
 
 import './style/main.scss'
@@ -88,6 +89,7 @@ const background = location.state && location.state.background
           <Route path='/admin/orders/:id' element={<OrderDetails />} />
           <Route path='/admin/users' element={<UsersList />} />
           <Route path='/admin/users/edit/:id' element={<EditUser />} />
+          <Route path='/admin/users/:id' element={<UserDetails />} />
         </Route>
 
         <Route path='*' element={<h2>Page Not Found</h2>} />

@@ -4,6 +4,11 @@ import { UserState } from './user.reducer'
 
 const selectUserReducer = (state: RootState): UserState => state.user
 
+export const selectIsLoading = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.isLoading
+)
+
 export const selectCurrentUser = createSelector(
   [selectUserReducer],
   (userSlice) => userSlice.currentUser
