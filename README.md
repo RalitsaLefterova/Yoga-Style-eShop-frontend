@@ -7,7 +7,7 @@ Explore the project: [Yoga Style eShop](https://yoga-style-eshop.netlify.app)
 >
 > ### This is not a real business!!!
 >
-> The purpose of this project is to honed my skills in React, Typescript and Jest.
+> The purpose of this project is to hone my skills in React, Typescript and Jest.
 
 
 ## About The Project
