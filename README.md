@@ -1,6 +1,16 @@
 # Yoga Style eShop 
 
-Explore the project: [Yoga Style eShop](https://yoga-style-eshop.netlify.app)
+Explore the project: 
+
+<a href="https://yoga-style-eshop.netlify.app" target="_blank">Yoga Style eShop</a> 
+
+[Yoga Style eShop](https://yoga-style-eshop.netlify.app){:target="_blank"}
+
+[Yoga Style eShop](https://yoga-style-eshop.netlify.app" target="_blank)
+
+[Yoga Style eShop](https://yoga-style-eshop.netlify.app/?target=_blank)
+
+
 
 
 > [!NOTE]  
@@ -10,15 +20,17 @@ Explore the project: [Yoga Style eShop](https://yoga-style-eshop.netlify.app)
 > The purpose of this project is to honed my skills in React, Typescript and Jest.
 
 
+
+
 ## About The Project
 
 **What's This About:** Hi there! Welcome to the 'Yoga Style e-shop' project, a work-in-progress endeavor aimed at enhancing skills in frontend development. The project is a personal journey to deepen understanding and proficiency in React, TypeScript, and Jest while simultaneously exploring the intricacies of building an e-commerce platform.
 
 **Why Am I Doing This:** The motivation behind starting this project is the desire to refine my abilities in website development. Specifically, I'm focused on mastering these foundational technologies essential for creating modern, efficient web applications.
 
-**How It's Set Up:** The website part is hosted on Netlify, and I've got the backend stuff on my own server at Linode. Both parts work together to make the whole thing run.
+**How It's Set Up:** The website part is hosted on [Netlify](https://www.netlify.com/), and I've got the backend stuff on my own server at [Linode](https://www.linode.com/). Both parts work together to make the whole thing run.
 
-The corresponding backend for this project is available in my repository, located at [Yoga-Style-eShop-backend repository:](https://github.com/RalitsaLefterova/Yoga-Style-eShop-backend).
+The corresponding backend for this project is available in my repository, located at [Yoga-Style-eShop-backend repository](https://github.com/RalitsaLefterova/Yoga-Style-eShop-backend).
 
 **Always Learning:** This project is always changing as I learn new things. I'm open to feedback and ideas from others to make it even better!
 
@@ -52,6 +64,30 @@ The corresponding backend for this project is available in my repository, locate
 - Recharts
 - FontAwesome
 
+
+
+<br />
+
+> [!NOTE]  
+>
+> ### Image and Text Attribution:
+>
+> Please note that the images and text used in this project are for demonstration purposes only and are not owned by the project creator. They are sourced from various sources, including royalty-free image repositories and publicly available text content. This project is intended for learning purposes, and no commercial use is intended. If you have any concerns regarding the use of specific images or text, please contact the project creator for clarification.
+
+
+<br />
+
+## Helpful Resources
+
+Here are some useful links to assist you with your project. Incorporating them into your workflow can greatly enhance productivity and creativity, making your project a resounding success.
+
+- [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
+- [Malven's Grid Cheatsheet](https://grid.malven.co/)
+- [iStock](https://www.istockphoto.com/)
+- [Img Shields](https://shields.io)
+- [Font Awesome](https://fontawesome.com)
+- [Free Photos](https://www.vecteezy.com/free-photos)
+- [Free Avatar Images](https://www.freepik.com/free-photos-vectors/avatar)
 
 ## Author
 
