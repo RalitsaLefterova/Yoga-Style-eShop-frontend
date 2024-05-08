@@ -1,16 +1,6 @@
 # Yoga Style eShop 
 
-Explore the project: 
-
-<a href="https://yoga-style-eshop.netlify.app" target="_blank">Yoga Style eShop</a> 
-
-[Yoga Style eShop](https://yoga-style-eshop.netlify.app){:target="_blank"}
-
-[Yoga Style eShop](https://yoga-style-eshop.netlify.app" target="_blank)
-
-[Yoga Style eShop](https://yoga-style-eshop.netlify.app/?target=_blank)
-
-
+Explore the project: [Yoga Style eShop](https://yoga-style-eshop.netlify.app)
 
 
 > [!NOTE]  
@@ -18,8 +8,6 @@ Explore the project:
 > ### This is not a real business!!!
 >
 > The purpose of this project is to honed my skills in React, Typescript and Jest.
-
-
 
 
 ## About The Project
@@ -65,7 +53,6 @@ The corresponding backend for this project is available in my repository, locate
 - FontAwesome
 
 
-
 <br />
 
 > [!NOTE]  
@@ -73,7 +60,6 @@ The corresponding backend for this project is available in my repository, locate
 > ### Image and Text Attribution:
 >
 > Please note that the images and text used in this project are for demonstration purposes only and are not owned by the project creator. They are sourced from various sources, including royalty-free image repositories and publicly available text content. This project is intended for learning purposes, and no commercial use is intended. If you have any concerns regarding the use of specific images or text, please contact the project creator for clarification.
-
 
 <br />
 
