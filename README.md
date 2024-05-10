@@ -52,7 +52,6 @@ The corresponding backend for this project is available in my repository, locate
 - Recharts
 - FontAwesome
 
-
 <br />
 
 > [!NOTE]  
@@ -61,7 +60,6 @@ The corresponding backend for this project is available in my repository, locate
 >
 > Please note that the images and text used in this project are for demonstration purposes only and are not owned by the project creator. They are sourced from various sources, including royalty-free image repositories and publicly available text content. This project is intended for learning purposes, and no commercial use is intended. If you have any concerns regarding the use of specific images or text, please contact the project creator for clarification.
 
-<br />
 
 ## Helpful Resources
 
@@ -70,6 +68,7 @@ Here are some useful links to assist you with your project. Incorporating them i
 - [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
 - [Malven's Grid Cheatsheet](https://grid.malven.co/)
 - [iStock](https://www.istockphoto.com/)
+- [gettyimages](https://www.gettyimages.com/)
 - [Img Shields](https://shields.io)
 - [Font Awesome](https://fontawesome.com)
 - [Free Photos](https://www.vecteezy.com/free-photos)
