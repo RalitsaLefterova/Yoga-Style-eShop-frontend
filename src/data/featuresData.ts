@@ -1,9 +1,9 @@
 import youDeserveTheBest from '../assets/images/you-deserve-the-best.jpg'
 import findYourBalansWithUs from '../assets/images/find-your-balans-with-us.jpg'
 
-import { Feature } from 'shared/types/feature'
+import { FeatureType } from 'shared/types/feature'
 
-export const FeaturesData: Feature[] = [
+export const FeaturesData: FeatureType[] = [
   {
     title: 'You deserve the best!',
     image: youDeserveTheBest,

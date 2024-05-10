@@ -1,8 +1,11 @@
 import Feature from 'components/feature/feature.component'
 import Article from 'components/article/article.component'
 
+import logo from '../../assets/logo.png';
 import baner from '../../assets/images/yoga-style-home-baner-1.jpg'
 import stailessSteelBottle from '../../assets/images/stainless-steel-bottle.png'
+import waterSplash from '../../assets/images/water-splash-on-transparent.png';
+import waterSplashWithDroplets from '../../assets/images/water-splash-with-droplets.png';
 import { FeaturesData } from 'data/featuresData'
 import { articlesData } from 'data/articlesData'
 
@@ -11,23 +14,27 @@ import './home.style.scss'
 const HomePage = () => (
   <div className='homepage'>
 
-    <div className='main-baner-container'>
+    <section className='main-baner-container'>
       <img src={baner} />
-      <span className='centered-text'>Do yoga with style!</span>
-    </div>
+        <img className='logo-with-text' src={logo} alt="Yoga Style logo" />
+        <span className='centered-text'>Do Yoga With Style!</span>
+    </section>
 
-    <div className='features-container'>
+    <section className='features-container'>
       {FeaturesData.map((feature, index) => (
-        <Feature key={index} feature={feature} />
+        <Feature key={index} featureProps={feature} />
       ))}
-    </div>
+    </section>
 
-    <div className='bottles-add-container'>
+    <section className='bottles-add-container'>
 
-      <div 
-        className='add-img-box' 
-        style={{backgroundImage: `url(${stailessSteelBottle})`}}
-      >
+      <div className='add-img-box'>
+        {/* <div 
+          className='splash-img'
+          style={{backgroundImage: `url(${waterSplash})`}}
+        >
+        </div> */}
+        <img src={stailessSteelBottle} />
       </div>
 
       <div className='add-text-container center'>
@@ -44,13 +51,13 @@ const HomePage = () => (
         </p>
         <a className='uppercase-text margin-top-40px font-size-1-5em'>shop now &gt;</a>
       </div>
-    </div>
+    </section>
 
-    <div className='articles-container'>
+    <section className='articles-container'>
       {articlesData.map((article, index) => (
-        <Article key={index} article={article}  />
+        <Article key={index} articleProps={article}  />
       ))}
-    </div>
+    </section>
 
   </div>
 )

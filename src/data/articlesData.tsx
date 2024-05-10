@@ -2,9 +2,9 @@ import articleImgMeditationCoshions from '../assets/images/meditation-cushions.j
 import articleImgEnchanceYourYogaPractice from '../assets/images/enchance-your-yoga-practice.jpg'
 import articleImgYogaAsALifestyle from '../assets/images/yoga-as-a-lifestyle.jpg'
 
-import { Article } from 'shared/types/article'
+import { ArticleType } from 'shared/types/article'
 
-export const articlesData: Article[] = [
+export const articlesData: ArticleType[] = [
   {
     title: 'Meditation Cushions',
     image: articleImgMeditationCoshions,

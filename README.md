@@ -69,9 +69,9 @@ Here are some useful links to assist you with your project. Incorporating them i
 - [Malven's Grid Cheatsheet](https://grid.malven.co/)
 - [iStock](https://www.istockphoto.com/)
 - [gettyimages](https://www.gettyimages.com/)
+- [Vecteezy](https://www.vecteezy.com/)
 - [Img Shields](https://shields.io)
 - [Font Awesome](https://fontawesome.com)
-- [Free Photos](https://www.vecteezy.com/free-photos)
 - [Free Avatar Images](https://www.freepik.com/free-photos-vectors/avatar)
 
 ## Author

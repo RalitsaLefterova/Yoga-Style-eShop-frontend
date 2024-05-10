@@ -1,5 +1,6 @@
 @import '../../style/variables';
 @import '../../style/mixins';
+@import '../../style/colors';
 
 .feature-box {
   display: flex;
@@ -16,6 +17,10 @@
     }
 
     img {
+      height: auto;
+      margin-bottom: 10px;
+      padding: 3px;
+      border: 2px solid $brand-color-light;
       border-radius: 50%;
     }
   }
@@ -23,9 +28,18 @@
   .feature-text-box {
     max-width: 280px;
     padding: 0 0 0 20px;
+    color: $brand-color-dark;
+    line-height: 1.4rem;
 
     h3 {
       margin-top: 0;
+      margin-bottom: 10px;
+      color: $brand-color-light;
+    }
+
+    span:hover {
+      color: $brand-color-light;
+
     }
   }
 }

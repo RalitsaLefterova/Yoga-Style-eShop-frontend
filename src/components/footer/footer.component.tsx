@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 import YogaStyleInput from 'components/custom-components/yoga-style-input/yoga-style-input.component'
@@ -15,12 +15,11 @@ const Footer = () => {
   }
 
   const handleSubscribeUser = () => {
-    //TODO: Handle subscribe/unsubscribe user in backend first!!!
+    //TODO: Handle subscribe/unsubscribe user in the backend first!!!
   }
 
   return (
-    <div className='footer-container'>
-      
+    <footer>
       <div className='info-links'>
         <div className='options'>
           <Link className='option' to='/about-us'>About us</Link>
@@ -51,7 +50,7 @@ const Footer = () => {
       </div>
       
       <p className='owner-box'>Created by: The Crazy Squirrel</p>
-    </div>
+    </footer>
   )
 }
 
