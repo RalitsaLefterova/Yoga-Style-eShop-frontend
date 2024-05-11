@@ -5,7 +5,7 @@ Explore the project: [Yoga Style eShop](https://yoga-style-eshop.netlify.app)
 
 > [!NOTE]  
 >
-> ### This is not a real business!!!
+> ### This is not a functional business!!!
 >
 > The purpose of this project is to hone my skills in React, Typescript and Jest.
 

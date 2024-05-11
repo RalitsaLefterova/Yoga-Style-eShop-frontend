@@ -20,46 +20,93 @@ footer {
       flex-direction: row;
     }
 
+    @include respond-above($tablet-breakpoint) {
+      .newsletter-socials {
+        width: 350px;
+      }
+    }
+
     .options {
       display: flex;
       flex-direction: column;
       padding: 20px 40px;
+      font-size: 1rem;
       text-align: center;
-
-      .subscribe-input {
-        label {
-          margin-top: 0;
-          font-size: 1.1em;
-          text-align: center;
-
-          @include respond-above($tablet-breakpoint) {
-            text-align: left;
-          }
-        }
-
-        input {
-          border-radius: 2px;
-        }
-      }
-
-      .subscribe-button {
-        background-color: $brand-color-light;
-
-        &:hover {
-          background-color: $brand-color-dark;
-          color: $white;
-        }
-      }
 
       @include respond-above($tablet-breakpoint) {
         text-align: left;
       }
+
+      .option:hover {
+        color: $brand-color-lighter;
+      }
+    }
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0;
+
+    .subscribe-input {
+      label {
+        margin-top: 0;
+        font-size: 1.1em;
+        text-align: center;
+
+        @include respond-above($tablet-breakpoint) {
+          text-align: left;
+        }
+      }
+
+      input {
+        border-width: 0;
+        border-radius: 5px 0 0 5px;
+        background-color: $white-transparent-20;
+        color: $white;
+
+        &:focus{
+          outline: none;
+        }
+      }
     }
 
-    @include respond-above($tablet-breakpoint) {
-      .newsletter-container {
-        width: 350px;
+    .subscribe-button {
+      height: 40px;
+      margin-bottom: 10px;
+      padding: 8px 20px;
+      background-color: $brand-color-light;
+      border-radius: 0 5px 5px 0;
+
+      &:hover {
+        background-color: $brand-color-dark;
+        color: $white;
       }
+    }
+  }
+
+  .social-media-container {
+    margin-top: 20px;
+  }
+
+  .social-media-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-top: 10px;
+
+    a {
+      color: $white;
+    }
+
+    a:hover {
+      color: $brand-color-light;
+    }
+
+    svg {
+      width: 25px;
+      height: auto;
     }
   }
 
@@ -70,7 +117,8 @@ footer {
 
   .owner-box {
     margin-top: auto;
-    padding: 20px 0 0;
-    border-top: .1px solid $sub-color;
+    padding: 20px 0;
+    border-top: .1px solid $white-transparent-20;
+    color: $white-transparent-20;
   }
 }
