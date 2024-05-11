@@ -1,15 +1,15 @@
-import { Feature } from 'shared/types/feature'
+import { FeatureType } from 'shared/types/feature'
 
 import './feature.style.scss'
 
 type FeatureProps = {
-  feature: Feature
+  featureProps: FeatureType
 }
 
-const Feature = ({ feature }: FeatureProps) => {
-  const { title, image, content } = feature
+const Feature = ({ featureProps }: FeatureProps) => {
+  const { title, image, content } = featureProps
   return (
-    <div className='feature-box'>
+    <article className='feature-box'>
         <div className='feature-image-box'>
           <img src={image} />
         </div>
@@ -19,7 +19,7 @@ const Feature = ({ feature }: FeatureProps) => {
             {content}
           </span>
         </div>
-      </div>
+      </article>
   )
 }
 

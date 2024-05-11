@@ -1,7 +1,7 @@
 @import '../../style/colors';
 @import '../../style/mixins';
 
-.header {
+header {
   display: flex;
   z-index: 1000;
   flex-direction: row;
@@ -32,6 +32,62 @@
     justify-content: flex-end;
   }
 
+  .nav-links-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 70px;
+
+    @include respond-above($tablet-breakpoint) {
+      display: flex;
+      position: static;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      margin-top: 0;
+      border: 0;
+    }
+
+    > .nav-link {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 0 1rem;
+      padding: .5em 0;
+      overflow: hidden;
+      background-color: $brand-color;
+      color: $menu-default-color;
+      font-weight: 400;
+      cursor: pointer;
+
+      @include respond-below($tablet-breakpoint) {
+        color: $white;
+      }
+
+      @include respond-above($tablet-breakpoint) {
+        align-items: center;
+        width: fit-content;
+        height: 100%;
+        overflow: visible;
+        background-color: inherit;
+      }
+
+      &:hover {
+        color: $brand-color;
+
+        @include respond-below($tablet-breakpoint) {
+          color: $brand-color-light;
+        }
+      }
+
+    }
+  }
+
   .menu-toggle:checked ~ .nav-links-container .nav-link {
     height: 2.5em;
     padding: .5em;
@@ -39,7 +95,7 @@
   }
 
   .menu-toggle:checked ~ .nav-links-container .nav-link:not(:last-child) {
-    border-bottom: 1px solid $sub-color;
+    border-bottom: 1px solid $mobile-nav-botom-border;
 
     @include respond-above($tablet-breakpoint) {
       border: 0;
@@ -110,48 +166,5 @@
   .menu-toggle:checked + .menu-button-container .menu-button::after {
     margin-top: 0;
     transform: rotate(-405deg);
-  }
-
-  .nav-links-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 70px;
-
-    @include respond-above($tablet-breakpoint) {
-      display: flex;
-      position: static;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-end;
-      height: 100%;
-      margin-top: 0;
-      border: 0;
-    }
-
-    > .nav-link {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin: 0 1rem;
-      padding: .5em 0;
-      overflow: hidden;
-      background-color: $brand-color;
-      color: $white;
-      cursor: pointer;
-
-      @include respond-above($tablet-breakpoint) {
-        align-items: center;
-        width: fit-content;
-        height: 100%;
-        overflow: visible;
-        background-color: inherit;
-        color: $brand-color;
-      }
-    }
   }
 }

@@ -5,7 +5,7 @@ Explore the project: [Yoga Style eShop](https://yoga-style-eshop.netlify.app)
 
 > [!NOTE]  
 >
-> ### This is not a real business!!!
+> ### This is not a functional business!!!
 >
 > The purpose of this project is to hone my skills in React, Typescript and Jest.
 
@@ -69,9 +69,9 @@ Here are some useful links to assist you with your project. Incorporating them i
 - [Malven's Grid Cheatsheet](https://grid.malven.co/)
 - [iStock](https://www.istockphoto.com/)
 - [gettyimages](https://www.gettyimages.com/)
+- [Vecteezy](https://www.vecteezy.com/)
 - [Img Shields](https://shields.io)
 - [Font Awesome](https://fontawesome.com)
-- [Free Photos](https://www.vecteezy.com/free-photos)
 - [Free Avatar Images](https://www.freepik.com/free-photos-vectors/avatar)
 
 ## Author
